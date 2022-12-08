@@ -2,9 +2,32 @@ from struct import pack, unpack
 import os
 import bpy
 
+    
+    
+    
+    
+
 chunk = 0 # what int property does not work with bool property might have to do this manually
 
-def wholeChunk1(f, vertices=[]):
+def wholeChunk2(f, vertices=[]):
+    f.seek(0)
+    while 1:
+        Chunk = f.read(4)
+        if Chunk == b"\x02\x80\x01\x6C":
+            for i in range(1):
+                unknown = unpack("<I", f.read(4))[0]
+                vx = unpack("<f", f.read(4))[0]
+                vy = unpack("<f", f.read(4))[0]
+                vz = unpack("<f", f.read(4))[0]
+        elif Chunk == b"SST0":
+            print(f.tell())
+            break
+    mesh = bpy.data.meshes.new("dragonjan")
+    mesh.from_pydata(vertices, [], [])
+    object = bpy.data.objects.new("dragonjan", mesh)
+    bpy.context.collection.objects.link(object)
+
+def wholeChunk1(f, vertices=[], faces=[], fa=-1, fb=0, fc=1):
     f.seek(0)
     while 1:
         Chunk = f.read(4)
@@ -18,13 +41,27 @@ def wholeChunk1(f, vertices=[]):
                 vz = unpack("<f", f.read(4))[0]
                 nz = unpack("<f", f.read(4))[0] #normals
                 vertices.append([vx,vy,vz])
-            mesh = bpy.data.meshes.new("dragonjan")
-            mesh.from_pydata(vertices, [], [])
-            object = bpy.data.objects.new("dragonjan", mesh)
-            bpy.context.collection.objects.link(object)
+            for i in range(vertexCount-2):
+                fa += 1
+                fb += 1
+                fc += 1
+                faces.append([fa,fb,fc])
         elif Chunk == b"SST0":
             print(f.tell())
             break
+    MaterialName=0
+    BSDF = "Principled BSDF"
+    mesh = bpy.data.meshes.new("dragonjan")
+    mesh.from_pydata(vertices, [], faces)
+    object = bpy.data.objects.new("dragonjan", mesh)
+    bpy.context.collection.objects.link(object)
+    bpy.data.materials.new(name="dragonjan_materials")
+    for fac in mesh.polygons:
+        fac.use_smooth = True
+    #bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[7].default_value = 0
+    #bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[9].default_value = 1
+    #MaterialName+=1 # the reason because there a dots stroke
+
 
 """def get_1stobjectspt3(f, vertices=[], faces=[], fa=-1, fb=0, fc=1):
     f.seek(0)
@@ -183,6 +220,8 @@ def get_2ndobjects(f, vertices=[], chunks2=0, paddingWhere2=0, chunk2=0):
         mesh.from_pydata(vertices, [], [])
         object = bpy.data.objects.new("dragonjan", mesh)
         bpy.context.collection.objects.link(object)
+        for fac in mesh.polygons:
+            fac.use_smooth = True
 
 def get_1stobjectspt2(f, fa=-1,fb=0,fc=1,vertices=[], faces=[]):
     f.seek(0)
@@ -206,13 +245,17 @@ def get_1stobjectspt2(f, fa=-1,fb=0,fc=1,vertices=[], faces=[]):
             fc+=1
             faces.append([fa,fb,fc])
             
-                
+        MaterialName=0
+        BSDF = "Principled BSDF"    
         mesh = bpy.data.meshes.new("dragonjan")
         mesh.from_pydata(vertices, [], faces)
         object = bpy.data.objects.new("dragonjan", mesh)
         bpy.context.collection.objects.link(object)
         mesh.vertex_colors.new(name="dragonjanCol")
-        bpy.data.materials.new(name="default")
+        bpy.data.materials.new(name="dragonjan_materials")
+        #bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[7].default_value = 0
+        #bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[9].default_value = 1
+        #MaterialName+=1 # the reason because there a dots stroke
         uvtex = mesh.uv_layers.new()
         uvtex.name = 'dragonjanUV'
         for fac in mesh.polygons:
@@ -259,13 +302,17 @@ def get_1stobjects(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], uvs=[], rgba=[], ch
             a = unpack("b", f.read(1))[0] / 127.0
             rgba.append([r,g,b])
             
-                
+        MaterialName=0
+        BSDF = "Principled BSDF"        
         mesh = bpy.data.meshes.new("dragonjan")
         mesh.from_pydata(vertices, [], faces)
         object = bpy.data.objects.new("dragonjan", mesh)
         bpy.context.collection.objects.link(object)
         mesh.vertex_colors.new(name="dragonjanCol")
-        bpy.data.materials.new(name="default")
+        bpy.data.materials.new(name="dragonjan_materials")
+        #bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[7].default_value = 0
+        #bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[9].default_value = 1
+        #MaterialName+=1 # the reason because there a dots stroke
             
         for fac in mesh.polygons:
             fac.use_smooth = True
@@ -397,10 +444,44 @@ def get_splineset(f, ea=-1, eb=0, vertices=[], edges=[]):
     else:
         raise Exception("no spline found")
 
-def parse_gsc(filepath, WholeOne=False, ONE_CHUNK_OFFSET1=False, ONE_CHUNK_OFFSET1PT2=False, ONE_CHUNK_OFFSET2=False, SST=False, SPEC=False, INST=False, IABL=False, SelectOnlyUVMesh=False, SelectOnly2ndUVMesh=False, SelectOnly3rdUVMesh=False):
+def get_BoundsSet1(f, ea=-1, eb=0, vertices=[], bounds=[]):
+    f.seek(0)
+    boundssetread = f.read()
+    boundssearch = boundssetread.find(b"\x42\x4E\x44\x53")
+    if boundssetread != 0:
+        f.seek(boundssearch, 0)
+        BNDS = unpack("<I", f.read(4))[0]
+        BNDS_Size = unpack("<I", f.read(4))[0]
+        BNDS_Ver = unpack("<I", f.read(4))[0]
+        BNDS_Count = unpack("<I", f.read(4))[0]
+        unk01 = unpack("<I", f.read(4))[0]
+        unk02 = unpack("<I", f.read(4))[0]
+        for i in range(BNDS_Count):
+            vx = unpack("<f", f.read(4))[0]
+            vy = unpack("<f", f.read(4))[0]
+            vz = unpack("<f", f.read(4))[0]
+            f.seek(36,1)
+            vertices.append([vx,vy,vz])
+            
+        for i in range(BNDS_Count-1):
+            ea+=1
+            eb+=1
+            bounds.append([ea,eb])
+
+        mesh = bpy.data.meshes.new("dragonjan Bounds")
+        mesh.from_pydata(vertices, bounds, [])
+        object = bpy.data.objects.new("dragonjan Bounds", mesh)
+        bpy.context.collection.objects.link(object)
+            
+        
+        
+
+def parse_gsc(filepath, WholeOne=False, WholeMassiveOne=False, ONE_CHUNK_OFFSET1=False, ONE_CHUNK_OFFSET1PT2=False, ONE_CHUNK_OFFSET2=False, SST=False, SPEC=False, INST=False, IABL=False, BoundingSet=False, SelectOnlyUVMesh=False, SelectOnly2ndUVMesh=False, SelectOnly3rdUVMesh=False):
     f = open(filepath, "rb")
     if WholeOne:
-        wholeChunk1(f, vertices=[])
+        wholeChunk1(f, vertices=[], faces=[], fa=-1, fb=0, fc=1)
+    if WholeMassiveOne:
+        wholeChunk2(f, vertices=[])
     if ONE_CHUNK_OFFSET1:
         get_1stobjects(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], uvs=[], rgba=[], chunks=0, paddingWhere=0)
     if ONE_CHUNK_OFFSET1PT2:
@@ -421,6 +502,8 @@ def parse_gsc(filepath, WholeOne=False, ONE_CHUNK_OFFSET1=False, ONE_CHUNK_OFFSE
         select2ndUV(f, uvs=[])
     if SelectOnly3rdUVMesh:
         selectUVThird(f, uvs=[])
+    if BoundingSet:
+        get_BoundsSet1(f, ea=-1, eb=0, vertices=[], bounds=[])
     f.close()
 
 
