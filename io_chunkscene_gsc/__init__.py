@@ -1,11 +1,11 @@
 bl_info = {
         'name'			: 'Finding Nemo GSC Level Chunk Importer',
 	'author'		: 'DarkShadow Nemo',
-	'version'		: (0, 1, 8),
+	'version'		: (0, 3, 0),
 	'blender'		: (3, 0, 0),
-	'location'		: 'File > Import',
+	'location'		: 'File > Import-Export',
 	'description'           : 'Import GSC one mesh chunk makes it easier',
-	'category'		: 'Chunk-Importer',
+	'category'		: 'Chunk-Importer and Chunk-Exporter',
         'warning'               : 'Exporter is Non-Functioned and missing ingame it might work for customs'
 }
 import os
@@ -14,7 +14,8 @@ import importlib
 from bpy.props import CollectionProperty, StringProperty, BoolProperty, EnumProperty, FloatProperty, IntProperty
 from bpy_extras.io_utils import ImportHelper, ExportHelper
 
-from.import gsc_chunk_importer
+
+from.import gsc_chunk_importer, gsc_chunk_exporter
 
 class ImportChunkGSC(bpy.types.Operator, ImportHelper):
         bl_idname  = 'import_chunk.gsc'
@@ -26,9 +27,10 @@ class ImportChunkGSC(bpy.types.Operator, ImportHelper):
                 description = 'File path used for finding the GSC Chunk file.',
                 type	    = bpy.types.OperatorFileListElement
         )
-        WholeOne: BoolProperty(
-                name        = '0x03010001 all offsets',
-                description = 'if they match it imports all the whole chunk in'
+        
+        Triangle_Strips: BoolProperty(
+                name        = 'Triangle_Strips',
+                description = ' 0x03010001 all offsets if they match it imports all the whole chunk in being aligned up gets all or most of it, you may get some vertex without faces'
         )
         WholeMassiveOne: BoolProperty(
                 name        = '0x00000280 all offsets',
@@ -78,21 +80,58 @@ class ImportChunkGSC(bpy.types.Operator, ImportHelper):
                 name = "0x0480XX65",
                 description = "be careful to select the mesh before executing, very short but done a workaround it this touches on this offset"
         )
+        Triangles: BoolProperty(
+                name = "Triangles",
+                description = "some may use triangles, this reduces some duplicated edges use at your own risk"
+        )
+        RGBAColors: BoolProperty(
+                name = "RGBA Hash Colors",
+                description = "chooses one RGBA only since it's impossible with the whole mesh unless you remove other offsets"
+        )
         directory: StringProperty()
         filter_glob: StringProperty(default = '*.gsc', options = {'HIDDEN'})
         def execute(self, context):
                 paths = [os.path.join(self.directory, name.name) for name in self.files]
                 if not paths: paths.append(self.filepath)
                 importlib.reload(gsc_chunk_importer)
-                for path in paths: gsc_chunk_importer.parse_gsc(path, WholeOne = self.WholeOne, WholeMassiveOne = self.WholeMassiveOne, ONE_CHUNK_OFFSET1 = self.ONE_CHUNK_OFFSET1,ONE_CHUNK_OFFSET1PT2 = self.ONE_CHUNK_OFFSET1PT2,ONE_CHUNK_OFFSET2 = self.ONE_CHUNK_OFFSET2,SST = self.SST,SPEC = self.SPEC,INST = self.INST,IABL = self.IABL,BoundingSet = self.BoundingSet, SelectOnlyUVMesh = self.SelectOnlyUVMesh, SelectOnly2ndUVMesh = self.SelectOnly2ndUVMesh, SelectOnly3rdUVMesh = self.SelectOnly3rdUVMesh)
+                for path in paths: gsc_chunk_importer.parse_gsc(path, Triangle_Strips = self.Triangle_Strips, WholeMassiveOne = self.WholeMassiveOne, ONE_CHUNK_OFFSET1 = self.ONE_CHUNK_OFFSET1,ONE_CHUNK_OFFSET1PT2 = self.ONE_CHUNK_OFFSET1PT2,ONE_CHUNK_OFFSET2 = self.ONE_CHUNK_OFFSET2,SST = self.SST,SPEC = self.SPEC,INST = self.INST,IABL = self.IABL,BoundingSet = self.BoundingSet, SelectOnlyUVMesh = self.SelectOnlyUVMesh, SelectOnly2ndUVMesh = self.SelectOnly2ndUVMesh, SelectOnly3rdUVMesh = self.SelectOnly3rdUVMesh, Triangles = self.Triangles, RGBAColors = self.RGBAColors)
                 return {'FINISHED'}
+
+class ExportChunkGSC(bpy.types.Operator, ExportHelper):
+        bl_idname  = 'export_chunk.gsc'
+        bl_label   = 'Export Chunk GSC'
+        bl_options = {'UNDO'}
+        filename_ext = '.gsc'
+        files: CollectionProperty(
+                name	    = 'File path',
+                description = 'File path used for finding the GSC Chunk file.',
+                type	    = bpy.types.OperatorFileListElement
+        )
+        directory: StringProperty()
+        def execute(self, context):
+            importlib.reload(gsc_chunk_exporter)
+            gsc_chunk_exporter.NUWrite(self.filepath)
+            return {"FINISHED"}
+        
+
+
 	
 def menu_func_import(self, context):
         self.layout.operator(ImportChunkGSC.bl_idname, text='GSC Chunk Importer (.gsc)')
+
+def menu_func_export(self, context):
+        self.layout.operator(ExportChunkGSC.bl_idname, text='GSC Chunk Exporter (.gsc)')
+
 def register():
         bpy.utils.register_class(ImportChunkGSC)
+        bpy.utils.register_class(ExportChunkGSC)
         bpy.types.TOPBAR_MT_file_import.append(menu_func_import)
+        bpy.types.TOPBAR_MT_file_export.append(menu_func_export)
 def unregister():
         bpy.utils.unregister_class(ImportChunkGSC)
+        bpy.utils.unregister_class(ExportChunkGSC)
         bpy.types.TOPBAR_MT_file_import.remove(menu_func_import)
-if __name__ == '__main__': register()
+        bpy.types.TOPBAR_MT_file_export.remove(menu_func_export)
+if __name__ == '__main__':
+        register()
+        unregister()
