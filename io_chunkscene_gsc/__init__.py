@@ -1,12 +1,11 @@
 bl_info = {
         'name'			: 'Finding Nemo GSC Level Chunk Importer',
 	'author'		: 'DarkShadow Nemo',
-	'version'		: (0, 3, 0),
+	'version'		: (0, 3, 1),
 	'blender'		: (3, 0, 0),
 	'location'		: 'File > Import-Export',
 	'description'           : 'Import GSC one mesh chunk makes it easier',
-	'category'		: 'Chunk-Importer and Chunk-Exporter',
-        'warning'               : 'Exporter is Non-Functioned and missing ingame it might work for customs'
+	'category'		: 'Chunk-Importer and Chunk-Exporter'
 }
 import os
 import bpy
