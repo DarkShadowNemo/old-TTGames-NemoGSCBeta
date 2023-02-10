@@ -151,34 +151,34 @@ def FinalUnknownChunk(f, VCountThree=3, vertices=[], faces=[], fa=-4, fb=-3,fc=-
                 a = unpack("B", f.read(1))[0] * 2
         break"""
         
-    """f.seek(0)
-    dumpOneRead = f.read()
-    dumpReadOne = dumpOneRead.find(b"\x80\x80\x00\x00\x00\x00")
-    if dumpOneRead != 0:
-        f.seek(dumpReadOne, 0)
-        f.seek(-32,1)
-        w = unpack("<I", f.read(4))[0] * 2
-        h = unpack("<I", f.read(4))[0] * 2
-        image_test = bpy.data.images.new(name="GSC Image", width=w, height=h, alpha=True)
-        num_Pixels = len(image_test.pixels)
-        f.seek(30, 1)
-        pixellen = unpack("<I", f.read(4))[0] // 2
-        f.seek(6,1)
-        def grid(x,y):
-            return x + w*y
-        def drawPixel(x,y, R,G,B,A):
+"""f.seek(0)
+dumpOneRead = f.read()
+dumpReadOne = dumpOneRead.find(b"\x80\x80\x00\x00\x00\x00")
+if dumpOneRead != 0:
+    f.seek(dumpReadOne, 0)
+    f.seek(-32,1)
+    w = unpack("<I", f.read(4))[0] * 2
+    h = unpack("<I", f.read(4))[0] * 2
+    image_test = bpy.data.images.new(name="GSC Image", width=w, height=h, alpha=True)
+    num_Pixels = len(image_test.pixels)
+    f.seek(30, 1)
+    pixellen = unpack("<I", f.read(4))[0] // 2
+    f.seek(6,1)
+    def grid(x,y):
+        return x + w*y
+    def drawPixel(x,y, R,G,B,A):
 
-            pixelNumber = grid(x,y) * 4
+        pixelNumber = grid(x,y) * 4
     
 
 
-            image_test.pixels[pixelNumber] = R
-            image_test.pixels[pixelNumber+1] = G
-            image_test.pixels[pixelNumber+2] = B
-            image_test.pixels[pixelNumber+3] = A#
-        for i in range(w//4):
-            for k in range(h//4):
-                drawPixel(i,k,unpack("B", f.read(1))[0]/255,unpack("B", f.read(1))[0]/255,unpack("B", f.read(1))[0]/255,unpack("B", f.read(1))[0]/127)"""
+        image_test.pixels[pixelNumber] = R
+        image_test.pixels[pixelNumber+1] = G
+        image_test.pixels[pixelNumber+2] = B
+        image_test.pixels[pixelNumber+3] = A#
+    for i in range(w//4):
+        for k in range(h//4):
+            drawPixel(i,k,unpack("B", f.read(1))[0]/255,unpack("B", f.read(1))[0]/255,unpack("B", f.read(1))[0]/255,unpack("B", f.read(1))[0]/127)"""
 def wholeChunk2(f, vertices=[]):
     f.seek(0)
     while 1:
@@ -207,15 +207,14 @@ def wholeChunk1(f, vertices=[], faces=[], fa=-1, fb=0, fc=1):
             f.seek(2,1)
             vertexCount = unpack("b", f.read(1))[0]
             clump = unpack("b", f.read(1))[0]
-            vertexlen = []
+            FaceID = -2
             for i in range(vertexCount):
                 vx = unpack("<f", f.read(4))[0]
                 vy = unpack("<f", f.read(4))[0]
                 vz = unpack("<f", f.read(4))[0]
                 nz = unpack("<f", f.read(4))[0] #normals
-                vertexSize+=1
-                vertexlen.append([vertexSize])
                 vertices.append([vx,vy,vz])
+                
             for i in range(vertexCount-2):
                 fa += 1
                 fb += 1
