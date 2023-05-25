@@ -1,7 +1,7 @@
 bl_info = {
         'name'			: 'Finding Nemo GSC Level Chunk Importer',
 	'author'		: 'DarkShadow Nemo',
-	'version'		: (0, 3, 1),
+	'version'		: (0, 3, 7),
 	'blender'		: (3, 0, 0),
 	'location'		: 'File > Import-Export',
 	'description'           : 'Import GSC one mesh chunk makes it easier',
@@ -25,6 +25,16 @@ class ImportChunkGSC(bpy.types.Operator, ImportHelper):
                 name	    = 'File path',
                 description = 'File path used for finding the GSC Chunk file.',
                 type	    = bpy.types.OperatorFileListElement
+        )
+
+        Triangle_Strips_with_uvs_and_rgba: IntProperty(
+                name        = "Triangle_Strips uvs and rgba",
+                description = "gets uvs and rgba as well"
+        )
+
+        Triangle_StripsTwo: BoolProperty(
+                name        = "Triangle_Strips pt 2",
+                description = "0x010000050380 all offsets"
         )
         
         Triangle_Strips: BoolProperty(
@@ -93,7 +103,7 @@ class ImportChunkGSC(bpy.types.Operator, ImportHelper):
                 paths = [os.path.join(self.directory, name.name) for name in self.files]
                 if not paths: paths.append(self.filepath)
                 importlib.reload(gsc_chunk_importer)
-                for path in paths: gsc_chunk_importer.parse_gsc(path, Triangle_Strips = self.Triangle_Strips, WholeMassiveOne = self.WholeMassiveOne, ONE_CHUNK_OFFSET1 = self.ONE_CHUNK_OFFSET1,ONE_CHUNK_OFFSET1PT2 = self.ONE_CHUNK_OFFSET1PT2,ONE_CHUNK_OFFSET2 = self.ONE_CHUNK_OFFSET2,SST = self.SST,SPEC = self.SPEC,INST = self.INST,IABL = self.IABL,BoundingSet = self.BoundingSet, SelectOnlyUVMesh = self.SelectOnlyUVMesh, SelectOnly2ndUVMesh = self.SelectOnly2ndUVMesh, SelectOnly3rdUVMesh = self.SelectOnly3rdUVMesh, Triangles = self.Triangles, RGBAColors = self.RGBAColors)
+                for path in paths: gsc_chunk_importer.parse_gsc(path, Triangle_Strips_with_uvs_and_rgba = self.Triangle_Strips_with_uvs_and_rgba, Triangle_StripsTwo = self.Triangle_StripsTwo, Triangle_Strips = self.Triangle_Strips, WholeMassiveOne = self.WholeMassiveOne, ONE_CHUNK_OFFSET1 = self.ONE_CHUNK_OFFSET1,ONE_CHUNK_OFFSET1PT2 = self.ONE_CHUNK_OFFSET1PT2,ONE_CHUNK_OFFSET2 = self.ONE_CHUNK_OFFSET2,SST = self.SST,SPEC = self.SPEC,INST = self.INST,IABL = self.IABL,BoundingSet = self.BoundingSet, SelectOnlyUVMesh = self.SelectOnlyUVMesh, SelectOnly2ndUVMesh = self.SelectOnly2ndUVMesh, SelectOnly3rdUVMesh = self.SelectOnly3rdUVMesh, Triangles = self.Triangles, RGBAColors = self.RGBAColors)
                 return {'FINISHED'}
 
 class ExportChunkGSC(bpy.types.Operator, ExportHelper):
@@ -106,10 +116,23 @@ class ExportChunkGSC(bpy.types.Operator, ExportHelper):
                 description = 'File path used for finding the GSC Chunk file.',
                 type	    = bpy.types.OperatorFileListElement
         )
+        verts_uvs_rgba_hashes: IntProperty(
+                name = "verts uvs rgba only",
+                description = "exports verts uvs and rgba hashes"
+        )
+        verts_rgba_hashes: IntProperty(
+                name = "verts rgba only",
+                description = "exports verts and rgba hashes"
+        )
+        verts_null: IntProperty(
+                name = "triangle strips only",
+                description = "exports triangle strips except rgba and uv"
+        )
         directory: StringProperty()
+        filter_glob: StringProperty(default = '*.gsc', options = {'HIDDEN'})
         def execute(self, context):
             importlib.reload(gsc_chunk_exporter)
-            gsc_chunk_exporter.NUWrite(self.filepath)
+            gsc_chunk_exporter.NUWrite(self.filepath, verts_uvs_rgba_hashes = self.verts_uvs_rgba_hashes, verts_rgba_hashes = self.verts_rgba_hashes, verts_null = self.verts_null)
             return {"FINISHED"}
         
 
