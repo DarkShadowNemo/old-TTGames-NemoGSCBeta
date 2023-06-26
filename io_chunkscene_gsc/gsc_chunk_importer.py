@@ -446,7 +446,7 @@ def wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, 
                 vz = unpack("<f", f.read(4))[0]
                 nz = unpack("<f", f.read(4))[0] #normals
                 vertices.append([vx,vy,vz])
-                normals.append([1,1,nz])
+                normals.append([nz,nz,nz])
             f.seek(6,1)
             uvcount = unpack("B", f.read(1))[0]
             f.seek(1,1)
@@ -466,12 +466,10 @@ def wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, 
                 colors.append([cx,cy,cz,cw])
 
             for i in range(vertexCount-2):
-                if nz == 1:
-                    fa+=1
-                    fb+=1
-                    fc+=1
-                    faces.append([fa,fb,fc])
-                    faces.append([fb,fa,fc])
+                fa+=1
+                fb+=1
+                fc+=1
+                faces.append([fa,fb,fc])
         elif Chunk == b"SST0":
             break
         
@@ -479,6 +477,23 @@ def wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, 
     mesh.from_pydata(vertices, [], faces)
     object = bpy.data.objects.new("dragonjan", mesh)
     bpy.context.collection.objects.link(object)
+    mesh.normals_split_custom_set_from_vertices(normals)
+    
+    mesh.vertex_colors.new()
+
+    uv_tex = mesh.uv_layers.new()
+    uv_layer = mesh.uv_layers[0].data
+    vert_loops = {}
+    for l in mesh.loops:
+        vert_loops.setdefault(l.vertex_index, []).append(l.index)
+    for i, coord in enumerate(uvs):
+        for li in vert_loops[i]:
+            uv_layer[li].uv = coord
+
+    index=0
+    for vcol in mesh.vertex_colors[0].data:
+        vcol.color = rgba[c]
+        index+=c
     
 
 
