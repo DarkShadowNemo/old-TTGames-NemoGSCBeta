@@ -3,7 +3,24 @@ import os
 import bpy
 import bmesh
 import math
-            
+from io import BytesIO as bio
+
+texture_pixels = []
+
+def truncate_cstr(s: bytes) -> bytes:
+    index = s.find(0)
+    if index == -1: return s
+    return s[:index]
+def fetch_cstr(f: 'filelike') -> bytearray:
+    build = bytearray()
+    while 1:
+        strbyte = f.read(1)
+        if strbyte == b'\0' or not strbyte: break
+        build += strbyte
+    return build
+
+def one_pallete_memory(f, TEX_OFFSET=0):
+    pass
 
 def get_3rdobjects_with_uvs_and_rgba(f, vertexCount=0, seek_=0, vertices=[], faces=[], normals=[], fa=-1, fb=0, fc=1, uvs=[], rgba=[], chunks=0, paddingWhere=0):
     f.seek(0)
@@ -12,7 +29,7 @@ def get_3rdobjects_with_uvs_and_rgba(f, vertexCount=0, seek_=0, vertices=[], fac
     if firstOBJread != 0:
         f.seek(readobjfirst,0)
         f.seek(6,1)
-        vertexCount += unpack("B", f.read(1))[0]
+        vertexCount = unpack("B", f.read(1))[0]
         f.seek(1,1)
         f.seek(seek_,1)
         for i in range(vertexCount):
@@ -254,6 +271,36 @@ def DIFOffset_one(f, vertices=[], faces=[], fa=-1, fb=0, fc=1):
     object = bpy.data.objects.new("dragonjan", mesh)
     bpy.context.collection.objects.link(object)
 
+def FinalUnknownNormalChunk(f, vertices=[], faces=[], normals=[], fa=-3, fb=-2,fc=-1):
+    f.seek(0)
+    while 1:
+        Chunk = f.read(4)
+        if Chunk == b"\x03\x01\x00\x01":
+            f.seek(2,1)
+            VertexCount = unpack("B", f.read(1))[0]
+            clump = unpack("B", f.read(1))[0]
+            if VertexCount == 3:
+                
+                for i in range(VertexCount):
+                    vx = unpack("<f", f.read(4))[0]
+                    vy = unpack("<f", f.read(4))[0]
+                    vz = unpack("<f", f.read(4))[0]
+                    nz = unpack("<f", f.read(4))[0]
+                    vertices.append([vx,vy,vz])
+                for i in range(VertexCount-2):
+                    fa += 1 * 3
+                    fb += 1 * 3
+                    fc += 1 * 3
+                    faces.append([fa,fb,fc])
+            
+        elif Chunk == b"SST0":
+            break
+
+    mesh = bpy.data.meshes.new("dragonjan")
+    mesh.from_pydata(vertices, [], faces)
+    object = bpy.data.objects.new("dragonjan", mesh)
+    bpy.context.collection.objects.link(object)
+
 
 
 def FinalUnknownChunk(f, VCountThree=3, vertices=[], faces=[], normals=[], fa=-4, fb=-3,fc=-2,fa_m=-3,fb_m=-2,fc_m=-1):
@@ -433,9 +480,20 @@ def wholeChunk2(f, vertices=[]):
 
 def wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, fb=0, fc=1):
     f.seek(0)
+    Material_ID = ""
+    mat = bpy.data.materials.new(name=Material_ID)
+    bpy.data.materials.get ("Material")
     while 1:
         Chunk = f.read(4)
-        if Chunk == b"\x03\x01\x00\x01":
+        if Chunk == b"NU20":
+            negativefilesize = unpack("<I", f.read(4))[0]
+            primtype = unpack("<I", f.read(4))[0]
+            unk = unpack("<I", f.read(4))[0]
+        elif Chunk == b"NTBL":
+            NTBLSize1 = unpack("<I", f.read(4))[0]
+            NTBLSize2 = unpack("<I", f.read(4))[0]
+            f.seek(NTBLSize1-12,1)
+        elif Chunk == b"\x03\x01\x00\x01":
             vertexSize=0
             f.seek(2,1)
             vertexCount = unpack("B", f.read(1))[0]
@@ -445,25 +503,27 @@ def wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, 
                 vy = unpack("<f", f.read(4))[0]
                 vz = unpack("<f", f.read(4))[0]
                 nz = unpack("<f", f.read(4))[0] #normals
+                if vy == 626239069825399828521156608.000000:
+                    vy -=626239069825399828521156608.000000
+                elif vy == 38335097425014816768.000000:
+                    vy -= 38335097425014816768.000000
+                elif vy == 623812068601110010234142720.000000:
+                    vy -=623812068601110010234142720.000000
+                if vz == 2504894888537322008696848384.000000:
+                    vz -=2504894888537322008696848384.000000
+                elif vz == 795473410667354881471283200.000000:
+                    vz -= 795473410667354881471283200.000000
+                elif vz == 626239069825399828521156608.000000:
+                    vz -= 626239069825399828521156608.000000
+                if vx == 2504894888537322008696848384.000000:
+                    vx -=2504894888537322008696848384.000000
+                elif vx == 38352131059152322560.000000:
+                    vx -= 38352131059152322560.000000
+
+                elif vx == 623812068601110010234142720.000000:
+                    vx -= 623812068601110010234142720.000000
                 vertices.append([vx,vy,vz])
                 normals.append([nz,nz,nz])
-            f.seek(6,1)
-            uvcount = unpack("B", f.read(1))[0]
-            f.seek(1,1)
-            for i in range(uvcount):
-                uvx = unpack("<h", f.read(2))[0] / 4096.0
-                uvy = unpack("<h", f.read(2))[0] / 4096.0
-                f.seek(4,1)
-                uvs.append([uvx,uvy])
-            f.seek(6,1)
-            colorcount = unpack("B", f.read(1))[0]
-            f.seek(1,1)
-            for c in range(colorcount):
-                cx = unpack("B", f.read(1))[0] / 127.0
-                cy = unpack("B", f.read(1))[0] / 127.0
-                cz = unpack("B", f.read(1))[0] / 127.0
-                cw = unpack("B", f.read(1))[0] / 127.0
-                colors.append([cx,cy,cz,cw])
 
             for i in range(vertexCount-2):
                 fa+=1
@@ -478,22 +538,8 @@ def wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, 
     object = bpy.data.objects.new("dragonjan", mesh)
     bpy.context.collection.objects.link(object)
     mesh.normals_split_custom_set_from_vertices(normals)
-    
-    mesh.vertex_colors.new()
-
-    uv_tex = mesh.uv_layers.new()
-    uv_layer = mesh.uv_layers[0].data
-    vert_loops = {}
-    for l in mesh.loops:
-        vert_loops.setdefault(l.vertex_index, []).append(l.index)
-    for i, coord in enumerate(uvs):
-        for li in vert_loops[i]:
-            uv_layer[li].uv = coord
-
-    index=0
-    for vcol in mesh.vertex_colors[0].data:
-        vcol.color = rgba[c]
-        index+=c
+    bpy.data.materials["Material"].use_backface_culling = True
+    objs = bpy.data.objects["dragonjan"]
     
 
 
@@ -946,52 +992,95 @@ def get_BoundsSet1(f, ea=-1, eb=0, vertices=[], bounds=[]):
         mesh.from_pydata(vertices, bounds, [])
         object = bpy.data.objects.new("dragonjan Bounds", mesh)
         bpy.context.collection.objects.link(object)
+
+def indivitualMesh_1(f, filepath):
+    vertices=[]
+    faces=[]
+    f.seek(0)
+    fa=-4
+    fb=-3
+    fc=-2
+    fa_m=-3
+    fb_m=-2
+    fc_m=-1
+    while 1:
+        Chunk = f.read(4)
+        if Chunk == b"\x03\x01\x00\x01":
+            f.seek(2,1)
+            vertexcount = unpack("B", f.read(1))[0]
+            f.seek(1,1)
+            for i in range(vertexcount):
+                vx = unpack("<f", f.read(4))[0]
+                vy = unpack("<f", f.read(4))[0]
+                vz = unpack("<f", f.read(4))[0]
+                nz = unpack("<f", f.read(4))[0]
+                vertices.append([vx,vy,vz])
+        elif Chunk == b"SST0":
+            break
+
+    for i in range(1200):
+        fa+=1*4
+        fb+=1*4
+        fc+=1*4
+        fa_m+=1*4
+        fb_m+=1*4
+        fc_m+=1*4
+        faces.append([fa,fb,fc])
+        faces.append([fa_m,fb_m,fc_m])
+
+    mesh = bpy.data.meshes.new(os.path.basename(filepath))
+    mesh.from_pydata(vertices, [], faces)
+    object = bpy.data.objects.new(os.path.basename(filepath), mesh)
+    bpy.context.collection.objects.link(object)
             
         
         
 
-def parse_gsc(filepath, Triangle_Strips_with_uvs_and_rgba=1, Triangle_StripsTwo=False, Triangle_Strips=False, WholeMassiveOne=False, ONE_CHUNK_OFFSET1=False, ONE_CHUNK_OFFSET1PT2=False, ONE_CHUNK_OFFSET2=False, SST=False, SPEC=False, INST=False, IABL=False, BoundingSet=False, SelectOnlyUVMesh=False, SelectOnly2ndUVMesh=False, SelectOnly3rdUVMesh=False, Triangles=False, RGBAColors=False):
-    f = open(filepath, "rb")
-    if Triangle_Strips:
-        wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, fb=0, fc=1)
-    if WholeMassiveOne:
-        wholeChunk2(f, vertices=[])
-    if ONE_CHUNK_OFFSET1:
-        get_1stobjects(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], uvs=[], rgba=[], chunks=0, paddingWhere=0)
-    if ONE_CHUNK_OFFSET1PT2:
-        get_1stobjectspt2(f, fa=-1,fb=0,fc=1,vertices=[], faces=[])
-    if ONE_CHUNK_OFFSET2:
-        get_2ndobjects(f, vertices=[], chunks2=0, paddingWhere2=0, chunk2=0)
-    if INST:
-        get_INST(f,emptytime=[])
-    if SPEC:
-        get_SPEC(f, emptytime2=[])
-    if IABL:
-        get_SPEC_ANIMATION_BLOCK(f, emptytime3=[])
-    if SST:
-        get_splineset(f, ea=-1, eb=0, vertices=[], edges=[])
-    if SelectOnlyUVMesh:
-        selectUV(f, uvs=[])
-    if SelectOnly2ndUVMesh:
-        select2ndUV(f, uvs=[])
-    if SelectOnly3rdUVMesh:
-        selectUVThird(f, uvs=[])
-    if BoundingSet:
-        get_BoundsSet1(f, ea=-1, eb=0, vertices=[], bounds=[])
-    if Triangles:
-        FinalUnknownChunk(f, VCountThree=3, vertices=[], faces=[], normals=[], fa=-4, fb=-3,fc=-2,fa_m=-3,fb_m=-2,fc_m=-1)
-    if Triangle_StripsTwo:
-        DIFOffset_one(f, vertices=[], faces=[], fa=-1, fb=0, fc=1)
-    if RGBAColors:
-        ColorReach(f, colors=[])
-    if Triangle_Strips_with_uvs_and_rgba == 1:
-        get_1stobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], normals=[], uvs=[], rgba=[], chunks=0, paddingWhere=0)
-    if Triangle_Strips_with_uvs_and_rgba == 2:
-        get_2ndobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], normals=[], uvs=[], rgba=[], chunks=0, paddingWhere=0)
-    if Triangle_Strips_with_uvs_and_rgba == 3:
-        get_3rdobjects_with_uvs_and_rgba(f, vertices=[], faces=[], normals=[], fa=-1, fb=0, fc=1, uvs=[], rgba=[], chunks=0, paddingWhere=0)
-    
-    f.close()
+def parse_gsc(filepath, Triangle_Strips_part3=False, Triangle_Strips_with_uvs_and_rgba=1, Triangle_StripsTwo=False, Triangle_Strips=False, WholeMassiveOne=False, ONE_CHUNK_OFFSET1=False, ONE_CHUNK_OFFSET1PT2=False, ONE_CHUNK_OFFSET2=False, SST=False, SPEC=False, INST=False, IABL=False, BoundingSet=False, SelectOnlyUVMesh=False, SelectOnly2ndUVMesh=False, SelectOnly3rdUVMesh=False, Triangles=False, Norm_Triangles=False, RGBAColors=False):
+    with open(filepath, "rb") as f:
+        
+        if Triangle_Strips_part3:
+            offset_0x03010001010000050380(f, vertices=[], faces=[], normals=[], fa=-1, fb=0, fc=1)
+        if Triangle_Strips:
+            wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, fb=0, fc=1)
+        if WholeMassiveOne:
+            wholeChunk2(f, vertices=[])
+        if ONE_CHUNK_OFFSET1:
+            get_1stobjects(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], uvs=[], rgba=[], chunks=0, paddingWhere=0)
+        if ONE_CHUNK_OFFSET1PT2:
+            get_1stobjectspt2(f, fa=-1,fb=0,fc=1,vertices=[], faces=[])
+        if ONE_CHUNK_OFFSET2:
+            get_2ndobjects(f, vertices=[], chunks2=0, paddingWhere2=0, chunk2=0)
+        if INST:
+            get_INST(f,emptytime=[])
+        if SPEC:
+            get_SPEC(f, emptytime2=[])
+        if IABL:
+            get_SPEC_ANIMATION_BLOCK(f, emptytime3=[])
+        if SST:
+            get_splineset(f, ea=-1, eb=0, vertices=[], edges=[])
+        if SelectOnlyUVMesh:
+            selectUV(f, uvs=[])
+        if SelectOnly2ndUVMesh:
+            select2ndUV(f, uvs=[])
+        if SelectOnly3rdUVMesh:
+            selectUVThird(f, uvs=[])
+        if BoundingSet:
+            get_BoundsSet1(f, ea=-1, eb=0, vertices=[], bounds=[])
+        if Triangles:
+            FinalUnknownChunk(f, VCountThree=3, vertices=[], faces=[], normals=[], fa=-4, fb=-3,fc=-2,fa_m=-3,fb_m=-2,fc_m=-1)
+        if Norm_Triangles:
+            FinalUnknownNormalChunk(f, vertices=[], faces=[], normals=[], fa=-3, fb=-2,fc=-1)
+        if Triangle_StripsTwo:
+            DIFOffset_one(f, vertices=[], faces=[], fa=-1, fb=0, fc=1)
+        if RGBAColors:
+            ColorReach(f, colors=[])
+        if Triangle_Strips_with_uvs_and_rgba == 1:
+            get_1stobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], normals=[], uvs=[], rgba=[], chunks=0, paddingWhere=0)
+        if Triangle_Strips_with_uvs_and_rgba == 2:
+            get_2ndobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], normals=[], uvs=[], rgba=[], chunks=0, paddingWhere=0)
+        if Triangle_Strips_with_uvs_and_rgba == 3:
+            get_3rdobjects_with_uvs_and_rgba(f, vertices=[], faces=[], normals=[], fa=-1, fb=0, fc=1, uvs=[], rgba=[], chunks=0, paddingWhere=0)
 
 
 
