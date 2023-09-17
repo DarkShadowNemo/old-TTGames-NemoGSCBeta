@@ -27,6 +27,11 @@ class ImportChunkGSC(bpy.types.Operator, ImportHelper):
                 type	    = bpy.types.OperatorFileListElement
         )
 
+        Triangle_Strips_part3: BoolProperty(
+                name        = "Triangle Strips pt 3",
+                description = "May take time to load because impossible to use while 1"
+        )
+
         Triangle_Strips_with_uvs_and_rgba: IntProperty(
                 name        = "Triangle_Strips uvs and rgba",
                 description = "gets uvs and rgba as well"
@@ -93,6 +98,18 @@ class ImportChunkGSC(bpy.types.Operator, ImportHelper):
                 name = "Triangles",
                 description = "some may use triangles, this reduces some duplicated edges use at your own risk"
         )
+        Norm_Triangles: BoolProperty(
+                name = "Normal Triangles",
+                description = "imports normal triangles if you want to get the whole entire mesh it requires patches and modifiying the gsc file format"
+        )
+        BatchHashVertexColors: BoolProperty(
+                name = "BatchHashVertexColors",
+                description = "imports vertex colors everything"
+        )
+        BatchUVSS: BoolProperty(
+                name = "Batch UVS",
+                description = "imports uvs and everything"
+        )
         RGBAColors: BoolProperty(
                 name = "RGBA Hash Colors",
                 description = "chooses one RGBA only since it's impossible with the whole mesh unless you remove other offsets"
@@ -103,7 +120,7 @@ class ImportChunkGSC(bpy.types.Operator, ImportHelper):
                 paths = [os.path.join(self.directory, name.name) for name in self.files]
                 if not paths: paths.append(self.filepath)
                 importlib.reload(gsc_chunk_importer)
-                for path in paths: gsc_chunk_importer.parse_gsc(path, Triangle_Strips_with_uvs_and_rgba = self.Triangle_Strips_with_uvs_and_rgba, Triangle_StripsTwo = self.Triangle_StripsTwo, Triangle_Strips = self.Triangle_Strips, WholeMassiveOne = self.WholeMassiveOne, ONE_CHUNK_OFFSET1 = self.ONE_CHUNK_OFFSET1,ONE_CHUNK_OFFSET1PT2 = self.ONE_CHUNK_OFFSET1PT2,ONE_CHUNK_OFFSET2 = self.ONE_CHUNK_OFFSET2,SST = self.SST,SPEC = self.SPEC,INST = self.INST,IABL = self.IABL,BoundingSet = self.BoundingSet, SelectOnlyUVMesh = self.SelectOnlyUVMesh, SelectOnly2ndUVMesh = self.SelectOnly2ndUVMesh, SelectOnly3rdUVMesh = self.SelectOnly3rdUVMesh, Triangles = self.Triangles, RGBAColors = self.RGBAColors)
+                for path in paths: gsc_chunk_importer.parse_gsc(path, Triangle_Strips_part3 = self.Triangle_Strips_part3, Triangle_Strips_with_uvs_and_rgba = self.Triangle_Strips_with_uvs_and_rgba, Triangle_StripsTwo = self.Triangle_StripsTwo, Triangle_Strips = self.Triangle_Strips, WholeMassiveOne = self.WholeMassiveOne, ONE_CHUNK_OFFSET1 = self.ONE_CHUNK_OFFSET1,ONE_CHUNK_OFFSET1PT2 = self.ONE_CHUNK_OFFSET1PT2,ONE_CHUNK_OFFSET2 = self.ONE_CHUNK_OFFSET2,SST = self.SST,SPEC = self.SPEC,INST = self.INST,IABL = self.IABL,BoundingSet = self.BoundingSet, SelectOnlyUVMesh = self.SelectOnlyUVMesh, SelectOnly2ndUVMesh = self.SelectOnly2ndUVMesh, SelectOnly3rdUVMesh = self.SelectOnly3rdUVMesh, Triangles = self.Triangles, Norm_Triangles = self.Norm_Triangles, BatchHashVertexColors = self.BatchHashVertexColors, BatchUVSS = self.BatchUVSS, RGBAColors = self.RGBAColors)
                 return {'FINISHED'}
 
 class ExportChunkGSC(bpy.types.Operator, ExportHelper):
@@ -116,23 +133,24 @@ class ExportChunkGSC(bpy.types.Operator, ExportHelper):
                 description = 'File path used for finding the GSC Chunk file.',
                 type	    = bpy.types.OperatorFileListElement
         )
-        verts_uvs_rgba_hashes: IntProperty(
-                name = "verts uvs rgba only",
-                description = "exports verts uvs and rgba hashes"
+        OFFSET1: IntProperty(
+                name = "0x030100010380XX6C",
+                description = "exports original offset, choose a number"
         )
-        verts_rgba_hashes: IntProperty(
-                name = "verts rgba only",
-                description = "exports verts and rgba hashes"
+        OFFSET2: IntProperty(
+                name = "0x03010001010000050380",
+                description = "exports short signed integer 4096, experimental not sure this will go above it"
         )
-        verts_null: IntProperty(
-                name = "triangle strips only",
-                description = "exports triangle strips except rgba and uv"
+        custom_faces: BoolProperty(
+                name = "Custom Faces",
+                description = "exports custom faces that TTGames never uses, MIGHT NOT WORK IN GAME"
         )
+        
         directory: StringProperty()
         filter_glob: StringProperty(default = '*.gsc', options = {'HIDDEN'})
         def execute(self, context):
             importlib.reload(gsc_chunk_exporter)
-            gsc_chunk_exporter.NUWrite(self.filepath, verts_uvs_rgba_hashes = self.verts_uvs_rgba_hashes, verts_rgba_hashes = self.verts_rgba_hashes, verts_null = self.verts_null)
+            gsc_chunk_exporter.NUWrite(self.filepath, OFFSET1 = self.OFFSET1, OFFSET2 = self.OFFSET2)
             return {"FINISHED"}
         
 
