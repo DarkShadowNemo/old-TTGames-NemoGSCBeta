@@ -995,6 +995,230 @@ def wholeChunk1_alspier(f, filepath):
                         pass
                     elif faces.remove([144723,144724,144725]):
                         pass
+                    elif faces.remove([49664,49665,49666]):
+                        pass
+                    elif faces.remove([84299,842300,842301]):
+                        pass
+                    elif faces.remove([72038,72039,72040]):
+                        pass
+                    elif faces.remove([69120,69121,69122]):
+                        pass
+                    elif faces.remove([174004,174005,174006]):
+                        pass
+                    elif faces.remove([64255,64256,64257]):
+                        pass
+                    elif faces.remove([61211,61212,61213]):
+                        pass
+                    elif faces.remove([85259,85260,85261]):
+                        pass
+                    elif faces.remove([154536,154537,154538]):
+                        pass
+                    elif faces.remove([48696,48697,48698]):
+                        pass
+                    elif faces.remove([80684,80685,80686]):
+                        pass
+                    elif faces.remove([86843,86844,86845]):
+                        pass
+                    elif faces.remove([86844,86845,86846]):
+                        pass
+                    elif faces.remove([86835,86836,86837]):
+                        pass
+                    elif faces.remove([86836,86837,86838]):
+                        pass
+                    elif faces.remove([86827,86828,86829]):
+                        pass
+                    elif faces.remove([86828,86829,86830]):
+                        pass
+                    elif faces.remove([86819,86820,86821]):
+                        pass
+                    elif faces.remove([86820,86821,86822]):
+                        pass
+                    elif faces.remove([86811,86812,86813]):
+                        pass
+                    elif faces.remove([86812,86813,86814]):
+                        pass
+                    elif faces.remove([86803,86804,86805]):
+                        pass
+                    elif faces.remove([86804,86805,86806]):
+                        pass
+                    elif faces.remove([86795,86796,86797]):
+                        pass
+                    elif faces.remove([86796,86797,86798]):
+                        pass
+                    elif faces.remove([86787,86788,86789]):
+                        pass
+                    elif faces.remove([86788,86789,86790]):
+                        pass
+                    elif faces.remove([86764,86765,86766]):
+                        pass
+                    elif faces.remove([86763,86764,86765]):
+                        pass
+                    elif faces.remove([86771,86772,86773]):
+                        pass
+                    elif faces.remove([86772,86773,86774]):
+                        pass
+                    elif faces.remove([86780,86781,86782]):
+                        pass
+                    elif faces.remove([86779,86780,86781]):
+                        pass
+                    elif faces.remove([86859,86860,86861]):
+                        pass
+                    elif faces.remove([86860,86861,86862]):
+                        pass
+                    elif faces.remove([86855,86856,86857]):
+                        pass
+                    elif faces.remove([86856,86857,86858]):
+                        pass
+                    elif faces.remove([86876,86877,86878]):
+                        pass
+                    elif faces.remove([86875,86876,86877]):
+                        pass
+                    elif faces.remove([86880,86881,86882]):
+                        pass
+                    elif faces.remove([86879,86880,86881]):
+                        pass
+                    elif faces.remove([125314,125315,125316]):
+                        pass
+                    elif faces.remove([32938,32939,32940]):
+                        pass
+                    elif faces.remove([141623,141624,141625]):
+                        pass
+                    elif faces.remove([141636,141637,141638]):
+                        pass
+                    elif faces.remove([141635,141636,141637]):
+                        pass
+                    elif faces.remove([141624,141625,141626]):
+                        pass
+                    elif faces.remove([51234,51235,51236]):
+                        pass
+                    elif faces.remove([51235,51236,51237]):
+                        pass
+                    elif faces.remove([51330,51331,51332]):
+                        pass
+                    elif faces.remove([51331,51332,51333]):
+                        pass
+                    elif faces.remove([51316,51317,51318]):
+                        pass
+                    elif faces.remove([51317,51318,51319]):
+                        pass
+                    elif faces.remove([51326,51327,51328]):
+                        pass
+                    elif faces.remove([51327,51328,51329]):
+                        pass
+                    elif faces.remove([52635,52636,52637]):
+                        pass
+                    elif faces.remove([155245,155246,155247]):
+                        pass
+                    elif faces.remove([136762,136763,136764]):
+                        pass
+                    elif faces.remove([155246,155247,155248]):
+                        pass
+                    elif faces.remove([136763,136764,136765]):
+                        pass
+                    elif faces.remove([34654,34655,34656]):
+                        pass
+                    elif faces.remove([34653,34654,34655]):
+                        pass
+                    elif faces.remove([34652,34653,34654]):
+                        pass
+                    elif faces.remove([178676,178677,178678]):
+                        pass
+                    elif faces.remove([115582,115583,115584]):
+                        pass
+                    elif faces.remove([28407,28408,28409]):
+                        pass
+                    elif faces.remove([28406,28407,28408]):
+                        pass
+                    elif faces.remove([52113,52114,52115]):
+                        pass
+                    elif faces.remove([86613,86614,86615]):
+                        pass
+                    elif faces.remove([86612,86613,86614]):
+                        pass
+                    elif faces.remove([130792,130793,130794]):
+                        pass
+                    elif faces.remove([61298,61299,61300]):
+                        pass
+                    elif faces.remove([193926,193927,193928]):
+                        pass
+                    elif faces.remove([193925,193926,193927]):
+                        pass
+                    elif faces.remove([172528,172529,172530]):
+                        pass
+                    elif faces.remove([172517,172518,172519]):
+                        pass
+                    elif faces.remove([172562,172563,172564]):
+                        pass
+                    elif faces.remove([172563,172564,172565]):
+                        pass
+                    elif faces.remove([172541,172542,172543]):
+                        pass
+                    elif faces.remove([172540,172541,172542]):
+                        pass
+                    elif faces.remove([172618,172619,172620]):
+                        pass
+                    elif faces.remove([172617,172618,172619]):
+                        pass
+                    elif faces.remove([172612,172613,172614]):
+                        pass
+                    elif faces.remove([172611,172612,172613]):
+                        pass
+                    elif faces.remove([172765,172766,172767]):
+                        pass
+                    elif faces.remove([172602,172603,172604]):
+                        pass
+                    elif faces.remove([172601,172602,172603]):
+                        pass
+                    elif faces.remove([173996,173997,173998]):
+                        pass
+                    elif faces.remove([173813,173814,173815]):
+                        pass
+                    elif faces.remove([173997,173998,173999]):
+                        pass
+                    elif faces.remove([84311,84312,84313]):
+                        pass
+                    elif faces.remove([112914,112915,112916]):
+                        pass
+                    elif faces.remove([112551,112552,112553]):
+                        pass
+                    elif faces.remove([112550,112551,112552]):
+                        pass
+                    elif faces.remove([112607,112608,112609]):
+                        pass
+                    elif faces.remove([123119,123120,123121]):
+                        pass
+                    elif faces.remove([123104,123105,123106]):
+                        pass
+                    elif faces.remove([123120,123121,123122]):
+                        pass
+                    elif faces.remove([123105,123106,123107]):
+                        pass
+                    elif faces.remove([125332,125333,125334]):
+                        pass
+                    elif faces.remove([123182,123183,123184]):
+                        pass
+                    elif faces.remove([172504,172505,172506]):
+                        pass
+                    elif faces.remove([172503,172504,172505]):
+                        pass
+                    elif faces.remove([172497,172498,172499]):
+                        pass
+                    elif faces.remove([172507,172508,172509]):
+                        pass
+                    elif faces.remove([172490,172491,172492]):
+                        pass
+                    elif faces.remove([172475,172476,172477]):
+                        pass
+                    elif faces.remove([172476,172477,172478]):
+                        pass
+                    elif faces.remove([172514,172515,172516]):
+                        pass
+                    elif faces.remove([172513,172514,172515]):
+                        pass
+                    elif faces.remove([172506,172507,172508]):
+                        pass
+                    elif faces.remove([172546,172547,172548]):
+                        pass
                     
             elif Chunk == b"SST0":
                 break
