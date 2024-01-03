@@ -997,7 +997,7 @@ def wholeChunk1_alspier(f, filepath):
                         pass
                     elif faces.remove([49664,49665,49666]):
                         pass
-                    elif faces.remove([84299,842300,842301]):
+                    elif faces.remove([84299,84300,84301]):
                         pass
                     elif faces.remove([72038,72039,72040]):
                         pass
@@ -1218,6 +1218,830 @@ def wholeChunk1_alspier(f, filepath):
                     elif faces.remove([172506,172507,172508]):
                         pass
                     elif faces.remove([172546,172547,172548]):
+                        pass
+                    elif faces.remove([172465,172466,172467]):
+                        pass
+                    elif faces.remove([172466,172467,172468]):
+                        pass
+                    elif faces.remove([172459,172460,172461]):
+                        pass
+                    elif faces.remove([172458,172459,172460]):
+                        pass
+                    elif faces.remove([172449,172450,172451]):
+                        pass
+                    elif faces.remove([172450,172451,172452]):
+                        pass
+                    elif faces.remove([172439,172440,172441]):
+                        pass
+                    elif faces.remove([172440,172441,172442]):
+                        pass
+                    elif faces.remove([172357,172358,172359]):
+                        pass
+                    elif faces.remove([172358,172359,172360]):
+                        pass
+                    elif faces.remove([172363,172364,172365]):
+                        pass
+                    elif faces.remove([172364,172365,172366]):
+                        pass
+                    elif faces.remove([172351,172352,172353]):
+                        pass
+                    elif faces.remove([172352,172353,172354]):
+                        pass
+                    elif faces.remove([123143,123144,123145]):
+                        pass
+                    elif faces.remove([123139,123140,123141]):
+                        pass
+                    elif faces.remove([123138,123139,123140]):
+                        pass
+                    elif faces.remove([123140,123141,123142]):
+                        pass
+                    elif faces.remove([123141,123142,123143]):
+                        pass
+                    elif faces.remove([117908,117909,117910]):
+                        pass
+                    elif faces.remove([117909,117910,117911]):
+                        pass
+                    elif faces.remove([117853,117854,117855]):
+                        pass
+                    elif faces.remove([117852,117853,117854]):
+                        pass
+                    elif faces.remove([123086,123087,123088]):
+                        pass
+                    elif faces.remove([123077,123078,123079]):
+                        pass
+                    elif faces.remove([123078,123079,123080]):
+                        pass
+                    elif faces.remove([172535,172536,172537]):
+                        pass
+                    elif faces.remove([117666,117667,117668]):
+                        pass
+                    elif faces.remove([117667,117668,117669]):
+                        pass
+                    elif faces.remove([117738,117739,117740]):
+                        pass
+                    elif faces.remove([117956,117957,117958]):
+                        pass
+                    elif faces.remove([117610,117611,117612]):
+                        pass
+                    elif faces.remove([117609,117610,117611]):
+                        pass
+                    elif faces.remove([52252,52253,52254]):
+                        pass
+                    elif faces.remove([117196,117197,117198]):
+                        pass
+                    elif faces.remove([117197,117198,117199]):
+                        pass
+                    elif faces.remove([117241,117242,117243]):
+                        pass
+                    elif faces.remove([117242,117243,117244]):
+                        pass
+                    elif faces.remove([117209,117210,117211]):
+                        pass
+                    elif faces.remove([117208,117209,117210]):
+                        pass
+                    elif faces.remove([117202,117203,117204]):
+                        pass
+                    elif faces.remove([117203,117204,117205]):
+                        pass
+                    elif faces.remove([117183,117184,117185]):
+                        pass
+                    elif faces.remove([117182,117183,117184]):
+                        pass
+                    elif faces.remove([178772,178773,178774]):
+                        pass
+                    elif faces.remove([178773,178774,178775]):
+                        pass
+                    elif faces.remove([178883,178884,178885]):
+                        pass
+                    elif faces.remove([193949,193950,193951]):
+                        pass
+                    elif faces.remove([117778,117779,117780]):
+                        pass
+                    elif faces.remove([117771,117772,117773]):
+                        pass
+                    elif faces.remove([117754,117755,117756]):
+                        pass
+                    elif faces.remove([117747,117748,117749]):
+                        pass
+                    elif faces.remove([172119,172120,172121]):
+                        pass
+                    elif faces.remove([172118,172119,172120]):
+                        pass
+                    elif faces.remove([172094,172095,172096]):
+                        pass
+                    elif faces.remove([172093,172094,172095]):
+                        pass
+                    elif faces.remove([52139,52140,52141]):
+                        pass
+                    elif faces.remove([117901,117902,117903]):
+                        pass
+                    elif faces.remove([117900,117901,117902]):
+                        pass
+                    elif faces.remove([117844,117845,117846]):
+                        pass
+                    elif faces.remove([123154,123155,123156]):
+                        pass
+                    elif faces.remove([123155,123156,123157]):
+                        pass
+                    elif faces.remove([117730,117731,117732]):
+                        pass
+                    elif faces.remove([117731,117732,117733]):
+                        pass
+                    elif faces.remove([117706,117707,117708]):
+                        pass
+                    elif faces.remove([117695,117696,117697]):
+                        pass
+                    elif faces.remove([117694,117695,117696]):
+                        pass
+                    elif faces.remove([117574,117575,117576]):
+                        pass
+                    elif faces.remove([117575,117576,117577]):
+                        pass
+                    elif faces.remove([117449,117450,117451]):
+                        pass
+                    elif faces.remove([117441,117442,117443]):
+                        pass
+                    elif faces.remove([117442,117443,117444]):
+                        pass
+                    elif faces.remove([117567,117568,117569]):
+                        pass
+                    elif faces.remove([117566,117567,117568]):
+                        pass
+                    elif faces.remove([117351,117352,117353]):
+                        pass
+                    elif faces.remove([117352,117353,117354]):
+                        pass
+                    elif faces.remove([117556,117557,117558]):
+                        pass
+                    elif faces.remove([178828,178829,178830]):
+                        pass
+                    elif faces.remove([117345,117346,117347]):
+                        pass
+                    elif faces.remove([117346,117347,117348]):
+                        pass
+                    elif faces.remove([117333,117334,117335]):
+                        pass
+                    elif faces.remove([178869,178870,178871]):
+                        pass
+                    elif faces.remove([178868,178869,178870]):
+                        pass
+                    elif faces.remove([178867,178868,178869]):
+                        pass
+                    elif faces.remove([178866,178867,178868]):
+                        pass
+                    elif faces.remove([117339,117340,117341]):
+                        pass
+                    elif faces.remove([117334,117335,117336]):
+                        pass
+                    elif faces.remove([178861,178862,178863]):
+                        pass
+                    elif faces.remove([117340,117341,117342]):
+                        pass
+                    elif faces.remove([117328,117329,117330]):
+                        pass
+                    elif faces.remove([117938,117939,117940]):
+                        pass
+                    elif faces.remove([117312,117313,117314]):
+                        pass
+                    elif faces.remove([117311,117312,117313]):
+                        pass
+                    elif faces.remove([117944,117945,117946]):
+                        pass
+                    elif faces.remove([117943,117944,117945]):
+                        pass
+                    elif faces.remove([117955,117956,117957]):
+                        pass
+                    elif faces.remove([118018,118019,118020]):
+                        pass
+                    elif faces.remove([117989,117990,117991]):
+                        pass
+                    elif faces.remove([117990,117991,117992]):
+                        pass
+                    elif faces.remove([117686,117687,117688]):
+                        pass
+                    elif faces.remove([117683,117684,117685]):
+                        pass
+                    elif faces.remove([117688,117689,117690]):
+                        pass
+                    elif faces.remove([117707,117708,117709]):
+                        pass
+                    elif faces.remove([117689,117690,117691]):
+                        pass
+                    elif faces.remove([117700,117701,117702]):
+                        pass
+                    elif faces.remove([117701,117702,117703]):
+                        pass
+                    elif faces.remove([117624,117625,117626]):
+                        pass
+                    elif faces.remove([117623,117624,117625]):
+                        pass
+                    elif faces.remove([117642,117643,117644]):
+                        pass
+                    elif faces.remove([117640,117641,117642]):
+                        pass
+                    elif faces.remove([117643,117644,117645]):
+                        pass
+                    elif faces.remove([117370,117371,117372]):
+                        pass
+                    elif faces.remove([117406,117407,117408]):
+                        pass
+                    elif faces.remove([117405,117406,117407]):
+                        pass
+                    elif faces.remove([118008,118009,118010]):
+                        pass
+                    elif faces.remove([117739,117740,117741]):
+                        pass
+                    elif faces.remove([178726,178727,178728]):
+                        pass
+                    elif faces.remove([117136,117137,117138]):
+                        pass
+                    elif faces.remove([117137,117138,117139]):
+                        pass
+                    elif faces.remove([117305,117306,117307]):
+                        pass
+                    elif faces.remove([117304,117305,117306]):
+                        pass
+                    elif faces.remove([117283,117284,117285]):
+                        pass
+                    elif faces.remove([172375,172376,172377]):
+                        pass
+                    elif faces.remove([172376,172377,172378]):
+                        pass
+                    elif faces.remove([172173,172174,172175]):
+                        pass
+                    elif faces.remove([172167,172168,172169]):
+                        pass
+                    elif faces.remove([172168,172169,172170]):
+                        pass
+                    elif faces.remove([172174,172175,172176]):
+                        pass
+                    elif faces.remove([171953,171954,171955]):
+                        pass
+                    elif faces.remove([171947,171948,171949]):
+                        pass
+                    elif faces.remove([171948,171949,171950]):
+                        pass
+                    elif faces.remove([171954,171955,171956]):
+                        pass
+                    elif faces.remove([171731,171732,171733]):
+                        pass
+                    elif faces.remove([171725,171726,171727]):
+                        pass
+                    elif faces.remove([171726,171727,171728]):
+                        pass
+                    elif faces.remove([171732,171733,171734]):
+                        pass
+                    elif faces.remove([171791,171792,171793]):
+                        pass
+                    elif faces.remove([171785,171786,171787]):
+                        pass
+                    elif faces.remove([171786,171787,171788]):
+                        pass
+                    elif faces.remove([171792,171793,171794]):
+                        pass
+                    elif faces.remove([172179,172180,172181]):
+                        pass
+                    elif faces.remove([172180,172181,172182]):
+                        pass
+                    elif faces.remove([172185,172186,172187]):
+                        pass
+                    elif faces.remove([172186,172187,172188]):
+                        pass
+                    elif faces.remove([171981,171982,171983]):
+                        pass
+                    elif faces.remove([171980,171981,171982]):
+                        pass
+                    elif faces.remove([171966,171967,171968]):
+                        pass
+                    elif faces.remove([171965,171966,171967]):
+                        pass
+                    elif faces.remove([171959,171960,171961]):
+                        pass
+                    elif faces.remove([171960,171961,171962]):
+                        pass
+                    elif faces.remove([171941,171942,171943]):
+                        pass
+                    elif faces.remove([171803,171804,171805]):
+                        pass
+                    elif faces.remove([171797,171798,171799]):
+                        pass
+                    elif faces.remove([171798,171799,171800]):
+                        pass
+                    elif faces.remove([171780,171781,171782]):
+                        pass
+                    elif faces.remove([171746,171747,171748]):
+                        pass
+                    elif faces.remove([171745,171746,171747]):
+                        pass
+                    elif faces.remove([171738,171739,171740]):
+                        pass
+                    elif faces.remove([171739,171740,171741]):
+                        pass
+                    elif faces.remove([171779,171780,171781]):
+                        pass
+                    elif faces.remove([171804,171805,171806]):
+                        pass
+                    elif faces.remove([171971,171972,171973]):
+                        pass
+                    elif faces.remove([171974,171975,171976]):
+                        pass
+                    elif faces.remove([171973,171974,171975]):
+                        pass
+                    elif faces.remove([171819,171820,171821]):
+                        pass
+                    elif faces.remove([171985,171986,171987]):
+                        pass
+                    elif faces.remove([171986,171987,171988]):
+                        pass
+                    elif faces.remove([171811,171812,171813]):
+                        pass
+                    elif faces.remove([171812,171813,171814]):
+                        pass
+                    elif faces.remove([171820,171821,171822]):
+                        pass
+                    elif faces.remove([171753,171754,171755]):
+                        pass
+                    elif faces.remove([171754,171755,171756]):
+                        pass
+                    elif faces.remove([171761,171762,171763]):
+                        pass
+                    elif faces.remove([171762,171763,171764]):
+                        pass
+                    elif faces.remove([171768,171769,171770]):
+                        pass
+                    elif faces.remove([171767,171768,171769]):
+                        pass
+                    elif faces.remove([171774,171775,171776]):
+                        pass
+                    elif faces.remove([171773,171774,171775]):
+                        pass
+                    elif faces.remove([171826,171827,171828]):
+                        pass
+                    elif faces.remove([171825,171826,171827]):
+                        pass
+                    elif faces.remove([171832,171833,171834]):
+                        pass
+                    elif faces.remove([171831,171832,171833]):
+                        pass
+                    elif faces.remove([171838,171839,171840]):
+                        pass
+                    elif faces.remove([171837,171838,171839]):
+                        pass
+                    elif faces.remove([171844,171845,171846]):
+                        pass
+                    elif faces.remove([171843,171844,171845]):
+                        pass
+                    elif faces.remove([171998,171999,172000]):
+                        pass
+                    elif faces.remove([171997,171998,171999]):
+                        pass
+                    elif faces.remove([172004,172005,172006]):
+                        pass
+                    elif faces.remove([172003,172004,172005]):
+                        pass
+                    elif faces.remove([172013,172014,172015]):
+                        pass
+                    elif faces.remove([172011,172012,172013]):
+                        pass
+                    elif faces.remove([179638,179639,179640]):
+                        pass
+                    elif faces.remove([185861,185862,185863]):
+                        pass
+                    elif faces.remove([185862,185863,185864]):
+                        pass
+                    elif faces.remove([201678,201679,201680]):
+                        pass
+                    elif faces.remove([195597,195598,195599]):
+                        pass
+                    elif faces.remove([201677,201678,201679]):
+                        pass
+                    elif faces.remove([195596,195597,195598]):
+                        pass
+                    elif faces.remove([198742,198743,198744]):
+                        pass
+                    elif faces.remove([212086,212087,212088]):
+                        pass
+                    elif faces.remove([183286,183287,183288]):
+                        pass
+                    elif faces.remove([172023,172024,172025]):
+                        pass
+                    elif faces.remove([172024,172025,172026]):
+                        pass
+                    elif faces.remove([171850,171851,171852]):
+                        pass
+                    elif faces.remove([171863,171864,171865]):
+                        pass
+                    elif faces.remove([171851,171852,171853]):
+                        pass
+                    elif faces.remove([171864,171865,171866]):
+                        pass
+                    elif faces.remove([171861,171862,171863]):
+                        pass
+                    elif faces.remove([171860,171861,171862]):
+                        pass
+                    elif faces.remove([172010,172011,172012]):
+                        pass
+                    elif faces.remove([172014,172015,172016]):
+                        pass
+                    elif faces.remove([171873,171874,171875]):
+                        pass
+                    elif faces.remove([171869,171870,171871]):
+                        pass
+                    elif faces.remove([171868,171869,171870]):
+                        pass
+                    elif faces.remove([172030,172031,172032]):
+                        pass
+                    elif faces.remove([172029,172030,172031]):
+                        pass
+                    elif faces.remove([172035,172036,172037]):
+                        pass
+                    elif faces.remove([172036,172037,172038]):
+                        pass
+                    elif faces.remove([171877,171878,171879]):
+                        pass
+                    elif faces.remove([171878,171879,171880]):
+                        pass
+                    elif faces.remove([171874,171875,171876]):
+                        pass
+                    elif faces.remove([171897,171898,171899]):
+                        pass
+                    elif faces.remove([171885,171886,171887]):
+                        pass
+                    elif faces.remove([171884,171885,171886]):
+                        pass
+                    elif faces.remove([171898,171899,171900]):
+                        pass
+                    elif faces.remove([171895,171896,171897]):
+                        pass
+                    elif faces.remove([171894,171895,171896]):
+                        pass
+                    elif faces.remove([172045,172046,172047]):
+                        pass
+                    elif faces.remove([172046,172047,172048]):
+                        pass
+                    elif faces.remove([172056,172057,172058]):
+                        pass
+                    elif faces.remove([172055,172056,172057]):
+                        pass
+                    elif faces.remove([172053,172054,172055]):
+                        pass
+                    elif faces.remove([172052,172053,172054]):
+                        pass
+                    elif faces.remove([172255,172256,172257]):
+                        pass
+                    elif faces.remove([172256,172257,172258]):
+                        pass
+                    elif faces.remove([172268,172269,172270]):
+                        pass
+                    elif faces.remove([172267,172268,172269]):
+                        pass
+                    elif faces.remove([172223,172224,172225]):
+                        pass
+                    elif faces.remove([172222,172223,172224]):
+                        pass
+                    elif faces.remove([172201,172202,172203]):
+                        pass
+                    elif faces.remove([172202,172203,172204]):
+                        pass
+                    elif faces.remove([172226,172227,172228]):
+                        pass
+                    elif faces.remove([172225,172226,172227]):
+                        pass
+                    elif faces.remove([172211,172212,172213]):
+                        pass
+                    elif faces.remove([172208,172209,172210]):
+                        pass
+                    elif faces.remove([172207,172208,172209]):
+                        pass
+                    elif faces.remove([172241,172242,172243]):
+                        pass
+                    elif faces.remove([172242,172243,172244]):
+                        pass
+                    elif faces.remove([172230,172231,172232]):
+                        pass
+                    elif faces.remove([172229,172230,172231]):
+                        pass
+                    elif faces.remove([172234,172235,172236]):
+                        pass
+                    elif faces.remove([172246,172247,172248]):
+                        pass
+                    elif faces.remove([171930,171931,171932]):
+                        pass
+                    elif faces.remove([171929,171930,171931]):
+                        pass
+                    elif faces.remove([171916,171917,171918]):
+                        pass
+                    elif faces.remove([171917,171918,171919]):
+                        pass
+                    elif faces.remove([171919,171920,171921]):
+                        pass
+                    elif faces.remove([171904,171905,171906]):
+                        pass
+                    elif faces.remove([171903,171904,171905]):
+                        pass
+                    elif faces.remove([171910,171911,171912]):
+                        pass
+                    elif faces.remove([171909,171910,171911]):
+                        pass
+                    elif faces.remove([172087,172088,172089]):
+                        pass
+                    elif faces.remove([171936,171937,171938]):
+                        pass
+                    elif faces.remove([171935,171936,171937]):
+                        pass
+                    elif faces.remove([172062,172063,172064]):
+                        pass
+                    elif faces.remove([172061,172062,172063]):
+                        pass
+                    elif faces.remove([172068,172069,172070]):
+                        pass
+                    elif faces.remove([172067,172068,172069]):
+                        pass
+                    elif faces.remove([172075,172076,172077]):
+                        pass
+                    elif faces.remove([172088,172089,172090]):
+                        pass
+                    elif faces.remove([172074,172075,172076]):
+                        pass
+                    elif faces.remove([172302,172303,172304]):
+                        pass
+                    elif faces.remove([172084,172085,172086]):
+                        pass
+                    elif faces.remove([172085,172086,172087]):
+                        pass
+                    elif faces.remove([171920,171921,171922]):
+                        pass
+                    elif faces.remove([172081,172082,172083]):
+                        pass
+                    elif faces.remove([172280,172281,172282]):
+                        pass
+                    elif faces.remove([172279,172280,172281]):
+                        pass
+                    elif faces.remove([172106,172107,172108]):
+                        pass
+                    elif faces.remove([172105,172106,172107]):
+                        pass
+                    elif faces.remove([172099,172100,172101]):
+                        pass
+                    elif faces.remove([172100,172101,172102]):
+                        pass
+                    elif faces.remove([172112,172113,172114]):
+                        pass
+                    elif faces.remove([172111,172112,172113]):
+                        pass
+                    elif faces.remove([172303,172304,172305]):
+                        pass
+                    elif faces.remove([172299,172230,172231]):
+                        pass
+                    elif faces.remove([172391,172392,172393]):
+                        pass
+                    elif faces.remove([172390,172391,172392]):
+                        pass
+                    elif faces.remove([172397,172398,172399]):
+                        pass
+                    elif faces.remove([172396,172397,172398]):
+                        pass
+                    elif faces.remove([172403,172404,172405]):
+                        pass
+                    elif faces.remove([172402,172403,172404]):
+                        pass
+                    elif faces.remove([172414,172415,172416]):
+                        pass
+                    elif faces.remove([172415,172416,172417]):
+                        pass
+                    elif faces.remove([172433,172434,172435]):
+                        pass
+                    elif faces.remove([172427,172428,172429]):
+                        pass
+                    elif faces.remove([172426,172427,172428]):
+                        pass
+                    elif faces.remove([172432,172433,172434]):
+                        pass
+                    elif faces.remove([178725,178726,178727]):
+                        pass
+                    elif faces.remove([172316,172317,172318]):
+                        pass
+                    elif faces.remove([172315,172316,172317]):
+                        pass
+                    elif faces.remove([172309,172310,172311]):
+                        pass
+                    elif faces.remove([172310,172311,172312]):
+                        pass
+                    elif faces.remove([172322,172323,172324]):
+                        pass
+                    elif faces.remove([172321,172322,172323]):
+                        pass
+                    elif faces.remove([172328,172329,172330]):
+                        pass
+                    elif faces.remove([172329,172330,172331]):
+                        pass
+                    elif faces.remove([172337,172338,172339]):
+                        pass
+                    elif faces.remove([172129,172130,172131]):
+                        pass
+                    elif faces.remove([172130,172131,172132]):
+                        pass
+                    elif faces.remove([172339,172340,172341]):
+                        pass
+                    elif faces.remove([172420,172421,172422]):
+                        pass
+                    elif faces.remove([172346,172347,172348]):
+                        pass
+                    elif faces.remove([172336,172337,172338]):
+                        pass
+                    elif faces.remove([118021,118022,118023]):
+                        pass
+                    elif faces.remove([193950,193951,193952]):
+                        pass
+                    elif faces.remove([193937,193938,193939]):
+                        pass
+                    elif faces.remove([193953,193954,193955]):
+                        pass
+                    elif faces.remove([193973,193974,193975]):
+                        pass
+                    elif faces.remove([193970,193971,193972]):
+                        pass
+                    elif faces.remove([193971,193972,193973]):
+                        pass
+                    elif faces.remove([193954,193955,193956]):
+                        pass
+                    elif faces.remove([193974,193975,193976]):
+                        pass
+                    elif faces.remove([117880,117881,117882]):
+                        pass
+                    elif faces.remove([117874,117875,117876]):
+                        pass
+                    elif faces.remove([117875,117876,117877]):
+                        pass
+                    elif faces.remove([117881,117882,117883]):
+                        pass
+                    elif faces.remove([193955,193956,193957]):
+                        pass
+                    elif faces.remove([193952,193953,193954]):
+                        pass
+                    elif faces.remove([193948,193949,193950]):
+                        pass
+                    elif faces.remove([117247,117248,117249]):
+                        pass
+                    elif faces.remove([117248,117249,117250]):
+                        pass
+                    elif faces.remove([117233,117234,117235]):
+                        pass
+                    elif faces.remove([117234,117235,117236]):
+                        pass
+                    elif faces.remove([178761,178762,178763]):
+                        pass
+                    elif faces.remove([178760,178761,178762]):
+                        pass
+                    elif faces.remove([117177,117178,117179]):
+                        pass
+                    elif faces.remove([117176,117177,117178]):
+                        pass
+                    elif faces.remove([117164,117165,117166]):
+                        pass
+                    elif faces.remove([117165,117166,117167]):
+                        pass
+                    elif faces.remove([178837,178838,178839]):
+                        pass
+                    elif faces.remove([178860,178861,178862]):
+                        pass
+                    elif faces.remove([178838,178839,178840]):
+                        pass
+                    elif faces.remove([117779,117780,117781]):
+                        pass
+                    elif faces.remove([117144,117145,117146]):
+                        pass
+                    elif faces.remove([117145,117146,117147]):
+                        pass
+                    elif faces.remove([117153,117154,117155]):
+                        pass
+                    elif faces.remove([117152,117153,117154]):
+                        pass
+                    elif faces.remove([117471,117472,117473]):
+                        pass
+                    elif faces.remove([117436,117437,117438]):
+                        pass
+                    elif faces.remove([117470,117471,117472]):
+                        pass
+                    elif faces.remove([117482,117483,117484]):
+                        pass
+                    elif faces.remove([117497,117498,117499]):
+                        pass
+                    elif faces.remove([117496,117497,117498]):
+                        pass
+                    elif faces.remove([117435,117436,117437]):
+                        pass
+                    elif faces.remove([117464,117465,117466]):
+                        pass
+                    elif faces.remove([117483,117484,117485]):
+                        pass
+                    elif faces.remove([117465,117466,117467]):
+                        pass
+                    elif faces.remove([117455,117456,117457]):
+                        pass
+                    elif faces.remove([117456,117457,117458]):
+                        pass
+                    elif faces.remove([117450,117451,117452]):
+                        pass
+                    elif faces.remove([117540,117541,117542]):
+                        pass
+                    elif faces.remove([117541,117542,117543]):
+                        pass
+                    elif faces.remove([117424,117425,117426]):
+                        pass
+                    elif faces.remove([117423,117424,117425]):
+                        pass
+                    elif faces.remove([117112,117113,117114]):
+                        pass
+                    elif faces.remove([178708,178709,178710]):
+                        pass
+                    elif faces.remove([171156,171157,171158]):
+                        pass
+                    elif faces.remove([171157,171158,171159]):
+                        pass
+                    elif faces.remove([171202,171203,171204]):
+                        pass
+                    elif faces.remove([171209,171210,171211]):
+                        pass
+                    elif faces.remove([171208,171209,171210]):
+                        pass
+                    elif faces.remove([171136,171137,171138]):
+                        pass
+                    elif faces.remove([171143,171144,171145]):
+                        pass
+                    elif faces.remove([171140,171141,171142]):
+                        pass
+                    elif faces.remove([171197,171198,171199]):
+                        pass
+                    elif faces.remove([171120,171121,171122]):
+                        pass
+                    elif faces.remove([171221,171222,171223]):
+                        pass
+                    elif faces.remove([171096,171097,171098]):
+                        pass
+                    elif faces.remove([171097,171098,171099]):
+                        pass
+                    elif faces.remove([171128,171129,171130]):
+                        pass
+                    elif faces.remove([171203,171204,171205]):
+                        pass
+                    elif faces.remove([171161,171162,171163]):
+                        pass
+                    elif faces.remove([171160,171161,171162]):
+                        pass
+                    elif faces.remove([171220,171221,171222]):
+                        pass
+                    elif faces.remove([171144,171145,171146]):
+                        pass
+                    elif faces.remove([171088,171089,171090]):
+                        pass
+                    elif faces.remove([172811,172812,172813]):
+                        pass
+                    elif faces.remove([172812,172813,172814]):
+                        pass
+                    elif faces.remove([171200,171201,171202]):
+                        pass
+                    elif faces.remove([172901,172902,172903]):
+                        pass
+                    elif faces.remove([172819,172820,172821]):
+                        pass
+                    elif faces.remove([172859,172860,172861]):
+                        pass
+                    elif faces.remove([172887,172888,172889]):
+                        pass
+                    elif faces.remove([172888,172889,172890]):
+                        pass
+                    elif faces.remove([172860,172861,172862]):
+                        pass
+                    elif faces.remove([172900,172901,172902]):
+                        pass
+                    elif faces.remove([172800,172801,172802]):
+                        pass
+                    elif faces.remove([172799,172800,172801]):
+                        pass
+                    elif faces.remove([172806,172807,172808]):
+                        pass
+                    elif faces.remove([171333,171334,171335]):
+                        pass
+                    elif faces.remove([171292,171293,171294]):
+                        pass
+                    elif faces.remove([171293,171294,171295]):
+                        pass
+                    elif faces.remove([171331,171332,171333]):
+                        pass
+                    elif faces.remove([172913,172914,172915]):
+                        pass
+                    elif faces.remove([171135,171136,171137]):
+                        pass
+                    elif faces.remove([172805,172806,172807]):
+                        pass
+                    elif faces.remove([172793,172794,172795]):
+                        pass
+                    elif faces.remove([172794,172795,172796]):
+                        pass
+                    elif faces.remove([172925,172926,172927]):
+                        pass
+                    elif faces.remove([172756,172757,172758]):
                         pass
                     
             elif Chunk == b"SST0":
