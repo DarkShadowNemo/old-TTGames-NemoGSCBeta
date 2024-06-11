@@ -35,6 +35,7 @@ def wholeChunk1_none(f, filepath):
     uvs=[]
     vcolors=[]
     faces=[]
+    values=[]
     f.seek(0)
     fa = -1
     fb = 0
@@ -47,33 +48,200 @@ def wholeChunk1_none(f, filepath):
             vertexCount = unpack("B", f.read(1))[0]
             flag2 = unpack("B", f.read(1))[0]
             if flag2 == 0x6C:
-                for j in range(vertexCount):
-                    vx = unpack("<f", f.read(4))[0]
-                    vy = unpack("<f", f.read(4))[0]
-                    vz = unpack("<f", f.read(4))[0]
-                    type4 = unpack("B", f.read(1))[0]==False
-                    value1a = unpack("B", f.read(1))[0]
-                    normalZ_ = unpack("<h", f.read(2))[0]
-                    nz1 = vz
-                    ny1 = vy
-                    nx1 = vx
-                    nzz1 = normalZ_
-                    nyy1 = normalZ_
-                    nxx1 = normalZ_
-                    nz1*=normalZ_
-                    ny1*=normalZ_
-                    nx1*=normalZ_
-                    normalx = pack("<d", nx1)[0]
-                    normaly = pack("<d", ny1)[0]
-                    normalz = pack("<d", nz1)[0]
-                    normals.append([nx1,ny1,nz1])
-                    vertices.append([vx,vz,vy])
-                    fa+=1
-                    fb+=1
-                    fc+=1
-                    valueIndex+=1
-                    if type4 > 0:
-                        faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+                if vertexCount == 3:
+                    
+                    for j in range(vertexCount):
+                        vx = unpack("<f", f.read(4))[0]
+                        vy = unpack("<f", f.read(4))[0]
+                        vz = unpack("<f", f.read(4))[0]
+                        type4 = unpack("B", f.read(1))[0]==False
+                        value1a = unpack("B", f.read(1))[0]
+                        normalZ_ = unpack("<h", f.read(2))[0]
+                        
+                        nz1 = vz
+                        ny1 = vy
+                        nx1 = vx
+                        nzz1 = normalZ_
+                        nyy1 = normalZ_
+                        nxx1 = normalZ_
+                        nz1*=normalZ_
+                        ny1*=normalZ_
+                        nx1*=normalZ_
+                        normalx = pack("<d", nx1)[0]
+                        normaly = pack("<d", ny1)[0]
+                        normalz = pack("<d", nz1)[0]
+                        normals.append([nx1,ny1,nz1])
+                        fa+=1
+                        fb+=1
+                        fc+=1
+
+                        if type4 > 0:
+                            faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+
+                    for i in range(vertexCount):
+                        f.seek(-16,1)
+
+                    for jj in range(1):
+                        vx1 = unpack("<f", f.read(4))[0]
+                        vy1 = unpack("<f", f.read(4))[0]
+                        vz1 = unpack("<f", f.read(4))[0]
+                        type1 = unpack("B", f.read(1))[0]
+                        value1a1 = unpack("B", f.read(1))[0]
+                        normalZ_1 = unpack("<h", f.read(2))[0]
+                        vx2 = unpack("<f", f.read(4))[0]
+                        vy2 = unpack("<f", f.read(4))[0]
+                        vz2 = unpack("<f", f.read(4))[0]
+                        type2 = unpack("B", f.read(1))[0]
+                        value1a2 = unpack("B", f.read(1))[0]
+                        normalZ_2 = unpack("<h", f.read(2))[0]
+                        vx3 = unpack("<f", f.read(4))[0]
+                        vy3 = unpack("<f", f.read(4))[0]
+                        vz3 = unpack("<f", f.read(4))[0]
+                        type3 = unpack("B", f.read(1))[0]
+                        value1a3 = unpack("B", f.read(1))[0]
+                        normalZ_3 = unpack("<h", f.read(2))[0]
+                        vertices.append([vx1,vz1,vy1])
+                        vertices.append([vx2,vz2,vy2])
+                        vertices.append([vx3,vz3,vy3])
+
+                elif vertexCount == 4:
+                    
+                    for j in range(vertexCount):
+                        vx = unpack("<f", f.read(4))[0]
+                        vy = unpack("<f", f.read(4))[0]
+                        vz = unpack("<f", f.read(4))[0]
+                        type4 = unpack("B", f.read(1))[0]==False
+                        value1a = unpack("B", f.read(1))[0]
+                        normalZ_ = unpack("<h", f.read(2))[0]
+                        
+                        nz1 = vz
+                        ny1 = vy
+                        nx1 = vx
+                        nzz1 = normalZ_
+                        nyy1 = normalZ_
+                        nxx1 = normalZ_
+                        nz1*=normalZ_
+                        ny1*=normalZ_
+                        nx1*=normalZ_
+                        normalx = pack("<d", nx1)[0]
+                        normaly = pack("<d", ny1)[0]
+                        normalz = pack("<d", nz1)[0]
+                        normals.append([nx1,ny1,nz1])
+                        fa+=1
+                        fb+=1
+                        fc+=1
+
+                        if type4 > 0:
+                            faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+
+                    for i in range(vertexCount):
+                        f.seek(-16,1)
+
+                    for jj in range(1):
+                        vx5 = unpack("<f", f.read(4))[0]
+                        vy5 = unpack("<f", f.read(4))[0]
+                        vz5 = unpack("<f", f.read(4))[0]
+                        type5 = unpack("B", f.read(1))[0]
+                        value1a1 = unpack("B", f.read(1))[0]
+                        normalZ_1 = unpack("<h", f.read(2))[0]
+                        vx6 = unpack("<f", f.read(4))[0]
+                        vy6 = unpack("<f", f.read(4))[0]
+                        vz6 = unpack("<f", f.read(4))[0]
+                        type6 = unpack("B", f.read(1))[0]
+                        value1a2 = unpack("B", f.read(1))[0]
+                        normalZ_2 = unpack("<h", f.read(2))[0]
+                        vx7 = unpack("<f", f.read(4))[0]
+                        vy7 = unpack("<f", f.read(4))[0]
+                        vz7 = unpack("<f", f.read(4))[0]
+                        type7 = unpack("B", f.read(1))[0]
+                        value1a3 = unpack("B", f.read(1))[0]
+                        normalZ_3 = unpack("<h", f.read(2))[0]
+                        vx8 = unpack("<f", f.read(4))[0]
+                        vy8 = unpack("<f", f.read(4))[0]
+                        vz8 = unpack("<f", f.read(4))[0]
+                        type8 = unpack("B", f.read(1))[0]
+                        value1a4 = unpack("B", f.read(1))[0]
+                        normalZ_4 = unpack("<h", f.read(2))[0]
+                        vertices.append([vx5,vz5,vy5])
+                        vertices.append([vx6,vz6,vy6])
+                        vertices.append([vx7,vz7,vy7])
+                        vertices.append([vx8,vz8,vy8])
+                            
+
+                elif vertexCount == 5:
+                    for j in range(vertexCount):
+                        vx = unpack("<f", f.read(4))[0]
+                        vy = unpack("<f", f.read(4))[0]
+                        vz = unpack("<f", f.read(4))[0]
+                        type4 = unpack("B", f.read(1))[0]==False
+                        value1a = unpack("B", f.read(1))[0]
+                        normalZ_ = unpack("<h", f.read(2))[0]
+                        
+                        nz1 = vz
+                        ny1 = vy
+                        nx1 = vx
+                        nzz1 = normalZ_
+                        nyy1 = normalZ_
+                        nxx1 = normalZ_
+                        nz1*=normalZ_
+                        ny1*=normalZ_
+                        nx1*=normalZ_
+                        normalx = pack("<d", nx1)[0]
+                        normaly = pack("<d", ny1)[0]
+                        normalz = pack("<d", nz1)[0]
+                        normals.append([nx1,ny1,nz1])
+                        fa+=1
+                        fb+=1
+                        fc+=1
+
+                        if type4 > 0:
+                            faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+
+                    for i in range(vertexCount):
+                        f.seek(-16,1)
+
+                    for jjj in range(1):
+                        vx9 = unpack("<f", f.read(4))[0]
+                        vy9 = unpack("<f", f.read(4))[0]
+                        vz9 = unpack("<f", f.read(4))[0]
+                        type9 = unpack("B", f.read(1))[0]
+                        value1a1 = unpack("B", f.read(1))[0]
+                        normalZ_1 = unpack("<h", f.read(2))[0]
+                        vx10 = unpack("<f", f.read(4))[0]
+                        vy10 = unpack("<f", f.read(4))[0]
+                        vz10 = unpack("<f", f.read(4))[0]
+                        type10 = unpack("B", f.read(1))[0]
+                        value1a2 = unpack("B", f.read(1))[0]
+                        normalZ_2 = unpack("<h", f.read(2))[0]
+                        vx11 = unpack("<f", f.read(4))[0]
+                        vy11 = unpack("<f", f.read(4))[0]
+                        vz11 = unpack("<f", f.read(4))[0]
+                        type11 = unpack("B", f.read(1))[0]
+                        value1a3 = unpack("B", f.read(1))[0]
+                        normalZ_3 = unpack("<h", f.read(2))[0]
+                        vx12 = unpack("<f", f.read(4))[0]
+                        vy12 = unpack("<f", f.read(4))[0]
+                        vz12 = unpack("<f", f.read(4))[0]
+                        type12 = unpack("B", f.read(1))[0]
+                        value1a4 = unpack("B", f.read(1))[0]
+                        normalZ_4 = unpack("<h", f.read(2))[0]
+                        vx13 = unpack("<f", f.read(4))[0]
+                        vy13 = unpack("<f", f.read(4))[0]
+                        vz13 = unpack("<f", f.read(4))[0]
+                        type13 = unpack("B", f.read(1))[0]
+                        value1a4 = unpack("B", f.read(1))[0]
+                        normalZ_4 = unpack("<h", f.read(2))[0]
+                        vertices.append([vx9,vz9,vy9])
+                        vertices.append([vx10,vz10,vy10])
+                        vertices.append([vx11,vz11,vy11])
+                        vertices.append([vx12,vz12,vy12])
+                        vertices.append([vx13,vz13,vy13])
+                        if type9 == 250:
+                            if type10 == 101:
+                                if type11 == 0:
+                                    if type12 == 1:
+                                        if type13 == 66:
+                                            faces.remove([44,45,46])
                             
                                         
                             
