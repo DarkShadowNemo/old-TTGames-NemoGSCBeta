@@ -5,7 +5,13 @@ import bmesh
 import math
 from io import BytesIO as bio
 
-texture_pixels = []
+from .importGSCLib.nu_gsc_props.spline.splineset import *
+from .importGSCLib.nu_gsc_props.instance.inst_primary import *
+from .importGSCLib.nu_gsc_props.instance.inst_secondary import *
+from .importGSCLib.nu_gsc_props.bounding.boundingset import *
+from .importGSCLib.nu_gsc_props.animationL.AnimationLibrary import *
+#from .importGSCLib.nu_combination_mesh.combinations.primary import *
+    
 
 def truncate_cstr(s: bytes) -> bytes:
     index = s.find(0)
@@ -19,11 +25,458 @@ def fetch_cstr(f: 'filelike') -> bytearray:
         build += strbyte
     return build
 
-def one_pallete_memory(f, TEX_OFFSET=0):
+def gsc_texture_utility(f, filepath):
     pass
+            
 
-def get_3rdobjects_with_uvs_and_rgba(f, vertexCount=0, seek_=0, vertices=[], faces=[], normals=[], fa=-1, fb=0, fc=1, uvs=[], rgba=[], chunks=0, paddingWhere=0):
+def wholeChunk1_none(f, filepath):
+    vertices=[]
+    normals=[]
+    uvs=[]
+    vcolors=[]
+    faces=[]
     f.seek(0)
+    fa = -1
+    fb = 0
+    fc = 1
+    while 1:
+        Chunk = f.read(4)
+        if Chunk == b"\x03\x01\x00\x01":
+            unknown__ = unpack("B", f.read(1))[0]
+            value1 = unpack("B", f.read(1))[0]
+            vertexCount = unpack("B", f.read(1))[0]
+            flag2 = unpack("B", f.read(1))[0]
+            if flag2 == 0x6C:
+                for j in range(vertexCount):
+                    vx = unpack("<f", f.read(4))[0]
+                    vy = unpack("<f", f.read(4))[0]
+                    vz = unpack("<f", f.read(4))[0]
+                    type4 = unpack("B", f.read(1))[0]==False
+                    value1a = unpack("B", f.read(1))[0]
+                    normalZ_ = unpack("<h", f.read(2))[0]
+                    nz1 = vz
+                    ny1 = vy
+                    nx1 = vx
+                    nzz1 = normalZ_
+                    nyy1 = normalZ_
+                    nxx1 = normalZ_
+                    nz1*=normalZ_
+                    ny1*=normalZ_
+                    nx1*=normalZ_
+                    normalx = pack("<d", nx1)[0]
+                    normaly = pack("<d", ny1)[0]
+                    normalz = pack("<d", nz1)[0]
+                    normals.append([nx1,ny1,nz1])
+                    vertices.append([vx,vz,vy])
+                    fa+=1
+                    fb+=1
+                    fc+=1
+                    valueIndex+=1
+                    if type4 > 0:
+                        faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+                            
+                                        
+                            
+        elif Chunk == b"SST0":
+            break
+
+    collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
+    bpy.context.scene.collection.children.link(collection)
+
+    mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh.from_pydata(vertices, [], faces)
+    objs = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
+    collection.objects.link(objs)
+
+    bpy.context.view_layer.objects.active = objs
+
+    bpy.ops.object.select_all(action='SELECT')
+    bpy.ops.object.shade_smooth()
+    bpy.ops.object.editmode_toggle()
+    bpy.ops.mesh.remove_doubles()
+    bpy.ops.mesh.normals_make_consistent(inside=False)
+    bpy.ops.object.editmode_toggle()
+
+    NU_MIX_MODE = 'ShaderNodeMixRGB'
+    NU_RGBA_VERT = 'ShaderNodeVertexColor'
+    mats = bpy.data.materials.new(os.path.basename(os.path.splitext(filepath)[0]))
+    objs.data.materials.append(mats)
+
+    previous_mix = None
+    previous_rgba = None
+
+    BSDF = "Principled BSDF"
+
+    for i, mat in enumerate(bpy.data.materials):
+        mat.use_nodes = True
+        mat.blend_method = "HASHED"
+
+    try:
+        
+
+        vindex = 0
+
+        for vertex in mesh.vertices:
+            vertex.normal = normals[vindex] # where "normals" is a list of normals
+            vindex += 1
+    except:
+        AttributeError
+
+def get_objects_with_uvs_rgba_all(f, filepath):
+    f.seek(0)
+    vertices=[]
+    faces=[]
+    fa=-1
+    fb=0
+    fc=1
+    uvs=[]
+    rgba=[]
+    allOBJread = f.read()
+    readallobjfirst = allOBJread.find(b"\x03\x01\x00\x01")
+    if allOBJread != 0:
+        f.seek(readallobjfirst,0)
+        f.seek(4,1)
+        offset1 = unpack("B", f.read(1))[0]
+        if offset1 == int(1):
+            f.seek(4,1)
+            value1 = unpack("B", f.read(1))[0]
+            stripcount = unpack("B", f.read(1))[0]
+            flag__s = unpack("B", f.read(1))[0]
+            if flag__s == 0x6D:
+                for j in range(stripcount):
+                    vx = unpack("<h", f.read(2))[0]/4096
+                    vy = unpack("<h", f.read(2))[0]/4096
+                    vz = unpack("<h", f.read(2))[0]/4096
+                    type4 = unpack("B", f.read(1))[0]==False
+                    value1 = unpack("B", f.read(1))[0]
+                    vertices.append([vx,vz,vy])
+                    fa+=1
+                    fb+=1
+                    fc+=1
+                    if type4 > 0:
+                        faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+                type5 = unpack("B", f.read(1))[0]
+                if type5 == int(4):
+                    value1 = unpack("B", f.read(1))[0]
+                    uvcount = unpack("B", f.read(1))[0]
+                    flagUV = unpack("B", f.read(1))[0]
+                    if flagUV == 0x65:
+                        for i in range(uvcount):
+                            uvx = unpack("<h", f.read(2))[0]/4096
+                            uvy = unpack("<h", f.read(2))[0]/4096
+                            uvs.append([+uvx,-uvy])
+                    elif flagUV == 0x6D:
+                        for i in range(uvcount):
+                            uvx = unpack("<h", f.read(2))[0]/4096
+                            uvy = unpack("<h", f.read(2))[0]/4096
+                            f.seek(4,1)
+                            uvs.append([+uvx,-uvy])
+                elif type5 == int(5):
+                    value1 = unpack("B", f.read(1))[0]
+                    vertexcolor = unpack("B", f.read(1))[0]
+                    vc_Flags = unpack("B", f.read(1))[0]
+                    if vc_Flags == 0x6E:
+                        for i in range(vertexcolor):
+                            r = unpack("B", f.read(1))[0]/127
+                            g = unpack("B", f.read(1))[0]/127
+                            b = unpack("B", f.read(1))[0]/127
+                            a = unpack("B", f.read(1))[0]/127
+                            rgba.append([r,g,b,a])
+                    elif vc_Flags == 0x70:
+                        for i in range(vertexcolor):
+                            d = f.read(3)
+                            rgb = unpack("<I", d + b"\x00")[0] / 16777215
+                            
+
+                            rgba.append([rgb,rgb,rgb,1])
+
+                            
+                elif type5 == int(0):
+                    f.seek(3,1)
+                    type_a = unpack("B", f.read(1))[0]
+                    if type_a == int(4):
+                        
+                        value1 = unpack("B", f.read(1))[0]
+                        uvcount = unpack("B", f.read(1))[0]
+                        uvsflags = unpack("B", f.read(1))[0]
+                        if uvsflags == 0x65:
+                            for i in range(uvcount):
+                                uvx = unpack("<h", f.read(2))[0]/4096
+                                uvy = unpack("<h", f.read(2))[0]/4096
+                                uvs.append([+uvx,-uvy])
+                        elif uvflags == 0x6D:
+                            for i in range(uvcount):
+                                uvx = unpack("<h", f.read(2))[0]/4096
+                                uvy = unpack("<h", f.read(2))[0]/4096
+                                f.seek(4,1)
+                                uvs.append([+uvx,-uvy])
+
+                elif type5 == int(1):
+                    f.seek(3,1)
+                    type_b = unpack("B", f.read(1))[0]
+                    if type_b == int(4):
+                        value1 = unpack("B", f.read(1))[0]
+                        uvcount = unpack("B", f.read(1))[0]
+                        uvsflags = unpack("B", f.read(1))[0]
+                        if uvsflags == 0x65:
+                            for i in range(uvcount):
+                                uvx = unpack("<h", f.read(2))[0]/4096
+                                uvy = unpack("<h", f.read(2))[0]/4096
+                                uvs.append([+uvx,-uvy])
+                        elif uvflags == 0x6D:
+                            for i in range(uvcount):
+                                uvx = unpack("<h", f.read(2))[0]/4096
+                                uvy = unpack("<h", f.read(2))[0]/4096
+                                f.seek(4,1)
+                                uvs.append([+uvx,-uvy])
+        elif offset1 == int(3):
+            value1 = unpack("B", f.read(1))[0]
+            stripcount = unpack("B", f.read(1))[0]
+            flag_Ss = unpack("B", f.read(1))[0]
+            if flag_Ss == 0x6C:
+                for j in range(stripcount):
+                    vx = unpack("<f", f.read(4))[0]
+                    vy = unpack("<f", f.read(4))[0]
+                    vz = unpack("<f", f.read(4))[0]
+                    type4 = unpack("B", f.read(1))[0]==False
+                    value1 = unpack("B", f.read(1))[0]
+                    f.seek(2,1)
+                    vertices.append([vx,vz,vy])
+                    fa+=1
+                    fb+=1
+                    fc+=1
+                    if type4 > 0:
+                        faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+                type5a = unpack("B", f.read(1))[0]
+                if type5a == int(4):
+                    value1 = unpack("B", f.read(1))[0]
+                    uvcount = unpack("B", f.read(1))[0]
+                    flagUV = unpack("B", f.read(1))[0]
+                    if flagUV == 0x65:
+                        for i in range(uvcount):
+                            uvx = unpack("<h", f.read(2))[0]/4096
+                            uvy = unpack("<h", f.read(2))[0]/4096
+                            uvs.append([+uvx,-uvy])
+                    elif flagUV == 0x6D:
+                        for i in range(uvcount):
+                            uvx = unpack("<h", f.read(2))[0]/4096
+                            uvy = unpack("<h", f.read(2))[0]/4096
+                            f.seek(4,1)
+                            uvs.append([+uvx,-uvy])
+
+
+                elif type5a == int(5):
+                    value1 = unpack("B", f.read(1))[0]
+                    vertexcolor = unpack("B", f.read(1))[0]
+                    vc_Flags = unpack("B", f.read(1))[0]
+                    if vc_Flags == 0x6E:
+                        for i in range(vertexcolor):
+                            r = unpack("B", f.read(1))[0]/127
+                            g = unpack("B", f.read(1))[0]/127
+                            b = unpack("B", f.read(1))[0]/127
+                            a = unpack("B", f.read(1))[0]/127
+                            rgba.append([r,g,b,a])
+                    elif vc_Flags == 0x70:
+                        for i in range(vertexcolor):
+                            r = int(abs(unpack("B", f.read(1))[0]))
+                            g = int(abs(unpack("B", f.read(1))[0]))
+                            b = int(abs(unpack("B", f.read(1))[0]))
+                            a = int(abs(unpack("B", f.read(1))[0]))
+
+                            new_r = r
+                            new_g = g
+                            new_b = b
+                            new_a = a
+
+                            new_r*int(255/255/255)
+                            new_g*int(255/255/255)
+                            new_b*int(255/255/255)
+                            new_a!=False
+                            rgba.append([new_r,new_g,new_b,new_a])
+                    
+
+def get_5thobjects_with_uvs_and_rgba(f, filepath):
+    f.seek(0)
+    vertices=[]
+    faces=[]
+    normals=[]
+    fa=-1
+    fb=0
+    fc=1
+    uvs=[]
+    rgba=[]
+    firstOBJread = f.read()
+    readobjfirst = firstOBJread.find(b"\x03\x01\x00\x01\x01\x00\x00\x05\x03\x80")
+    if firstOBJread != 0:
+        f.seek(readobjfirst,0)
+        f.seek(10,1)
+        vertexCount = unpack("B", f.read(1))[0]
+        flags = unpack("B", f.read(1))[0]
+        if flags == 0x6D:
+            
+            for j in range(vertexCount):
+                vx = unpack("<h", f.read(2))[0] / 4096
+                vy = unpack("<h", f.read(2))[0] / 4096
+                vz = unpack("<h", f.read(2))[0] / 4096
+                type4 = unpack("B", f.read(1))[0]==False
+                value1 = unpack("B", f.read(1))[0]
+                vertices.append([vx,vz,vy])
+                fa+=1
+                fb+=1
+                fc+=1
+                if type4 > 0:
+                    faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+            f.seek(6,1)
+            uvcount = unpack("B", f.read(1))[0]
+            flags = unpack("B", f.read(1))[0]
+            if flags == 0x65:
+                for i in range(uvcount):
+                    uvx = unpack("<h", f.read(2))[0] / 4096
+                    uvy = unpack("<h", f.read(2))[0] / 4096
+                    uvs.append([+uvx,-uvy])
+                f.seek(2,1)
+                rgbacount = unpack("B", f.read(1))[0]
+                flags = unpack("B", f.read(1))[0]
+                if flags == 0x6E:
+                    for c in range(rgbacount):
+                        r = unpack("B", f.read(1))[0] / 127.0
+                        g = unpack("B", f.read(1))[0] / 127.0
+                        b = unpack("B", f.read(1))[0] / 127.0
+                        a = unpack("B", f.read(1))[0] / 127.0
+                        rgba.append([r,g,b,a])
+
+        collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
+        bpy.context.scene.collection.children.link(collection)
+        mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+        mesh.from_pydata(vertices, [], faces)
+        object = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
+        collection.objects.link(object)
+            
+        for fac in mesh.polygons:
+            fac.use_smooth = True
+
+        uv_tex = mesh.uv_layers.new()
+        uv_layer = mesh.uv_layers[0].data
+        vert_loops = {}
+        for l in mesh.loops:
+            vert_loops.setdefault(l.vertex_index, []).append(l.index)
+        for i, coord in enumerate(uvs):
+            for li in vert_loops[i]:
+                uv_layer[li].uv = coord
+
+        obj = bpy.data.objects[os.path.basename(os.path.splitext(filepath)[0])]
+        bpy.context.view_layer.objects.active = obj
+
+        colname = "GSC_VERTEXCOLORS"
+
+        colattr = obj.data.color_attributes.new(
+            name=colname,
+            type='FLOAT_COLOR',
+            domain='POINT',
+        )
+
+        for v_index in range(len(obj.data.vertices)):
+            colattr.data[v_index].color = rgba[v_index]
+
+def get_4thobjects_with_uvs_and_rgba(f, filepath):
+    f.seek(0)
+    vertices=[]
+    faces=[]
+    normals=[]
+    fa=-1
+    fb=0
+    fc=1
+    uvs=[]
+    rgba=[]
+    firstOBJread = f.read()
+    readobjfirst = firstOBJread.find(b"\x03\x01\x00\x01\x03\x80")
+    if firstOBJread != 0:
+        f.seek(readobjfirst,0)
+        f.seek(6,1)
+        vertexCount = unpack("B", f.read(1))[0]
+        f.seek(1,1)
+        for j in range(vertexCount):
+            vx = unpack("<f", f.read(4))[0]
+            vy = unpack("<f", f.read(4))[0]
+            vz = unpack("<f", f.read(4))[0]
+            type4 = unpack("B", f.read(1))[0]==False
+            value1 = unpack("B", f.read(1))[0]
+            f.seek(2,1)
+            vertices.append([vx,vz,vy])
+            fa+=1
+            fb+=1
+            fc+=1
+            if type4 > 0:
+                faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+                
+        f.seek(1,1)
+        value1 = unpack("B", f.read(1))[0]
+        uvcount = unpack("B", f.read(1))[0]
+        flags = unpack("B", f.read(1))[0]
+        if flags == 0x6D:
+            
+            for i in range(uvcount):
+                ux = unpack("<h", f.read(2))[0] / 4096.0
+                uy = unpack("<h", f.read(2))[0] / 4096.0
+                f.seek(4,1)
+                uvs.append([+ux,-uy])
+            f.seek(2, 1)
+            rgbacount = unpack("B", f.read(1))[0]
+            flags_ = unpack("B", f.read(1))[0]
+            if flags_ == 0x6E:
+                
+                for c in range(rgbacount):
+                    r = unpack("B", f.read(1))[0] / 127.0
+                    g = unpack("B", f.read(1))[0] / 127.0
+                    b = unpack("B", f.read(1))[0] / 127.0
+                    a = unpack("B", f.read(1))[0] / 127.0
+                    rgba.append([r,g,b,a])
+
+        collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
+        bpy.context.scene.collection.children.link(collection)
+        mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+        mesh.from_pydata(vertices, [], faces)
+        obj = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
+        collection.objects.link(obj)
+            
+        for fac in mesh.polygons:
+            fac.use_smooth = True
+
+        uv_tex = mesh.uv_layers.new()
+        uv_layer = mesh.uv_layers[0].data
+        vert_loops = {}
+        for l in mesh.loops:
+            vert_loops.setdefault(l.vertex_index, []).append(l.index)
+        for i, coord in enumerate(uvs):
+            for li in vert_loops[i]:
+                uv_layer[li].uv = coord
+
+        obj = bpy.data.objects[os.path.basename(os.path.splitext(filepath)[0])]
+        bpy.context.view_layer.objects.active = obj
+
+        colname = "GSC_VERTEXCOLORS"
+
+        colattr = obj.data.color_attributes.new(
+            name=colname,
+            type='FLOAT_COLOR',
+            domain='POINT',
+        )
+
+        for v_index in range(len(obj.data.vertices)):
+            colattr.data[v_index].color = rgba[v_index]
+
+def get_3rdobjects_with_uvs_and_rgba(f, filepath):
+    f.seek(0)
+    vertices=[]
+    faces=[]
+    normals=[]
+    fa=-1
+    fb=0
+    fc=1
+    uvs=[]
+    rgba=[]
+    chunks=0
+    paddingwhere=0
     firstOBJread = f.read()
     readobjfirst = firstOBJread.find(b"\x03\x01\x00\x01\x03\x80")
     if firstOBJread != 0:
@@ -36,22 +489,19 @@ def get_3rdobjects_with_uvs_and_rgba(f, vertexCount=0, seek_=0, vertices=[], fac
             vx = unpack("<f", f.read(4))[0]
             vy = unpack("<f", f.read(4))[0]
             vz = unpack("<f", f.read(4))[0]
-            nz = unpack("<f", f.read(4))[0]
-            vertices.append([vx,vy,vz])
-            normals.append([nz,nz,nz])
+            vw = unpack("<f", f.read(4))[0]
+            vertices.append([vx,vz,vy])
+            normals.append([0,0,1])
         for i in range(vertexCount-2):
-            #faces = ([i+i%2],[i-i%2+1],[i+2])
-            fa += 1
-            fb += 1
-            fc += 1
-            faces.append([fa,fb,fc])
+            faces.append([i-i%2+1,i+i%2,i+2])
+            faces.append([i+i%2,i-i%2+1,i+2])
         f.seek(2, 1)
         uvcount = unpack("b", f.read(1))[0]
         f.seek(1,1)
         for i in range(uvcount):
             ux = unpack("<h", f.read(2))[0] / 4096.0
             uy = unpack("<h", f.read(2))[0] / 4096.0
-            uvs.append([ux,uy])
+            uvs.append([+ux,-uy])
         f.seek(2, 1)
         rgbacount = unpack("b", f.read(1))[0]
         f.seek(1,1)
@@ -62,14 +512,12 @@ def get_3rdobjects_with_uvs_and_rgba(f, vertexCount=0, seek_=0, vertices=[], fac
             a = unpack("B", f.read(1))[0] / 127.0
             rgba.append([r,g,b,a])
 
-        BSDF = "Principled BSDF"
-        meshID = len(bpy.data.objects) 
-        mesh = bpy.data.meshes.new("dragonjan")
+        collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
+        bpy.context.scene.collection.children.link(collection)
+        mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
         mesh.from_pydata(vertices, [], faces)
-        object = bpy.data.objects.new("dragonjan", mesh)
-        bpy.context.collection.objects.link(object)
-        bpy.data.materials.new(name="dragonjan_materials")
-        mesh.vertex_colors.new()
+        object = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
+        collection.objects.link(object)
             
         for fac in mesh.polygons:
             fac.use_smooth = True
@@ -83,13 +531,32 @@ def get_3rdobjects_with_uvs_and_rgba(f, vertexCount=0, seek_=0, vertices=[], fac
             for li in vert_loops[i]:
                 uv_layer[li].uv = coord
 
-        index=0
-        for vcol in mesh.vertex_colors[0].data:
-            vcol.color = rgba[i]
-            index+=i
+        obj = bpy.data.objects[os.path.basename(os.path.splitext(filepath)[0])]
+        bpy.context.view_layer.objects.active = obj
 
-def get_2ndobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], normals=[], uvs=[], rgba=[], chunks=0, paddingWhere=0):
+        colname = "GSC_VERTEXCOLORS"
+
+        colattr = obj.data.color_attributes.new(
+            name=colname,
+            type='FLOAT_COLOR',
+            domain='POINT',
+        )
+
+        for v_index in range(len(obj.data.vertices)):
+            colattr.data[v_index].color = rgba[v_index]
+
+def get_2ndobjects_with_uvs_and_rgba(f, filepath):
     f.seek(0)
+    fa=-1
+    fb=0
+    fc=1
+    vertices=[]
+    faces=[]
+    normals=[]
+    uvs=[]
+    rgba=[]
+    chunks=0
+    paddingWhere=0
     firstOBJread = f.read()
     readobjfirst = firstOBJread.find(b"\x03\x01\x00\x01\x03\x80")
     if firstOBJread != 0:
@@ -101,21 +568,19 @@ def get_2ndobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], n
             vx = unpack("<f", f.read(4))[0]
             vy = unpack("<f", f.read(4))[0]
             vz = unpack("<f", f.read(4))[0]
-            nz = unpack("<f", f.read(4))[0]
-            vertices.append([vx,vy,vz])
-            normals.append([nz,nz,nz])
+            vw = unpack("<f", f.read(4))[0]
+            vertices.append([vx,vz,vy])
+            normals.append([0,0,1])
         for i in range(vertexCount-2):
-            fa += 1
-            fb += 1
-            fc += 1
-            faces.append([fa,fb,fc])
+            faces.append([i-i%2+1,i+i%2,i+2])
+            faces.append([i+i%2,i-i%2+1,i+2])
         f.seek(6, 1)
         uvcount = unpack("b", f.read(1))[0]
         f.seek(1,1)
         for i in range(uvcount):
             ux = unpack("<h", f.read(2))[0] / 4096.0
             uy = unpack("<h", f.read(2))[0] / 4096.0
-            uvs.append([ux,uy])
+            uvs.append([+ux,-uy])
         f.seek(6, 1)
         rgbacount = unpack("b", f.read(1))[0]
         f.seek(1,1)
@@ -126,16 +591,12 @@ def get_2ndobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], n
             a = unpack("B", f.read(1))[0] / 127.0
             rgba.append([r,g,b,a])
 
-        name=0
-        BSDF = "Principled BSDF"
-        meshID = len(bpy.data.objects) 
-        mesh = bpy.data.meshes.new("dragonjan")
+        collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
+        bpy.context.scene.collection.children.link(collection)
+        mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
         mesh.from_pydata(vertices, [], faces)
-        object = bpy.data.objects.new("dragonjan", mesh)
-        bpy.context.collection.objects.link(object)
-        mesh.normals_split_custom_set_from_vertices(normals)
-        bpy.data.materials.new(name)
-        mesh.vertex_colors.new(name=vmesh)
+        object = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
+        collection.objects.link(object)
             
         for fac in mesh.polygons:
             fac.use_smooth = True
@@ -149,13 +610,32 @@ def get_2ndobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], n
             for li in vert_loops[i]:
                 uv_layer[li].uv = coord
 
-        index=0
-        for vcol in mesh.vertex_colors[0].data:
-            vcol.color = rgba[i]
-            index+=i
+        obj = bpy.data.objects[os.path.basename(os.path.splitext(filepath)[0])]
+        bpy.context.view_layer.objects.active = obj
 
-def get_1stobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], normals=[], uvs=[], rgba=[], chunks=0, paddingWhere=0):
+        colname = "GSC_VERTEXCOLORS"
+
+        colattr = obj.data.color_attributes.new(
+            name=colname,
+            type='FLOAT_COLOR',
+            domain='POINT',
+        )
+
+        for v_index in range(len(obj.data.vertices)):
+            colattr.data[v_index].color = rgba[v_index]
+
+def get_1stobjects_with_uvs_and_rgba(f, filepath):
     f.seek(0)
+    fa=-1
+    fb=0
+    fc=1
+    vertices=[]
+    faces=[]
+    normals=[]
+    uvs=[]
+    rgba=[]
+    chunks=0
+    paddingWhere=0
     firstOBJread = f.read()
     readobjfirst = firstOBJread.find(b"\x03\x01\x00\x01\x03\x80")
     if firstOBJread != 0:
@@ -167,22 +647,19 @@ def get_1stobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], n
             vx = unpack("<f", f.read(4))[0]
             vy = unpack("<f", f.read(4))[0]
             vz = unpack("<f", f.read(4))[0]
-            nz = unpack("<f", f.read(4))[0]
-            vertices.append([vx,vy,vz])
-            normals.append([nz,nz,nz])
+            vw = unpack("<f", f.read(4))[0]
+            vertices.append([vx,vz,vy])
         for i in range(vertexCount-2):
-            fa += 1
-            fb += 1
-            fc += 1
-            faces.append([fa,fb,fc])
+            faces.append([i-i%2+1,i+i%2,i+2])
+            faces.append([i+i%2,i-i%2+1,i+2])
         f.seek(6, 1)
-        uvcount = unpack("b", f.read(1))[0]
+        uvcount = unpack("B", f.read(1))[0]
         f.seek(1,1)
         for i in range(uvcount):
             ux = unpack("<h", f.read(2))[0] / 4096.0
             uy = unpack("<h", f.read(2))[0] / 4096.0
             f.seek(4,1)
-            uvs.append([ux,uy])
+            uvs.append([+ux,-uy])
         f.seek(6, 1)
         rgbacount = unpack("b", f.read(1))[0]
         f.seek(1,1)
@@ -193,16 +670,12 @@ def get_1stobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], n
             a = unpack("B", f.read(1))[0] / 127.0
             rgba.append([r,g,b,a])
 
-        name = 0
-        BSDF = "Principled BSDF"
-        meshID = len(bpy.data.objects) 
-        mesh = bpy.data.meshes.new("dragonjan")
+        collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
+        bpy.context.scene.collection.children.link(collection)
+        mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
         mesh.from_pydata(vertices, [], faces)
-        object = bpy.data.objects.new("dragonjan", mesh)
-        bpy.context.collection.objects.link(object)
-        mesh.normals_split_custom_set_from_vertices(normals)
-        bpy.data.materials.new("dragonjan")
-        meshC = mesh.vertex_colors.new()
+        object = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
+        collection.objects.link(object)
             
         for fac in mesh.polygons:
             fac.use_smooth = True
@@ -216,14 +689,21 @@ def get_1stobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], n
             for li in vert_loops[i]:
                 uv_layer[li].uv = coord
 
-        index=0
-        for vcol in mesh.vertex_colors[0].data:
-            vcol.color = rgba[i]
-            index+=i
+        obj = bpy.data.objects[os.path.basename(os.path.splitext(filepath)[0])]
+        bpy.context.view_layer.objects.active = obj
 
-        mesh.vertex_colors.active = meshC
+        colname = "GSC_VERTEXCOLORS"
 
-def ColorReach(f, colors=[]):
+        colattr = obj.data.color_attributes.new(
+            name=colname,
+            type='FLOAT_COLOR',
+            domain='POINT',
+        )
+
+        for v_index in range(len(obj.data.vertices)):
+            colattr.data[v_index].color = rgba[v_index]
+
+def ColorReach(f, rgba=[]):
     obdata = bpy.context.object.data
     f.seek(0)
     ColorRead = f.read()
@@ -238,251 +718,364 @@ def ColorReach(f, colors=[]):
             green   = unpack("B", f.read(1))[0] / 127.0
             blue    = unpack("B", f.read(1))[0] / 127.0
             alpha   = unpack("B", f.read(1))[0] / 127.0
-            colors.append([red,green,blue,alpha])
+            rgba.append([red,green,blue,alpha])
 
-        index=0
-        for vcol in obdata.vertex_colors[0].data:
-            vcol.color = colors[i]
-            index+=i
+        obj = bpy.data.objects[os.path.basename(os.path.splitext(filepath)[0])]
+        bpy.context.view_layer.objects.active = obj
 
-def DIFOffset_one(f, vertices=[], faces=[], fa=-1, fb=0, fc=1):
+        colname = "GSC_VERTEXCOLORS"
+
+        colattr = obj.data.color_attributes.new(
+            name=colname,
+            type='FLOAT_COLOR',
+            domain='POINT',
+        )
+
+        for v_index in range(len(obj.data.vertices)):
+            colattr.data[v_index].color = rgba[v_index]
+
+def DIFOffset_one(f, filepath):
     f.seek(0)
+    vertices=[]
+    faces=[]
+    uvs=[]
+    vcolors=[]
+    fa=-1
+    fb=0
+    fc=1
     QTRead = f.read()
-    QTLoc = QTRead.find(b"\x03\x01\x00\x01\x01\x00\x00\x05")
+    QTLoc = QTRead.find(b"\x03\x01\x00\x01")
     if QTRead != 0:
         f.seek(QTLoc, 0)
-        f.seek(10,1)
-        VertexCount = unpack("B", f.read(1))[0]
-        Decimal = unpack("B", f.read(1))[0]
-        for i in range(VertexCount):
-            vx = unpack("<h", f.read(2))[0] / 4096.0
-            vy = unpack("<h", f.read(2))[0] / 4096.0
-            vz = unpack("<h", f.read(2))[0] / 4096.0
-            nz = unpack("<h", f.read(2))[0] / 4096.0
-            vertices.append([vx,vy,vz])
-        for i in range(VertexCount-2):
-            fa += 1
-            fb += 1
-            fc += 1
-            faces.append([fa,fb,fc])
-    
-    mesh = bpy.data.meshes.new("dragonjan")
-    mesh.from_pydata(vertices, [], faces)
-    object = bpy.data.objects.new("dragonjan", mesh)
-    bpy.context.collection.objects.link(object)
-
-def FinalUnknownNormalChunk(f, vertices=[], faces=[], normals=[], fa=-3, fb=-2,fc=-1):
-    f.seek(0)
-    while 1:
-        Chunk = f.read(4)
-        if Chunk == b"\x03\x01\x00\x01":
-            f.seek(2,1)
+        f.seek(4,1)
+        flag1 = unpack("B", f.read(1))[0]
+        if flag1 == 1:
+            f.seek(5,1)
             VertexCount = unpack("B", f.read(1))[0]
-            clump = unpack("B", f.read(1))[0]
-            if VertexCount == 3:
-                
-                for i in range(VertexCount):
-                    vx = unpack("<f", f.read(4))[0]
-                    vy = unpack("<f", f.read(4))[0]
-                    vz = unpack("<f", f.read(4))[0]
-                    nz = unpack("<f", f.read(4))[0]
-                    vertices.append([vx,vy,vz])
-                for i in range(VertexCount-2):
-                    fa += 1 * 3
-                    fb += 1 * 3
-                    fc += 1 * 3
-                    faces.append([fa,fb,fc])
-            
-        elif Chunk == b"SST0":
-            break
+            flag = unpack("B", f.read(1))[0]
+            for j in range(VertexCount):
+                vx = unpack("<h", f.read(2))[0] / 4096.0
+                vy = unpack("<h", f.read(2))[0] / 4096.0
+                vz = unpack("<h", f.read(2))[0] / 4096.0
+                type4 = unpack("B", f.read(1))[0]==False
+                value1 = unpack("B", f.read(1))[0]
+                vertices.append([vx,vz,vy])
+                fa+=1
+                fb+=1
+                fc+=1
+                if type4 > 0:
+                    faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+            uvcount = unpack("B", f.read(1))[0]
+            if uvcount == 1:
+               f.seek(2,1)
+               f.seek(2,1)
+               value1 = unpack("B", f.read(1))[0]
+               uvcounts = unpack("B", f.read(1))[0]
+               flag_1 = unpack("B", f.read(1))[0]
+               if flag_1 == 0x6D:
+                   for i in range(uvcounts):
+                       uvx = unpack("<h", f.read(2))[0] / 4096
+                       uvy = unpack("<h", f.read(2))[0] / 4096
+                       f.seek(4,1)
+                       uvs.append([+uvx,-uvy])
+                   coloroffset = unpack("B", f.read(1))[0]
+                   if coloroffset == 0:
+                       f.seek(2,1)
+                       f.seek(1,1)
+                       offfset = unpack("B", f.read(1))[0]
+                       if offfset == 5:
+                           f.seek(1,1)
+                           colorcount = unpack("B", f.read(1))[0]
+                           flag_2 = unpack("B", f.read(1))[0]
+                           if flag_2 == 0x6E:
+                               for i in range(colorcount):
+                                   r = unpack("B", f.read(1))[0] / 127
+                                   g = unpack("B", f.read(1))[0] / 127
+                                   b = unpack("B", f.read(1))[0] / 127
+                                   a = unpack("B", f.read(1))[0] / 127
+                                   vcolors.append([r,g,b,a])
+                   elif coloroffset == 1:
+                       f.seek(2,1)
+                       f.seek(1,1)
+                       offfset = unpack("B", f.read(1))[0]
+                       if offfset == 5:
+                           f.seek(1,1)
+                           colorcount = unpack("B", f.read(1))[0]
+                           flag_2 = unpack("B", f.read(1))[0]
+                           if flag_2 == 0x6E:
+                               for i in range(colorcount):
+                                   r = unpack("B", f.read(1))[0] / 127
+                                   g = unpack("B", f.read(1))[0] / 127
+                                   b = unpack("B", f.read(1))[0] / 127
+                                   a = unpack("B", f.read(1))[0] / 127
+                                   vcolors.append([r,g,b,a])
+               elif flag_1 == 0x65:
+                   for i in range(uvcounts):
+                       uvx = unpack("<h", f.read(2))[0] / 4096
+                       uvy = unpack("<h", f.read(2))[0] / 4096
+                       uvs.append([+uvx,-uvy])
+                   coloroffset = unpack("B", f.read(1))[0]
+                   if coloroffset == 0:
+                       f.seek(2,1)
+                       f.seek(1,1)
+                       offfset = unpack("B", f.read(1))[0]
+                       if offfset == 5:
+                           f.seek(1,1)
+                           colorcount = unpack("B", f.read(1))[0]
+                           flag_2 = unpack("B", f.read(1))[0]
+                           if flag_2 == 0x6E:
+                               for i in range(colorcount):
+                                   r = unpack("B", f.read(1))[0] / 127
+                                   g = unpack("B", f.read(1))[0] / 127
+                                   b = unpack("B", f.read(1))[0] / 127
+                                   a = unpack("B", f.read(1))[0] / 127
+                                   vcolors.append([r,g,b,a])
+                   elif coloroffset == 1:
+                       f.seek(2,1)
+                       f.seek(1,1)
+                       offfset = unpack("B", f.read(1))[0]
+                       if offfset == 5:
+                           f.seek(1,1)
+                           colorcount = unpack("B", f.read(1))[0]
+                           flag_2 = unpack("B", f.read(1))[0]
+                           if flag_2 == 0x6E:
+                               for i in range(colorcount):
+                                   r = unpack("B", f.read(1))[0] / 127
+                                   g = unpack("B", f.read(1))[0] / 127
+                                   b = unpack("B", f.read(1))[0] / 127
+                                   a = unpack("B", f.read(1))[0] / 127
+                                   vcolors.append([r,g,b,a])
+            elif uvcount == 4:
+                flag_1 = unpack("B", f.read(1))[0]
+                if flag_1 == 0x65:
+                    for i in range(uvcount):
+                        uvx = unpack("<h", f.read(1))[0] / 4096
+                        uvy = unpack("<h", f.read(2))[0] / 4096
+                        uvs.append([+uvx,-uvy])
+                    coloroffset = unpack("B", f.read(1))[0]
+                    if coloroffset == 0:
+                        f.seek(2,1)
+                        f.seek(1,1)
+                        offfset = unpack("B", f.read(1))[0]
+                        if offfset == 5:
+                            f.seek(1,1)
+                            colorcount = unpack("B", f.read(1))[0]
+                            flag_2 = unpack("B", f.read(1))[0]
+                            if flag_2 == 0x6E:
+                                for i in range(colorcount):
+                                    r = unpack("B", f.read(1))[0] / 127
+                                    g = unpack("B", f.read(1))[0] / 127
+                                    b = unpack("B", f.read(1))[0] / 127
+                                    a = unpack("B", f.read(1))[0] / 127
+                                    vcolors.append([r,g,b,a])
+                    elif coloroffset == 1:
+                        f.seek(2,1)
+                        f.seek(1,1)
+                        offfset = unpack("B", f.read(1))[0]
+                        if offfset == 5:
+                            f.seek(1,1)
+                            colorcount = unpack("B", f.read(1))[0]
+                            flag_2 = unpack("B", f.read(1))[0]
+                            if flag_2 == 0x6E:
+                                for i in range(colorcount):
+                                    r = unpack("B", f.read(1))[0] / 127
+                                    g = unpack("B", f.read(1))[0] / 127
+                                    b = unpack("B", f.read(1))[0] / 127
+                                    a = unpack("B", f.read(1))[0] / 127
+                                    vcolors.append([r,g,b,a])
+                elif flag_1 == 0x6D:
+                    for i in range(uvcount):
+                        uvx = unpack("<h", f.read(1))[0] / 4096
+                        uvy = unpack("<h", f.read(2))[0] / 4096
+                        f.seek(4,1)
+                        uvs.append([+uvx,-uvy])
+                    coloroffset = unpack("B", f.read(1))[0]
+                    if coloroffset == 0:
+                        f.seek(2,1)
+                        f.seek(1,1)
+                        offfset = unpack("B", f.read(1))[0]
+                        if offfset == 5:
+                            f.seek(1,1)
+                            colorcount = unpack("B", f.read(1))[0]
+                            flag_2 = unpack("B", f.read(1))[0]
+                            if flag_2 == 0x6E:
+                                for i in range(colorcount):
+                                    r = unpack("B", f.read(1))[0] / 127
+                                    g = unpack("B", f.read(1))[0] / 127
+                                    b = unpack("B", f.read(1))[0] / 127
+                                    a = unpack("B", f.read(1))[0] / 127
+                                    vcolors.append([r,g,b,a])
+                    elif coloroffset == 1:
+                        f.seek(2,1)
+                        f.seek(1,1)
+                        offfset = unpack("B", f.read(1))[0]
+                        if offfset == 5:
+                            f.seek(1,1)
+                            colorcount = unpack("B", f.read(1))[0]
+                            flag_2 = unpack("B", f.read(1))[0]
+                            if flag_2 == 0x6E:
+                                for i in range(colorcount):
+                                    r = unpack("B", f.read(1))[0] / 127
+                                    g = unpack("B", f.read(1))[0] / 127
+                                    b = unpack("B", f.read(1))[0] / 127
+                                    a = unpack("B", f.read(1))[0] / 127
+                                    vcolors.append([r,g,b,a])
+                    
+            elif uvcount == 0:
+                f.seek(2,1)
+                f.seek(2,1)
+                value1 = unpack("B", f.read(1))[0]
+                uvcounts = unpack("B", f.read(1))[0]
+                flag_1 = unpack("B", f.read(1))[0]
+                if flag_1 == 0x65:
+                    for i in range(uvcounts):
+                        
+                        uvx = unpack("<h", f.read(2))[0] / 4096
+                        uvy = unpack("<h", f.read(2))[0] / 4096
+                        uvs.append([+uvx,-uvy])
+                    coloroffset = unpack("B", f.read(1))[0]
+                    if coloroffset == 0:
+                        f.seek(2,1)
+                        f.seek(1,1)
+                        offfset = unpack("B", f.read(1))[0]
+                        if offfset == 5:
+                            f.seek(1,1)
+                            colorcount = unpack("B", f.read(1))[0]
+                            flag_2 = unpack("B", f.read(1))[0]
+                            if flag_2 == 0x6E:
+                                for i in range(colorcount):
+                                    r = unpack("B", f.read(1))[0] / 127
+                                    g = unpack("B", f.read(1))[0] / 127
+                                    b = unpack("B", f.read(1))[0] / 127
+                                    a = unpack("B", f.read(1))[0] / 127
+                                    vcolors.append([r,g,b,a])
+                    elif coloroffset == 1:
+                        f.seek(2,1)
+                        f.seek(1,1)
+                        offfset = unpack("B", f.read(1))[0]
+                        if offfset == 5:
+                            f.seek(1,1)
+                            colorcount = unpack("B", f.read(1))[0]
+                            flag_2 = unpack("B", f.read(1))[0]
+                            if flag_2 == 0x6E:
+                                for i in range(colorcount):
+                                    r = unpack("B", f.read(1))[0] / 127
+                                    g = unpack("B", f.read(1))[0] / 127
+                                    b = unpack("B", f.read(1))[0] / 127
+                                    a = unpack("B", f.read(1))[0] / 127
+                                    vcolors.append([r,g,b,a])
+                    elif coloroffset == 5:
+                        f.seek(1,1)
+                        colorcount = unpack("B", f.read(1))[0]
+                        flag_2 = unpack("B", f.read(1))[0]
+                        if flag_2 == 0x6E:
+                            for i in range(colorcount):
+                                r = unpack("B", f.read(1))[0] / 127
+                                g = unpack("B", f.read(1))[0] / 127
+                                b = unpack("B", f.read(1))[0] / 127
+                                a = unpack("B", f.read(1))[0] / 127
+                                vcolors.append([r,g,b,a])
+                elif flag_1 == 0x6D:
+                    for i in range(uvcounts):
+                        uvx = unpack("<h", f.read(2))[0] / 4096
+                        uvy = unpack("<h", f.read(2))[0] / 4096
+                        f.seek(4,1)
+                        uvs.append([+uvx,-uvy])
+                    coloroffset = unpack("B", f.read(1))[0]
+                    if coloroffset == 0:
+                        f.seek(2,1)
+                        f.seek(1,1)
+                        offfset = unpack("B", f.read(1))[0]
+                        if offfset == 5:
+                            f.seek(1,1)
+                            colorcount = unpack("B", f.read(1))[0]
+                            flag_2 = unpack("B", f.read(1))[0]
+                            if flag_2 == 0x6E:
+                                for i in range(colorcount):
+                                    r = unpack("B", f.read(1))[0] / 127
+                                    g = unpack("B", f.read(1))[0] / 127
+                                    b = unpack("B", f.read(1))[0] / 127
+                                    a = unpack("B", f.read(1))[0] / 127
+                                    vcolors.append([r,g,b,a])
+                    elif coloroffset == 1:
+                        f.seek(2,1)
+                        f.seek(1,1)
+                        offfset = unpack("B", f.read(1))[0]
+                        if offfset == 5:
+                            f.seek(1,1)
+                            colorcount = unpack("B", f.read(1))[0]
+                            flag_2 = unpack("B", f.read(1))[0]
+                            if flag_2 == 0x6E:
+                                for i in range(colorcount):
+                                    r = unpack("B", f.read(1))[0] / 127
+                                    g = unpack("B", f.read(1))[0] / 127
+                                    b = unpack("B", f.read(1))[0] / 127
+                                    a = unpack("B", f.read(1))[0] / 127
+                                    vcolors.append([r,g,b,a])
+                    elif coloroffset == 5:
+                        f.seek(1,1)
+                        colorcount = unpack("B", f.read(1))[0]
+                        flag_2 = unpack("B", f.read(1))[0]
+                        if flag_2 == 0x6E:
+                            for i in range(colorcount):
+                                r = unpack("B", f.read(1))[0] / 127
+                                g = unpack("B", f.read(1))[0] / 127
+                                b = unpack("B", f.read(1))[0] / 127
+                                a = unpack("B", f.read(1))[0] / 127
+                                vcolors.append([r,g,b,a])
+                                        
 
-    mesh = bpy.data.meshes.new("dragonjan")
-    mesh.from_pydata(vertices, [], faces)
-    object = bpy.data.objects.new("dragonjan", mesh)
-    bpy.context.collection.objects.link(object)
-
-
-
-def FinalUnknownChunk(f, VCountThree=3, vertices=[], faces=[], normals=[], fa=-4, fb=-3,fc=-2,fa_m=-3,fb_m=-2,fc_m=-1):
-    f.seek(0)
-    while 1:
-        Chunk = f.read(4)
-        if Chunk == b"\x03\x01\x00\x01":
-            f.seek(2,1)
-            VertexCount = unpack("B", f.read(1))[0]
-            clump = unpack("B", f.read(1))[0]
-            for i in range(VertexCount):
-                vx = unpack("<f", f.read(4))[0]
-                vy = unpack("<f", f.read(4))[0]
-                vz = unpack("<f", f.read(4))[0]
-                nz = unpack("<f", f.read(4))[0]
-                vertices.append([vx,vy,vz])
-                normals.append([0,0, nz])
-            for i in range(VertexCount*2//9):
-                fa_m += 1 * 4
-                fb_m += 1 * 4
-                fc_m += 1 * 4
-                fa += 1 * 4
-                fb += 1 * 4
-                fc += 1 * 4
-                faces.append([fb_m,fa_m,fc_m])
-                faces.append([fa,fb,fc])
-            
-        elif Chunk == b"SST0":
-            break
-    
-    BSDF = "Principled BSDF"
-    vmesh = "dragonjanCol"
-    meshID = len(bpy.data.objects)
-    mesh = bpy.data.meshes.new("dragonjan")
-    mesh.from_pydata(vertices, [], faces)
-    object = bpy.data.objects.new("dragonjan", mesh)
-    mesh.normals_split_custom_set_from_vertices(normals)
-    bpy.context.collection.objects.link(object)
-    mesh.vertex_colors.new(name=vmesh)
-
-    for fac in mesh.polygons:
-        fac.use_smooth = True
-
-    vindex = 0
-    for vertex in mesh.vertices:
-        vertex.normal = normals[vindex]
-        vindex += 1
-
-    NU_MIX_MODE = 'ShaderNodeMixRGB'
-    NU_RGBA_VERT = 'ShaderNodeVertexColor'
-    MaterialName = "dragonjan Material"
-
-    name=0
-
-    obj = bpy.data.objects[name]
-    mats = bpy.data.materials.new("dragonjan Material")
-    obj.data.materials.append(mats)
-
-    previous_mix = None
-    previous_rgba = None
-
-    for i, mat in enumerate(bpy.data.materials):
-        mat.use_nodes = True
-        bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[7].default_value = 0
-        bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[9].default_value = 1
-        #bpy.data.node.add_search(use_transform=True, node_item=items)
-        mat.blend_method = "HASHED"
-        mix = mat.node_tree.nodes.new(NU_MIX_MODE)
-        rgbaV = mat.node_tree.nodes.new(NU_RGBA_VERT)
-        mat.node_tree.nodes["Mix"].blend_type = 'MULTIPLY'
-        mat.node_tree.nodes["Mix"].inputs[0].default_value = 1
-        bpy.data.materials[MaterialName].node_tree.nodes["Vertex Color"].layer_name = vmesh
-        nodes = mat.node_tree.nodes
-        links = mat.node_tree.links
-        principled = nodes.get('Principled BSDF')
-        mixer = nodes.get("ShaderNodeVertexColor")
-        for i in range(1):
-            mix.location.x = -300
-            if previous_mix:
-                links.new(previous_mix.outputs[0], mix.inputs[0])
-        previous_mix = mix
-        links.new(mix.outputs[0], principled.inputs[0])
-        for i in range(1):
-            rgbaV.location.x = -300
-            rgbaV.location.y = -300
-            if previous_rgba:
-                links.new(previous_rgba.outputs[0], rgbaV.inputs[0])
-        previous_rgba = rgbaV
-    links.new(rgbaV.outputs[1], principled.inputs[21])
-    links.new(rgbaV.outputs[0], mix.inputs[1])
-    
-    #objs = bpy.data.objects["dragonjan"]
-    #bpy.context.view_layer.objects.active = objs
-    #bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
-    #bpy.ops.object.select_all(action='SELECT')"""
-            
-                
-
-#don't use this just quite yet
-def ExtractTextures(f, filepath):
-    while 1:
-        TexChunk = f.read(4)
-        if TexChunk == b"TST0":
-            TSTSize = unpack("<I", f.read(4))[0]
-            TextureCount = unpack("<I", f.read(4))[0]
-            unk = unpack("<I", f.read(4))[0]
-            for i in range(TextureCount):
-                pass
-            bpy.data.images.new(name="dragonjan textures", width=width_, height=_, alpha=True)
-        elif TexChunk == b"MS00":
-            break
+    if flag == 0x6D:
         
-"""def dumpGSCTexture(f):
-    f.seek(0)
-    while 1:
-        TexChunk = f.read(4)
-        if TexChunk == 0x80800000:
-            f.seek(2,1)
-            pixlen = unpack("<I", f.read(4))[0] // 2
-            f.seek(6,1)
-            for i in range(pixlen//4):
-                r = unpack("B", f.read(1))[0]
-                g = unpack("B", f.read(1))[0]
-                b = unpack("B", f.read(1))[0]
-                a = unpack("B", f.read(1))[0] * 2
-        break"""
-        
-"""f.seek(0)
-dumpOneRead = f.read()
-dumpReadOne = dumpOneRead.find(b"\x80\x80\x00\x00\x00\x00")
-if dumpOneRead != 0:
-    f.seek(dumpReadOne, 0)
-    f.seek(-32,1)
-    w = unpack("<I", f.read(4))[0] * 2
-    h = unpack("<I", f.read(4))[0] * 2
-    image_test = bpy.data.images.new(name="GSC Image", width=w, height=h, alpha=True)
-    num_Pixels = len(image_test.pixels)
-    f.seek(30, 1)
-    pixellen = unpack("<I", f.read(4))[0] // 2
-    f.seek(6,1)
-    def grid(x,y):
-        return x + w*y
-    def drawPixel(x,y, R,G,B,A):
 
-        pixelNumber = grid(x,y) * 4
+        collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
+        bpy.context.scene.collection.children.link(collection)
+        mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+        mesh.from_pydata(vertices, [], faces)
+        obj = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
+        collection.objects.link(obj)
+
+        for fac in mesh.polygons:
+            fac.use_smooth = True
+
+        if flag_1 == 0x6D or 0x65:
+
+            uv_tex = mesh.uv_layers.new()
+            uv_layer = mesh.uv_layers[0].data
+            vert_loops = {}
+            for l in mesh.loops:
+                vert_loops.setdefault(l.vertex_index, []).append(l.index)
+            for i, coord in enumerate(uvs):
+                for li in vert_loops[i]:
+                    uv_layer[li].uv = coord
+                    
+            if flag_2 == 0x6E:
+                bpy.context.view_layer.objects.active = obj
+
+                colname = "GSC_VERTEXCOLORS"
+
+                colattr = obj.data.color_attributes.new(
+                    name=colname,
+                    type='FLOAT_COLOR',
+                    domain='POINT',
+                )
+
+                for v_index in range(len(obj.data.vertices)):
+                    colattr.data[v_index].color = vcolors[v_index]
+
+def BatchHashVertexColor1(f, filepath):
+
+    vertices=[]
+    faces=[]
+    normals=[]
+    uvs=[]
+    rgba=[]
+
+    fa=-1
+    fb=0
+    fc=1
+    f.seek(0)
     
-
-
-        image_test.pixels[pixelNumber] = R
-        image_test.pixels[pixelNumber+1] = G
-        image_test.pixels[pixelNumber+2] = B
-        image_test.pixels[pixelNumber+3] = A#
-    for i in range(w//4):
-        for k in range(h//4):
-            drawPixel(i,k,unpack("B", f.read(1))[0]/255,unpack("B", f.read(1))[0]/255,unpack("B", f.read(1))[0]/255,unpack("B", f.read(1))[0]/127)"""
-def wholeChunk2(f, vertices=[]):
-    f.seek(0)
-    QTRead = f.read()
-    QTLoc = QTRead.find(b"\x03\x01\x00\x01\x01\x00\x00\x05")
-    if QTRead != 0:
-        f.seek(QTLoc, 0)
-        f.seek(10,1)
-        
-        VertexCount = unpack("B", f.read(1))[0]
-        Decimal = unpack("B", f.read(1))[0]
-        for i in range(1):
-            f.seek(4,1)
-            vx = unpack("<f", f.read(2))[0] / 4096.0
-            vy = unpack("<f", f.read(2))[0] / 4096.0
-            vz = unpack("<f", f.read(2))[0] / 4096.0
-            vertices.append([vx,vy,vz])
-    mesh = bpy.data.meshes.new("dragonjan")
-    mesh.from_pydata(vertices, [], [])
-    object = bpy.data.objects.new("dragonjan", mesh)
-    bpy.context.collection.objects.link(object)
-
-
-def wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, fb=0, fc=1):
-    f.seek(0)
-    Material_ID = ""
-    mat = bpy.data.materials.new(name=Material_ID)
-    bpy.data.materials.get ("Material")
     while 1:
         Chunk = f.read(4)
         if Chunk == b"NU20":
@@ -494,100 +1087,156 @@ def wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, 
             NTBLSize2 = unpack("<I", f.read(4))[0]
             f.seek(NTBLSize1-12,1)
         elif Chunk == b"\x03\x01\x00\x01":
-            vertexSize=0
             f.seek(2,1)
             vertexCount = unpack("B", f.read(1))[0]
             f.seek(1,1)
             for i in range(vertexCount):
-                vx = unpack("<f", f.read(4))[0]
-                vy = unpack("<f", f.read(4))[0]
-                vz = unpack("<f", f.read(4))[0]
-                nz = unpack("<f", f.read(4))[0] #normals
-                if vy == 626239069825399828521156608.000000:
-                    vy -=626239069825399828521156608.000000
-                elif vy == 38335097425014816768.000000:
-                    vy -= 38335097425014816768.000000
-                elif vy == 623812068601110010234142720.000000:
-                    vy -=623812068601110010234142720.000000
-                if vz == 2504894888537322008696848384.000000:
-                    vz -=2504894888537322008696848384.000000
-                elif vz == 795473410667354881471283200.000000:
-                    vz -= 795473410667354881471283200.000000
-                elif vz == 626239069825399828521156608.000000:
-                    vz -= 626239069825399828521156608.000000
-                if vx == 2504894888537322008696848384.000000:
-                    vx -=2504894888537322008696848384.000000
-                elif vx == 38352131059152322560.000000:
-                    vx -= 38352131059152322560.000000
-
-                elif vx == 623812068601110010234142720.000000:
-                    vx -= 623812068601110010234142720.000000
-                vertices.append([vx,vy,vz])
-                normals.append([nz,nz,nz])
+                type1 = unpack("<f", f.read(4))[0]
+                type2 = unpack("<f", f.read(4))[0]
+                type3 = unpack("<f", f.read(4))[0]
+                nz = unpack("<f", f.read(4))[0]
+                
+                
+                
+                vertices.append([type1,type2,type3])
+                normals.append([0,0,nz])
 
             for i in range(vertexCount-2):
                 fa+=1
                 fb+=1
                 fc+=1
                 faces.append([fa,fb,fc])
+
+            f.seek(6, 1)
+            uvcount = unpack("b", f.read(1))[0]
+            f.seek(1,1)
+            for i in range(uvcount):
+                ux = unpack("<h", f.read(2))[0] / 4096.0
+                uy = unpack("<h", f.read(2))[0] / 4096.0
+                f.seek(4,1)
+                uvs.append([+ux,-uy])
+            f.seek(6,1)
+            ColCount = unpack("B", f.read(1))[0]
+            ColCount_ = unpack("B", f.read(1))[0]
+            for i in range(ColCount):
+                red     = unpack("B", f.read(1))[0] / 127.0
+                green   = unpack("B", f.read(1))[0] / 127.0
+                blue    = unpack("B", f.read(1))[0] / 127.0
+                alpha   = unpack("B", f.read(1))[0] / 127.0
+                rgba.append([red,green,blue,alpha])
         elif Chunk == b"SST0":
             break
-        
-    mesh = bpy.data.meshes.new("dragonjan")
-    mesh.from_pydata(vertices, [], faces)
-    object = bpy.data.objects.new("dragonjan", mesh)
-    bpy.context.collection.objects.link(object)
-    mesh.normals_split_custom_set_from_vertices(normals)
-    bpy.data.materials["Material"].use_backface_culling = True
-    objs = bpy.data.objects["dragonjan"]
-    
 
+    obj = bpy.data.objects[os.path.basename(os.path.splitext(filepath)[0])]
+    bpy.context.view_layer.objects.active = obj
 
-"""def get_1stobjectspt3(f, vertices=[], faces=[], fa=-1, fb=0, fc=1):
+    colname = "GSC_VERTEXCOLORS"
+
+    colattr = obj.data.color_attributes.new(
+        name=colname,
+        type='FLOAT_COLOR',
+        domain='POINT',
+    )
+
+    for v_index in range(len(obj.data.vertices)):
+        colattr.data[v_index].color = rgba[v_index]
+
+def BatchUVS1(f, vertices=[], faces=[], normals=[], uvs=[], rgba=[], fa=-1, fb=0, fc=1):
     f.seek(0)
-    wholemeshread = f.read()
-    wholemeshfind = wholemeshread.find(b"\x03\x01\x00\x01\x03\x01")
-    if wholemeshread != 0:
-        f.seek(wholemeshfind, 0)
+    obdata = bpy.context.object.data
+    while 1:
+        Chunk = f.read(4)
+        if Chunk == b"NU20":
+            negativefilesize = unpack("<I", f.read(4))[0]
+            primtype = unpack("<I", f.read(4))[0]
+            unk = unpack("<I", f.read(4))[0]
+        elif Chunk == b"NTBL":
+            NTBLSize1 = unpack("<I", f.read(4))[0]
+            NTBLSize2 = unpack("<I", f.read(4))[0]
+            f.seek(NTBLSize1-12,1)
+        elif Chunk == b"\x03\x01\x00\x01":
+            f.seek(2,1)
+            vertexCount = unpack("B", f.read(1))[0]
+            f.seek(1,1)
+            for i in range(vertexCount):
+                type1 = unpack("<f", f.read(4))[0]
+                type2 = unpack("<f", f.read(4))[0]
+                type3 = unpack("<f", f.read(4))[0]
+                nz = unpack("<f", f.read(4))[0]
+                
+                
+                
+                vertices.append([type1,type2,type3])
+                normals.append([0,0,nz])
+
+            for i in range(vertexCount-2):
+                fa+=1
+                fb+=1
+                fc+=1
+                faces.append([fa,fb,fc])
+
+            f.seek(6, 1)
+            uvcount = unpack("b", f.read(1))[0]
+            f.seek(1,1)
+            for i in range(uvcount):
+                ux = unpack("<h", f.read(2))[0] / 4096.0
+                uy = unpack("<h", f.read(2))[0] / 4096.0
+                f.seek(4,1)
+                uvs.append([+ux,-uy])
+            f.seek(6,1)
+            ColCount = unpack("B", f.read(1))[0]
+            ColCount_ = unpack("B", f.read(1))[0]
+            for i in range(ColCount):
+                red     = unpack("B", f.read(1))[0] / 127.0
+                green   = unpack("B", f.read(1))[0] / 127.0
+                blue    = unpack("B", f.read(1))[0] / 127.0
+                alpha   = unpack("B", f.read(1))[0] / 127.0
+                rgba.append([red,green,blue,alpha])
+        elif Chunk == b"SST0":
+            break
+
+    uv_tex = obdata.uv_layers.new()
+    uv_layer = obdata.uv_layers[0].data
+    vert_loops = {}
+    for l in obdata.loops:
+        vert_loops.setdefault(l.vertex_index, []).append(l.index)
+    for i, coord in enumerate(uvs):
+        for li in vert_loops[i]:
+            uv_layer[li].uv = coord
+
+def selectUVFourth(f, uvs=[]):
+    f.seek(0)
+    uvthirdmatchread = f.read()
+    uvthifind = uvthirdmatchread.find(b"\x03\x01\x00\x01\x03\x80")
+    #match this offset to get the uv target since it's not possible with this offset
+    if uvthirdmatchread != 0:
+        f.seek(uvthifind, 0)
         f.seek(6, 1)
-        vertexcount = unpack("b", f.read(1))[0]
+        vertexcount = unpack("B", f.read(1))[0]
         f.seek(1,1)
         for i in range(vertexcount):
-            vx = unpack("<f", f.read(4))[0]
-            vy = unpack("<f", f.read(4))[0]
-            vz = unpack("<f", f.read(4))[0]
-            nz = unpack("<f", f.read(4))[0]
-            vertices.append([x,vy,vz])
-        for i in range(vertexcount-2):
-            fa +=1
-            fb +=1
-            fc +=1
-            vertices.append([fa,fb,fc])
-        f.seek(6, 1)
-        uvcount = unpack("b", f.read(1))[0]
+            f.seek(4, 1)
+            f.seek(4, 1)
+            f.seek(4, 1)
+            f.seek(4, 1)
+        f.seek(2, 1)
+        uvcount = unpack("B", f.read(1))[0]
         f.seek(1,1)
         for i in range(uvcount):
-            f.seek(4, 1)
-        f.seek(6, 1)
-        colorcount = unpack("b", f.read(1))[0]
-        f.seek(1,1)
-        for i in range(colorcount):
-            f.seek(1,1)
-            f.seek(1,1)
-            f.seek(1,1)
-            f.seek(1,1)
-        mesh = bpy.data.meshes.new("dragonjan")
-        mesh.from_pydata(vertices, [], faces)
-        object = bpy.data.objects.new("dragonjan", mesh)
-        bpy.context.collection.objects.link(object)
-        mesh.vertex_colors.new(name="dragonjanCol")
-        bpy.data.materials.new(name="default")
-        uvtex = mesh.uv_layers.new()
-        uvtex.name = 'dragonjanUV'
-        for fac in mesh.polygons:
-            fac.use_smooth = True
-    else:
-        raise Exception("that offset not found")"""
+            ux = unpack("<h", f.read(2))[0] / 4096.0
+            uy = unpack("<h", f.read(2))[0] / 4096.0
+            f.seek(4,1)
+            uvs.append([+ux,-uy])
+        obdata = bpy.context.object.data
+        uv_tex = obdata.uv_layers.new()
+        uv_layer = obdata.uv_layers[0].data
+        vert_loops = {}
+        for l in obdata.loops:
+            vert_loops.setdefault(l.vertex_index, []).append(l.index)
+        for i, coord in enumerate(uvs):
+            for li in vert_loops[i]:
+                uv_layer[li].uv = coord
+    #some or most 0x0480XX6D
 
 def selectUVThird(f, uvs=[]):
     f.seek(0)
@@ -610,7 +1259,7 @@ def selectUVThird(f, uvs=[]):
         for i in range(uvcount):
             ux = unpack("<h", f.read(2))[0] / 4096.0
             uy = unpack("<h", f.read(2))[0] / 4096.0
-            uvs.append([ux,uy])
+            uvs.append([+ux,-uy])
         obdata = bpy.context.object.data
         uv_tex = obdata.uv_layers.new()
         uv_layer = obdata.uv_layers[0].data
@@ -635,7 +1284,7 @@ def select2ndUV(f, uvs=[]):
         for i in range(uvcount):
             ux = unpack("<h", f.read(2))[0] / 4096.0
             uy = unpack("<h", f.read(2))[0] / 4096.0
-            uvs.append([ux, uy])
+            uvs.append([+ux,-uy])
         obdata = bpy.context.object.data
         uv_tex = obdata.uv_layers.new()
         uv_layer = obdata.uv_layers[0].data
@@ -661,7 +1310,7 @@ def selectUV(f, uvs=[]):
             ux = unpack("<h", f.read(2))[0] / 4096.0
             uy = unpack("<h", f.read(2))[0] / 4096.0
             f.seek(4, 1)
-            uvs.append([ux, uy])
+            uvs.append([+ux,-uy])
         obdata = bpy.context.object.data
         uv_tex = obdata.uv_layers.new()
         uv_layer = obdata.uv_layers[0].data
@@ -671,201 +1320,49 @@ def selectUV(f, uvs=[]):
         for i, coord in enumerate(uvs):
             for li in vert_loops[i]:
                 uv_layer[li].uv = coord
-            
-            
-def get_2ndobjects(f, vertices=[], chunks2=0, paddingWhere2=0, chunk2=0):
-    f.seek(0)
-    twoobjectsread = f.read()
-    twoobjectfound = twoobjectsread.find(b"\x00\x00\x00\x00\x02\x80")
-    if twoobjectsread != 0:
-        f.seek(twoobjectfound,0)
-        f.seek(chunk2, 1)
-        f.seek(6, 1)
-        vertexcount = unpack("b", f.read(1))[0]
-        f.seek(1, 1)
-        for i in range(vertexcount):
-            f.seek(4,1)
-            vx = unpack("<f", f.read(4))[0]
-            vy = unpack("<f", f.read(4))[0]
-            vz = unpack("<f", f.read(4))[0]
-            nz = unpack("<f", f.read(4))[0]
-            vertices.append([vx,vy,vz])
-        mesh = bpy.data.meshes.new("dragonjan")
-        mesh.from_pydata(vertices, [], [])
-        object = bpy.data.objects.new("dragonjan", mesh)
-        bpy.context.collection.objects.link(object)
-        for fac in mesh.polygons:
-            fac.use_smooth = True
-
-def get_1stobjectspt2(f, fa=-1,fb=0,fc=1,vertices=[], faces=[]):
-    f.seek(0)
-    objectsread = f.read()
-    objectfound = objectsread.find(b"\x03\x01\x00\x01\x03\x80")
-    if objectsread != 0:
-        f.seek(objectfound, 0)
-        f.seek(6, 1)
-        vertexcount = unpack("b", f.read(1))[0]
-        f.seek(1, 1)
-        for i in range(vertexcount):
-            vx = unpack("<f", f.read(4))[0]
-            vy = unpack("<f", f.read(4))[0]
-            vz = unpack("<f", f.read(4))[0]
-            nz = unpack("<f", f.read(4))[0]
-            vertices.append([vx, vy, vz])
-        for i in range(vertexcount-2):
-            fa+=1
-            fb+=1
-            fc+=1
-            faces.append([fa,fb,fc])
-            
-    BSDF = "Principled BSDF"
-    vmesh = "dragonjanCol"
-    meshID = len(bpy.data.objects)
-    mesh = bpy.data.meshes.new("dragonjan")
-    mesh.from_pydata(vertices, [], faces)
-    object = bpy.data.objects.new("dragonjan", mesh)
-    bpy.context.collection.objects.link(object)
-    mesh.vertex_colors.new(name=vmesh)
-    objs = bpy.data.objects["dragonjan"]
-    bpy.context.view_layer.objects.active = objs
-    bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
-    bpy.ops.object.select_all(action='SELECT')
-    bpy.ops.transform.rotate(value=1.5708, orient_axis='X', orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', constraint_axis=(True, False, False), mirror=True, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False)
-    bpy.ops.transform.rotate(value=3.14159, orient_axis='Z', orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', constraint_axis=(False, False, True), mirror=False, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False)
-    bpy.ops.object.select_all(action='DESELECT')
-
-    for fac in mesh.polygons:
-        fac.use_smooth = True
-
-    NU_MIX_MODE = 'ShaderNodeMixRGB'
-    NU_RGBA_VERT = 'ShaderNodeVertexColor'
-    MaterialName = "dragonjan Material"
-
-    obj = bpy.data.objects["dragonjan"]
-    mats = bpy.data.materials.new("dragonjan Material")
-    obj.data.materials.append(mats)
-
-    previous_mix = None
-    previous_rgba = None
-
-    for i, mat in enumerate(bpy.data.materials):
-        mat.use_nodes = True
-        bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[7].default_value = 0
-        bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[9].default_value = 1
-        #bpy.data.node.add_search(use_transform=True, node_item=items)
-        mat.blend_method = "HASHED"
-        mix = mat.node_tree.nodes.new(NU_MIX_MODE)
-        rgbaV = mat.node_tree.nodes.new(NU_RGBA_VERT)
-        mat.node_tree.nodes["Mix"].blend_type = 'MULTIPLY'
-        mat.node_tree.nodes["Mix"].inputs[0].default_value = 1
-        bpy.data.materials[MaterialName].node_tree.nodes["Vertex Color"].layer_name = vmesh
-        nodes = mat.node_tree.nodes
-        links = mat.node_tree.links
-        principled = nodes.get('Principled BSDF')
-        mixer = nodes.get("ShaderNodeVertexColor")
-        for i in range(1):
-            mix.location.x = -300
-            if previous_mix:
-                links.new(previous_mix.outputs[0], mix.inputs[0])
-        previous_mix = mix
-        links.new(mix.outputs[0], principled.inputs[0])
-        for i in range(1):
-            rgbaV.location.x = -300
-            rgbaV.location.y = -300
-            if previous_rgba:
-                links.new(previous_rgba.outputs[0], rgbaV.inputs[0])
-        previous_rgba = rgbaV
-    links.new(rgbaV.outputs[1], principled.inputs[21])
-    links.new(rgbaV.outputs[0], mix.inputs[1])
     
 
-def get_1stobjects(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], uvs=[], rgba=[], chunks=0, paddingWhere=0):
+def get_1stobjects(f, filepath):
+    fa=-1
+    fb=0
+    fc=1
+    vertices=[]
+    faces=[]
+    uvs=[]
+    rgba=[]
     f.seek(0)
     firstOBJread = f.read()
     readobjfirst = firstOBJread.find(b"\x03\x01\x00\x01\x03\x80")
     if firstOBJread != 0:
         f.seek(readobjfirst,0)
         f.seek(6,1)
-        vertexCount = unpack("b", f.read(1))[0]
-        f.seek(1,1)
-        for i in range(vertexCount):
-            vx = unpack("<f", f.read(4))[0]
-            vy = unpack("<f", f.read(4))[0]
-            vz = unpack("<f", f.read(4))[0]
-            nz = unpack("<f", f.read(4))[0]
-            vertices.append([vx,vy,vz])
-        for i in range(vertexCount-2):
-            fa += 1
-            fb += 1
-            fc += 1
-            faces.append([fa,fb,fc])
-        f.seek(6, 1)
-        uvcount = unpack("b", f.read(1))[0]
-        f.seek(1,1)
-        for i in range(uvcount):
-            f.seek(4,1)
-            ux = unpack("h", f.read(2))[0] / 4096.0
-            uy = unpack("h", f.read(2))[0] / 4096.0
-            uvs.append([ux,uy])
-        f.seek(6, 1)
-        rgbacount = unpack("b", f.read(1))[0]
-        f.seek(1,1)
-        for c in range(rgbacount):
-            r = unpack("B", f.read(1))[0] / 127.0
-            g = unpack("B", f.read(1))[0] / 127.0
-            b = unpack("B", f.read(1))[0] / 127.0
-            a = unpack("B", f.read(1))[0] / 127.0
-            rgba.append([r,g,b,a])
+        vertexCount = unpack("B", f.read(1))[0]
+        flags = unpack("B", f.read(1))[0]
+        if flags == 0x6C:
             
-        MaterialName=0
-        BSDF = "Principled BSDF"        
-        mesh = bpy.data.meshes.new("dragonjan")
+            for j in range(vertexCount):
+                vx = unpack("<f", f.read(4))[0]
+                vy = unpack("<f", f.read(4))[0]
+                vz = unpack("<f", f.read(4))[0]
+                type4 = unpack("B", f.read(1))[0]==False
+                value1 = unpack("B", f.read(1))[0]
+                f.seek(2,1)
+                fa+=1
+                fb+=1
+                fc+=1
+                vertices.append([vx,vz,vy])
+                if type4 > 0:
+                    faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
+            
+        collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
+        bpy.context.scene.collection.children.link(collection)
+        mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
         mesh.from_pydata(vertices, [], faces)
-        object = bpy.data.objects.new("dragonjan", mesh)
-        bpy.context.collection.objects.link(object)
-        #mesh.vertex_colors.new(name="dragonjanCol")
-        bpy.data.materials.new(name="dragonjan_materials")
-        """for face in mesh.vertex_colors[0].data:
-            face.color = rgba[rgbacount]
-            face.color = rgba[rgbacount]
-            face.color = rgba[rgbacount]
-            c+=1"""
-        #bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[7].default_value = 0
-        #bpy.data.materials[MaterialName].node_tree.nodes[BSDF].inputs[9].default_value = 1
-        #MaterialName+=1 # the reason because there a dots stroke
+        object = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
+        collection.objects.link(object)
             
         for fac in mesh.polygons:
             fac.use_smooth = True
-        
-        
-
-
-def get_INST(f,emptytime=[]):
-    f.seek(0)
-    INSTread = f.read()
-    INSTfound = INSTread.find(b"\x49\x4E\x53\x54")
-    if INSTread != 0:
-        f.seek(INSTfound, 0)
-        f.seek(8,1)
-        INSTS = unpack("<i", f.read(4))[0]
-        INSTsize = unpack("<i", f.read(4))[0]
-        INSTcount = unpack("<i", f.read(4))[0]
-        unk01 = unpack("<i", f.read(4))[0]
-        for i in range(INSTcount):
-            INSTScaleX = unpack("<f", f.read(4))[0]
-            f.seek(16,1)
-            INSTScaleY = unpack("<f", f.read(4))[0]
-            f.seek(16,1)
-            INSTScaleZ = unpack("<f", f.read(4))[0]
-            f.seek(4,1)
-            INSTxTrans = unpack("<f", f.read(4))[0]
-            INSTyTrans = unpack("<f", f.read(4))[0]
-            INSTzTrans = unpack("<f", f.read(4))[0]
-            INSTUNKFloat = unpack("<f", f.read(4))[0]
-            f.seek(16, 1)
-            bpy.ops.object.empty_add(type='CUBE', align='WORLD', location=([INSTxTrans, INSTyTrans,INSTzTrans]), scale=([INSTScaleX, INSTScaleY, INSTScaleZ]))
-    else:
-        raise Exception("no INST found")
 
 def get_SPEC(f, emptytime2=[]):
     f.seek(0)
@@ -889,7 +1386,7 @@ def get_SPEC(f, emptytime2=[]):
             SPECzTrans = unpack("<f", f.read(4))[0]
             SPECUNKFloat = unpack("<f", f.read(4))[0]
             f.seek(16, 1)
-            bpy.ops.object.empty_add(type='CUBE', align='WORLD', location=([SPECxTrans, SPECyTrans,SPECzTrans]), scale=([SPECScaleX, SPECScaleY, SPECScaleZ]))
+            bpy.ops.object.empty_add(type='CUBE', align='WORLD', location=([SPECxTrans, SPECzTrans,SPECyTrans]), scale=([SPECScaleX, SPECScaleY, SPECScaleZ]))
 
 def get_SPEC_ANIMATION_BLOCK(f, emptytime3=[]):
     f.seek(0)
@@ -913,174 +1410,62 @@ def get_SPEC_ANIMATION_BLOCK(f, emptytime3=[]):
             IABLzTrans = unpack("<f", f.read(4))[0]
             IABLUNKFloat = unpack("<f", f.read(4))[0]
             f.seek(32, 1)
-            bpy.ops.object.empty_add(type='CUBE', align='WORLD', location=([IABLxTrans, IABLyTrans,IABLzTrans]), scale=([IABLScaleX, IABLScaleY, IABLScaleZ]))
-
-def get_Animation_LIBRARY(f):
-    f.seek(0)
-    ALIBread = f.read()
-    ALIBsearch = ALIBread.find(b"\x41\x4C\x49\x42")
-    if ALIBread != 0:
-        f.seek(ALIBsearch,0)
-        ALIBS = unpack("<i", f.read(4))[0]
-        ALIBSize = unpack("<i", f.read(4))[0]
-        ALIBcount = unpack("<i", f.read(4))[0]
-        unk01 = unpack("<i", f.read(4))[0]
-        ALIBframecount = unpack("<i", f.read(4))[0]
-        f.seek(4,1)
-        f.seek(4,1)
-        f.seek(20, 1)
-        keyframecount = unpack("<i", f.read(4))[0]
-        bpy.context.scene.frame_current=1
-        bpy.context.scene.frame_start=1
-        bpy.context.scene.frame_end=ALIBframecount
-        #keyframes not available yet due lack of incompleted random bytes with chunks
-        
-
-def get_splineset(f, ea=-1, eb=0, vertices=[], edges=[]):
-    f.seek(0)
-    splinesetread = f.read()
-    splinesearch = splinesetread.find(b"\x53\x53\x54\x30")
-    if splinesetread != 0:
-        f.seek(splinesearch, 0)
-        SST0S = unpack("i", f.read(4))[0]
-        SST0Size = unpack("i",f.read(4))[0]
-        SST0E1 = unpack("i",f.read(4))[0]
-        SplineTotalSize = unpack("i",f.read(4))[0]
-        SST0E2 = unpack("i",f.read(4))[0]
-        f.seek(4, 1)
-        for i in range(SST0E2):
-            vx = unpack("<f",f.read(4))[0]
-            vy = unpack("<f",f.read(4))[0]
-            vz = unpack("<f",f.read(4))[0]
-            vertices.append([vx, vy, vz])
-        for e in range(SST0E2-1):
-            ea += 1
-            eb += 1
-            edges.append([ea,eb])
-        mesh = bpy.data.meshes.new("SplineSet")
-        mesh.from_pydata(vertices, edges, [])
-        object = bpy.data.objects.new("SplineSet", mesh)
-        bpy.context.collection.objects.link(object)
-    else:
-        raise Exception("no spline found")
-
-def get_BoundsSet1(f, ea=-1, eb=0, vertices=[], bounds=[]):
-    f.seek(0)
-    boundssetread = f.read()
-    boundssearch = boundssetread.find(b"\x42\x4E\x44\x53")
-    if boundssetread != 0:
-        f.seek(boundssearch, 0)
-        BNDS = unpack("<I", f.read(4))[0]
-        BNDS_Size = unpack("<I", f.read(4))[0]
-        BNDS_Ver = unpack("<I", f.read(4))[0]
-        BNDS_Count = unpack("<I", f.read(4))[0]
-        unk01 = unpack("<I", f.read(4))[0]
-        unk02 = unpack("<I", f.read(4))[0]
-        for i in range(BNDS_Count):
-            vx = unpack("<f", f.read(4))[0]
-            vy = unpack("<f", f.read(4))[0]
-            vz = unpack("<f", f.read(4))[0]
-            f.seek(36,1)
-            vertices.append([vx,vy,vz])
-            
-        for i in range(BNDS_Count-1):
-            ea+=1
-            eb+=1
-            bounds.append([ea,eb])
-
-        mesh = bpy.data.meshes.new("dragonjan Bounds")
-        mesh.from_pydata(vertices, bounds, [])
-        object = bpy.data.objects.new("dragonjan Bounds", mesh)
-        bpy.context.collection.objects.link(object)
-
-def indivitualMesh_1(f, filepath):
-    vertices=[]
-    faces=[]
-    f.seek(0)
-    fa=-4
-    fb=-3
-    fc=-2
-    fa_m=-3
-    fb_m=-2
-    fc_m=-1
-    while 1:
-        Chunk = f.read(4)
-        if Chunk == b"\x03\x01\x00\x01":
-            f.seek(2,1)
-            vertexcount = unpack("B", f.read(1))[0]
-            f.seek(1,1)
-            for i in range(vertexcount):
-                vx = unpack("<f", f.read(4))[0]
-                vy = unpack("<f", f.read(4))[0]
-                vz = unpack("<f", f.read(4))[0]
-                nz = unpack("<f", f.read(4))[0]
-                vertices.append([vx,vy,vz])
-        elif Chunk == b"SST0":
-            break
-
-    for i in range(1200):
-        fa+=1*4
-        fb+=1*4
-        fc+=1*4
-        fa_m+=1*4
-        fb_m+=1*4
-        fc_m+=1*4
-        faces.append([fa,fb,fc])
-        faces.append([fa_m,fb_m,fc_m])
-
-    mesh = bpy.data.meshes.new(os.path.basename(filepath))
-    mesh.from_pydata(vertices, [], faces)
-    object = bpy.data.objects.new(os.path.basename(filepath), mesh)
-    bpy.context.collection.objects.link(object)
+            bpy.ops.object.empty_add(type='CUBE', align='WORLD', location=([IABLxTrans, IABLzTrans,IABLyTrans]), scale=([IABLScaleX, IABLScaleY, IABLScaleZ]))
             
         
         
 
-def parse_gsc(filepath, Triangle_Strips_part3=False, Triangle_Strips_with_uvs_and_rgba=1, Triangle_StripsTwo=False, Triangle_Strips=False, WholeMassiveOne=False, ONE_CHUNK_OFFSET1=False, ONE_CHUNK_OFFSET1PT2=False, ONE_CHUNK_OFFSET2=False, SST=False, SPEC=False, INST=False, IABL=False, BoundingSet=False, SelectOnlyUVMesh=False, SelectOnly2ndUVMesh=False, SelectOnly3rdUVMesh=False, Triangles=False, Norm_Triangles=False, RGBAColors=False):
+def parse_gsc(filepath, pointOne=False, Triangle_Strips_with_uvs_and_rgba=1, Triangle_StripsTwo=False, Triangle_Strips=False, ONE_CHUNK_OFFSET1=False, SST=False, SPEC=False, INST_prim=False,INST_seco=False, IABL=False, BoundingSet=False, ALIB=False, SelectOnlyUVMesh=False, SelectOnly2ndUVMesh=False, SelectOnly3rdUVMesh=False, SelectOnly4thUVMesh=False,BatchHashVertexColors=False, BatchUVSS=False, RGBAColors=False):
     with open(filepath, "rb") as f:
-        
-        if Triangle_Strips_part3:
-            offset_0x03010001010000050380(f, vertices=[], faces=[], normals=[], fa=-1, fb=0, fc=1)
         if Triangle_Strips:
-            wholeChunk1(f, vertices=[], faces=[], normals=[], uvs=[], colors=[], fa=-1, fb=0, fc=1)
-        if WholeMassiveOne:
-            wholeChunk2(f, vertices=[])
+            wholeChunk1_none(f, filepath)
         if ONE_CHUNK_OFFSET1:
-            get_1stobjects(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], uvs=[], rgba=[], chunks=0, paddingWhere=0)
-        if ONE_CHUNK_OFFSET1PT2:
-            get_1stobjectspt2(f, fa=-1,fb=0,fc=1,vertices=[], faces=[])
-        if ONE_CHUNK_OFFSET2:
-            get_2ndobjects(f, vertices=[], chunks2=0, paddingWhere2=0, chunk2=0)
-        if INST:
-            get_INST(f,emptytime=[])
+            get_1stobjects(f, filepath)
+        if INST_prim:
+            get_INST_1st(f)
+        if INST_seco:
+            get_INST_2nd(f)
         if SPEC:
             get_SPEC(f, emptytime2=[])
         if IABL:
             get_SPEC_ANIMATION_BLOCK(f, emptytime3=[])
         if SST:
-            get_splineset(f, ea=-1, eb=0, vertices=[], edges=[])
+            get_splineset(f)
+        if ALIB:
+           get_Animation_LIBRARY(f) 
         if SelectOnlyUVMesh:
             selectUV(f, uvs=[])
         if SelectOnly2ndUVMesh:
             select2ndUV(f, uvs=[])
         if SelectOnly3rdUVMesh:
             selectUVThird(f, uvs=[])
+        if SelectOnly4thUVMesh:
+            selectUVFourth(f, uvs=[])
         if BoundingSet:
-            get_BoundsSet1(f, ea=-1, eb=0, vertices=[], bounds=[])
-        if Triangles:
-            FinalUnknownChunk(f, VCountThree=3, vertices=[], faces=[], normals=[], fa=-4, fb=-3,fc=-2,fa_m=-3,fb_m=-2,fc_m=-1)
-        if Norm_Triangles:
-            FinalUnknownNormalChunk(f, vertices=[], faces=[], normals=[], fa=-3, fb=-2,fc=-1)
+            get_BoundsSet1(f)
+        if BatchHashVertexColors:
+            BatchHashVertexColor1(f, filepath)
         if Triangle_StripsTwo:
-            DIFOffset_one(f, vertices=[], faces=[], fa=-1, fb=0, fc=1)
+            DIFOffset_one(f, filepath)
         if RGBAColors:
             ColorReach(f, colors=[])
         if Triangle_Strips_with_uvs_and_rgba == 1:
-            get_1stobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], normals=[], uvs=[], rgba=[], chunks=0, paddingWhere=0)
+            get_1stobjects_with_uvs_and_rgba(f, filepath)
         if Triangle_Strips_with_uvs_and_rgba == 2:
-            get_2ndobjects_with_uvs_and_rgba(f, fa=-1,fb=0,fc=1,vertices=[], faces=[], normals=[], uvs=[], rgba=[], chunks=0, paddingWhere=0)
+            get_2ndobjects_with_uvs_and_rgba(f, filepath)
         if Triangle_Strips_with_uvs_and_rgba == 3:
-            get_3rdobjects_with_uvs_and_rgba(f, vertices=[], faces=[], normals=[], fa=-1, fb=0, fc=1, uvs=[], rgba=[], chunks=0, paddingWhere=0)
+            get_3rdobjects_with_uvs_and_rgba(f, filepath)
+        if Triangle_Strips_with_uvs_and_rgba == 4:
+            get_4thobjects_with_uvs_and_rgba(f, filepath)
+        if Triangle_Strips_with_uvs_and_rgba == 5:
+            get_5thobjects_with_uvs_and_rgba(f, filepath)
+
+        if BatchUVSS:
+            BatchUVS1(f, vertices=[], faces=[], normals=[], uvs=[], rgba=[], fa=-1, fb=0, fc=1)
+
+        if pointOne:
+            one_point(f, filepath)
+                
 
 
 
