@@ -5,13 +5,6 @@ import math
 import mathutils
 
 def get_INST_1st(f):
-    bones_=[]
-    coll = bpy.context.collection
-    skel = bpy.data.armatures.new('INST Skeleton')
-    arma = bpy.data.objects.new('INST Armature', skel)
-    coll.objects.link(arma)
-    bpy.context.view_layer.objects.active = arma
-    bpy.ops.object.mode_set(mode = 'EDIT')
     
     f.seek(0)
     INSTread = f.read()
@@ -39,26 +32,6 @@ def get_INST_1st(f):
             posz = unpack("<f", f.read(4))[0]
             ScaleW = unpack("<f", f.read(4))[0]
             f.seek(16,1)
-            m1 = ([ScaleX,rotationz,rotationy,null1])
-            m2 = ([nrotationz,ScaleY,rotationx,nrotationy])
-            m3 = ([null2,nrotationx,ScaleZ,null3])
-            m4 = ([posx,posy,posz,ScaleW])
-
-            matrix = mathutils.Matrix([m1,m3,m2,m4]).to_3x3()
-
-            bone = skel.edit_bones.new("inst_bones")
-            
-            bone.tail = mathutils.Vector([0,0,0.03])
-            
-            bone.head = ([
-                posx,
-                posy,
-                posz,
-            ])
-            
-            bone.length = -0.03
-            
-            bone.transform(matrix)
-        bpy.ops.object.mode_set(mode = 'OBJECT')
+            bpy.ops.object.empty_add(type='CUBE', align='WORLD', location=([posx, posz,posy]), scale=([ScaleX, ScaleY, ScaleZ]))
     else:
         raise Exception("no INST found")
