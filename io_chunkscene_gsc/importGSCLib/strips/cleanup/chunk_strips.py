@@ -11,11 +11,13 @@ import math
 def wholeChunk1_none(f, filepath):
     vertices=[]
     verticesA=[]
+    verticesB=[]
     normals=[]
     uvs=[]
     vcolors=[]
     faces=[]
     facesA=[]
+    facesB=[]
     materialsOBJ=[]
     values=[]
     f.seek(0)
@@ -26,6 +28,14 @@ def wholeChunk1_none(f, filepath):
     fa_a = -3
     fb_a = -2
     fc_a = -1
+
+    fa_b = -4
+    fb_b = -3
+    fc_b = -2
+
+    fa_c = -3
+    fb_c = -2
+    fc_c = -1
     f.seek(0)
     whileChunk = f.read()
     f.seek(0)
@@ -336,12 +346,6 @@ def wholeChunk1_none(f, filepath):
                         normaly = pack("<d", ny1)[0]
                         normalz = pack("<d", nz1)[0]
                         normals.append([nx1,ny1,nz1])
-                        fa+=1
-                        fb+=1
-                        fc+=1
-
-                        if type4 > 0:
-                            faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
                             
 
                     for i in range(vertexCount):
@@ -372,10 +376,276 @@ def wholeChunk1_none(f, filepath):
                         type8 = unpack("B", f.read(1))[0]
                         value1a4 = unpack("B", f.read(1))[0]
                         normalZ_4 = unpack("<h", f.read(2))[0]
-                        vertices.append([vx5,vz5,vy5])
-                        vertices.append([vx6,vz6,vy6])
-                        vertices.append([vx7,vz7,vy7])
-                        vertices.append([vx8,vz8,vy8])
+
+                    offset1 = unpack("<H", f.read(2))[0]
+                    if offset1 == 1:
+                        offset1_ = unpack("<H", f.read(2))[0]
+                        if offset1_ == 1280:
+                            offset2_ = unpack("<H", f.read(2))[0]
+                            if offset2_ == 32772:
+                                uvcount = unpack("B", f.read(1))[0]
+                                flag3 = unpack("B", f.read(1))[0]
+                                if flag3 == 0x6D:
+                                    for i in range(4):
+                                        f.seek(2,1)
+                                        f.seek(2,1)
+                                        f.seek(4,1)
+                                    offset1c = unpack("<H", f.read(2))[0]
+                                    if offset1c == 49157:
+                                        vcount = unpack("B", f.read(1))[0]
+                                        flag6 = unpack("B", f.read(1))[0]
+                                        if flag6 == 0x6E:
+                                            for i in range(4):
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                            offset1e = unpack("<H", f.read(2))[0]
+                                            if offset1e == 257:
+                                                offset2e = unpack("<H", f.read(2))[0]
+                                                if offset2e == 256:
+                                                    offset3e = unpack("<I", f.read(4))[0]
+                                                    if offset3e == 335545088:
+                                                        verticesB.append([vx5,vz5,vy5])
+                                                        verticesB.append([vx6,vz6,vy6])
+                                                        verticesB.append([vx7,vz7,vy7])
+                                                        verticesB.append([vx8,vz8,vy8])
+                                                        fa_b+=1*4
+                                                        fb_b+=1*4
+                                                        fc_b+=1*4
+                                                        fa_c+=1*4
+                                                        fb_c+=1*4
+                                                        fc_c+=1*4
+                                                        facesB.append([fa_b,fb_b,fc_b])
+                                                        facesB.append([fa_c,fb_c,fc_c])
+                                                        
+                                    elif offset1c == 0:
+                                        offset1ca = unpack("<H", f.read(2))[0]
+                                        if offset1ca == 1280:
+                                            offset1cb = unpack("<H", f.read(2))[0]
+                                            if offset1cb == 49157:
+                                                vcount = unpack("B", f.read(1))[0]
+                                                flag5 = unpack("B", f.read(1))[0]
+                                                if flag5 == 0x6E:
+                                                    for i in range(4):
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                    offsetFinal = unpack("<H", f.read(2))[0]
+                                                    if offsetFinal == 257:
+                                                        offsetFinal1 = unpack("<H", f.read(2))[0]
+                                                        if offsetFinal1 == 256:
+                                                            final1 = unpack("<I", f.read(4))[0]
+                                                            if final1 == 335545088:
+                                                                verticesB.append([vx5,vz5,vy5])
+                                                                verticesB.append([vx6,vz6,vy6])
+                                                                verticesB.append([vx7,vz7,vy7])
+                                                                verticesB.append([vx8,vz8,vy8])
+                                                                fa_b+=1*4
+                                                                fb_b+=1*4
+                                                                fc_b+=1*4
+                                                                fa_c+=1*4
+                                                                fb_c+=1*4
+                                                                fc_c+=1*4
+                                                                facesB.append([fa_b,fb_b,fc_b])
+                                                                facesB.append([fa_c,fb_c,fc_c])
+                                                                
+                                    elif offset1c == 257:
+                                        offset2c = unpack("<H", f.read(2))[0]
+                                        if offset2c == 256:
+                                            offset3c = unpack("<I", f.read(4))[0]
+                                            if offset3c == 335545088:
+                                                verticesB.append([vx5,vz5,vy5])
+                                                verticesB.append([vx6,vz6,vy6])
+                                                verticesB.append([vx7,vz7,vy7])
+                                                verticesB.append([vx8,vz8,vy8])
+                                                fa_b+=1*4
+                                                fb_b+=1*4
+                                                fc_b+=1*4
+                                                fa_c+=1*4
+                                                fb_c+=1*4
+                                                fc_c+=1*4
+                                                facesB.append([fa_b,fb_b,fc_b])
+                                                facesB.append([fa_c,fb_c,fc_c])
+                                                
+                                elif flag3 == 0x65:
+                                    for i in range(4):
+                                        f.seek(2,1)
+                                        f.seek(2,1)
+                                    offset1d = unpack("<H", f.read(2))[0]
+                                    if offset1d == 49157:
+                                        vcount = unpack("B", f.read(1))[0]
+                                        flag7 = unpack("B", f.read(1))[0]
+                                        if flag7 == 0x6E:
+                                            for i in range(4):
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                            offset1f = unpack("<H", f.read(2))[0]
+                                            if offset1f == 257:
+                                                offset1fa = unpack("<H", f.read(2))[0]
+                                                if offset1fa == 256:
+                                                    offset1fb = unpack("<I", f.read(4))[0]
+                                                    if offset1fb == 335545088:
+                                                        verticesB.append([vx5,vz5,vy5])
+                                                        verticesB.append([vx6,vz6,vy6])
+                                                        verticesB.append([vx7,vz7,vy7])
+                                                        verticesB.append([vx8,vz8,vy8])
+                                                        fa_b+=1*4
+                                                        fb_b+=1*4
+                                                        fc_b+=1*4
+                                                        fa_c+=1*4
+                                                        fb_c+=1*4
+                                                        fc_c+=1*4
+                                                        facesB.append([fa_b,fb_b,fc_b])
+                                                        facesB.append([fa_c,fb_c,fc_c])
+                                                    
+                                    elif offset1d == 0:
+                                        offset1da = unpack("<H", f.read(2))[0]
+                                        if offset1da == 1280:
+                                            offset1db = unpack("<H", f.read(2))[0]
+                                            if offset1db == 49157:
+                                                vcount = unpack("B", f.read(1))[0]
+                                                flag5 = unpack("B", f.read(1))[0]
+                                                if flag5 == 0x6E:
+                                                    for i in range(4):
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                    offsetFinal = unpack("<H", f.read(2))[0]
+                                                    if offsetFinal == 257:
+                                                        offsetFinal1 = unpack("<H", f.read(2))[0]
+                                                        if offsetFinal1 == 256:
+                                                            final1 = unpack("<I", f.read(4))[0]
+                                                            if final1 == 335545088:
+                                                                verticesB.append([vx5,vz5,vy5])
+                                                                verticesB.append([vx6,vz6,vy6])
+                                                                verticesB.append([vx7,vz7,vy7])
+                                                                verticesB.append([vx8,vz8,vy8])
+                                                                fa_b+=1*4
+                                                                fb_b+=1*4
+                                                                fc_b+=1*4
+                                                                fa_c+=1*4
+                                                                fb_c+=1*4
+                                                                fc_c+=1*4
+                                                                facesB.append([fa_b,fb_b,fc_b])
+                                                                facesB.append([fa_c,fb_c,fc_c])
+                                    elif offset1d == 257:
+                                        offset2d = unpack("<H", f.read(2))[0]
+                                        if offset2d == 256:
+                                            offset3d = unpack("<I", f.read(4))[0]
+                                            if offset3d == 335545088:
+                                                verticesB.append([vx5,vz5,vy5])
+                                                verticesB.append([vx6,vz6,vy6])
+                                                verticesB.append([vx7,vz7,vy7])
+                                                verticesB.append([vx8,vz8,vy8])
+                                                fa_b+=1*4
+                                                fb_b+=1*4
+                                                fc_b+=1*4
+                                                fa_c+=1*4
+                                                fb_c+=1*4
+                                                fc_c+=1*4
+                                                facesB.append([fa_b,fb_b,fc_b])
+                                                facesB.append([fa_c,fb_c,fc_c])
+                            
+                    elif offset1 == 32772:
+                        uvcount = unpack("B", f.read(1))[0]
+                        flag1 = unpack("B", f.read(1))[0]
+                        if flag1 == 0x6D:
+                            for i in range(4):
+                                f.seek(2,1)
+                                f.seek(2,1)
+                                f.seek(4,1)
+                            offset1a = unpack("<H", f.read(2))[0]
+                            if offset1a == 257:
+                                offset2a = unpack("<H", f.read(2))[0]
+                                if offset2a == 256:
+                                    offset3a = unpack("<I", f.read(4))[0]
+                                    if offset3a == 335545088:
+                                        verticesB.append([vx5,vz5,vy5])
+                                        verticesB.append([vx6,vz6,vy6])
+                                        verticesB.append([vx7,vz7,vy7])
+                                        verticesB.append([vx8,vz8,vy8])
+                                        fa_b+=1*4
+                                        fb_b+=1*4
+                                        fc_b+=1*4
+                                        fa_c+=1*4
+                                        fb_c+=1*4
+                                        fc_c+=1*4
+                                        facesB.append([fa_b,fb_b,fc_b])
+                                        facesB.append([fa_c,fb_c,fc_c])
+                                        
+                                
+                        elif flag1 == 0x65:
+                            for i in range(4):
+                                f.seek(2,1)
+                                f.seek(2,1)
+                            offset1b = unpack("<H", f.read(2))[0]
+                            if offset1b == 49157:
+                                vcount = unpack("B", f.read(1))[0]
+                                flag8 = unpack("B", f.read(1))[0]
+                                if flag8 == 0x6E:
+                                    for i in range(4):
+                                        f.seek(1,1)
+                                        f.seek(1,1)
+                                        f.seek(1,1)
+                                        f.seek(1,1)
+                                    offset1g = unpack("<H", f.read(2))[0]
+                                    if offset1g == 257:
+                                        offset1ga = unpack("<H", f.read(2))[0]
+                                        if offset1ga == 256:
+                                            offset1gb = unpack("<I", f.read(4))[0]
+                                            if offset1gb == 335545088:
+                                                verticesB.append([vx5,vz5,vy5])
+                                                verticesB.append([vx6,vz6,vy6])
+                                                verticesB.append([vx7,vz7,vy7])
+                                                verticesB.append([vx8,vz8,vy8])
+                                                fa_b+=1*4
+                                                fb_b+=1*4
+                                                fc_b+=1*4
+                                                fa_c+=1*4
+                                                fb_c+=1*4
+                                                fc_c+=1*4
+                                                facesB.append([fa_b,fb_b,fc_b])
+                                                facesB.append([fa_c,fb_c,fc_c])
+                                                
+                            elif offset1b == 257:
+                                offset2b = unpack("<H", f.read(2))[0]
+                                if offset2b == 256:
+                                    offset3b = unpack("<I", f.read(4))[0]
+                                    if offset3b == 335545088:
+                                        verticesB.append([vx5,vz5,vy5])
+                                        verticesB.append([vx6,vz6,vy6])
+                                        verticesB.append([vx7,vz7,vy7])
+                                        verticesB.append([vx8,vz8,vy8])
+                                        fa_b+=1*4
+                                        fb_b+=1*4
+                                        fc_b+=1*4
+                                        fa_c+=1*4
+                                        fb_c+=1*4
+                                        fc_c+=1*4
+                                        facesB.append([fa_b,fb_b,fc_b])
+                                        facesB.append([fa_c,fb_c,fc_c])
+                    elif offset1 == 257:
+                        offset2 = unpack("<H", f.read(2))[0]
+                        if offset2 == 256:
+                            offset3 = unpack("<I", f.read(4))[0]
+                            if offset3 == 335545088:
+                                verticesB.append([vx5,vz5,vy5])
+                                verticesB.append([vx6,vz6,vy6])
+                                verticesB.append([vx7,vz7,vy7])
+                                verticesB.append([vx8,vz8,vy8])
+                                fa_b+=1*4
+                                fb_b+=1*4
+                                fc_b+=1*4
+                                fa_c+=1*4
+                                fb_c+=1*4
+                                fc_c+=1*4
+                                facesB.append([fa_b,fb_b,fc_b])
+                                facesB.append([fa_c,fb_c,fc_c])
                             
 
                 elif vertexCount == 5:
@@ -7932,10 +8202,6 @@ def wholeChunk1_none(f, filepath):
 
                 elif vertexCount:
                     raise Exception("must be 3 to 42 only not over")
-                                        
-                            
-        elif Chunk == b"SST0":
-            break
 
     collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
     bpy.context.scene.collection.children.link(collection)
@@ -7944,6 +8210,11 @@ def wholeChunk1_none(f, filepath):
     mesh.from_pydata(verticesA, [], facesA)
     objs = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
     collection.objects.link(objs)
+
+    mesh2 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh2.from_pydata(verticesB, [], facesB)
+    objs2 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh2)
+    collection.objects.link(objs2)
 
     """for matti in materialsOBJ:
         objs.data.materials.append(matti)"""
