@@ -13,6 +13,9 @@ def wholeChunk1_none(f, filepath):
     verticesA=[]
     verticesB=[]
     verticesC=[]
+    verticesD=[]
+    verticesDD=[]
+    verticesDDD=[]
     normals=[]
     uvs=[]
     vcolors=[]
@@ -20,6 +23,9 @@ def wholeChunk1_none(f, filepath):
     facesA=[]
     facesB=[]
     facesC=[]
+    facesD=[]
+    facesDD=[]
+    facesDDD=[]
     materialsOBJ=[]
     values=[]
     f.seek(0)
@@ -50,6 +56,114 @@ def wholeChunk1_none(f, filepath):
     fa_f = -3
     fb_f = -2
     fc_f = -1
+
+    fa_g = -3
+    fb_g = -2
+    fc_g = -1
+
+    fa_gg = -6
+    fb_gg = -5
+    fc_gg = -4
+
+    fa_hh = -5
+    fb_hh = -4
+    fc_hh = -3
+
+    fa_ii = -4
+    fb_ii = -3
+    fc_ii = -2
+
+    fa_jj = -3
+    fb_jj = -2
+    fc_jj = -1
+
+    fa_d_ = -5
+    fb_d_ = -4
+    fc_d_ = -3
+
+    fa_e_ = -4
+    fb_e_ = -3
+    fc_e_ = -2
+
+    fa_f_ = -3
+    fb_f_ = -2
+    fc_f_ = -1
+    f.seek(0)
+    whileChunk2 = f.read()
+    f.seek(0)
+    while f.tell() < len(whileChunk2):
+        Chunk2_ = f.read(4)
+        if Chunk2_ == b"\x03\x01\x00\x01":
+            f.seek(2,1)
+            vertexCount2 = unpack("B", f.read(1))[0]
+            flag_2 = unpack("B", f.read(1))[0]
+            if flag_2 == 0x6C:
+                if vertexCount2 == 5:
+                    for j in range(1):
+                        vx1_ = unpack("<f", f.read(4))[0]
+                        vy1_ = unpack("<f", f.read(4))[0]
+                        vz1_ = unpack("<f", f.read(4))[0]
+                        type1_ = unpack("B", f.read(1))[0]
+                        value1a1_ = unpack("B", f.read(1))[0]
+                        normalZ_1_ = unpack("<h", f.read(2))[0]
+                        vx2_ = unpack("<f", f.read(4))[0]
+                        vy2_ = unpack("<f", f.read(4))[0]
+                        vz2_ = unpack("<f", f.read(4))[0]
+                        type2_ = unpack("B", f.read(1))[0]
+                        value1a2_ = unpack("B", f.read(1))[0]
+                        normalZ_2_ = unpack("<h", f.read(2))[0]
+                        vx3_ = unpack("<f", f.read(4))[0]
+                        vy3_ = unpack("<f", f.read(4))[0]
+                        vz3_ = unpack("<f", f.read(4))[0]
+                        type3_ = unpack("B", f.read(1))[0]
+                        value1a3_ = unpack("B", f.read(1))[0]
+                        normalZ_3_ = unpack("<h", f.read(2))[0]
+                        vx4_ = unpack("<f", f.read(4))[0]
+                        vy4_ = unpack("<f", f.read(4))[0]
+                        vz4_ = unpack("<f", f.read(4))[0]
+                        type4_ = unpack("B", f.read(1))[0]
+                        value1a4_ = unpack("B", f.read(1))[0]
+                        normalZ_4_ = unpack("<h", f.read(2))[0]
+                        vx5_ = unpack("<f", f.read(4))[0]
+                        vy5_ = unpack("<f", f.read(4))[0]
+                        vz5_ = unpack("<f", f.read(4))[0]
+                        type5_ = unpack("B", f.read(1))[0]
+                        value1a5_ = unpack("B", f.read(1))[0]
+                        normalZ_5_ = unpack("<h", f.read(2))[0]
+                    n_offset1 = unpack("<I", f.read(4))[0]
+                    if n_offset1 == 1694859268:
+                        for i in range(5):
+                            f.seek(2,1)
+                            f.seek(2,1)
+                        n_offset2 = unpack("<I", f.read(4))[0]
+                        if n_offset2 == 1845870597:
+                            for i in range(5):
+                                f.seek(1,1)
+                                f.seek(1,1)
+                                f.seek(1,1)
+                                f.seek(1,1)
+                            n_offset3 = unpack("<I", f.read(4))[0]
+                            if n_offset3 == 16777473:
+                                n_offset4 = unpack("<I", f.read(4))[0]
+                                if n_offset4 == 335545088:
+                                    verticesD.append([vx1_,vz1_,vy1_])
+                                    verticesD.append([vx2_,vz2_,vy2_])
+                                    verticesD.append([vx3_,vz3_,vy3_])
+                                    verticesD.append([vx4_,vz4_,vy4_])
+                                    verticesD.append([vx5_,vz5_,vy5_])
+                                    fa_d_+=1*5
+                                    fb_d_+=1*5
+                                    fc_d_+=1*5
+                                    fa_e_+=1*5
+                                    fb_e_+=1*5
+                                    fc_e_+=1*5
+                                    fa_f_+=1*5
+                                    fb_f_+=1*5
+                                    fc_f_+=1*5
+                                    facesD.append([fa_d_,fb_d_,fc_d_])
+                                    facesD.append([fa_e_,fb_e_,fc_e_])
+                                    facesD.append([fa_f_,fb_f_,fc_f_])
+                    
     f.seek(0)
     whileChunk = f.read()
     f.seek(0)
@@ -1110,12 +1224,636 @@ def wholeChunk1_none(f, filepath):
                         type19 = unpack("B", f.read(1))[0]
                         value1a19 = unpack("B", f.read(1))[0]
                         normalZ_19 = unpack("<h", f.read(2))[0]
-                        vertices.append([vx14,vz14,vy14])
-                        vertices.append([vx15,vz15,vy15])
-                        vertices.append([vx16,vz16,vy16])
-                        vertices.append([vx17,vz17,vy17])
-                        vertices.append([vx18,vz18,vy18])
-                        vertices.append([vx19,vz19,vy19])
+                    for i in range(vertexCount):
+                        f.seek(-16,1)
+                    for jjjj_ in range(1):
+                        vx14_ = unpack("<f", f.read(4))[0]
+                        vy14_ = unpack("<f", f.read(4))[0]
+                        vz14_ = unpack("<f", f.read(4))[0]
+                        type14_ = unpack("B", f.read(1))[0]
+                        value1a14_ = unpack("B", f.read(1))[0]
+                        normalZ_14_ = unpack("<h", f.read(2))[0]
+                        vx15_ = unpack("<f", f.read(4))[0]
+                        vy15_ = unpack("<f", f.read(4))[0]
+                        vz15_ = unpack("<f", f.read(4))[0]
+                        type15_ = unpack("B", f.read(1))[0]
+                        value1a15_ = unpack("B", f.read(1))[0]
+                        normalZ_15_ = unpack("<h", f.read(2))[0]
+                        vx16_ = unpack("<f", f.read(4))[0]
+                        vy16_ = unpack("<f", f.read(4))[0]
+                        vz16_ = unpack("<f", f.read(4))[0]
+                        type16_ = unpack("B", f.read(1))[0]
+                        value1a16_ = unpack("B", f.read(1))[0]
+                        normalZ_16_ = unpack("<h", f.read(2))[0]
+                        vx17_ = unpack("<f", f.read(4))[0]
+                        vy17_ = unpack("<f", f.read(4))[0]
+                        vz17_ = unpack("<f", f.read(4))[0]
+                        type17_ = unpack("B", f.read(1))[0]
+                        value1a17_ = unpack("B", f.read(1))[0]
+                        normalZ_17_ = unpack("<h", f.read(2))[0]
+                        vx18_ = unpack("<f", f.read(4))[0]
+                        vy18_ = unpack("<f", f.read(4))[0]
+                        vz18_ = unpack("<f", f.read(4))[0]
+                        type18_ = unpack("B", f.read(1))[0]
+                        value1a18_ = unpack("B", f.read(1))[0]
+                        normalZ_18_ = unpack("<h", f.read(2))[0]
+                        vx19_ = unpack("<f", f.read(4))[0]
+                        vy19_ = unpack("<f", f.read(4))[0]
+                        vz19_ = unpack("<f", f.read(4))[0]
+                        type19_ = unpack("B", f.read(1))[0]
+                        value1a19_ = unpack("B", f.read(1))[0]
+                        normalZ_19_ = unpack("<h", f.read(2))[0]
+
+                    offset1_3 = unpack("<H", f.read(2))[0]
+                    if offset1_3 == 1:
+                        offset1_ = unpack("<H", f.read(2))[0]
+                        if offset1_ == 1280:
+                            offset2_ = unpack("<H", f.read(2))[0]
+                            if offset2_ == 32772:
+                                uvcount = unpack("B", f.read(1))[0]
+                                flag3 = unpack("B", f.read(1))[0]
+                                if flag3 == 0x6D:
+                                    for i in range(6):
+                                        f.seek(2,1)
+                                        f.seek(2,1)
+                                        f.seek(4,1)
+                                    offset1c = unpack("<H", f.read(2))[0]
+                                    if offset1c == 49157:
+                                        vcount = unpack("B", f.read(1))[0]
+                                        flag6 = unpack("B", f.read(1))[0]
+                                        if flag6 == 0x6E:
+                                            for i in range(6):
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                            offset1e = unpack("<H", f.read(2))[0]
+                                            if offset1e == 257:
+                                                offset2e = unpack("<H", f.read(2))[0]
+                                                if offset2e == 256:
+                                                    offset3e = unpack("<I", f.read(4))[0]
+                                                    if offset3e == 335545088:
+                                                        if type14 == 1:
+                                                            if type15 == 1:
+                                                                if type16 == 0:
+                                                                    if type17 == 1:
+                                                                        if type18 == 1:
+                                                                            if type19 == 0:
+                                                                                verticesDD.append([vx14,vz14,vy14])
+                                                                                verticesDD.append([vx15,vz15,vy15])
+                                                                                verticesDD.append([vx16,vz16,vy16])
+                                                                                verticesDD.append([vx17,vz17,vy17])
+                                                                                verticesDD.append([vx18,vz18,vy18])
+                                                                                verticesDD.append([vx19,vz19,vy19])
+                                                                                fa_g+=1*3
+                                                                                fb_g+=1*3
+                                                                                fc_g+=1*3
+                                                                                facesDD.append([fa_g,fb_g,fc_g])
+                                                        if type14_ == 1:
+                                                            if type15_ == 1:
+                                                                if type16_ == 0:
+                                                                    if type17_ == 0:
+                                                                        if type18_ == 0:
+                                                                            if type19_ == 0:
+                                                                                verticesDDD.append([vx14_,vz14_,vy14_])
+                                                                                verticesDDD.append([vx15_,vz15_,vy15_])
+                                                                                verticesDDD.append([vx16_,vz16_,vy16_])
+                                                                                verticesDDD.append([vx17_,vz17_,vy17_])
+                                                                                verticesDDD.append([vx18_,vz18_,vy18_])
+                                                                                verticesDDD.append([vx19_,vz19_,vy19_])
+                                                                                fa_gg+=1*6
+                                                                                fb_gg+=1*6
+                                                                                fc_gg+=1*6
+                                                                                fa_hh+=1*6
+                                                                                fb_hh+=1*6
+                                                                                fc_hh+=1*6
+                                                                                fa_ii+=1*6
+                                                                                fb_ii+=1*6
+                                                                                fc_ii+=1*6
+                                                                                fa_jj+=1*6
+                                                                                fb_jj+=1*6
+                                                                                fc_jj+=1*6
+                                                                                facesDDD.append([fa_gg,fb_gg,fc_gg])
+                                                                                facesDDD.append([fa_hh,fb_hh,fc_hh])
+                                                                                facesDDD.append([fa_ii,fb_ii,fc_ii])
+                                                                                facesDDD.append([fa_jj,fb_jj,fc_jj])
+                                                        
+                                    elif offset1c == 0:
+                                        offset1ca = unpack("<H", f.read(2))[0]
+                                        if offset1ca == 1280:
+                                            offset1cb = unpack("<H", f.read(2))[0]
+                                            if offset1cb == 49157:
+                                                vcount = unpack("B", f.read(1))[0]
+                                                flag5 = unpack("B", f.read(1))[0]
+                                                if flag5 == 0x6E:
+                                                    for i in range(6):
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                    offsetFinal = unpack("<H", f.read(2))[0]
+                                                    if offsetFinal == 257:
+                                                        offsetFinal1 = unpack("<H", f.read(2))[0]
+                                                        if offsetFinal1 == 256:
+                                                            final1 = unpack("<I", f.read(4))[0]
+                                                            if final1 == 335545088:
+                                                                if type14 == 1:
+                                                                    if type15 == 1:
+                                                                        if type16 == 0:
+                                                                            if type17 == 1:
+                                                                                if type18 == 1:
+                                                                                    if type19 == 0:
+                                                                                        verticesDD.append([vx14,vz14,vy14])
+                                                                                        verticesDD.append([vx15,vz15,vy15])
+                                                                                        verticesDD.append([vx16,vz16,vy16])
+                                                                                        verticesDD.append([vx17,vz17,vy17])
+                                                                                        verticesDD.append([vx18,vz18,vy18])
+                                                                                        verticesDD.append([vx19,vz19,vy19])
+                                                                                        fa_g+=1*3
+                                                                                        fb_g+=1*3
+                                                                                        fc_g+=1*3
+                                                                                        facesDD.append([fa_g,fb_g,fc_g])
+                                                                if type14_ == 1:
+                                                                    if type15_ == 1:
+                                                                        if type16_ == 0:
+                                                                            if type17_ == 0:
+                                                                                if type18_ == 0:
+                                                                                    if type19_ == 0:
+                                                                                        verticesDDD.append([vx14_,vz14_,vy14_])
+                                                                                        verticesDDD.append([vx15_,vz15_,vy15_])
+                                                                                        verticesDDD.append([vx16_,vz16_,vy16_])
+                                                                                        verticesDDD.append([vx17_,vz17_,vy17_])
+                                                                                        verticesDDD.append([vx18_,vz18_,vy18_])
+                                                                                        verticesDDD.append([vx19_,vz19_,vy19_])
+                                                                                        fa_gg+=1*6
+                                                                                        fb_gg+=1*6
+                                                                                        fc_gg+=1*6
+                                                                                        fa_hh+=1*6
+                                                                                        fb_hh+=1*6
+                                                                                        fc_hh+=1*6
+                                                                                        fa_ii+=1*6
+                                                                                        fb_ii+=1*6
+                                                                                        fc_ii+=1*6
+                                                                                        fa_jj+=1*6
+                                                                                        fb_jj+=1*6
+                                                                                        fc_jj+=1*6
+                                                                                        facesDDD.append([fa_gg,fb_gg,fc_gg])
+                                                                                        facesDDD.append([fa_hh,fb_hh,fc_hh])
+                                                                                        facesDDD.append([fa_ii,fb_ii,fc_ii])
+                                                                                        facesDDD.append([fa_jj,fb_jj,fc_jj])
+                                                                
+                                    elif offset1c == 257:
+                                        offset2c = unpack("<H", f.read(2))[0]
+                                        if offset2c == 256:
+                                            offset3c = unpack("<I", f.read(4))[0]
+                                            if offset3c == 335545088:
+                                                if type14 == 1:
+                                                    if type15 == 1:
+                                                        if type16 == 0:
+                                                            if type17 == 1:
+                                                                if type18 == 1:
+                                                                    if type19 == 0:
+                                                                        verticesDD.append([vx14,vz14,vy14])
+                                                                        verticesDD.append([vx15,vz15,vy15])
+                                                                        verticesDD.append([vx16,vz16,vy16])
+                                                                        verticesDD.append([vx17,vz17,vy17])
+                                                                        verticesDD.append([vx18,vz18,vy18])
+                                                                        verticesDD.append([vx19,vz19,vy19])
+                                                                        fa_g+=1*3
+                                                                        fb_g+=1*3
+                                                                        fc_g+=1*3
+                                                                        facesDD.append([fa_g,fb_g,fc_g])
+                                                if type14_ == 1:
+                                                    if type15_ == 1:
+                                                        if type16_ == 0:
+                                                            if type17_ == 0:
+                                                                if type18_ == 0:
+                                                                    if type19_ == 0:
+                                                                        verticesDDD.append([vx14_,vz14_,vy14_])
+                                                                        verticesDDD.append([vx15_,vz15_,vy15_])
+                                                                        verticesDDD.append([vx16_,vz16_,vy16_])
+                                                                        verticesDDD.append([vx17_,vz17_,vy17_])
+                                                                        verticesDDD.append([vx18_,vz18_,vy18_])
+                                                                        verticesDDD.append([vx19_,vz19_,vy19_])
+                                                                        fa_gg+=1*6
+                                                                        fb_gg+=1*6
+                                                                        fc_gg+=1*6
+                                                                        fa_hh+=1*6
+                                                                        fb_hh+=1*6
+                                                                        fc_hh+=1*6
+                                                                        fa_ii+=1*6
+                                                                        fb_ii+=1*6
+                                                                        fc_ii+=1*6
+                                                                        fa_jj+=1*6
+                                                                        fb_jj+=1*6
+                                                                        fc_jj+=1*6
+                                                                        facesDDD.append([fa_gg,fb_gg,fc_gg])
+                                                                        facesDDD.append([fa_hh,fb_hh,fc_hh])
+                                                                        facesDDD.append([fa_ii,fb_ii,fc_ii])
+                                                                        facesDDD.append([fa_jj,fb_jj,fc_jj])
+                                                
+                                elif flag3 == 0x65:
+                                    for i in range(6):
+                                        f.seek(2,1)
+                                        f.seek(2,1)
+                                    offset1d = unpack("<H", f.read(2))[0]
+                                    if offset1d == 49157:
+                                        vcount = unpack("B", f.read(1))[0]
+                                        flag7 = unpack("B", f.read(1))[0]
+                                        if flag7 == 0x6E:
+                                            for i in range(6):
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                                f.seek(1,1)
+                                            offset1f = unpack("<H", f.read(2))[0]
+                                            if offset1f == 257:
+                                                offset1fa = unpack("<H", f.read(2))[0]
+                                                if offset1fa == 256:
+                                                    offset1fb = unpack("<I", f.read(4))[0]
+                                                    if offset1fb == 335545088:
+                                                        if type14 == 1:
+                                                            if type15 == 1:
+                                                                if type16 == 0:
+                                                                    if type17 == 1:
+                                                                        if type18 == 1:
+                                                                            if type19 == 0:
+                                                                                verticesDD.append([vx14,vz14,vy14])
+                                                                                verticesDD.append([vx15,vz15,vy15])
+                                                                                verticesDD.append([vx16,vz16,vy16])
+                                                                                verticesDD.append([vx17,vz17,vy17])
+                                                                                verticesDD.append([vx18,vz18,vy18])
+                                                                                verticesDD.append([vx19,vz19,vy19])
+                                                                                fa_g+=1*3
+                                                                                fb_g+=1*3
+                                                                                fc_g+=1*3
+                                                                                facesDD.append([fa_g,fb_g,fc_g])
+                                                        if type14_ == 1:
+                                                            if type15_ == 1:
+                                                                if type16_ == 0:
+                                                                    if type17_ == 0:
+                                                                        if type18_ == 0:
+                                                                            if type19_ == 0:
+                                                                                verticesDDD.append([vx14_,vz14_,vy14_])
+                                                                                verticesDDD.append([vx15_,vz15_,vy15_])
+                                                                                verticesDDD.append([vx16_,vz16_,vy16_])
+                                                                                verticesDDD.append([vx17_,vz17_,vy17_])
+                                                                                verticesDDD.append([vx18_,vz18_,vy18_])
+                                                                                verticesDDD.append([vx19_,vz19_,vy19_])
+                                                                                fa_gg+=1*6
+                                                                                fb_gg+=1*6
+                                                                                fc_gg+=1*6
+                                                                                fa_hh+=1*6
+                                                                                fb_hh+=1*6
+                                                                                fc_hh+=1*6
+                                                                                fa_ii+=1*6
+                                                                                fb_ii+=1*6
+                                                                                fc_ii+=1*6
+                                                                                fa_jj+=1*6
+                                                                                fb_jj+=1*6
+                                                                                fc_jj+=1*6
+                                                                                facesDDD.append([fa_gg,fb_gg,fc_gg])
+                                                                                facesDDD.append([fa_hh,fb_hh,fc_hh])
+                                                                                facesDDD.append([fa_ii,fb_ii,fc_ii])
+                                                                                facesDDD.append([fa_jj,fb_jj,fc_jj])
+                                                    
+                                    elif offset1d == 0:
+                                        offset1da = unpack("<H", f.read(2))[0]
+                                        if offset1da == 1280:
+                                            offset1db = unpack("<H", f.read(2))[0]
+                                            if offset1db == 49157:
+                                                vcount = unpack("B", f.read(1))[0]
+                                                flag5 = unpack("B", f.read(1))[0]
+                                                if flag5 == 0x6E:
+                                                    for i in range(6):
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                        f.seek(1,1)
+                                                    offsetFinal = unpack("<H", f.read(2))[0]
+                                                    if offsetFinal == 257:
+                                                        offsetFinal1 = unpack("<H", f.read(2))[0]
+                                                        if offsetFinal1 == 256:
+                                                            final1 = unpack("<I", f.read(4))[0]
+                                                            if final1 == 335545088:
+                                                                if type14 == 1:
+                                                                    if type15 == 1:
+                                                                        if type16 == 0:
+                                                                            if type17 == 1:
+                                                                                if type18 == 1:
+                                                                                    if type19 == 0:
+                                                                                        verticesDD.append([vx14,vz14,vy14])
+                                                                                        verticesDD.append([vx15,vz15,vy15])
+                                                                                        verticesDD.append([vx16,vz16,vy16])
+                                                                                        verticesDD.append([vx17,vz17,vy17])
+                                                                                        verticesDD.append([vx18,vz18,vy18])
+                                                                                        verticesDD.append([vx19,vz19,vy19])
+                                                                                        fa_g+=1*3
+                                                                                        fb_g+=1*3
+                                                                                        fc_g+=1*3
+                                                                                        facesDD.append([fa_g,fb_g,fc_g])
+                                                                if type14_ == 1:
+                                                                    if type15_ == 1:
+                                                                        if type16_ == 0:
+                                                                            if type17_ == 0:
+                                                                                if type18_ == 0:
+                                                                                    if type19_ == 0:
+                                                                                        verticesDDD.append([vx14_,vz14_,vy14_])
+                                                                                        verticesDDD.append([vx15_,vz15_,vy15_])
+                                                                                        verticesDDD.append([vx16_,vz16_,vy16_])
+                                                                                        verticesDDD.append([vx17_,vz17_,vy17_])
+                                                                                        verticesDDD.append([vx18_,vz18_,vy18_])
+                                                                                        verticesDDD.append([vx19_,vz19_,vy19_])
+                                                                                        fa_gg+=1*6
+                                                                                        fb_gg+=1*6
+                                                                                        fc_gg+=1*6
+                                                                                        fa_hh+=1*6
+                                                                                        fb_hh+=1*6
+                                                                                        fc_hh+=1*6
+                                                                                        fa_ii+=1*6
+                                                                                        fb_ii+=1*6
+                                                                                        fc_ii+=1*6
+                                                                                        fa_jj+=1*6
+                                                                                        fb_jj+=1*6
+                                                                                        fc_jj+=1*6
+                                                                                        facesDDD.append([fa_gg,fb_gg,fc_gg])
+                                                                                        facesDDD.append([fa_hh,fb_hh,fc_hh])
+                                                                                        facesDDD.append([fa_ii,fb_ii,fc_ii])
+                                                                                        facesDDD.append([fa_jj,fb_jj,fc_jj])
+                                    elif offset1d == 257:
+                                        offset2d = unpack("<H", f.read(2))[0]
+                                        if offset2d == 256:
+                                            offset3d = unpack("<I", f.read(4))[0]
+                                            if offset3d == 335545088:
+                                                if type14 == 1:
+                                                    if type15 == 1:
+                                                        if type16 == 0:
+                                                            if type17 == 1:
+                                                                if type18 == 1:
+                                                                    if type19 == 0:
+                                                                        verticesDD.append([vx14,vz14,vy14])
+                                                                        verticesDD.append([vx15,vz15,vy15])
+                                                                        verticesDD.append([vx16,vz16,vy16])
+                                                                        verticesDD.append([vx17,vz17,vy17])
+                                                                        verticesDD.append([vx18,vz18,vy18])
+                                                                        verticesDD.append([vx19,vz19,vy19])
+                                                                        fa_g+=1*3
+                                                                        fb_g+=1*3
+                                                                        fc_g+=1*3
+                                                                        facesDD.append([fa_g,fb_g,fc_g])
+                                                if type14_ == 1:
+                                                    if type15_ == 1:
+                                                        if type16_ == 0:
+                                                            if type17_ == 0:
+                                                                if type18_ == 0:
+                                                                    if type19_ == 0:
+                                                                        verticesDDD.append([vx14_,vz14_,vy14_])
+                                                                        verticesDDD.append([vx15_,vz15_,vy15_])
+                                                                        verticesDDD.append([vx16_,vz16_,vy16_])
+                                                                        verticesDDD.append([vx17_,vz17_,vy17_])
+                                                                        verticesDDD.append([vx18_,vz18_,vy18_])
+                                                                        verticesDDD.append([vx19_,vz19_,vy19_])
+                                                                        fa_gg+=1*6
+                                                                        fb_gg+=1*6
+                                                                        fc_gg+=1*6
+                                                                        fa_hh+=1*6
+                                                                        fb_hh+=1*6
+                                                                        fc_hh+=1*6
+                                                                        fa_ii+=1*6
+                                                                        fb_ii+=1*6
+                                                                        fc_ii+=1*6
+                                                                        fa_jj+=1*6
+                                                                        fb_jj+=1*6
+                                                                        fc_jj+=1*6
+                                                                        facesDDD.append([fa_gg,fb_gg,fc_gg])
+                                                                        facesDDD.append([fa_hh,fb_hh,fc_hh])
+                                                                        facesDDD.append([fa_ii,fb_ii,fc_ii])
+                                                                        facesDDD.append([fa_jj,fb_jj,fc_jj])
+                            
+                    elif offset1_3 == 32772:
+                        uvcount = unpack("B", f.read(1))[0]
+                        flag1 = unpack("B", f.read(1))[0]
+                        if flag1 == 0x6D:
+                            for i in range(6):
+                                f.seek(2,1)
+                                f.seek(2,1)
+                                f.seek(4,1)
+                            offset1a = unpack("<H", f.read(2))[0]
+                            if offset1a == 257:
+                                offset2a = unpack("<H", f.read(2))[0]
+                                if offset2a == 256:
+                                    offset3a = unpack("<I", f.read(4))[0]
+                                    if offset3a == 335545088:
+                                        if type14 == 1:
+                                            if type15 == 1:
+                                                if type16 == 0:
+                                                    if type17 == 1:
+                                                        if type18 == 1:
+                                                            if type19 == 0:
+                                                                verticesDD.append([vx14,vz14,vy14])
+                                                                verticesDD.append([vx15,vz15,vy15])
+                                                                verticesDD.append([vx16,vz16,vy16])
+                                                                verticesDD.append([vx17,vz17,vy17])
+                                                                verticesDD.append([vx18,vz18,vy18])
+                                                                verticesDD.append([vx19,vz19,vy19])
+                                                                fa_g+=1*3
+                                                                fb_g+=1*3
+                                                                fc_g+=1*3
+                                                                facesDD.append([fa_g,fb_g,fc_g])
+                                        if type14_ == 1:
+                                            if type15_ == 1:
+                                                if type16_ == 0:
+                                                    if type17_ == 0:
+                                                        if type18_ == 0:
+                                                            if type19_ == 0:
+                                                                verticesDDD.append([vx14_,vz14_,vy14_])
+                                                                verticesDDD.append([vx15_,vz15_,vy15_])
+                                                                verticesDDD.append([vx16_,vz16_,vy16_])
+                                                                verticesDDD.append([vx17_,vz17_,vy17_])
+                                                                verticesDDD.append([vx18_,vz18_,vy18_])
+                                                                verticesDDD.append([vx19_,vz19_,vy19_])
+                                                                fa_gg+=1*6
+                                                                fb_gg+=1*6
+                                                                fc_gg+=1*6
+                                                                fa_hh+=1*6
+                                                                fb_hh+=1*6
+                                                                fc_hh+=1*6
+                                                                fa_ii+=1*6
+                                                                fb_ii+=1*6
+                                                                fc_ii+=1*6
+                                                                fa_jj+=1*6
+                                                                fb_jj+=1*6
+                                                                fc_jj+=1*6
+                                                                facesDDD.append([fa_gg,fb_gg,fc_gg])
+                                                                facesDDD.append([fa_hh,fb_hh,fc_hh])
+                                                                facesDDD.append([fa_ii,fb_ii,fc_ii])
+                                                                facesDDD.append([fa_jj,fb_jj,fc_jj])
+                                        
+                                
+                        elif flag1 == 0x65:
+                            for i in range(6):
+                                f.seek(2,1)
+                                f.seek(2,1)
+                            offset1b = unpack("<H", f.read(2))[0]
+                            if offset1b == 49157:
+                                vcount = unpack("B", f.read(1))[0]
+                                flag8 = unpack("B", f.read(1))[0]
+                                if flag8 == 0x6E:
+                                    for i in range(6):
+                                        f.seek(1,1)
+                                        f.seek(1,1)
+                                        f.seek(1,1)
+                                        f.seek(1,1)
+                                    offset1g = unpack("<H", f.read(2))[0]
+                                    if offset1g == 257:
+                                        offset1ga = unpack("<H", f.read(2))[0]
+                                        if offset1ga == 256:
+                                            offset1gb = unpack("<I", f.read(4))[0]
+                                            if offset1gb == 335545088:
+                                                if type14 == 1:
+                                                    if type15 == 1:
+                                                        if type16 == 0:
+                                                            if type17 == 1:
+                                                                if type18 == 1:
+                                                                    if type19 == 0:
+                                                                        verticesDD.append([vx14,vz14,vy14])
+                                                                        verticesDD.append([vx15,vz15,vy15])
+                                                                        verticesDD.append([vx16,vz16,vy16])
+                                                                        verticesDD.append([vx17,vz17,vy17])
+                                                                        verticesDD.append([vx18,vz18,vy18])
+                                                                        verticesDD.append([vx19,vz19,vy19])
+                                                                        fa_g+=1*3
+                                                                        fb_g+=1*3
+                                                                        fc_g+=1*3
+                                                                        facesDD.append([fa_g,fb_g,fc_g])
+                                                if type14_ == 1:
+                                                    if type15_ == 1:
+                                                        if type16_ == 0:
+                                                            if type17_ == 0:
+                                                                if type18_ == 0:
+                                                                    if type19_ == 0:
+                                                                        verticesDDD.append([vx14_,vz14_,vy14_])
+                                                                        verticesDDD.append([vx15_,vz15_,vy15_])
+                                                                        verticesDDD.append([vx16_,vz16_,vy16_])
+                                                                        verticesDDD.append([vx17_,vz17_,vy17_])
+                                                                        verticesDDD.append([vx18_,vz18_,vy18_])
+                                                                        verticesDDD.append([vx19_,vz19_,vy19_])
+                                                                        fa_gg+=1*6
+                                                                        fb_gg+=1*6
+                                                                        fc_gg+=1*6
+                                                                        fa_hh+=1*6
+                                                                        fb_hh+=1*6
+                                                                        fc_hh+=1*6
+                                                                        fa_ii+=1*6
+                                                                        fb_ii+=1*6
+                                                                        fc_ii+=1*6
+                                                                        fa_jj+=1*6
+                                                                        fb_jj+=1*6
+                                                                        fc_jj+=1*6
+                                                                        facesDDD.append([fa_gg,fb_gg,fc_gg])
+                                                                        facesDDD.append([fa_hh,fb_hh,fc_hh])
+                                                                        facesDDD.append([fa_ii,fb_ii,fc_ii])
+                                                                        facesDDD.append([fa_jj,fb_jj,fc_jj])
+                                                
+                            elif offset1b == 257:
+                                offset2b = unpack("<H", f.read(2))[0]
+                                if offset2b == 256:
+                                    offset3b = unpack("<I", f.read(4))[0]
+                                    if offset3b == 335545088:
+                                        if type14 == 1:
+                                            if type15 == 1:
+                                                if type16 == 0:
+                                                    if type17 == 1:
+                                                        if type18 == 1:
+                                                            if type19 == 0:
+                                                                verticesDD.append([vx14,vz14,vy14])
+                                                                verticesDD.append([vx15,vz15,vy15])
+                                                                verticesDD.append([vx16,vz16,vy16])
+                                                                verticesDD.append([vx17,vz17,vy17])
+                                                                verticesDD.append([vx18,vz18,vy18])
+                                                                verticesDD.append([vx19,vz19,vy19])
+                                                                fa_g+=1*3
+                                                                fb_g+=1*3
+                                                                fc_g+=1*3
+                                                                facesDD.append([fa_g,fb_g,fc_g])
+                                        if type14_ == 1:
+                                            if type15_ == 1:
+                                                if type16_ == 0:
+                                                    if type17_ == 0:
+                                                        if type18_ == 0:
+                                                            if type19_ == 0:
+                                                                verticesDDD.append([vx14_,vz14_,vy14_])
+                                                                verticesDDD.append([vx15_,vz15_,vy15_])
+                                                                verticesDDD.append([vx16_,vz16_,vy16_])
+                                                                verticesDDD.append([vx17_,vz17_,vy17_])
+                                                                verticesDDD.append([vx18_,vz18_,vy18_])
+                                                                verticesDDD.append([vx19_,vz19_,vy19_])
+                                                                fa_gg+=1*6
+                                                                fb_gg+=1*6
+                                                                fc_gg+=1*6
+                                                                fa_hh+=1*6
+                                                                fb_hh+=1*6
+                                                                fc_hh+=1*6
+                                                                fa_ii+=1*6
+                                                                fb_ii+=1*6
+                                                                fc_ii+=1*6
+                                                                fa_jj+=1*6
+                                                                fb_jj+=1*6
+                                                                fc_jj+=1*6
+                                                                facesDDD.append([fa_gg,fb_gg,fc_gg])
+                                                                facesDDD.append([fa_hh,fb_hh,fc_hh])
+                                                                facesDDD.append([fa_ii,fb_ii,fc_ii])
+                                                                facesDDD.append([fa_jj,fb_jj,fc_jj])
+                    elif offset1_3 == 257:
+                        offset2 = unpack("<H", f.read(2))[0]
+                        if offset2 == 256:
+                            offset3 = unpack("<I", f.read(4))[0]
+                            if offset3 == 335545088:
+                                if type14 == 1:
+                                    if type15 == 1:
+                                        if type16 == 0:
+                                            if type17 == 1:
+                                                if type18 == 1:
+                                                    if type19 == 0:
+                                                        verticesDD.append([vx14,vz14,vy14])
+                                                        verticesDD.append([vx15,vz15,vy15])
+                                                        verticesDD.append([vx16,vz16,vy16])
+                                                        verticesDD.append([vx17,vz17,vy17])
+                                                        verticesDD.append([vx18,vz18,vy18])
+                                                        verticesDD.append([vx19,vz19,vy19])
+                                                        fa_g+=1*3
+                                                        fb_g+=1*3
+                                                        fc_g+=1*3
+                                                        facesDD.append([fa_g,fb_g,fc_g])
+                                if type14_ == 1:
+                                    if type15_ == 1:
+                                        if type16_ == 0:
+                                            if type17_ == 0:
+                                                if type18_ == 0:
+                                                    if type19_ == 0:
+                                                        verticesDDD.append([vx14_,vz14_,vy14_])
+                                                        verticesDDD.append([vx15_,vz15_,vy15_])
+                                                        verticesDDD.append([vx16_,vz16_,vy16_])
+                                                        verticesDDD.append([vx17_,vz17_,vy17_])
+                                                        verticesDDD.append([vx18_,vz18_,vy18_])
+                                                        verticesDDD.append([vx19_,vz19_,vy19_])
+                                                        fa_gg+=1*6
+                                                        fb_gg+=1*6
+                                                        fc_gg+=1*6
+                                                        fa_hh+=1*6
+                                                        fb_hh+=1*6
+                                                        fc_hh+=1*6
+                                                        fa_ii+=1*6
+                                                        fb_ii+=1*6
+                                                        fc_ii+=1*6
+                                                        fa_jj+=1*6
+                                                        fb_jj+=1*6
+                                                        fc_jj+=1*6
+                                                        facesDDD.append([fa_gg,fb_gg,fc_gg])
+                                                        facesDDD.append([fa_hh,fb_hh,fc_hh])
+                                                        facesDDD.append([fa_ii,fb_ii,fc_ii])
+                                                        facesDDD.append([fa_jj,fb_jj,fc_jj])
+                                                        
 
                 elif vertexCount == 7:
                     for j in range(vertexCount):
@@ -8544,6 +9282,21 @@ def wholeChunk1_none(f, filepath):
     mesh3.from_pydata(verticesC, [], facesC)
     objs3 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh3)
     collection.objects.link(objs3)
+
+    mesh4 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh4.from_pydata(verticesD, [], facesD)
+    objs4 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh4)
+    collection.objects.link(objs4)
+
+    mesh5 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh5.from_pydata(verticesDD, [], facesDD)
+    objs5 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh5)
+    collection.objects.link(objs5)
+
+    mesh6 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh6.from_pydata(verticesDDD, [], facesDDD)
+    objs6 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh6)
+    collection.objects.link(objs6)
 
     """for matti in materialsOBJ:
         objs.data.materials.append(matti)"""
