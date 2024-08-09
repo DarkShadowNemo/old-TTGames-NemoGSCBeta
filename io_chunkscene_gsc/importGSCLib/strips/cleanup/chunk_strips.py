@@ -19,6 +19,21 @@ def wholeChunk1_none(f, filepath):
     verticesEEE=[]
     verticesEEEE=[]
     verticesF_=[]
+    verticesG_=[]
+    verticesH_=[]
+    verticesH_a=[]
+    verticesH_b=[]
+    verticesH_c=[]
+    verticesH_d=[]
+    verticesH_e=[]
+    verticesH_f=[]
+    verticesH_g=[]
+    verticesH_h=[]
+    verticesG_a=[]
+    verticesG_b=[]
+    verticesG_c=[]
+    verticesG_d=[]
+    verticesG_e=[]
     verticesF_a=[]
     verticesF_b=[]
     verticesF_c=[]
@@ -36,6 +51,21 @@ def wholeChunk1_none(f, filepath):
     facesD=[]
     facesE=[]
     facesF_=[]
+    facesG_=[]
+    facesH_=[]
+    facesH_a=[]
+    facesH_b=[]
+    facesH_c=[]
+    facesH_d=[]
+    facesH_e=[]
+    facesH_f=[]
+    facesH_g=[]
+    facesH_h=[]
+    facesG_a=[]
+    facesG_b=[]
+    facesG_c=[]
+    facesG_d=[]
+    facesG_e=[]
     facesF_a=[]
     facesF_b=[]
     facesF_c=[]
@@ -49,9 +79,282 @@ def wholeChunk1_none(f, filepath):
     materialsOBJ=[]
     values=[]
     f.seek(0)
+
+    fa_oaaaaaaaaa=-10
+    fb_oaaaaaaaaa=-9
+    fc_oaaaaaaaaa=-8
+    fa_obaaaaaaaa=-9
+    fb_obaaaaaaaa=-8
+    fc_obaaaaaaaa=-7
+    fa_ocaaaaaaaa=-6
+    fb_ocaaaaaaaa=-5
+    fc_ocaaaaaaaa=-4
+    fa_odaaaaaaaa=-3
+    fb_odaaaaaaaa=-2
+    fc_odaaaaaaaa=-1
+
+    fa_oaaaaaaaa=-10
+    fb_oaaaaaaaa=-9
+    fc_oaaaaaaaa=-8
+    fa_obaaaaaaa=-7
+    fb_obaaaaaaa=-6
+    fc_obaaaaaaa=-5
+    fa_ocaaaaaaa=-6
+    fb_ocaaaaaaa=-5
+    fc_ocaaaaaaa=-4
+    fa_odaaaaaaa=-3
+    fb_odaaaaaaa=-2
+    fc_odaaaaaaa=-1
+
+    fa_oaaaaaaa=-10
+    fb_oaaaaaaa=-9
+    fc_oaaaaaaa=-8
+    fa_obaaaaaa=-7
+    fb_obaaaaaa=-6
+    fc_obaaaaaa=-5
+    fa_ocaaaaaa=-4
+    fb_ocaaaaaa=-3
+    fc_ocaaaaaa=-2
+    fa_odaaaaaa=-3
+    fb_odaaaaaa=-2
+    fc_odaaaaaa=-1
+
+    fa_oaaaaaa=-10
+    fb_oaaaaaa=-9
+    fc_oaaaaaa=-8
+    fa_obaaaaa=-9
+    fb_obaaaaa=-8
+    fc_obaaaaa=-7
+    fa_ocaaaaa=-8
+    fb_ocaaaaa=-7
+    fc_ocaaaaa=-6
+    fa_odaaaaa=-7
+    fb_odaaaaa=-6
+    fc_odaaaaa=-5
+    fa_oeaaaaa=-6
+    fb_oeaaaaa=-5
+    fc_oeaaaaa=-4
+    fa_ofaaaaa=-3
+    fb_ofaaaaa=-2
+    fc_ofaaaaa=-1
+
+    fa_oaaaaa=-10
+    fb_oaaaaa=-9
+    fc_oaaaaa=-8
+    fa_obaaaa=-9
+    fb_obaaaa=-8
+    fc_obaaaa=-7
+    fa_ocaaaa=-8
+    fb_ocaaaa=-7
+    fc_ocaaaa=-6
+    fa_odaaaa=-7
+    fb_odaaaa=-6
+    fc_odaaaa=-5
+    fa_oeaaaa=-4
+    fb_oeaaaa=-3
+    fc_oeaaaa=-2
+    fa_ofaaaa=-3
+    fb_ofaaaa=-2
+    fc_ofaaaa=-1
+
+    fa_oaaaa=-10
+    fb_oaaaa=-9
+    fc_oaaaa=-8
+    fa_obaaa=-9
+    fb_obaaa=-8
+    fc_obaaa=-7
+    fa_ocaaa=-8
+    fb_ocaaa=-7
+    fc_ocaaa=-6
+    fa_odaaa=-5
+    fb_odaaa=-4
+    fc_odaaa=-3
+    fa_oeaaa=-4
+    fb_oeaaa=-3
+    fc_oeaaa=-2
+    fa_ofaaa=-3
+    fb_ofaaa=-2
+    fc_ofaaa=-1
+
+    fa_oaaa=-10
+    fb_oaaa=-9
+    fc_oaaa=-8
+    fa_obaa=-9
+    fb_obaa=-8
+    fc_obaa=-7
+    fa_ocaa=-6
+    fb_ocaa=-5
+    fc_ocaa=-4
+    fa_odaa=-5
+    fb_odaa=-4
+    fc_odaa=-3
+    fa_oeaa=-4
+    fb_oeaa=-3
+    fc_oeaa=-2
+    fa_ofaa=-3
+    fb_ofaa=-2
+    fc_ofaa=-1
+
+    fa_oaa=-10
+    fb_oaa=-9
+    fc_oaa=-8
+    fa_oba=-7
+    fb_oba=-6
+    fc_oba=-5
+    fa_oca=-6
+    fb_oca=-5
+    fc_oca=-4
+    fa_oda=-5
+    fb_oda=-4
+    fc_oda=-3
+    fa_oea=-4
+    fb_oea=-3
+    fc_oea=-2
+    fa_ofa=-3
+    fb_ofa=-2
+    fc_ofa=-1
+    
+
+    fa_oa=-10
+    fb_oa=-9
+    fc_oa=-8
+    fa_ob=-9
+    fb_ob=-8
+    fc_ob=-7
+    fa_oc=-8
+    fb_oc=-7
+    fc_oc=-6
+    fa_od=-7
+    fb_od=-6
+    fc_od=-5
+    fa_oe=-6
+    fb_oe=-5
+    fc_oe=-4
+    fa_of=-5
+    fb_of=-4
+    fc_of=-3
+    fa_og=-4
+    fb_og=-3
+    fc_og=-2
+    fa_oh=-3
+    fb_oh=-2
+    fc_oh=-1
+    
     fa = -1
     fb = 0
     fc = 1
+
+    fa_ntttttt = -3
+    fb_ntttttt = -2
+    fc_ntttttt = -1
+
+    fa_nttttt = -9
+    fb_nttttt = -8
+    fc_nttttt = -7
+
+    fa_nuuuuu = -8
+    fb_nuuuuu = -7
+    fc_nuuuuu = -6
+
+    fa_nvvvvv = -7
+    fb_nvvvvv = -6
+    fc_nvvvvv = -5
+
+    fa_nwwwww = -6
+    fb_nwwwww = -5
+    fc_nwwwww = -4
+
+    fa_nxxxxx = -3
+    fb_nxxxxx = -2
+    fc_nxxxxx = -1
+
+    fa_ntttt = -9
+    fb_ntttt = -8
+    fc_ntttt = -7
+
+    fa_nuuuu = -8
+    fb_nuuuu = -7
+    fc_nuuuu = -6
+
+    fa_nvvvv = -7
+    fb_nvvvv = -6
+    fc_nvvvv = -5
+
+    fa_nwwww = -4
+    fb_nwwww = -3
+    fc_nwwww = -2
+
+    fa_nxxxx = -3
+    fb_nxxxx = -2
+    fc_nxxxx = -1
+
+    fa_nttt = -9
+    fb_nttt = -8
+    fc_nttt = -7
+
+    fa_nuuu = -8
+    fb_nuuu = -7
+    fc_nuuu = -6
+
+    fa_nvvv = -5
+    fb_nvvv = -4
+    fc_nvvv = -3
+
+    fa_nwww = -4
+    fb_nwww = -3
+    fc_nwww = -2
+
+    fa_nxxx = -3
+    fb_nxxx = -2
+    fc_nxxx = -1
+
+    fa_ntt = -9
+    fb_ntt = -8
+    fc_ntt = -7
+
+    fa_nuu = -6
+    fb_nuu = -5
+    fc_nuu = -4
+
+    fa_nvv = -5
+    fb_nvv = -4
+    fc_nvv = -3
+
+    fa_nww = -4
+    fb_nww = -3
+    fc_nww = -2
+
+    fa_nxx = -3
+    fb_nxx = -2
+    fc_nxx = -1
+
+    fa_nt = -9
+    fb_nt = -8
+    fc_nt = -7
+
+    fa_nu = -8
+    fb_nu = -7
+    fc_nu = -6
+
+    fa_nv = -7
+    fb_nv = -6
+    fc_nv = -5
+
+    fa_nw = -6
+    fb_nw = -5
+    fc_nw = -4
+
+    fa_nx = -5
+    fb_nx = -4
+    fc_nx = -3
+
+    fa_ny = -4
+    fb_ny = -3
+    fc_ny = -2
+
+    fa_nz = -3
+    fb_nz = -2
+    fc_nz = -1
 
     fa_nnaaa = -8
     fb_nnaaa = -7
@@ -922,167 +1225,1738 @@ def wholeChunk1_none(f, filepath):
                         value1a34__b = unpack("B", f.read(1))[0]
                         normalZ_34__b = unpack("<h", f.read(2))[0]
                         
-                nn_offset1 = unpack("<I", f.read(4))[0]
-                if nn_offset1 == 1695055876:
-                    for i in range(8):
-                        f.seek(2,1)
-                        f.seek(2,1)
-                    nn_offset2 = unpack("<I", f.read(4))[0]
-                    if nn_offset2 == 1846067205:
+                    nn_offset1 = unpack("<I", f.read(4))[0]
+                    if nn_offset1 == 1695055876:
                         for i in range(8):
-                            f.seek(1,1)
-                            f.seek(1,1)
-                            f.seek(1,1)
-                            f.seek(1,1)
-                        nn_offset3 = unpack("<I", f.read(4))[0]
-                        if nn_offset3 == 16777473:
-                            nn_offset4 = unpack("<I", f.read(4))[0]
-                            if nn_offset4 == 335545088:
-                                if type27__b == 1:
-                                    if type28__b == 1:
-                                        if type29__b == 0:
-                                            if type30__b == 0:
-                                                if type31__b == 0:
-                                                    if type32__b == 1:
-                                                        if type33__b == 1:
-                                                            if type34__b == 0:
-                                                                verticesF_c.append([vx27__b,vz27__b,vy27__b])
-                                                                verticesF_c.append([vx28__b,vz28__b,vy28__b])
-                                                                verticesF_c.append([vx29__b,vz29__b,vy29__b])
-                                                                verticesF_c.append([vx30__b,vz30__b,vy30__b])
-                                                                verticesF_c.append([vx31__b,vz31__b,vy31__b])
-                                                                verticesF_c.append([vx32__b,vz32__b,vy32__b])
-                                                                verticesF_c.append([vx33__b,vz33__b,vy33__b])
-                                                                verticesF_c.append([vx34__b,vz34__b,vy34__b])
+                            f.seek(2,1)
+                            f.seek(2,1)
+                        nn_offset2 = unpack("<I", f.read(4))[0]
+                        if nn_offset2 == 1846067205:
+                            for i in range(8):
+                                f.seek(1,1)
+                                f.seek(1,1)
+                                f.seek(1,1)
+                                f.seek(1,1)
+                            nn_offset3 = unpack("<I", f.read(4))[0]
+                            if nn_offset3 == 16777473:
+                                nn_offset4 = unpack("<I", f.read(4))[0]
+                                if nn_offset4 == 335545088:
+                                    if type27__b == 1:
+                                        if type28__b == 1:
+                                            if type29__b == 0:
+                                                if type30__b == 0:
+                                                    if type31__b == 0:
+                                                        if type32__b == 1:
+                                                            if type33__b == 1:
+                                                                if type34__b == 0:
+                                                                    verticesF_c.append([vx27__b,vz27__b,vy27__b])
+                                                                    verticesF_c.append([vx28__b,vz28__b,vy28__b])
+                                                                    verticesF_c.append([vx29__b,vz29__b,vy29__b])
+                                                                    verticesF_c.append([vx30__b,vz30__b,vy30__b])
+                                                                    verticesF_c.append([vx31__b,vz31__b,vy31__b])
+                                                                    verticesF_c.append([vx32__b,vz32__b,vy32__b])
+                                                                    verticesF_c.append([vx33__b,vz33__b,vy33__b])
+                                                                    verticesF_c.append([vx34__b,vz34__b,vy34__b])
 
-                                                                fa_nnaaa+=1*8
-                                                                fb_nnaaa+=1*8
-                                                                fc_nnaaa+=1*8
-                                                                fa_noaaa+=1*8
-                                                                fb_noaaa+=1*8
-                                                                fc_noaaa+=1*8
-                                                                fa_npaaa+=1*8
-                                                                fb_npaaa+=1*8
-                                                                fc_npaaa+=1*8
-                                                                fa_nqaaa+=1*8
-                                                                fb_nqaaa+=1*8
-                                                                fc_nqaaa+=1*8
+                                                                    fa_nnaaa+=1*8
+                                                                    fb_nnaaa+=1*8
+                                                                    fc_nnaaa+=1*8
+                                                                    fa_noaaa+=1*8
+                                                                    fb_noaaa+=1*8
+                                                                    fc_noaaa+=1*8
+                                                                    fa_npaaa+=1*8
+                                                                    fb_npaaa+=1*8
+                                                                    fc_npaaa+=1*8
+                                                                    fa_nqaaa+=1*8
+                                                                    fb_nqaaa+=1*8
+                                                                    fc_nqaaa+=1*8
 
-                                                                facesF_c.append([fa_nnaaa,fb_nnaaa,fc_nnaaa])
-                                                                facesF_c.append([fa_noaaa,fb_noaaa,fc_noaaa])
-                                                                facesF_c.append([fa_npaaa,fb_npaaa,fc_npaaa])
-                                                                facesF_c.append([fa_nqaaa,fb_nqaaa,fc_nqaaa])
-                                if type27__a == 1:
-                                    if type28__a == 1:
-                                        if type29__a == 0:
-                                            if type30__a == 0:
-                                                if type31__a == 1:
-                                                    if type32__a == 1:
-                                                        if type33__a == 0:
-                                                            if type34__a == 0:
-                                                                verticesF_b.append([vx27__a,vz27__a,vy27__a])
-                                                                verticesF_b.append([vx28__a,vz28__a,vy28__a])
-                                                                verticesF_b.append([vx29__a,vz29__a,vy29__a])
-                                                                verticesF_b.append([vx30__a,vz30__a,vy30__a])
-                                                                verticesF_b.append([vx31__a,vz31__a,vy31__a])
-                                                                verticesF_b.append([vx32__a,vz32__a,vy32__a])
-                                                                verticesF_b.append([vx33__a,vz33__a,vy33__a])
-                                                                verticesF_b.append([vx34__a,vz34__a,vy34__a])
+                                                                    facesF_c.append([fa_nnaaa,fb_nnaaa,fc_nnaaa])
+                                                                    facesF_c.append([fa_noaaa,fb_noaaa,fc_noaaa])
+                                                                    facesF_c.append([fa_npaaa,fb_npaaa,fc_npaaa])
+                                                                    facesF_c.append([fa_nqaaa,fb_nqaaa,fc_nqaaa])
+                                    if type27__a == 1:
+                                        if type28__a == 1:
+                                            if type29__a == 0:
+                                                if type30__a == 0:
+                                                    if type31__a == 1:
+                                                        if type32__a == 1:
+                                                            if type33__a == 0:
+                                                                if type34__a == 0:
+                                                                    verticesF_b.append([vx27__a,vz27__a,vy27__a])
+                                                                    verticesF_b.append([vx28__a,vz28__a,vy28__a])
+                                                                    verticesF_b.append([vx29__a,vz29__a,vy29__a])
+                                                                    verticesF_b.append([vx30__a,vz30__a,vy30__a])
+                                                                    verticesF_b.append([vx31__a,vz31__a,vy31__a])
+                                                                    verticesF_b.append([vx32__a,vz32__a,vy32__a])
+                                                                    verticesF_b.append([vx33__a,vz33__a,vy33__a])
+                                                                    verticesF_b.append([vx34__a,vz34__a,vy34__a])
 
-                                                                fa_nnaa+=1*8
-                                                                fb_nnaa+=1*8
-                                                                fc_nnaa+=1*8
-                                                                fa_noaa+=1*8
-                                                                fb_noaa+=1*8
-                                                                fc_noaa+=1*8
-                                                                fa_npaa+=1*8
-                                                                fb_npaa+=1*8
-                                                                fc_npaa+=1*8
-                                                                fa_nqaa+=1*8
-                                                                fb_nqaa+=1*8
-                                                                fc_nqaa+=1*8
+                                                                    fa_nnaa+=1*8
+                                                                    fb_nnaa+=1*8
+                                                                    fc_nnaa+=1*8
+                                                                    fa_noaa+=1*8
+                                                                    fb_noaa+=1*8
+                                                                    fc_noaa+=1*8
+                                                                    fa_npaa+=1*8
+                                                                    fb_npaa+=1*8
+                                                                    fc_npaa+=1*8
+                                                                    fa_nqaa+=1*8
+                                                                    fb_nqaa+=1*8
+                                                                    fc_nqaa+=1*8
 
-                                                                facesF_b.append([fa_nnaa,fb_nnaa,fc_nnaa])
-                                                                facesF_b.append([fa_noaa,fb_noaa,fc_noaa])
-                                                                facesF_b.append([fa_npaa,fb_npaa,fc_npaa])
-                                                                facesF_b.append([fa_nqaa,fb_nqaa,fc_nqaa])
-                                if type27__ == 1:
-                                    if type28__ == 1:
-                                        if type29__ == 0:
-                                            if type30__ == 1:
-                                                if type31__ == 1:
-                                                    if type32__ == 0:
-                                                        if type33__ == 0:
-                                                            if type34__ == 0:
-                                                                verticesF_a.append([vx27__,vz27__,vy27__])
-                                                                verticesF_a.append([vx28__,vz28__,vy28__])
-                                                                verticesF_a.append([vx29__,vz29__,vy29__])
-                                                                verticesF_a.append([vx30__,vz30__,vy30__])
-                                                                verticesF_a.append([vx31__,vz31__,vy31__])
-                                                                verticesF_a.append([vx32__,vz32__,vy32__])
-                                                                verticesF_a.append([vx33__,vz33__,vy33__])
-                                                                verticesF_a.append([vx34__,vz34__,vy34__])
+                                                                    facesF_b.append([fa_nnaa,fb_nnaa,fc_nnaa])
+                                                                    facesF_b.append([fa_noaa,fb_noaa,fc_noaa])
+                                                                    facesF_b.append([fa_npaa,fb_npaa,fc_npaa])
+                                                                    facesF_b.append([fa_nqaa,fb_nqaa,fc_nqaa])
+                                    if type27__ == 1:
+                                        if type28__ == 1:
+                                            if type29__ == 0:
+                                                if type30__ == 1:
+                                                    if type31__ == 1:
+                                                        if type32__ == 0:
+                                                            if type33__ == 0:
+                                                                if type34__ == 0:
+                                                                    verticesF_a.append([vx27__,vz27__,vy27__])
+                                                                    verticesF_a.append([vx28__,vz28__,vy28__])
+                                                                    verticesF_a.append([vx29__,vz29__,vy29__])
+                                                                    verticesF_a.append([vx30__,vz30__,vy30__])
+                                                                    verticesF_a.append([vx31__,vz31__,vy31__])
+                                                                    verticesF_a.append([vx32__,vz32__,vy32__])
+                                                                    verticesF_a.append([vx33__,vz33__,vy33__])
+                                                                    verticesF_a.append([vx34__,vz34__,vy34__])
 
-                                                                fa_nna+=1*8
-                                                                fb_nna+=1*8
-                                                                fc_nna+=1*8
-                                                                fa_noa+=1*8
-                                                                fb_noa+=1*8
-                                                                fc_noa+=1*8
-                                                                fa_npa+=1*8
-                                                                fb_npa+=1*8
-                                                                fc_npa+=1*8
-                                                                fa_nqa+=1*8
-                                                                fb_nqa+=1*8
-                                                                fc_nqa+=1*8
+                                                                    fa_nna+=1*8
+                                                                    fb_nna+=1*8
+                                                                    fc_nna+=1*8
+                                                                    fa_noa+=1*8
+                                                                    fb_noa+=1*8
+                                                                    fc_noa+=1*8
+                                                                    fa_npa+=1*8
+                                                                    fb_npa+=1*8
+                                                                    fc_npa+=1*8
+                                                                    fa_nqa+=1*8
+                                                                    fb_nqa+=1*8
+                                                                    fc_nqa+=1*8
 
-                                                                facesF_a.append([fa_nna,fb_nna,fc_nna])
-                                                                facesF_a.append([fa_noa,fb_noa,fc_noa])
-                                                                facesF_a.append([fa_npa,fb_npa,fc_npa])
-                                                                facesF_a.append([fa_nqa,fb_nqa,fc_nqa])
-                                if type27_ == 1:
-                                    if type28_ == 1:
-                                        if type29_ == 0:
-                                            if type30_ == 0:
-                                                if type31_ == 0:
-                                                    if type32_ == 0:
-                                                        if type33_ == 0:
-                                                            if type34_ == 0:
-                                                                verticesF_.append([vx27_,vz27_,vy27_])
-                                                                verticesF_.append([vx28_,vz28_,vy28_])
-                                                                verticesF_.append([vx29_,vz29_,vy29_])
-                                                                verticesF_.append([vx30_,vz30_,vy30_])
-                                                                verticesF_.append([vx31_,vz31_,vy31_])
-                                                                verticesF_.append([vx32_,vz32_,vy32_])
-                                                                verticesF_.append([vx33_,vz33_,vy33_])
-                                                                verticesF_.append([vx34_,vz34_,vy34_])
+                                                                    facesF_a.append([fa_nna,fb_nna,fc_nna])
+                                                                    facesF_a.append([fa_noa,fb_noa,fc_noa])
+                                                                    facesF_a.append([fa_npa,fb_npa,fc_npa])
+                                                                    facesF_a.append([fa_nqa,fb_nqa,fc_nqa])
+                                    if type27_ == 1:
+                                        if type28_ == 1:
+                                            if type29_ == 0:
+                                                if type30_ == 0:
+                                                    if type31_ == 0:
+                                                        if type32_ == 0:
+                                                            if type33_ == 0:
+                                                                if type34_ == 0:
+                                                                    verticesF_.append([vx27_,vz27_,vy27_])
+                                                                    verticesF_.append([vx28_,vz28_,vy28_])
+                                                                    verticesF_.append([vx29_,vz29_,vy29_])
+                                                                    verticesF_.append([vx30_,vz30_,vy30_])
+                                                                    verticesF_.append([vx31_,vz31_,vy31_])
+                                                                    verticesF_.append([vx32_,vz32_,vy32_])
+                                                                    verticesF_.append([vx33_,vz33_,vy33_])
+                                                                    verticesF_.append([vx34_,vz34_,vy34_])
 
-                                                                fa_nn+=1*8
-                                                                fb_nn+=1*8
-                                                                fc_nn+=1*8
-                                                                fa_no+=1*8
-                                                                fb_no+=1*8
-                                                                fc_no+=1*8
-                                                                fa_np+=1*8
-                                                                fb_np+=1*8
-                                                                fc_np+=1*8
-                                                                fa_nq+=1*8
-                                                                fb_nq+=1*8
-                                                                fc_nq+=1*8
-                                                                fa_nr+=1*8
-                                                                fb_nr+=1*8
-                                                                fc_nr+=1*8
-                                                                fa_ns+=1*8
-                                                                fb_ns+=1*8
-                                                                fc_ns+=1*8
+                                                                    fa_nn+=1*8
+                                                                    fb_nn+=1*8
+                                                                    fc_nn+=1*8
+                                                                    fa_no+=1*8
+                                                                    fb_no+=1*8
+                                                                    fc_no+=1*8
+                                                                    fa_np+=1*8
+                                                                    fb_np+=1*8
+                                                                    fc_np+=1*8
+                                                                    fa_nq+=1*8
+                                                                    fb_nq+=1*8
+                                                                    fc_nq+=1*8
+                                                                    fa_nr+=1*8
+                                                                    fb_nr+=1*8
+                                                                    fc_nr+=1*8
+                                                                    fa_ns+=1*8
+                                                                    fb_ns+=1*8
+                                                                    fc_ns+=1*8
 
-                                                                facesF_.append([fa_nn,fb_nn,fc_nn])
-                                                                facesF_.append([fa_no,fb_no,fc_no])
-                                                                facesF_.append([fa_np,fb_np,fc_np])
-                                                                facesF_.append([fa_nq,fb_nq,fc_nq])
-                                                                facesF_.append([fa_nr,fb_nr,fc_nr])
-                                                                facesF_.append([fa_ns,fb_ns,fc_ns])
-                    
+                                                                    facesF_.append([fa_nn,fb_nn,fc_nn])
+                                                                    facesF_.append([fa_no,fb_no,fc_no])
+                                                                    facesF_.append([fa_np,fb_np,fc_np])
+                                                                    facesF_.append([fa_nq,fb_nq,fc_nq])
+                                                                    facesF_.append([fa_nr,fb_nr,fc_nr])
+                                                                    facesF_.append([fa_ns,fb_ns,fc_ns])
+
+                
+                elif vertexCount2 == 9:
+                    for i in range(1):
+                        vx35_ = unpack("<f", f.read(4))[0]
+                        vy35_ = unpack("<f", f.read(4))[0]
+                        vz35_ = unpack("<f", f.read(4))[0]
+                        type35_ = unpack("B", f.read(1))[0]
+                        value1a35_ = unpack("B", f.read(1))[0]
+                        normalZ_35_ = unpack("<h", f.read(2))[0]
+                        vx36_ = unpack("<f", f.read(4))[0]
+                        vy36_ = unpack("<f", f.read(4))[0]
+                        vz36_ = unpack("<f", f.read(4))[0]
+                        type36_ = unpack("B", f.read(1))[0]
+                        value1a36_ = unpack("B", f.read(1))[0]
+                        normalZ_36_ = unpack("<h", f.read(2))[0]
+                        vx37_ = unpack("<f", f.read(4))[0]
+                        vy37_ = unpack("<f", f.read(4))[0]
+                        vz37_ = unpack("<f", f.read(4))[0]
+                        type37_ = unpack("B", f.read(1))[0]
+                        value1a37_ = unpack("B", f.read(1))[0]
+                        normalZ_37_ = unpack("<h", f.read(2))[0]
+                        vx38_ = unpack("<f", f.read(4))[0]
+                        vy38_ = unpack("<f", f.read(4))[0]
+                        vz38_ = unpack("<f", f.read(4))[0]
+                        type38_ = unpack("B", f.read(1))[0]
+                        value1a38_ = unpack("B", f.read(1))[0]
+                        normalZ_38_ = unpack("<h", f.read(2))[0]
+                        vx39_ = unpack("<f", f.read(4))[0]
+                        vy39_ = unpack("<f", f.read(4))[0]
+                        vz39_ = unpack("<f", f.read(4))[0]
+                        type39_ = unpack("B", f.read(1))[0]
+                        value1a39_ = unpack("B", f.read(1))[0]
+                        normalZ_39_ = unpack("<h", f.read(2))[0]
+                        vx40_ = unpack("<f", f.read(4))[0]
+                        vy40_ = unpack("<f", f.read(4))[0]
+                        vz40_ = unpack("<f", f.read(4))[0]
+                        type40_ = unpack("B", f.read(1))[0]
+                        value1a40_ = unpack("B", f.read(1))[0]
+                        normalZ_40_ = unpack("<h", f.read(2))[0]
+                        vx41_ = unpack("<f", f.read(4))[0]
+                        vy41_ = unpack("<f", f.read(4))[0]
+                        vz41_ = unpack("<f", f.read(4))[0]
+                        type41_ = unpack("B", f.read(1))[0]
+                        value1a41_ = unpack("B", f.read(1))[0]
+                        normalZ_41_ = unpack("<h", f.read(2))[0]
+                        vx42_ = unpack("<f", f.read(4))[0]
+                        vy42_ = unpack("<f", f.read(4))[0]
+                        vz42_ = unpack("<f", f.read(4))[0]
+                        type42_ = unpack("B", f.read(1))[0]
+                        value1a42_ = unpack("B", f.read(1))[0]
+                        normalZ_42_ = unpack("<h", f.read(2))[0]
+                        vx43_ = unpack("<f", f.read(4))[0]
+                        vy43_ = unpack("<f", f.read(4))[0]
+                        vz43_ = unpack("<f", f.read(4))[0]
+                        type43_ = unpack("B", f.read(1))[0]
+                        value1a43_ = unpack("B", f.read(1))[0]
+                        normalZ_43_ = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx35_a = unpack("<f", f.read(4))[0]
+                        vy35_a = unpack("<f", f.read(4))[0]
+                        vz35_a = unpack("<f", f.read(4))[0]
+                        type35_a = unpack("B", f.read(1))[0]
+                        value1a35_a = unpack("B", f.read(1))[0]
+                        normalZ_35_a = unpack("<h", f.read(2))[0]
+                        vx36_a = unpack("<f", f.read(4))[0]
+                        vy36_a = unpack("<f", f.read(4))[0]
+                        vz36_a = unpack("<f", f.read(4))[0]
+                        type36_a = unpack("B", f.read(1))[0]
+                        value1a36_a = unpack("B", f.read(1))[0]
+                        normalZ_36_a = unpack("<h", f.read(2))[0]
+                        vx37_a = unpack("<f", f.read(4))[0]
+                        vy37_a = unpack("<f", f.read(4))[0]
+                        vz37_a = unpack("<f", f.read(4))[0]
+                        type37_a = unpack("B", f.read(1))[0]
+                        value1a37_a = unpack("B", f.read(1))[0]
+                        normalZ_37_a = unpack("<h", f.read(2))[0]
+                        vx38_a = unpack("<f", f.read(4))[0]
+                        vy38_a = unpack("<f", f.read(4))[0]
+                        vz38_a = unpack("<f", f.read(4))[0]
+                        type38_a = unpack("B", f.read(1))[0]
+                        value1a38_a = unpack("B", f.read(1))[0]
+                        normalZ_38_a = unpack("<h", f.read(2))[0]
+                        vx39_a = unpack("<f", f.read(4))[0]
+                        vy39_a = unpack("<f", f.read(4))[0]
+                        vz39_a = unpack("<f", f.read(4))[0]
+                        type39_a = unpack("B", f.read(1))[0]
+                        value1a39_a = unpack("B", f.read(1))[0]
+                        normalZ_39_a = unpack("<h", f.read(2))[0]
+                        vx40_a = unpack("<f", f.read(4))[0]
+                        vy40_a = unpack("<f", f.read(4))[0]
+                        vz40_a = unpack("<f", f.read(4))[0]
+                        type40_a = unpack("B", f.read(1))[0]
+                        value1a40_a = unpack("B", f.read(1))[0]
+                        normalZ_40_a = unpack("<h", f.read(2))[0]
+                        vx41_a = unpack("<f", f.read(4))[0]
+                        vy41_a = unpack("<f", f.read(4))[0]
+                        vz41_a = unpack("<f", f.read(4))[0]
+                        type41_a = unpack("B", f.read(1))[0]
+                        value1a41_a = unpack("B", f.read(1))[0]
+                        normalZ_41_a = unpack("<h", f.read(2))[0]
+                        vx42_a = unpack("<f", f.read(4))[0]
+                        vy42_a = unpack("<f", f.read(4))[0]
+                        vz42_a = unpack("<f", f.read(4))[0]
+                        type42_a = unpack("B", f.read(1))[0]
+                        value1a42_a = unpack("B", f.read(1))[0]
+                        normalZ_42_a = unpack("<h", f.read(2))[0]
+                        vx43_a = unpack("<f", f.read(4))[0]
+                        vy43_a = unpack("<f", f.read(4))[0]
+                        vz43_a = unpack("<f", f.read(4))[0]
+                        type43_a = unpack("B", f.read(1))[0]
+                        value1a43_a = unpack("B", f.read(1))[0]
+                        normalZ_43_a = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx35_b = unpack("<f", f.read(4))[0]
+                        vy35_b = unpack("<f", f.read(4))[0]
+                        vz35_b = unpack("<f", f.read(4))[0]
+                        type35_b = unpack("B", f.read(1))[0]
+                        value1a35_b = unpack("B", f.read(1))[0]
+                        normalZ_35_b = unpack("<h", f.read(2))[0]
+                        vx36_b = unpack("<f", f.read(4))[0]
+                        vy36_b = unpack("<f", f.read(4))[0]
+                        vz36_b = unpack("<f", f.read(4))[0]
+                        type36_b = unpack("B", f.read(1))[0]
+                        value1a36_b = unpack("B", f.read(1))[0]
+                        normalZ_36_b = unpack("<h", f.read(2))[0]
+                        vx37_b = unpack("<f", f.read(4))[0]
+                        vy37_b = unpack("<f", f.read(4))[0]
+                        vz37_b = unpack("<f", f.read(4))[0]
+                        type37_b = unpack("B", f.read(1))[0]
+                        value1a37_b = unpack("B", f.read(1))[0]
+                        normalZ_37_b = unpack("<h", f.read(2))[0]
+                        vx38_b = unpack("<f", f.read(4))[0]
+                        vy38_b = unpack("<f", f.read(4))[0]
+                        vz38_b = unpack("<f", f.read(4))[0]
+                        type38_b = unpack("B", f.read(1))[0]
+                        value1a38_b = unpack("B", f.read(1))[0]
+                        normalZ_38_b = unpack("<h", f.read(2))[0]
+                        vx39_b = unpack("<f", f.read(4))[0]
+                        vy39_b = unpack("<f", f.read(4))[0]
+                        vz39_b = unpack("<f", f.read(4))[0]
+                        type39_b = unpack("B", f.read(1))[0]
+                        value1a39_b = unpack("B", f.read(1))[0]
+                        normalZ_39_b = unpack("<h", f.read(2))[0]
+                        vx40_b = unpack("<f", f.read(4))[0]
+                        vy40_b = unpack("<f", f.read(4))[0]
+                        vz40_b = unpack("<f", f.read(4))[0]
+                        type40_b = unpack("B", f.read(1))[0]
+                        value1a40_b = unpack("B", f.read(1))[0]
+                        normalZ_40_b = unpack("<h", f.read(2))[0]
+                        vx41_b = unpack("<f", f.read(4))[0]
+                        vy41_b = unpack("<f", f.read(4))[0]
+                        vz41_b = unpack("<f", f.read(4))[0]
+                        type41_b = unpack("B", f.read(1))[0]
+                        value1a41_b = unpack("B", f.read(1))[0]
+                        normalZ_41_b = unpack("<h", f.read(2))[0]
+                        vx42_b = unpack("<f", f.read(4))[0]
+                        vy42_b = unpack("<f", f.read(4))[0]
+                        vz42_b = unpack("<f", f.read(4))[0]
+                        type42_b = unpack("B", f.read(1))[0]
+                        value1a42_b = unpack("B", f.read(1))[0]
+                        normalZ_42_b = unpack("<h", f.read(2))[0]
+                        vx43_b = unpack("<f", f.read(4))[0]
+                        vy43_b = unpack("<f", f.read(4))[0]
+                        vz43_b = unpack("<f", f.read(4))[0]
+                        type43_b = unpack("B", f.read(1))[0]
+                        value1a43_b = unpack("B", f.read(1))[0]
+                        normalZ_43_b = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx35_c = unpack("<f", f.read(4))[0]
+                        vy35_c = unpack("<f", f.read(4))[0]
+                        vz35_c = unpack("<f", f.read(4))[0]
+                        type35_c = unpack("B", f.read(1))[0]
+                        value1a35_c = unpack("B", f.read(1))[0]
+                        normalZ_35_c = unpack("<h", f.read(2))[0]
+                        vx36_c = unpack("<f", f.read(4))[0]
+                        vy36_c = unpack("<f", f.read(4))[0]
+                        vz36_c = unpack("<f", f.read(4))[0]
+                        type36_c = unpack("B", f.read(1))[0]
+                        value1a36_c = unpack("B", f.read(1))[0]
+                        normalZ_36_c = unpack("<h", f.read(2))[0]
+                        vx37_c = unpack("<f", f.read(4))[0]
+                        vy37_c = unpack("<f", f.read(4))[0]
+                        vz37_c = unpack("<f", f.read(4))[0]
+                        type37_c = unpack("B", f.read(1))[0]
+                        value1a37_c = unpack("B", f.read(1))[0]
+                        normalZ_37_c = unpack("<h", f.read(2))[0]
+                        vx38_c = unpack("<f", f.read(4))[0]
+                        vy38_c = unpack("<f", f.read(4))[0]
+                        vz38_c = unpack("<f", f.read(4))[0]
+                        type38_c = unpack("B", f.read(1))[0]
+                        value1a38_c = unpack("B", f.read(1))[0]
+                        normalZ_38_c = unpack("<h", f.read(2))[0]
+                        vx39_c = unpack("<f", f.read(4))[0]
+                        vy39_c = unpack("<f", f.read(4))[0]
+                        vz39_c = unpack("<f", f.read(4))[0]
+                        type39_c = unpack("B", f.read(1))[0]
+                        value1a39_c = unpack("B", f.read(1))[0]
+                        normalZ_39_c = unpack("<h", f.read(2))[0]
+                        vx40_c = unpack("<f", f.read(4))[0]
+                        vy40_c = unpack("<f", f.read(4))[0]
+                        vz40_c = unpack("<f", f.read(4))[0]
+                        type40_c = unpack("B", f.read(1))[0]
+                        value1a40_c = unpack("B", f.read(1))[0]
+                        normalZ_40_c = unpack("<h", f.read(2))[0]
+                        vx41_c = unpack("<f", f.read(4))[0]
+                        vy41_c = unpack("<f", f.read(4))[0]
+                        vz41_c = unpack("<f", f.read(4))[0]
+                        type41_c = unpack("B", f.read(1))[0]
+                        value1a41_c = unpack("B", f.read(1))[0]
+                        normalZ_41_c = unpack("<h", f.read(2))[0]
+                        vx42_c = unpack("<f", f.read(4))[0]
+                        vy42_c = unpack("<f", f.read(4))[0]
+                        vz42_c = unpack("<f", f.read(4))[0]
+                        type42_c = unpack("B", f.read(1))[0]
+                        value1a42_c = unpack("B", f.read(1))[0]
+                        normalZ_42_c = unpack("<h", f.read(2))[0]
+                        vx43_c = unpack("<f", f.read(4))[0]
+                        vy43_c = unpack("<f", f.read(4))[0]
+                        vz43_c = unpack("<f", f.read(4))[0]
+                        type43_c = unpack("B", f.read(1))[0]
+                        value1a43_c = unpack("B", f.read(1))[0]
+                        normalZ_43_c = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx35_d = unpack("<f", f.read(4))[0]
+                        vy35_d = unpack("<f", f.read(4))[0]
+                        vz35_d = unpack("<f", f.read(4))[0]
+                        type35_d = unpack("B", f.read(1))[0]
+                        value1a35_d = unpack("B", f.read(1))[0]
+                        normalZ_35_d = unpack("<h", f.read(2))[0]
+                        vx36_d = unpack("<f", f.read(4))[0]
+                        vy36_d = unpack("<f", f.read(4))[0]
+                        vz36_d = unpack("<f", f.read(4))[0]
+                        type36_d = unpack("B", f.read(1))[0]
+                        value1a36_d = unpack("B", f.read(1))[0]
+                        normalZ_36_d = unpack("<h", f.read(2))[0]
+                        vx37_d = unpack("<f", f.read(4))[0]
+                        vy37_d = unpack("<f", f.read(4))[0]
+                        vz37_d = unpack("<f", f.read(4))[0]
+                        type37_d = unpack("B", f.read(1))[0]
+                        value1a37_d = unpack("B", f.read(1))[0]
+                        normalZ_37_d = unpack("<h", f.read(2))[0]
+                        vx38_d = unpack("<f", f.read(4))[0]
+                        vy38_d = unpack("<f", f.read(4))[0]
+                        vz38_d = unpack("<f", f.read(4))[0]
+                        type38_d = unpack("B", f.read(1))[0]
+                        value1a38_d = unpack("B", f.read(1))[0]
+                        normalZ_38_d = unpack("<h", f.read(2))[0]
+                        vx39_d = unpack("<f", f.read(4))[0]
+                        vy39_d = unpack("<f", f.read(4))[0]
+                        vz39_d = unpack("<f", f.read(4))[0]
+                        type39_d = unpack("B", f.read(1))[0]
+                        value1a39_d = unpack("B", f.read(1))[0]
+                        normalZ_39_d = unpack("<h", f.read(2))[0]
+                        vx40_d = unpack("<f", f.read(4))[0]
+                        vy40_d = unpack("<f", f.read(4))[0]
+                        vz40_d = unpack("<f", f.read(4))[0]
+                        type40_d = unpack("B", f.read(1))[0]
+                        value1a40_d = unpack("B", f.read(1))[0]
+                        normalZ_40_d = unpack("<h", f.read(2))[0]
+                        vx41_d = unpack("<f", f.read(4))[0]
+                        vy41_d = unpack("<f", f.read(4))[0]
+                        vz41_d = unpack("<f", f.read(4))[0]
+                        type41_d = unpack("B", f.read(1))[0]
+                        value1a41_d = unpack("B", f.read(1))[0]
+                        normalZ_41_d = unpack("<h", f.read(2))[0]
+                        vx42_d = unpack("<f", f.read(4))[0]
+                        vy42_d = unpack("<f", f.read(4))[0]
+                        vz42_d = unpack("<f", f.read(4))[0]
+                        type42_d = unpack("B", f.read(1))[0]
+                        value1a42_d = unpack("B", f.read(1))[0]
+                        normalZ_42_d = unpack("<h", f.read(2))[0]
+                        vx43_d = unpack("<f", f.read(4))[0]
+                        vy43_d = unpack("<f", f.read(4))[0]
+                        vz43_d = unpack("<f", f.read(4))[0]
+                        type43_d = unpack("B", f.read(1))[0]
+                        value1a43_d = unpack("B", f.read(1))[0]
+                        normalZ_43_d = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx35_e = unpack("<f", f.read(4))[0]
+                        vy35_e = unpack("<f", f.read(4))[0]
+                        vz35_e = unpack("<f", f.read(4))[0]
+                        type35_e = unpack("B", f.read(1))[0]
+                        value1a35_e = unpack("B", f.read(1))[0]
+                        normalZ_35_e = unpack("<h", f.read(2))[0]
+                        vx36_e = unpack("<f", f.read(4))[0]
+                        vy36_e = unpack("<f", f.read(4))[0]
+                        vz36_e = unpack("<f", f.read(4))[0]
+                        type36_e = unpack("B", f.read(1))[0]
+                        value1a36_e = unpack("B", f.read(1))[0]
+                        normalZ_36_e = unpack("<h", f.read(2))[0]
+                        vx37_e = unpack("<f", f.read(4))[0]
+                        vy37_e = unpack("<f", f.read(4))[0]
+                        vz37_e = unpack("<f", f.read(4))[0]
+                        type37_e = unpack("B", f.read(1))[0]
+                        value1a37_e = unpack("B", f.read(1))[0]
+                        normalZ_37_e = unpack("<h", f.read(2))[0]
+                        vx38_e = unpack("<f", f.read(4))[0]
+                        vy38_e = unpack("<f", f.read(4))[0]
+                        vz38_e = unpack("<f", f.read(4))[0]
+                        type38_e = unpack("B", f.read(1))[0]
+                        value1a38_e = unpack("B", f.read(1))[0]
+                        normalZ_38_e = unpack("<h", f.read(2))[0]
+                        vx39_e = unpack("<f", f.read(4))[0]
+                        vy39_e = unpack("<f", f.read(4))[0]
+                        vz39_e = unpack("<f", f.read(4))[0]
+                        type39_e = unpack("B", f.read(1))[0]
+                        value1a39_e = unpack("B", f.read(1))[0]
+                        normalZ_39_e = unpack("<h", f.read(2))[0]
+                        vx40_e = unpack("<f", f.read(4))[0]
+                        vy40_e = unpack("<f", f.read(4))[0]
+                        vz40_e = unpack("<f", f.read(4))[0]
+                        type40_e = unpack("B", f.read(1))[0]
+                        value1a40_e = unpack("B", f.read(1))[0]
+                        normalZ_40_e = unpack("<h", f.read(2))[0]
+                        vx41_e = unpack("<f", f.read(4))[0]
+                        vy41_e = unpack("<f", f.read(4))[0]
+                        vz41_e = unpack("<f", f.read(4))[0]
+                        type41_e = unpack("B", f.read(1))[0]
+                        value1a41_e = unpack("B", f.read(1))[0]
+                        normalZ_41_e = unpack("<h", f.read(2))[0]
+                        vx42_e = unpack("<f", f.read(4))[0]
+                        vy42_e = unpack("<f", f.read(4))[0]
+                        vz42_e = unpack("<f", f.read(4))[0]
+                        type42_e = unpack("B", f.read(1))[0]
+                        value1a42_e = unpack("B", f.read(1))[0]
+                        normalZ_42_e = unpack("<h", f.read(2))[0]
+                        vx43_e = unpack("<f", f.read(4))[0]
+                        vy43_e = unpack("<f", f.read(4))[0]
+                        vz43_e = unpack("<f", f.read(4))[0]
+                        type43_e = unpack("B", f.read(1))[0]
+                        value1a43_e = unpack("B", f.read(1))[0]
+                        normalZ_43_e = unpack("<h", f.read(2))[0]
+                    nnn_offset1 = unpack("<I", f.read(4))[0]
+                    if nnn_offset1 == 1695121412:
+                        for i in range(9):
+                            f.seek(2,1)
+                            f.seek(2,1)
+                        nn_offset2 = unpack("<I", f.read(4))[0]
+                        if nn_offset2 == 1846132741:
+                            for i in range(9):
+                                f.seek(1,1)
+                                f.seek(1,1)
+                                f.seek(1,1)
+                                f.seek(1,1)
+                            nn_offset3 = unpack("<I", f.read(4))[0]
+                            if nn_offset3 == 16777473:
+                                nn_offset4 = unpack("<I", f.read(4))[0]
+                                if nn_offset4 == 335545088:
+                                    if type35_e == 1:
+                                        if type36_e == 1:
+                                            if type37_e == 0:
+                                                if type38_e == 1:
+                                                    if type39_e == 1:
+                                                        if type40_e == 0:
+                                                            if type41_e == 1:
+                                                                if type42_e == 1:
+                                                                    if type43_e == 0:
+                                                                        verticesG_e.append([vx35_e,vz35_e,vy35_e])
+                                                                        verticesG_e.append([vx36_e,vz36_e,vy36_e])
+                                                                        verticesG_e.append([vx37_e,vz37_e,vy37_e])
+                                                                        verticesG_e.append([vx38_e,vz38_e,vy38_e])
+                                                                        verticesG_e.append([vx39_e,vz39_e,vy39_e])
+                                                                        verticesG_e.append([vx40_e,vz40_e,vy40_e])
+                                                                        verticesG_e.append([vx41_e,vz41_e,vy41_e])
+                                                                        verticesG_e.append([vx42_e,vz42_e,vy42_e])
+                                                                        verticesG_e.append([vx43_e,vz43_e,vy43_e])
+
+                                                                        fa_ntttttt+=1*3
+                                                                        fb_ntttttt+=1*3
+                                                                        fc_ntttttt+=1*3
+
+                                                                        facesG_e.append([fa_ntttttt,fb_ntttttt,fc_ntttttt])
+                                    if type35_d == 1:
+                                        if type36_d == 1:
+                                            if type37_d == 0:
+                                                if type38_d == 0:
+                                                    if type39_d == 0:
+                                                        if type40_d == 0:
+                                                            if type41_d == 1:
+                                                                if type42_d == 1:
+                                                                    if type43_d == 0:
+                                                                        verticesG_d.append([vx35_d,vz35_d,vy35_d])
+                                                                        verticesG_d.append([vx36_d,vz36_d,vy36_d])
+                                                                        verticesG_d.append([vx37_d,vz37_d,vy37_d])
+                                                                        verticesG_d.append([vx38_d,vz38_d,vy38_d])
+                                                                        verticesG_d.append([vx39_d,vz39_d,vy39_d])
+                                                                        verticesG_d.append([vx40_d,vz40_d,vy40_d])
+                                                                        verticesG_d.append([vx41_d,vz41_d,vy41_d])
+                                                                        verticesG_d.append([vx42_d,vz42_d,vy42_d])
+                                                                        verticesG_d.append([vx43_d,vz43_d,vy43_d])
+
+                                                                        fa_nttttt+=1*9
+                                                                        fb_nttttt+=1*9
+                                                                        fc_nttttt+=1*9
+                                                                        fa_nuuuuu+=1*9
+                                                                        fb_nuuuuu+=1*9
+                                                                        fc_nuuuuu+=1*9
+                                                                        fa_nvvvvv+=1*9
+                                                                        fb_nvvvvv+=1*9
+                                                                        fc_nvvvvv+=1*9
+                                                                        fa_nwwwww+=1*9
+                                                                        fb_nwwwww+=1*9
+                                                                        fc_nwwwww+=1*9
+                                                                        fa_nxxxxx+=1*9
+                                                                        fb_nxxxxx+=1*9
+                                                                        fc_nxxxxx+=1*9
+
+                                                                        facesG_d.append([fa_nttttt,fb_nttttt,fc_nttttt])
+                                                                        facesG_d.append([fa_nuuuuu,fb_nuuuuu,fc_nuuuuu])
+                                                                        facesG_d.append([fa_nvvvvv,fb_nvvvvv,fc_nvvvvv])
+                                                                        facesG_d.append([fa_nwwwww,fb_nwwwww,fc_nwwwww])
+                                                                        facesG_d.append([fa_nxxxxx,fb_nxxxxx,fc_nxxxxx])
+                                    if type35_c == 1:
+                                        if type36_c == 1:
+                                            if type37_c == 0:
+                                                if type38_c == 0:
+                                                    if type39_c == 0:
+                                                        if type40_c == 1:
+                                                            if type41_c == 1:
+                                                                if type42_c == 0:
+                                                                    if type43_c == 0:
+                                                                        verticesG_c.append([vx35_c,vz35_c,vy35_c])
+                                                                        verticesG_c.append([vx36_c,vz36_c,vy36_c])
+                                                                        verticesG_c.append([vx37_c,vz37_c,vy37_c])
+                                                                        verticesG_c.append([vx38_c,vz38_c,vy38_c])
+                                                                        verticesG_c.append([vx39_c,vz39_c,vy39_c])
+                                                                        verticesG_c.append([vx40_c,vz40_c,vy40_c])
+                                                                        verticesG_c.append([vx41_c,vz41_c,vy41_c])
+                                                                        verticesG_c.append([vx42_c,vz42_c,vy42_c])
+                                                                        verticesG_c.append([vx43_c,vz43_c,vy43_c])
+
+                                                                        fa_ntttt+=1*9
+                                                                        fb_ntttt+=1*9
+                                                                        fc_ntttt+=1*9
+                                                                        fa_nuuuu+=1*9
+                                                                        fb_nuuuu+=1*9
+                                                                        fc_nuuuu+=1*9
+                                                                        fa_nvvvv+=1*9
+                                                                        fb_nvvvv+=1*9
+                                                                        fc_nvvvv+=1*9
+                                                                        fa_nwwww+=1*9
+                                                                        fb_nwwww+=1*9
+                                                                        fc_nwwww+=1*9
+                                                                        fa_nxxxx+=1*9
+                                                                        fb_nxxxx+=1*9
+                                                                        fc_nxxxx+=1*9
+
+                                                                        facesG_c.append([fa_ntttt,fb_ntttt,fc_ntttt])
+                                                                        facesG_c.append([fa_nuuuu,fb_nuuuu,fc_nuuuu])
+                                                                        facesG_c.append([fa_nvvvv,fb_nvvvv,fc_nvvvv])
+                                                                        facesG_c.append([fa_nwwww,fb_nwwww,fc_nwwww])
+                                                                        facesG_c.append([fa_nxxxx,fb_nxxxx,fc_nxxxx])
+                                    if type35_b == 1:
+                                        if type36_b == 1:
+                                            if type37_b == 0:
+                                                if type38_b == 0:
+                                                    if type39_b == 1:
+                                                        if type40_b == 1:
+                                                            if type41_b == 0:
+                                                                if type42_b == 0:
+                                                                    if type43_b == 0:
+                                                                        verticesG_b.append([vx35_b,vz35_b,vy35_b])
+                                                                        verticesG_b.append([vx36_b,vz36_b,vy36_b])
+                                                                        verticesG_b.append([vx37_b,vz37_b,vy37_b])
+                                                                        verticesG_b.append([vx38_b,vz38_b,vy38_b])
+                                                                        verticesG_b.append([vx39_b,vz39_b,vy39_b])
+                                                                        verticesG_b.append([vx40_b,vz40_b,vy40_b])
+                                                                        verticesG_b.append([vx41_b,vz41_b,vy41_b])
+                                                                        verticesG_b.append([vx42_b,vz42_b,vy42_b])
+                                                                        verticesG_b.append([vx43_b,vz43_b,vy43_b])
+
+                                                                        fa_nttt+=1*9
+                                                                        fb_nttt+=1*9
+                                                                        fc_nttt+=1*9
+                                                                        fa_nuuu+=1*9
+                                                                        fb_nuuu+=1*9
+                                                                        fc_nuuu+=1*9
+                                                                        fa_nvvv+=1*9
+                                                                        fb_nvvv+=1*9
+                                                                        fc_nvvv+=1*9
+                                                                        fa_nwww+=1*9
+                                                                        fb_nwww+=1*9
+                                                                        fc_nwww+=1*9
+                                                                        fa_nxxx+=1*9
+                                                                        fb_nxxx+=1*9
+                                                                        fc_nxxx+=1*9
+
+                                                                        facesG_b.append([fa_nttt,fb_nttt,fc_nttt])
+                                                                        facesG_b.append([fa_nuuu,fb_nuuu,fc_nuuu])
+                                                                        facesG_b.append([fa_nvvv,fb_nvvv,fc_nvvv])
+                                                                        facesG_b.append([fa_nwww,fb_nwww,fc_nwww])
+                                                                        facesG_b.append([fa_nxxx,fb_nxxx,fc_nxxx])
+                                    if type35_a == 1:
+                                        if type36_a == 1:
+                                            if type37_a == 0:
+                                                if type38_a == 1:
+                                                    if type39_a == 1:
+                                                        if type40_a == 0:
+                                                            if type41_a == 0:
+                                                                if type42_a == 0:
+                                                                    if type43_a == 0:
+                                                                        verticesG_a.append([vx35_a,vz35_a,vy35_a])
+                                                                        verticesG_a.append([vx36_a,vz36_a,vy36_a])
+                                                                        verticesG_a.append([vx37_a,vz37_a,vy37_a])
+                                                                        verticesG_a.append([vx38_a,vz38_a,vy38_a])
+                                                                        verticesG_a.append([vx39_a,vz39_a,vy39_a])
+                                                                        verticesG_a.append([vx40_a,vz40_a,vy40_a])
+                                                                        verticesG_a.append([vx41_a,vz41_a,vy41_a])
+                                                                        verticesG_a.append([vx42_a,vz42_a,vy42_a])
+                                                                        verticesG_a.append([vx43_a,vz43_a,vy43_a])
+
+                                                                        fa_ntt+=1*9
+                                                                        fb_ntt+=1*9
+                                                                        fc_ntt+=1*9
+                                                                        fa_nuu+=1*9
+                                                                        fb_nuu+=1*9
+                                                                        fc_nuu+=1*9
+                                                                        fa_nvv+=1*9
+                                                                        fb_nvv+=1*9
+                                                                        fc_nvv+=1*9
+                                                                        fa_nww+=1*9
+                                                                        fb_nww+=1*9
+                                                                        fc_nww+=1*9
+                                                                        fa_nxx+=1*9
+                                                                        fb_nxx+=1*9
+                                                                        fc_nxx+=1*9
+
+                                                                        facesG_a.append([fa_ntt,fb_ntt,fc_ntt])
+                                                                        facesG_a.append([fa_nuu,fb_nuu,fc_nuu])
+                                                                        facesG_a.append([fa_nvv,fb_nvv,fc_nvv])
+                                                                        facesG_a.append([fa_nww,fb_nww,fc_nww])
+                                                                        facesG_a.append([fa_nxx,fb_nxx,fc_nxx])
+                                    if type35_ == 1:
+                                        if type36_ == 1:
+                                            if type37_ == 0:
+                                                if type38_ == 0:
+                                                    if type39_ == 0:
+                                                        if type40_ == 0:
+                                                            if type41_ == 0:
+                                                                if type42_ == 0:
+                                                                    if type43_ == 0:
+                                                                        verticesG_.append([vx35_,vz35_,vy35_])
+                                                                        verticesG_.append([vx36_,vz36_,vy36_])
+                                                                        verticesG_.append([vx37_,vz37_,vy37_])
+                                                                        verticesG_.append([vx38_,vz38_,vy38_])
+                                                                        verticesG_.append([vx39_,vz39_,vy39_])
+                                                                        verticesG_.append([vx40_,vz40_,vy40_])
+                                                                        verticesG_.append([vx41_,vz41_,vy41_])
+                                                                        verticesG_.append([vx42_,vz42_,vy42_])
+                                                                        verticesG_.append([vx43_,vz43_,vy43_])
+
+                                                                        fa_nt+=1*9
+                                                                        fb_nt+=1*9
+                                                                        fc_nt+=1*9
+                                                                        fa_nu+=1*9
+                                                                        fb_nu+=1*9
+                                                                        fc_nu+=1*9
+                                                                        fa_nv+=1*9
+                                                                        fb_nv+=1*9
+                                                                        fc_nv+=1*9
+                                                                        fa_nw+=1*9
+                                                                        fb_nw+=1*9
+                                                                        fc_nw+=1*9
+                                                                        fa_nx+=1*9
+                                                                        fb_nx+=1*9
+                                                                        fc_nx+=1*9
+                                                                        fa_ny+=1*9
+                                                                        fb_ny+=1*9
+                                                                        fc_ny+=1*9
+                                                                        fa_nz+=1*9
+                                                                        fb_nz+=1*9
+                                                                        fc_nz+=1*9
+
+                                                                        facesG_.append([fa_nt,fb_nt,fc_nt])
+                                                                        facesG_.append([fa_nu,fb_nu,fc_nu])
+                                                                        facesG_.append([fa_nv,fb_nv,fc_nv])
+                                                                        facesG_.append([fa_nw,fb_nw,fc_nw])
+                                                                        facesG_.append([fa_nx,fb_nx,fc_nx])
+                                                                        facesG_.append([fa_ny,fb_ny,fc_ny])
+                                                                        facesG_.append([fa_nz,fb_nz,fc_nz])
+                elif vertexCount2 == 10:
+                    for i in range(1):
+                        vx44_ = unpack("<f", f.read(4))[0]
+                        vy44_ = unpack("<f", f.read(4))[0]
+                        vz44_ = unpack("<f", f.read(4))[0]
+                        type44_ = unpack("B", f.read(1))[0]
+                        value1a44_ = unpack("B", f.read(1))[0]
+                        normalZ_44_ = unpack("<h", f.read(2))[0]
+                        vx45_ = unpack("<f", f.read(4))[0]
+                        vy45_ = unpack("<f", f.read(4))[0]
+                        vz45_ = unpack("<f", f.read(4))[0]
+                        type45_ = unpack("B", f.read(1))[0]
+                        value1a45_ = unpack("B", f.read(1))[0]
+                        normalZ_45_ = unpack("<h", f.read(2))[0]
+                        vx46_ = unpack("<f", f.read(4))[0]
+                        vy46_ = unpack("<f", f.read(4))[0]
+                        vz46_ = unpack("<f", f.read(4))[0]
+                        type46_ = unpack("B", f.read(1))[0]
+                        value1a46_ = unpack("B", f.read(1))[0]
+                        normalZ_46_ = unpack("<h", f.read(2))[0]
+                        vx47_ = unpack("<f", f.read(4))[0]
+                        vy47_ = unpack("<f", f.read(4))[0]
+                        vz47_ = unpack("<f", f.read(4))[0]
+                        type47_ = unpack("B", f.read(1))[0]
+                        value1a47_ = unpack("B", f.read(1))[0]
+                        normalZ_47_ = unpack("<h", f.read(2))[0]
+                        vx48_ = unpack("<f", f.read(4))[0]
+                        vy48_ = unpack("<f", f.read(4))[0]
+                        vz48_ = unpack("<f", f.read(4))[0]
+                        type48_ = unpack("B", f.read(1))[0]
+                        value1a48_ = unpack("B", f.read(1))[0]
+                        normalZ_48_ = unpack("<h", f.read(2))[0]
+                        vx49_ = unpack("<f", f.read(4))[0]
+                        vy49_ = unpack("<f", f.read(4))[0]
+                        vz49_ = unpack("<f", f.read(4))[0]
+                        type49_ = unpack("B", f.read(1))[0]
+                        value1a49_ = unpack("B", f.read(1))[0]
+                        normalZ_49_ = unpack("<h", f.read(2))[0]
+                        vx50_ = unpack("<f", f.read(4))[0]
+                        vy50_ = unpack("<f", f.read(4))[0]
+                        vz50_ = unpack("<f", f.read(4))[0]
+                        type50_ = unpack("B", f.read(1))[0]
+                        value1a50_ = unpack("B", f.read(1))[0]
+                        normalZ_50_ = unpack("<h", f.read(2))[0]
+                        vx51_ = unpack("<f", f.read(4))[0]
+                        vy51_ = unpack("<f", f.read(4))[0]
+                        vz51_ = unpack("<f", f.read(4))[0]
+                        type51_ = unpack("B", f.read(1))[0]
+                        value1a51_ = unpack("B", f.read(1))[0]
+                        normalZ_51_ = unpack("<h", f.read(2))[0]
+                        vx52_ = unpack("<f", f.read(4))[0]
+                        vy52_ = unpack("<f", f.read(4))[0]
+                        vz52_ = unpack("<f", f.read(4))[0]
+                        type52_ = unpack("B", f.read(1))[0]
+                        value1a52_ = unpack("B", f.read(1))[0]
+                        normalZ_52_ = unpack("<h", f.read(2))[0]
+                        vx53_ = unpack("<f", f.read(4))[0]
+                        vy53_ = unpack("<f", f.read(4))[0]
+                        vz53_ = unpack("<f", f.read(4))[0]
+                        type53_ = unpack("B", f.read(1))[0]
+                        value1a53_ = unpack("B", f.read(1))[0]
+                        normalZ_53_ = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx44_a = unpack("<f", f.read(4))[0]
+                        vy44_a = unpack("<f", f.read(4))[0]
+                        vz44_a = unpack("<f", f.read(4))[0]
+                        type44_a = unpack("B", f.read(1))[0]
+                        value1a44_a = unpack("B", f.read(1))[0]
+                        normalZ_44_a = unpack("<h", f.read(2))[0]
+                        vx45_a = unpack("<f", f.read(4))[0]
+                        vy45_a = unpack("<f", f.read(4))[0]
+                        vz45_a = unpack("<f", f.read(4))[0]
+                        type45_a = unpack("B", f.read(1))[0]
+                        value1a45_a = unpack("B", f.read(1))[0]
+                        normalZ_45_a = unpack("<h", f.read(2))[0]
+                        vx46_a = unpack("<f", f.read(4))[0]
+                        vy46_a = unpack("<f", f.read(4))[0]
+                        vz46_a = unpack("<f", f.read(4))[0]
+                        type46_a = unpack("B", f.read(1))[0]
+                        value1a46_a = unpack("B", f.read(1))[0]
+                        normalZ_46_a = unpack("<h", f.read(2))[0]
+                        vx47_a = unpack("<f", f.read(4))[0]
+                        vy47_a = unpack("<f", f.read(4))[0]
+                        vz47_a = unpack("<f", f.read(4))[0]
+                        type47_a = unpack("B", f.read(1))[0]
+                        value1a47_a = unpack("B", f.read(1))[0]
+                        normalZ_47_a = unpack("<h", f.read(2))[0]
+                        vx48_a = unpack("<f", f.read(4))[0]
+                        vy48_a = unpack("<f", f.read(4))[0]
+                        vz48_a = unpack("<f", f.read(4))[0]
+                        type48_a = unpack("B", f.read(1))[0]
+                        value1a48_a = unpack("B", f.read(1))[0]
+                        normalZ_48_a = unpack("<h", f.read(2))[0]
+                        vx49_a = unpack("<f", f.read(4))[0]
+                        vy49_a = unpack("<f", f.read(4))[0]
+                        vz49_a = unpack("<f", f.read(4))[0]
+                        type49_a = unpack("B", f.read(1))[0]
+                        value1a49_a = unpack("B", f.read(1))[0]
+                        normalZ_49_a = unpack("<h", f.read(2))[0]
+                        vx50_a = unpack("<f", f.read(4))[0]
+                        vy50_a = unpack("<f", f.read(4))[0]
+                        vz50_a = unpack("<f", f.read(4))[0]
+                        type50_a = unpack("B", f.read(1))[0]
+                        value1a50_a = unpack("B", f.read(1))[0]
+                        normalZ_50_a = unpack("<h", f.read(2))[0]
+                        vx51_a = unpack("<f", f.read(4))[0]
+                        vy51_a = unpack("<f", f.read(4))[0]
+                        vz51_a = unpack("<f", f.read(4))[0]
+                        type51_a = unpack("B", f.read(1))[0]
+                        value1a51_a = unpack("B", f.read(1))[0]
+                        normalZ_51_a = unpack("<h", f.read(2))[0]
+                        vx52_a = unpack("<f", f.read(4))[0]
+                        vy52_a = unpack("<f", f.read(4))[0]
+                        vz52_a = unpack("<f", f.read(4))[0]
+                        type52_a = unpack("B", f.read(1))[0]
+                        value1a52_a = unpack("B", f.read(1))[0]
+                        normalZ_52_a = unpack("<h", f.read(2))[0]
+                        vx53_a = unpack("<f", f.read(4))[0]
+                        vy53_a = unpack("<f", f.read(4))[0]
+                        vz53_a = unpack("<f", f.read(4))[0]
+                        type53_a = unpack("B", f.read(1))[0]
+                        value1a53_a = unpack("B", f.read(1))[0]
+                        normalZ_53_a = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx44_b = unpack("<f", f.read(4))[0]
+                        vy44_b = unpack("<f", f.read(4))[0]
+                        vz44_b = unpack("<f", f.read(4))[0]
+                        type44_b = unpack("B", f.read(1))[0]
+                        value1a44_b = unpack("B", f.read(1))[0]
+                        normalZ_44_b = unpack("<h", f.read(2))[0]
+                        vx45_b = unpack("<f", f.read(4))[0]
+                        vy45_b = unpack("<f", f.read(4))[0]
+                        vz45_b = unpack("<f", f.read(4))[0]
+                        type45_b = unpack("B", f.read(1))[0]
+                        value1a45_b = unpack("B", f.read(1))[0]
+                        normalZ_45_b = unpack("<h", f.read(2))[0]
+                        vx46_b = unpack("<f", f.read(4))[0]
+                        vy46_b = unpack("<f", f.read(4))[0]
+                        vz46_b = unpack("<f", f.read(4))[0]
+                        type46_b = unpack("B", f.read(1))[0]
+                        value1a46_b = unpack("B", f.read(1))[0]
+                        normalZ_46_b = unpack("<h", f.read(2))[0]
+                        vx47_b = unpack("<f", f.read(4))[0]
+                        vy47_b = unpack("<f", f.read(4))[0]
+                        vz47_b = unpack("<f", f.read(4))[0]
+                        type47_b = unpack("B", f.read(1))[0]
+                        value1a47_b = unpack("B", f.read(1))[0]
+                        normalZ_47_b = unpack("<h", f.read(2))[0]
+                        vx48_b = unpack("<f", f.read(4))[0]
+                        vy48_b = unpack("<f", f.read(4))[0]
+                        vz48_b = unpack("<f", f.read(4))[0]
+                        type48_b = unpack("B", f.read(1))[0]
+                        value1a48_b = unpack("B", f.read(1))[0]
+                        normalZ_48_b = unpack("<h", f.read(2))[0]
+                        vx49_b = unpack("<f", f.read(4))[0]
+                        vy49_b = unpack("<f", f.read(4))[0]
+                        vz49_b = unpack("<f", f.read(4))[0]
+                        type49_b = unpack("B", f.read(1))[0]
+                        value1a49_b = unpack("B", f.read(1))[0]
+                        normalZ_49_b = unpack("<h", f.read(2))[0]
+                        vx50_b = unpack("<f", f.read(4))[0]
+                        vy50_b = unpack("<f", f.read(4))[0]
+                        vz50_b = unpack("<f", f.read(4))[0]
+                        type50_b = unpack("B", f.read(1))[0]
+                        value1a50_b = unpack("B", f.read(1))[0]
+                        normalZ_50_b = unpack("<h", f.read(2))[0]
+                        vx51_b = unpack("<f", f.read(4))[0]
+                        vy51_b = unpack("<f", f.read(4))[0]
+                        vz51_b = unpack("<f", f.read(4))[0]
+                        type51_b = unpack("B", f.read(1))[0]
+                        value1a51_b = unpack("B", f.read(1))[0]
+                        normalZ_51_b = unpack("<h", f.read(2))[0]
+                        vx52_b = unpack("<f", f.read(4))[0]
+                        vy52_b = unpack("<f", f.read(4))[0]
+                        vz52_b = unpack("<f", f.read(4))[0]
+                        type52_b = unpack("B", f.read(1))[0]
+                        value1a52_b = unpack("B", f.read(1))[0]
+                        normalZ_52_b = unpack("<h", f.read(2))[0]
+                        vx53_b = unpack("<f", f.read(4))[0]
+                        vy53_b = unpack("<f", f.read(4))[0]
+                        vz53_b = unpack("<f", f.read(4))[0]
+                        type53_b = unpack("B", f.read(1))[0]
+                        value1a53_b = unpack("B", f.read(1))[0]
+                        normalZ_53_b = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx44_c = unpack("<f", f.read(4))[0]
+                        vy44_c = unpack("<f", f.read(4))[0]
+                        vz44_c = unpack("<f", f.read(4))[0]
+                        type44_c = unpack("B", f.read(1))[0]
+                        value1a44_c = unpack("B", f.read(1))[0]
+                        normalZ_44_c = unpack("<h", f.read(2))[0]
+                        vx45_c = unpack("<f", f.read(4))[0]
+                        vy45_c = unpack("<f", f.read(4))[0]
+                        vz45_c = unpack("<f", f.read(4))[0]
+                        type45_c = unpack("B", f.read(1))[0]
+                        value1a45_c = unpack("B", f.read(1))[0]
+                        normalZ_45_c = unpack("<h", f.read(2))[0]
+                        vx46_c = unpack("<f", f.read(4))[0]
+                        vy46_c = unpack("<f", f.read(4))[0]
+                        vz46_c = unpack("<f", f.read(4))[0]
+                        type46_c = unpack("B", f.read(1))[0]
+                        value1a46_c = unpack("B", f.read(1))[0]
+                        normalZ_46_c = unpack("<h", f.read(2))[0]
+                        vx47_c = unpack("<f", f.read(4))[0]
+                        vy47_c = unpack("<f", f.read(4))[0]
+                        vz47_c = unpack("<f", f.read(4))[0]
+                        type47_c = unpack("B", f.read(1))[0]
+                        value1a47_c = unpack("B", f.read(1))[0]
+                        normalZ_47_c = unpack("<h", f.read(2))[0]
+                        vx48_c = unpack("<f", f.read(4))[0]
+                        vy48_c = unpack("<f", f.read(4))[0]
+                        vz48_c = unpack("<f", f.read(4))[0]
+                        type48_c = unpack("B", f.read(1))[0]
+                        value1a48_c = unpack("B", f.read(1))[0]
+                        normalZ_48_c = unpack("<h", f.read(2))[0]
+                        vx49_c = unpack("<f", f.read(4))[0]
+                        vy49_c = unpack("<f", f.read(4))[0]
+                        vz49_c = unpack("<f", f.read(4))[0]
+                        type49_c = unpack("B", f.read(1))[0]
+                        value1a49_c = unpack("B", f.read(1))[0]
+                        normalZ_49_c = unpack("<h", f.read(2))[0]
+                        vx50_c = unpack("<f", f.read(4))[0]
+                        vy50_c = unpack("<f", f.read(4))[0]
+                        vz50_c = unpack("<f", f.read(4))[0]
+                        type50_c = unpack("B", f.read(1))[0]
+                        value1a50_c = unpack("B", f.read(1))[0]
+                        normalZ_50_c = unpack("<h", f.read(2))[0]
+                        vx51_c = unpack("<f", f.read(4))[0]
+                        vy51_c = unpack("<f", f.read(4))[0]
+                        vz51_c = unpack("<f", f.read(4))[0]
+                        type51_c = unpack("B", f.read(1))[0]
+                        value1a51_c = unpack("B", f.read(1))[0]
+                        normalZ_51_c = unpack("<h", f.read(2))[0]
+                        vx52_c = unpack("<f", f.read(4))[0]
+                        vy52_c = unpack("<f", f.read(4))[0]
+                        vz52_c = unpack("<f", f.read(4))[0]
+                        type52_c = unpack("B", f.read(1))[0]
+                        value1a52_c = unpack("B", f.read(1))[0]
+                        normalZ_52_c = unpack("<h", f.read(2))[0]
+                        vx53_c = unpack("<f", f.read(4))[0]
+                        vy53_c = unpack("<f", f.read(4))[0]
+                        vz53_c = unpack("<f", f.read(4))[0]
+                        type53_c = unpack("B", f.read(1))[0]
+                        value1a53_c = unpack("B", f.read(1))[0]
+                        normalZ_53_c = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx44_d = unpack("<f", f.read(4))[0]
+                        vy44_d = unpack("<f", f.read(4))[0]
+                        vz44_d = unpack("<f", f.read(4))[0]
+                        type44_d = unpack("B", f.read(1))[0]
+                        value1a44_d = unpack("B", f.read(1))[0]
+                        normalZ_44_d = unpack("<h", f.read(2))[0]
+                        vx45_d = unpack("<f", f.read(4))[0]
+                        vy45_d = unpack("<f", f.read(4))[0]
+                        vz45_d = unpack("<f", f.read(4))[0]
+                        type45_d = unpack("B", f.read(1))[0]
+                        value1a45_d = unpack("B", f.read(1))[0]
+                        normalZ_45_d = unpack("<h", f.read(2))[0]
+                        vx46_d = unpack("<f", f.read(4))[0]
+                        vy46_d = unpack("<f", f.read(4))[0]
+                        vz46_d = unpack("<f", f.read(4))[0]
+                        type46_d = unpack("B", f.read(1))[0]
+                        value1a46_d = unpack("B", f.read(1))[0]
+                        normalZ_46_d = unpack("<h", f.read(2))[0]
+                        vx47_d = unpack("<f", f.read(4))[0]
+                        vy47_d = unpack("<f", f.read(4))[0]
+                        vz47_d = unpack("<f", f.read(4))[0]
+                        type47_d = unpack("B", f.read(1))[0]
+                        value1a47_d = unpack("B", f.read(1))[0]
+                        normalZ_47_d = unpack("<h", f.read(2))[0]
+                        vx48_d = unpack("<f", f.read(4))[0]
+                        vy48_d = unpack("<f", f.read(4))[0]
+                        vz48_d = unpack("<f", f.read(4))[0]
+                        type48_d = unpack("B", f.read(1))[0]
+                        value1a48_d = unpack("B", f.read(1))[0]
+                        normalZ_48_d = unpack("<h", f.read(2))[0]
+                        vx49_d = unpack("<f", f.read(4))[0]
+                        vy49_d = unpack("<f", f.read(4))[0]
+                        vz49_d = unpack("<f", f.read(4))[0]
+                        type49_d = unpack("B", f.read(1))[0]
+                        value1a49_d = unpack("B", f.read(1))[0]
+                        normalZ_49_d = unpack("<h", f.read(2))[0]
+                        vx50_d = unpack("<f", f.read(4))[0]
+                        vy50_d = unpack("<f", f.read(4))[0]
+                        vz50_d = unpack("<f", f.read(4))[0]
+                        type50_d = unpack("B", f.read(1))[0]
+                        value1a50_d = unpack("B", f.read(1))[0]
+                        normalZ_50_d = unpack("<h", f.read(2))[0]
+                        vx51_d = unpack("<f", f.read(4))[0]
+                        vy51_d = unpack("<f", f.read(4))[0]
+                        vz51_d = unpack("<f", f.read(4))[0]
+                        type51_d = unpack("B", f.read(1))[0]
+                        value1a51_d = unpack("B", f.read(1))[0]
+                        normalZ_51_d = unpack("<h", f.read(2))[0]
+                        vx52_d = unpack("<f", f.read(4))[0]
+                        vy52_d = unpack("<f", f.read(4))[0]
+                        vz52_d = unpack("<f", f.read(4))[0]
+                        type52_d = unpack("B", f.read(1))[0]
+                        value1a52_d = unpack("B", f.read(1))[0]
+                        normalZ_52_d = unpack("<h", f.read(2))[0]
+                        vx53_d = unpack("<f", f.read(4))[0]
+                        vy53_d = unpack("<f", f.read(4))[0]
+                        vz53_d = unpack("<f", f.read(4))[0]
+                        type53_d = unpack("B", f.read(1))[0]
+                        value1a53_d = unpack("B", f.read(1))[0]
+                        normalZ_53_d = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx44_e = unpack("<f", f.read(4))[0]
+                        vy44_e = unpack("<f", f.read(4))[0]
+                        vz44_e = unpack("<f", f.read(4))[0]
+                        type44_e = unpack("B", f.read(1))[0]
+                        value1a44_e = unpack("B", f.read(1))[0]
+                        normalZ_44_e = unpack("<h", f.read(2))[0]
+                        vx45_e = unpack("<f", f.read(4))[0]
+                        vy45_e = unpack("<f", f.read(4))[0]
+                        vz45_e = unpack("<f", f.read(4))[0]
+                        type45_e = unpack("B", f.read(1))[0]
+                        value1a45_e = unpack("B", f.read(1))[0]
+                        normalZ_45_e = unpack("<h", f.read(2))[0]
+                        vx46_e = unpack("<f", f.read(4))[0]
+                        vy46_e = unpack("<f", f.read(4))[0]
+                        vz46_e = unpack("<f", f.read(4))[0]
+                        type46_e = unpack("B", f.read(1))[0]
+                        value1a46_e = unpack("B", f.read(1))[0]
+                        normalZ_46_e = unpack("<h", f.read(2))[0]
+                        vx47_e = unpack("<f", f.read(4))[0]
+                        vy47_e = unpack("<f", f.read(4))[0]
+                        vz47_e = unpack("<f", f.read(4))[0]
+                        type47_e = unpack("B", f.read(1))[0]
+                        value1a47_e = unpack("B", f.read(1))[0]
+                        normalZ_47_e = unpack("<h", f.read(2))[0]
+                        vx48_e = unpack("<f", f.read(4))[0]
+                        vy48_e = unpack("<f", f.read(4))[0]
+                        vz48_e = unpack("<f", f.read(4))[0]
+                        type48_e = unpack("B", f.read(1))[0]
+                        value1a48_e = unpack("B", f.read(1))[0]
+                        normalZ_48_e = unpack("<h", f.read(2))[0]
+                        vx49_e = unpack("<f", f.read(4))[0]
+                        vy49_e = unpack("<f", f.read(4))[0]
+                        vz49_e = unpack("<f", f.read(4))[0]
+                        type49_e = unpack("B", f.read(1))[0]
+                        value1a49_e = unpack("B", f.read(1))[0]
+                        normalZ_49_e = unpack("<h", f.read(2))[0]
+                        vx50_e = unpack("<f", f.read(4))[0]
+                        vy50_e = unpack("<f", f.read(4))[0]
+                        vz50_e = unpack("<f", f.read(4))[0]
+                        type50_e = unpack("B", f.read(1))[0]
+                        value1a50_e = unpack("B", f.read(1))[0]
+                        normalZ_50_e = unpack("<h", f.read(2))[0]
+                        vx51_e = unpack("<f", f.read(4))[0]
+                        vy51_e = unpack("<f", f.read(4))[0]
+                        vz51_e = unpack("<f", f.read(4))[0]
+                        type51_e = unpack("B", f.read(1))[0]
+                        value1a51_e = unpack("B", f.read(1))[0]
+                        normalZ_51_e = unpack("<h", f.read(2))[0]
+                        vx52_e = unpack("<f", f.read(4))[0]
+                        vy52_e = unpack("<f", f.read(4))[0]
+                        vz52_e = unpack("<f", f.read(4))[0]
+                        type52_e = unpack("B", f.read(1))[0]
+                        value1a52_e = unpack("B", f.read(1))[0]
+                        normalZ_52_e = unpack("<h", f.read(2))[0]
+                        vx53_e = unpack("<f", f.read(4))[0]
+                        vy53_e = unpack("<f", f.read(4))[0]
+                        vz53_e = unpack("<f", f.read(4))[0]
+                        type53_e = unpack("B", f.read(1))[0]
+                        value1a53_e = unpack("B", f.read(1))[0]
+                        normalZ_53_e = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx44_f = unpack("<f", f.read(4))[0]
+                        vy44_f = unpack("<f", f.read(4))[0]
+                        vz44_f = unpack("<f", f.read(4))[0]
+                        type44_f = unpack("B", f.read(1))[0]
+                        value1a44_f = unpack("B", f.read(1))[0]
+                        normalZ_44_f = unpack("<h", f.read(2))[0]
+                        vx45_f = unpack("<f", f.read(4))[0]
+                        vy45_f = unpack("<f", f.read(4))[0]
+                        vz45_f = unpack("<f", f.read(4))[0]
+                        type45_f = unpack("B", f.read(1))[0]
+                        value1a45_f = unpack("B", f.read(1))[0]
+                        normalZ_45_f = unpack("<h", f.read(2))[0]
+                        vx46_f = unpack("<f", f.read(4))[0]
+                        vy46_f = unpack("<f", f.read(4))[0]
+                        vz46_f = unpack("<f", f.read(4))[0]
+                        type46_f = unpack("B", f.read(1))[0]
+                        value1a46_f = unpack("B", f.read(1))[0]
+                        normalZ_46_f = unpack("<h", f.read(2))[0]
+                        vx47_f = unpack("<f", f.read(4))[0]
+                        vy47_f = unpack("<f", f.read(4))[0]
+                        vz47_f = unpack("<f", f.read(4))[0]
+                        type47_f = unpack("B", f.read(1))[0]
+                        value1a47_f = unpack("B", f.read(1))[0]
+                        normalZ_47_f = unpack("<h", f.read(2))[0]
+                        vx48_f = unpack("<f", f.read(4))[0]
+                        vy48_f = unpack("<f", f.read(4))[0]
+                        vz48_f = unpack("<f", f.read(4))[0]
+                        type48_f = unpack("B", f.read(1))[0]
+                        value1a48_f = unpack("B", f.read(1))[0]
+                        normalZ_48_f = unpack("<h", f.read(2))[0]
+                        vx49_f = unpack("<f", f.read(4))[0]
+                        vy49_f = unpack("<f", f.read(4))[0]
+                        vz49_f = unpack("<f", f.read(4))[0]
+                        type49_f = unpack("B", f.read(1))[0]
+                        value1a49_f = unpack("B", f.read(1))[0]
+                        normalZ_49_f = unpack("<h", f.read(2))[0]
+                        vx50_f = unpack("<f", f.read(4))[0]
+                        vy50_f = unpack("<f", f.read(4))[0]
+                        vz50_f = unpack("<f", f.read(4))[0]
+                        type50_f = unpack("B", f.read(1))[0]
+                        value1a50_f = unpack("B", f.read(1))[0]
+                        normalZ_50_f = unpack("<h", f.read(2))[0]
+                        vx51_f = unpack("<f", f.read(4))[0]
+                        vy51_f = unpack("<f", f.read(4))[0]
+                        vz51_f = unpack("<f", f.read(4))[0]
+                        type51_f = unpack("B", f.read(1))[0]
+                        value1a51_f = unpack("B", f.read(1))[0]
+                        normalZ_51_f = unpack("<h", f.read(2))[0]
+                        vx52_f = unpack("<f", f.read(4))[0]
+                        vy52_f = unpack("<f", f.read(4))[0]
+                        vz52_f = unpack("<f", f.read(4))[0]
+                        type52_f = unpack("B", f.read(1))[0]
+                        value1a52_f = unpack("B", f.read(1))[0]
+                        normalZ_52_f = unpack("<h", f.read(2))[0]
+                        vx53_f = unpack("<f", f.read(4))[0]
+                        vy53_f = unpack("<f", f.read(4))[0]
+                        vz53_f = unpack("<f", f.read(4))[0]
+                        type53_f = unpack("B", f.read(1))[0]
+                        value1a53_f = unpack("B", f.read(1))[0]
+                        normalZ_53_f = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx44_g = unpack("<f", f.read(4))[0]
+                        vy44_g = unpack("<f", f.read(4))[0]
+                        vz44_g = unpack("<f", f.read(4))[0]
+                        type44_g = unpack("B", f.read(1))[0]
+                        value1a44_g = unpack("B", f.read(1))[0]
+                        normalZ_44_g = unpack("<h", f.read(2))[0]
+                        vx45_g = unpack("<f", f.read(4))[0]
+                        vy45_g = unpack("<f", f.read(4))[0]
+                        vz45_g = unpack("<f", f.read(4))[0]
+                        type45_g = unpack("B", f.read(1))[0]
+                        value1a45_g = unpack("B", f.read(1))[0]
+                        normalZ_45_g = unpack("<h", f.read(2))[0]
+                        vx46_g = unpack("<f", f.read(4))[0]
+                        vy46_g = unpack("<f", f.read(4))[0]
+                        vz46_g = unpack("<f", f.read(4))[0]
+                        type46_g = unpack("B", f.read(1))[0]
+                        value1a46_g = unpack("B", f.read(1))[0]
+                        normalZ_46_g = unpack("<h", f.read(2))[0]
+                        vx47_g = unpack("<f", f.read(4))[0]
+                        vy47_g = unpack("<f", f.read(4))[0]
+                        vz47_g = unpack("<f", f.read(4))[0]
+                        type47_g = unpack("B", f.read(1))[0]
+                        value1a47_g = unpack("B", f.read(1))[0]
+                        normalZ_47_g = unpack("<h", f.read(2))[0]
+                        vx48_g = unpack("<f", f.read(4))[0]
+                        vy48_g = unpack("<f", f.read(4))[0]
+                        vz48_g = unpack("<f", f.read(4))[0]
+                        type48_g = unpack("B", f.read(1))[0]
+                        value1a48_g = unpack("B", f.read(1))[0]
+                        normalZ_48_g = unpack("<h", f.read(2))[0]
+                        vx49_g = unpack("<f", f.read(4))[0]
+                        vy49_g = unpack("<f", f.read(4))[0]
+                        vz49_g = unpack("<f", f.read(4))[0]
+                        type49_g = unpack("B", f.read(1))[0]
+                        value1a49_g = unpack("B", f.read(1))[0]
+                        normalZ_49_g = unpack("<h", f.read(2))[0]
+                        vx50_g = unpack("<f", f.read(4))[0]
+                        vy50_g = unpack("<f", f.read(4))[0]
+                        vz50_g = unpack("<f", f.read(4))[0]
+                        type50_g = unpack("B", f.read(1))[0]
+                        value1a50_g = unpack("B", f.read(1))[0]
+                        normalZ_50_g = unpack("<h", f.read(2))[0]
+                        vx51_g = unpack("<f", f.read(4))[0]
+                        vy51_g = unpack("<f", f.read(4))[0]
+                        vz51_g = unpack("<f", f.read(4))[0]
+                        type51_g = unpack("B", f.read(1))[0]
+                        value1a51_g = unpack("B", f.read(1))[0]
+                        normalZ_51_g = unpack("<h", f.read(2))[0]
+                        vx52_g = unpack("<f", f.read(4))[0]
+                        vy52_g = unpack("<f", f.read(4))[0]
+                        vz52_g = unpack("<f", f.read(4))[0]
+                        type52_g = unpack("B", f.read(1))[0]
+                        value1a52_g = unpack("B", f.read(1))[0]
+                        normalZ_52_g = unpack("<h", f.read(2))[0]
+                        vx53_g = unpack("<f", f.read(4))[0]
+                        vy53_g = unpack("<f", f.read(4))[0]
+                        vz53_g = unpack("<f", f.read(4))[0]
+                        type53_g = unpack("B", f.read(1))[0]
+                        value1a53_g = unpack("B", f.read(1))[0]
+                        normalZ_53_g = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount2):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        vx44_h = unpack("<f", f.read(4))[0]
+                        vy44_h = unpack("<f", f.read(4))[0]
+                        vz44_h = unpack("<f", f.read(4))[0]
+                        type44_h = unpack("B", f.read(1))[0]
+                        value1a44_h = unpack("B", f.read(1))[0]
+                        normalZ_44_h = unpack("<h", f.read(2))[0]
+                        vx45_h = unpack("<f", f.read(4))[0]
+                        vy45_h = unpack("<f", f.read(4))[0]
+                        vz45_h = unpack("<f", f.read(4))[0]
+                        type45_h = unpack("B", f.read(1))[0]
+                        value1a45_h = unpack("B", f.read(1))[0]
+                        normalZ_45_h = unpack("<h", f.read(2))[0]
+                        vx46_h = unpack("<f", f.read(4))[0]
+                        vy46_h = unpack("<f", f.read(4))[0]
+                        vz46_h = unpack("<f", f.read(4))[0]
+                        type46_h = unpack("B", f.read(1))[0]
+                        value1a46_h = unpack("B", f.read(1))[0]
+                        normalZ_46_h = unpack("<h", f.read(2))[0]
+                        vx47_h = unpack("<f", f.read(4))[0]
+                        vy47_h = unpack("<f", f.read(4))[0]
+                        vz47_h = unpack("<f", f.read(4))[0]
+                        type47_h = unpack("B", f.read(1))[0]
+                        value1a47_h = unpack("B", f.read(1))[0]
+                        normalZ_47_h = unpack("<h", f.read(2))[0]
+                        vx48_h = unpack("<f", f.read(4))[0]
+                        vy48_h = unpack("<f", f.read(4))[0]
+                        vz48_h = unpack("<f", f.read(4))[0]
+                        type48_h = unpack("B", f.read(1))[0]
+                        value1a48_h = unpack("B", f.read(1))[0]
+                        normalZ_48_h = unpack("<h", f.read(2))[0]
+                        vx49_h = unpack("<f", f.read(4))[0]
+                        vy49_h = unpack("<f", f.read(4))[0]
+                        vz49_h = unpack("<f", f.read(4))[0]
+                        type49_h = unpack("B", f.read(1))[0]
+                        value1a49_h = unpack("B", f.read(1))[0]
+                        normalZ_49_h = unpack("<h", f.read(2))[0]
+                        vx50_h = unpack("<f", f.read(4))[0]
+                        vy50_h = unpack("<f", f.read(4))[0]
+                        vz50_h = unpack("<f", f.read(4))[0]
+                        type50_h = unpack("B", f.read(1))[0]
+                        value1a50_h = unpack("B", f.read(1))[0]
+                        normalZ_50_h = unpack("<h", f.read(2))[0]
+                        vx51_h = unpack("<f", f.read(4))[0]
+                        vy51_h = unpack("<f", f.read(4))[0]
+                        vz51_h = unpack("<f", f.read(4))[0]
+                        type51_h = unpack("B", f.read(1))[0]
+                        value1a51_h = unpack("B", f.read(1))[0]
+                        normalZ_51_h = unpack("<h", f.read(2))[0]
+                        vx52_h = unpack("<f", f.read(4))[0]
+                        vy52_h = unpack("<f", f.read(4))[0]
+                        vz52_h = unpack("<f", f.read(4))[0]
+                        type52_h = unpack("B", f.read(1))[0]
+                        value1a52_h = unpack("B", f.read(1))[0]
+                        normalZ_52_h = unpack("<h", f.read(2))[0]
+                        vx53_h = unpack("<f", f.read(4))[0]
+                        vy53_h = unpack("<f", f.read(4))[0]
+                        vz53_h = unpack("<f", f.read(4))[0]
+                        type53_h = unpack("B", f.read(1))[0]
+                        value1a53_h = unpack("B", f.read(1))[0]
+                        normalZ_53_h = unpack("<h", f.read(2))[0]
+                    nnnn_offset1 = unpack("<I", f.read(4))[0]
+                    if nnnn_offset1 == 1695186948:
+                        for i in range(10):
+                            f.seek(2,1)
+                            f.seek(2,1)
+                        nn_offset2 = unpack("<I", f.read(4))[0]
+                        if nn_offset2 == 1846198277:
+                            for i in range(10):
+                                f.seek(1,1)
+                                f.seek(1,1)
+                                f.seek(1,1)
+                                f.seek(1,1)
+                            nn_offset3 = unpack("<I", f.read(4))[0]
+                            if nn_offset3 == 16777473:
+                                nn_offset4 = unpack("<I", f.read(4))[0]
+                                if nn_offset4 == 335545088:
+                                    if type44_h == 1:
+                                        if type45_h == 1:
+                                            if type46_h == 0:
+                                                if type47_h == 0:
+                                                    if type48_h == 1:
+                                                        if type49_h == 1:
+                                                            if type50_h == 0:
+                                                                if type51_h == 1:
+                                                                    if type52_h == 1:
+                                                                        if type53_h == 0:
+                                                                            verticesH_h.append([vx44_h,vz44_h,vy44_h])
+                                                                            verticesH_h.append([vx45_h,vz45_h,vy45_h])
+                                                                            verticesH_h.append([vx46_h,vz46_h,vy46_h])
+                                                                            verticesH_h.append([vx47_h,vz47_h,vy47_h])
+                                                                            verticesH_h.append([vx48_h,vz48_h,vy48_h])
+                                                                            verticesH_h.append([vx49_h,vz49_h,vy49_h])
+                                                                            verticesH_h.append([vx50_h,vz50_h,vy50_h])
+                                                                            verticesH_h.append([vx51_h,vz51_h,vy51_h])
+                                                                            verticesH_h.append([vx52_h,vz52_h,vy52_h])
+                                                                            verticesH_h.append([vx53_h,vz53_h,vy53_h])
+
+                                                                            fa_oaaaaaaaaa+=1*10
+                                                                            fb_oaaaaaaaaa+=1*10
+                                                                            fc_oaaaaaaaaa+=1*10
+                                                                            fa_obaaaaaaaa+=1*10
+                                                                            fb_obaaaaaaaa+=1*10
+                                                                            fc_obaaaaaaaa+=1*10
+                                                                            fa_ocaaaaaaaa+=1*10
+                                                                            fb_ocaaaaaaaa+=1*10
+                                                                            fc_ocaaaaaaaa+=1*10
+                                                                            fa_odaaaaaaaa+=1*10
+                                                                            fb_odaaaaaaaa+=1*10
+                                                                            fc_odaaaaaaaa+=1*10
+                                                                            facesH_h.append([fa_oaaaaaaaaa,fb_oaaaaaaaaa,fc_oaaaaaaaaa])
+                                                                            facesH_h.append([fa_obaaaaaaaa,fb_obaaaaaaaa,fc_obaaaaaaaa])
+                                                                            facesH_h.append([fa_ocaaaaaaaa,fb_ocaaaaaaaa,fc_ocaaaaaaaa])
+                                                                            facesH_h.append([fa_odaaaaaaaa,fb_odaaaaaaaa,fc_odaaaaaaaa])
+                                    if type44_g == 1:
+                                        if type45_g == 1:
+                                            if type46_g == 0:
+                                                if type47_g == 1:
+                                                    if type48_g == 1:
+                                                        if type49_g == 0:
+                                                            if type50_g == 0:
+                                                                if type51_g == 1:
+                                                                    if type52_g == 1:
+                                                                        if type53_g == 0:
+                                                                            verticesH_g.append([vx44_g,vz44_g,vy44_g])
+                                                                            verticesH_g.append([vx45_g,vz45_g,vy45_g])
+                                                                            verticesH_g.append([vx46_g,vz46_g,vy46_g])
+                                                                            verticesH_g.append([vx47_g,vz47_g,vy47_g])
+                                                                            verticesH_g.append([vx48_g,vz48_g,vy48_g])
+                                                                            verticesH_g.append([vx49_g,vz49_g,vy49_g])
+                                                                            verticesH_g.append([vx50_g,vz50_g,vy50_g])
+                                                                            verticesH_g.append([vx51_g,vz51_g,vy51_g])
+                                                                            verticesH_g.append([vx52_g,vz52_g,vy52_g])
+                                                                            verticesH_g.append([vx53_g,vz53_g,vy53_g])
+
+                                                                            fa_oaaaaaaaa+=1*10
+                                                                            fb_oaaaaaaaa+=1*10
+                                                                            fc_oaaaaaaaa+=1*10
+                                                                            fa_obaaaaaaa+=1*10
+                                                                            fb_obaaaaaaa+=1*10
+                                                                            fc_obaaaaaaa+=1*10
+                                                                            fa_ocaaaaaaa+=1*10
+                                                                            fb_ocaaaaaaa+=1*10
+                                                                            fc_ocaaaaaaa+=1*10
+                                                                            fa_odaaaaaaa+=1*10
+                                                                            fb_odaaaaaaa+=1*10
+                                                                            fc_odaaaaaaa+=1*10
+                                                                            facesH_g.append([fa_oaaaaaaaa,fb_oaaaaaaaa,fc_oaaaaaaaa])
+                                                                            facesH_g.append([fa_obaaaaaaa,fb_obaaaaaaa,fc_obaaaaaaa])
+                                                                            facesH_g.append([fa_ocaaaaaaa,fb_ocaaaaaaa,fc_ocaaaaaaa])
+                                                                            facesH_g.append([fa_odaaaaaaa,fb_odaaaaaaa,fc_odaaaaaaa])
+                                    if type44_f == 1:
+                                        if type45_f == 1:
+                                            if type46_f == 0:
+                                                if type47_f == 1:
+                                                    if type48_f == 1:
+                                                        if type49_f == 0:
+                                                            if type50_f == 1:
+                                                                if type51_f == 1:
+                                                                    if type52_f == 0:
+                                                                        if type53_f == 0:
+                                                                            verticesH_f.append([vx44_f,vz44_f,vy44_f])
+                                                                            verticesH_f.append([vx45_f,vz45_f,vy45_f])
+                                                                            verticesH_f.append([vx46_f,vz46_f,vy46_f])
+                                                                            verticesH_f.append([vx47_f,vz47_f,vy47_f])
+                                                                            verticesH_f.append([vx48_f,vz48_f,vy48_f])
+                                                                            verticesH_f.append([vx49_f,vz49_f,vy49_f])
+                                                                            verticesH_f.append([vx50_f,vz50_f,vy50_f])
+                                                                            verticesH_f.append([vx51_f,vz51_f,vy51_f])
+                                                                            verticesH_f.append([vx52_f,vz52_f,vy52_f])
+                                                                            verticesH_f.append([vx53_f,vz53_f,vy53_f])
+
+                                                                            fa_oaaaaaaa+=1*10
+                                                                            fb_oaaaaaaa+=1*10
+                                                                            fc_oaaaaaaa+=1*10
+                                                                            fa_obaaaaaa+=1*10
+                                                                            fb_obaaaaaa+=1*10
+                                                                            fc_obaaaaaa+=1*10
+                                                                            fa_ocaaaaaa+=1*10
+                                                                            fb_ocaaaaaa+=1*10
+                                                                            fc_ocaaaaaa+=1*10
+                                                                            fa_odaaaaaa+=1*10
+                                                                            fb_odaaaaaa+=1*10
+                                                                            fc_odaaaaaa+=1*10
+                                                                            facesH_f.append([fa_oaaaaaaa,fb_oaaaaaaa,fc_oaaaaaaa])
+                                                                            facesH_f.append([fa_obaaaaaa,fb_obaaaaaa,fc_obaaaaaa])
+                                                                            facesH_f.append([fa_ocaaaaaa,fb_ocaaaaaa,fc_ocaaaaaa])
+                                                                            facesH_f.append([fa_odaaaaaa,fb_odaaaaaa,fc_odaaaaaa])
+                                    if type44_e == 1:
+                                        if type45_e == 1:
+                                            if type46_e == 0:
+                                                if type47_e == 0:
+                                                    if type48_e == 0:
+                                                        if type49_e == 0:
+                                                            if type50_e == 0:
+                                                                if type51_e == 1:
+                                                                    if type52_e == 1:
+                                                                        if type53_e == 0:
+                                                                            verticesH_e.append([vx44_e,vz44_e,vy44_e])
+                                                                            verticesH_e.append([vx45_e,vz45_e,vy45_e])
+                                                                            verticesH_e.append([vx46_e,vz46_e,vy46_e])
+                                                                            verticesH_e.append([vx47_e,vz47_e,vy47_e])
+                                                                            verticesH_e.append([vx48_e,vz48_e,vy48_e])
+                                                                            verticesH_e.append([vx49_e,vz49_e,vy49_e])
+                                                                            verticesH_e.append([vx50_e,vz50_e,vy50_e])
+                                                                            verticesH_e.append([vx51_e,vz51_e,vy51_e])
+                                                                            verticesH_e.append([vx52_e,vz52_e,vy52_e])
+                                                                            verticesH_e.append([vx53_e,vz53_e,vy53_e])
+
+                                                                            fa_oaaaaaa+=1*10
+                                                                            fb_oaaaaaa+=1*10
+                                                                            fc_oaaaaaa+=1*10
+                                                                            fa_obaaaaa+=1*10
+                                                                            fb_obaaaaa+=1*10
+                                                                            fc_obaaaaa+=1*10
+                                                                            fa_ocaaaaa+=1*10
+                                                                            fb_ocaaaaa+=1*10
+                                                                            fc_ocaaaaa+=1*10
+                                                                            fa_odaaaaa+=1*10
+                                                                            fb_odaaaaa+=1*10
+                                                                            fc_odaaaaa+=1*10
+                                                                            fa_oeaaaaa+=1*10
+                                                                            fb_oeaaaaa+=1*10
+                                                                            fc_oeaaaaa+=1*10
+                                                                            fa_ofaaaaa+=1*10
+                                                                            fb_ofaaaaa+=1*10
+                                                                            fc_ofaaaaa+=1*10
+
+                                                                            facesH_e.append([fa_oaaaaaa,fb_oaaaaaa,fc_oaaaaaa])
+                                                                            facesH_e.append([fa_obaaaaa,fb_obaaaaa,fc_obaaaaa])
+                                                                            facesH_e.append([fa_ocaaaaa,fb_ocaaaaa,fc_ocaaaaa])
+                                                                            facesH_e.append([fa_odaaaaa,fb_odaaaaa,fc_odaaaaa])
+                                                                            facesH_e.append([fa_oeaaaaa,fb_oeaaaaa,fc_oeaaaaa])
+                                                                            facesH_e.append([fa_ofaaaaa,fb_ofaaaaa,fc_ofaaaaa])
+                                    if type44_d == 1:
+                                        if type45_d == 1:
+                                            if type46_d == 0:
+                                                if type47_d == 0:
+                                                    if type48_d == 0:
+                                                        if type49_d == 0:
+                                                            if type50_d == 1:
+                                                                if type51_d == 1:
+                                                                    if type52_d == 0:
+                                                                        if type53_d == 0:
+                                                                            verticesH_d.append([vx44_d,vz44_d,vy44_d])
+                                                                            verticesH_d.append([vx45_d,vz45_d,vy45_d])
+                                                                            verticesH_d.append([vx46_d,vz46_d,vy46_d])
+                                                                            verticesH_d.append([vx47_d,vz47_d,vy47_d])
+                                                                            verticesH_d.append([vx48_d,vz48_d,vy48_d])
+                                                                            verticesH_d.append([vx49_d,vz49_d,vy49_d])
+                                                                            verticesH_d.append([vx50_d,vz50_d,vy50_d])
+                                                                            verticesH_d.append([vx51_d,vz51_d,vy51_d])
+                                                                            verticesH_d.append([vx52_d,vz52_d,vy52_d])
+                                                                            verticesH_d.append([vx53_d,vz53_d,vy53_d])
+
+                                                                            fa_oaaaaa+=1*10
+                                                                            fb_oaaaaa+=1*10
+                                                                            fc_oaaaaa+=1*10
+                                                                            fa_obaaaa+=1*10
+                                                                            fb_obaaaa+=1*10
+                                                                            fc_obaaaa+=1*10
+                                                                            fa_ocaaaa+=1*10
+                                                                            fb_ocaaaa+=1*10
+                                                                            fc_ocaaaa+=1*10
+                                                                            fa_odaaaa+=1*10
+                                                                            fb_odaaaa+=1*10
+                                                                            fc_odaaaa+=1*10
+                                                                            fa_oeaaaa+=1*10
+                                                                            fb_oeaaaa+=1*10
+                                                                            fc_oeaaaa+=1*10
+                                                                            fa_ofaaaa+=1*10
+                                                                            fb_ofaaaa+=1*10
+                                                                            fc_ofaaaa+=1*10
+
+                                                                            facesH_d.append([fa_oaaaaa,fb_oaaaaa,fc_oaaaaa])
+                                                                            facesH_d.append([fa_obaaaa,fb_obaaaa,fc_obaaaa])
+                                                                            facesH_d.append([fa_ocaaaa,fb_ocaaaa,fc_ocaaaa])
+                                                                            facesH_d.append([fa_odaaaa,fb_odaaaa,fc_odaaaa])
+                                                                            facesH_d.append([fa_oeaaaa,fb_oeaaaa,fc_oeaaaa])
+                                                                            facesH_d.append([fa_ofaaaa,fb_ofaaaa,fc_ofaaaa])
+                                    if type44_c == 1:
+                                        if type45_c == 1:
+                                            if type46_c == 0:
+                                                if type47_c == 0:
+                                                    if type48_c == 0:
+                                                        if type49_c == 1:
+                                                            if type50_c == 1:
+                                                                if type51_c == 0:
+                                                                    if type52_c == 0:
+                                                                        if type53_c == 0:
+                                                                            verticesH_c.append([vx44_c,vz44_c,vy44_c])
+                                                                            verticesH_c.append([vx45_c,vz45_c,vy45_c])
+                                                                            verticesH_c.append([vx46_c,vz46_c,vy46_c])
+                                                                            verticesH_c.append([vx47_c,vz47_c,vy47_c])
+                                                                            verticesH_c.append([vx48_c,vz48_c,vy48_c])
+                                                                            verticesH_c.append([vx49_c,vz49_c,vy49_c])
+                                                                            verticesH_c.append([vx50_c,vz50_c,vy50_c])
+                                                                            verticesH_c.append([vx51_c,vz51_c,vy51_c])
+                                                                            verticesH_c.append([vx52_c,vz52_c,vy52_c])
+                                                                            verticesH_c.append([vx53_c,vz53_c,vy53_c])
+
+                                                                            fa_oaaaa+=1*10
+                                                                            fb_oaaaa+=1*10
+                                                                            fc_oaaaa+=1*10
+                                                                            fa_obaaa+=1*10
+                                                                            fb_obaaa+=1*10
+                                                                            fc_obaaa+=1*10
+                                                                            fa_ocaaa+=1*10
+                                                                            fb_ocaaa+=1*10
+                                                                            fc_ocaaa+=1*10
+                                                                            fa_odaaa+=1*10
+                                                                            fb_odaaa+=1*10
+                                                                            fc_odaaa+=1*10
+                                                                            fa_oeaaa+=1*10
+                                                                            fb_oeaaa+=1*10
+                                                                            fc_oeaaa+=1*10
+                                                                            fa_ofaaa+=1*10
+                                                                            fb_ofaaa+=1*10
+                                                                            fc_ofaaa+=1*10
+
+                                                                            facesH_c.append([fa_oaaaa,fb_oaaaa,fc_oaaaa])
+                                                                            facesH_c.append([fa_obaaa,fb_obaaa,fc_obaaa])
+                                                                            facesH_c.append([fa_ocaaa,fb_ocaaa,fc_ocaaa])
+                                                                            facesH_c.append([fa_odaaa,fb_odaaa,fc_odaaa])
+                                                                            facesH_c.append([fa_oeaaa,fb_oeaaa,fc_oeaaa])
+                                                                            facesH_c.append([fa_ofaaa,fb_ofaaa,fc_ofaaa])
+                                    if type44_b == 1:
+                                        if type45_b == 1:
+                                            if type46_b == 0:
+                                                if type47_b == 0:
+                                                    if type48_b == 1:
+                                                        if type49_b == 1:
+                                                            if type50_b == 0:
+                                                                if type51_b == 0:
+                                                                    if type52_b == 0:
+                                                                        if type53_b == 0:
+                                                                            verticesH_b.append([vx44_b,vz44_b,vy44_b])
+                                                                            verticesH_b.append([vx45_b,vz45_b,vy45_b])
+                                                                            verticesH_b.append([vx46_b,vz46_b,vy46_b])
+                                                                            verticesH_b.append([vx47_b,vz47_b,vy47_b])
+                                                                            verticesH_b.append([vx48_b,vz48_b,vy48_b])
+                                                                            verticesH_b.append([vx49_b,vz49_b,vy49_b])
+                                                                            verticesH_b.append([vx50_b,vz50_b,vy50_b])
+                                                                            verticesH_b.append([vx51_b,vz51_b,vy51_b])
+                                                                            verticesH_b.append([vx52_b,vz52_b,vy52_b])
+                                                                            verticesH_b.append([vx53_b,vz53_b,vy53_b])
+
+                                                                            fa_oaaa+=1*10
+                                                                            fb_oaaa+=1*10
+                                                                            fc_oaaa+=1*10
+                                                                            fa_obaa+=1*10
+                                                                            fb_obaa+=1*10
+                                                                            fc_obaa+=1*10
+                                                                            fa_ocaa+=1*10
+                                                                            fb_ocaa+=1*10
+                                                                            fc_ocaa+=1*10
+                                                                            fa_odaa+=1*10
+                                                                            fb_odaa+=1*10
+                                                                            fc_odaa+=1*10
+                                                                            fa_oeaa+=1*10
+                                                                            fb_oeaa+=1*10
+                                                                            fc_oeaa+=1*10
+                                                                            fa_ofaa+=1*10
+                                                                            fb_ofaa+=1*10
+                                                                            fc_ofaa+=1*10
+
+                                                                            facesH_b.append([fa_oaaa,fb_oaaa,fc_oaaa])
+                                                                            facesH_b.append([fa_obaa,fb_obaa,fc_obaa])
+                                                                            facesH_b.append([fa_ocaa,fb_ocaa,fc_ocaa])
+                                                                            facesH_b.append([fa_odaa,fb_odaa,fc_odaa])
+                                                                            facesH_b.append([fa_oeaa,fb_oeaa,fc_oeaa])
+                                                                            facesH_b.append([fa_ofaa,fb_ofaa,fc_ofaa])
+                                    if type44_a == 1:
+                                        if type45_a == 1:
+                                            if type46_a == 0:
+                                                if type47_a == 1:
+                                                    if type48_a == 1:
+                                                        if type49_a == 0:
+                                                            if type50_a == 0:
+                                                                if type51_a == 0:
+                                                                    if type52_a == 0:
+                                                                        if type53_a == 0:
+                                                                            verticesH_a.append([vx44_a,vz44_a,vy44_a])
+                                                                            verticesH_a.append([vx45_a,vz45_a,vy45_a])
+                                                                            verticesH_a.append([vx46_a,vz46_a,vy46_a])
+                                                                            verticesH_a.append([vx47_a,vz47_a,vy47_a])
+                                                                            verticesH_a.append([vx48_a,vz48_a,vy48_a])
+                                                                            verticesH_a.append([vx49_a,vz49_a,vy49_a])
+                                                                            verticesH_a.append([vx50_a,vz50_a,vy50_a])
+                                                                            verticesH_a.append([vx51_a,vz51_a,vy51_a])
+                                                                            verticesH_a.append([vx52_a,vz52_a,vy52_a])
+                                                                            verticesH_a.append([vx53_a,vz53_a,vy53_a])
+
+                                                                            fa_oaa+=1*10
+                                                                            fb_oaa+=1*10
+                                                                            fc_oaa+=1*10
+                                                                            fa_oba+=1*10
+                                                                            fb_oba+=1*10
+                                                                            fc_oba+=1*10
+                                                                            fa_oca+=1*10
+                                                                            fb_oca+=1*10
+                                                                            fc_oca+=1*10
+                                                                            fa_oda+=1*10
+                                                                            fb_oda+=1*10
+                                                                            fc_oda+=1*10
+                                                                            fa_oea+=1*10
+                                                                            fb_oea+=1*10
+                                                                            fc_oea+=1*10
+                                                                            fa_ofa+=1*10
+                                                                            fb_ofa+=1*10
+                                                                            fc_ofa+=1*10
+
+                                                                            facesH_a.append([fa_oaa,fb_oaa,fc_oaa])
+                                                                            facesH_a.append([fa_oba,fb_oba,fc_oba])
+                                                                            facesH_a.append([fa_oca,fb_oca,fc_oca])
+                                                                            facesH_a.append([fa_oda,fb_oda,fc_oda])
+                                                                            facesH_a.append([fa_oea,fb_oea,fc_oea])
+                                                                            facesH_a.append([fa_ofa,fb_ofa,fc_ofa])
+                                    if type44_ == 1:
+                                        if type45_ == 1:
+                                            if type46_ == 0:
+                                                if type47_ == 0:
+                                                    if type48_ == 0:
+                                                        if type49_ == 0:
+                                                            if type50_ == 0:
+                                                                if type51_ == 0:
+                                                                    if type52_ == 0:
+                                                                        if type53_ == 0:
+                                                                            verticesH_.append([vx44_,vz44_,vy44_])
+                                                                            verticesH_.append([vx45_,vz45_,vy45_])
+                                                                            verticesH_.append([vx46_,vz46_,vy46_])
+                                                                            verticesH_.append([vx47_,vz47_,vy47_])
+                                                                            verticesH_.append([vx48_,vz48_,vy48_])
+                                                                            verticesH_.append([vx49_,vz49_,vy49_])
+                                                                            verticesH_.append([vx50_,vz50_,vy50_])
+                                                                            verticesH_.append([vx51_,vz51_,vy51_])
+                                                                            verticesH_.append([vx52_,vz52_,vy52_])
+                                                                            verticesH_.append([vx53_,vz53_,vy53_])
+
+                                                                            fa_oa+=1*10
+                                                                            fb_oa+=1*10
+                                                                            fc_oa+=1*10
+                                                                            fa_ob+=1*10
+                                                                            fb_ob+=1*10
+                                                                            fc_ob+=1*10
+                                                                            fa_oc+=1*10
+                                                                            fb_oc+=1*10
+                                                                            fc_oc+=1*10
+                                                                            fa_od+=1*10
+                                                                            fb_od+=1*10
+                                                                            fc_od+=1*10
+                                                                            fa_oe+=1*10
+                                                                            fb_oe+=1*10
+                                                                            fc_oe+=1*10
+                                                                            fa_of+=1*10
+                                                                            fb_of+=1*10
+                                                                            fc_of+=1*10
+                                                                            fa_og+=1*10
+                                                                            fb_og+=1*10
+                                                                            fc_og+=1*10
+                                                                            fa_oh+=1*10
+                                                                            fb_oh+=1*10
+                                                                            fc_oh+=1*10
+
+                                                                            facesH_.append([fa_oa,fb_oa,fc_oa])
+                                                                            facesH_.append([fa_ob,fb_ob,fc_ob])
+                                                                            facesH_.append([fa_oc,fb_oc,fc_oc])
+                                                                            facesH_.append([fa_od,fb_od,fc_od])
+                                                                            facesH_.append([fa_oe,fb_oe,fc_oe])
+                                                                            facesH_.append([fa_of,fb_of,fc_of])
+                                                                            facesH_.append([fa_og,fb_og,fc_og])
+                                                                            facesH_.append([fa_oh,fb_oh,fc_oh])
+                elif vertexCount2 == 11:
+                    pass
+                elif vertexCount2 == 12:
+                    pass
     f.seek(0)
     whileChunk = f.read()
     f.seek(0)
@@ -10749,6 +12623,81 @@ def wholeChunk1_none(f, filepath):
     mesh15.from_pydata(verticesF_c, [], facesF_c)
     objs15 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh15)
     collection.objects.link(objs15)
+
+    mesh16 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh16.from_pydata(verticesG_, [], facesG_)
+    objs16 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh16)
+    collection.objects.link(objs16)
+
+    mesh17 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh17.from_pydata(verticesG_a, [], facesG_a)
+    objs17 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh17)
+    collection.objects.link(objs17)
+
+    mesh18 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh18.from_pydata(verticesG_b, [], facesG_b)
+    objs18 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh18)
+    collection.objects.link(objs18)
+
+    mesh19 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh19.from_pydata(verticesG_c, [], facesG_c)
+    objs19 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh19)
+    collection.objects.link(objs19)
+
+    mesh20 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh20.from_pydata(verticesG_d, [], facesG_d)
+    objs20 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh20)
+    collection.objects.link(objs20)
+
+    mesh21 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh21.from_pydata(verticesG_e, [], facesG_e)
+    objs21 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh21)
+    collection.objects.link(objs21)
+
+    mesh22 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh22.from_pydata(verticesH_, [], facesH_)
+    objs22 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh22)
+    collection.objects.link(objs22)
+
+    mesh23 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh23.from_pydata(verticesH_a, [], facesH_a)
+    objs23 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh23)
+    collection.objects.link(objs23)
+
+    mesh24 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh24.from_pydata(verticesH_b, [], facesH_b)
+    objs24 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh24)
+    collection.objects.link(objs24)
+
+    mesh25 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh25.from_pydata(verticesH_c, [], facesH_c)
+    objs25 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh25)
+    collection.objects.link(objs25)
+
+    mesh25 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh25.from_pydata(verticesH_d, [], facesH_d)
+    objs25 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh25)
+    collection.objects.link(objs25)
+
+    mesh26 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh26.from_pydata(verticesH_e, [], facesH_e)
+    objs26 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh26)
+    collection.objects.link(objs26)
+
+    mesh27 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh27.from_pydata(verticesH_f, [], facesH_f)
+    objs27 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh27)
+    collection.objects.link(objs27)
+
+    mesh28 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh28.from_pydata(verticesH_g, [], facesH_g)
+    objs28 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh28)
+    collection.objects.link(objs28)
+
+    mesh29 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh29.from_pydata(verticesH_h, [], facesH_h)
+    objs29 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh29)
+    collection.objects.link(objs29)
 
     """for matti in materialsOBJ:
         objs.data.materials.append(matti)"""
