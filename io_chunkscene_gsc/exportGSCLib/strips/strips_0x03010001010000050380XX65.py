@@ -4,8 +4,12 @@ import os
 import math
 
 def vertices_0x03010001010000050380XX65(f):
+    objmesh3=0
+    for i, numesh in enumerate(bpy.data.meshes):
+        if len(numesh.vertices) == 3:
+            objmesh3+=336
     f.write(b"NU20")
-    f.write(pack("<i", -abs(16+16)))
+    f.write(pack("<i", -abs(16+16+16+464*len(bpy.data.materials)+16+objmesh3+16+80*len(bpy.data.objects)+16+16)))
     f.write(pack("<I", 6))
     f.write(pack("<I", 0))
     f.write(b"NTBL")
@@ -281,11 +285,12 @@ def vertices_0x03010001010000050380XX65(f):
 
         MatID+=1
     f.write(b"OBJ0")
-    f.write(pack("<I", 16))
+    f.write(pack("<I", objmesh3+16))
     f.write(pack("<I", len(bpy.data.objects)))
     f.write(pack("<I", 0))
     for i, obdata in enumerate(bpy.data.meshes):
-        if len(obdata.vertices) == 10:
+        if len(obdata.vertices) == 3:
+            
             f.write(pack("<I", 4))
             f.write(pack("<I", 0))
             f.write(pack("<I", 0))
@@ -326,9 +331,7 @@ def vertices_0x03010001010000050380XX65(f):
             f.write(pack("<I", 0))
             f.write(pack("<I", 0))
             f.write(pack("<I", 0))
-                                
-            f.write(pack("<I", 68+8+16*len(obdata.vertices)+68))
-
+            f.write(pack("<I", 144))
             f.write(pack("<H", len(obdata.vertices)*3))
             f.write(pack("<H", 24581))
             f.write(pack("<I", 0))
@@ -395,16 +398,7 @@ def vertices_0x03010001010000050380XX65(f):
             f.write(pack("<I", 0))
             f.write(pack("<I", 0))
             f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
+            f.write(pack("<H", 0))
             f.write(pack("<I", 0))
             f.write(pack("<f", 1))
             f.write(pack("<f", 1))
@@ -433,8 +427,8 @@ def vertices_0x03010001010000050380XX65(f):
         f.write(pack("<f", obj.scale[2]))
         f.write(pack("<f", 0))
         f.write(pack("<f", obj.location[0]))
-        f.write(pack("<f", obj.location[1]))
         f.write(pack("<f", obj.location[2]))
+        f.write(pack("<f", obj.location[1]))
         f.write(pack("<f", 1))
         f.write(pack("<i", objIndex))
         f.write(pack("<I", 37))
