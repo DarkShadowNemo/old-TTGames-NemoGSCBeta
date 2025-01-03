@@ -34,7 +34,6 @@ def vertices_0x03010010380XX6C_(f):
     pad_len = f.tell() % 16
     if pad_len > 0:
         f.write(b"\0" * (16-pad_len))
-    f.write(pack("<I", 0))
     #########################
     f.write(b"MS00")
     f.write(pack("<I", len(bpy.data.objects)*464+16))
