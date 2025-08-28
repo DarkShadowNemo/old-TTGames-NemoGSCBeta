@@ -5,12 +5,12 @@ import bmesh
 import math
 from io import BytesIO as bio
 
-from .importGSCLib.nu_gsc_props.spline.splineset import *
 from .importGSCLib.nu_gsc_props.instance.inst_primary import *
 from .importGSCLib.nu_gsc_props.instance.inst_secondary import *
 from .importGSCLib.nu_gsc_props.bounding.boundingset import *
 from .importGSCLib.nu_gsc_props.animationL.AnimationLibrary import *
 from .importGSCLib.strips.cleanup.chunk_strips import *
+from .importGSCLib.teleport.PORTAL import *
     
 
 def truncate_cstr(s: bytes) -> bytes:
@@ -24,9 +24,6 @@ def fetch_cstr(f: 'filelike') -> bytearray:
         if strbyte == b'\0' or not strbyte: break
         build += strbyte
     return build
-
-def gsc_texture_utility(f, filepath):
-    pass
 
 def get_objects_with_uvs_rgba_all(f, filepath):
     f.seek(0)
@@ -56,10 +53,10 @@ def get_objects_with_uvs_rgba_all(f, filepath):
                     type4 = unpack("B", f.read(1))[0]==False
                     value1 = unpack("B", f.read(1))[0]
                     vertices.append([vx,vz,vy])
-                    fa+=1
-                    fb+=1
-                    fc+=1
                     if type4 > 0:
+                        fa+=1
+                        fb+=1
+                        fc+=1
                         faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
                 type5 = unpack("B", f.read(1))[0]
                 if type5 == int(4):
@@ -932,43 +929,38 @@ def DIFOffset_one(f, filepath):
                                 vcolors.append([r,g,b,a])
                                         
 
-    if flag == 0x6D:
-        
+    collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
+    bpy.context.scene.collection.children.link(collection)
+    mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh.from_pydata(vertices, [], faces)
+    obj = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
+    collection.objects.link(obj)
 
-        collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
-        bpy.context.scene.collection.children.link(collection)
-        mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
-        mesh.from_pydata(vertices, [], faces)
-        obj = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
-        collection.objects.link(obj)
+    for fac in mesh.polygons:
+        fac.use_smooth = True
 
-        for fac in mesh.polygons:
-            fac.use_smooth = True
+    uv_tex = mesh.uv_layers.new()
+    uv_layer = mesh.uv_layers[0].data
+    vert_loops = {}
+    for l in mesh.loops:
+        vert_loops.setdefault(l.vertex_index, []).append(l.index)
+    for i, coord in enumerate(uvs):
+        for li in vert_loops[i]:
+            uv_layer[li].uv = coord
 
-        if flag_1 == 0x6D or 0x65:
 
-            uv_tex = mesh.uv_layers.new()
-            uv_layer = mesh.uv_layers[0].data
-            vert_loops = {}
-            for l in mesh.loops:
-                vert_loops.setdefault(l.vertex_index, []).append(l.index)
-            for i, coord in enumerate(uvs):
-                for li in vert_loops[i]:
-                    uv_layer[li].uv = coord
-                    
-            if flag_2 == 0x6E:
-                bpy.context.view_layer.objects.active = obj
+    bpy.context.view_layer.objects.active = obj
 
-                colname = "GSC_VERTEXCOLORS"
+    colname = "GSC_VERTEXCOLORS"
 
-                colattr = obj.data.color_attributes.new(
-                    name=colname,
-                    type='FLOAT_COLOR',
-                    domain='POINT',
-                )
+    colattr = obj.data.color_attributes.new(
+        name=colname,
+        type='FLOAT_COLOR',
+        domain='POINT',
+    )
 
-                for v_index in range(len(obj.data.vertices)):
-                    colattr.data[v_index].color = vcolors[v_index]
+    for v_index in range(len(obj.data.vertices)):
+        colattr.data[v_index].color = vcolors[v_index]
 
 def BatchHashVertexColor1(f, filepath):
 
@@ -1238,38 +1230,37 @@ def get_1stobjects(f, filepath):
     uvs=[]
     rgba=[]
     f.seek(0)
-    firstOBJread = f.read()
-    readobjfirst = firstOBJread.find(b"\x03\x01\x00\x01\x03\x80")
-    if firstOBJread != 0:
-        f.seek(readobjfirst,0)
-        f.seek(6,1)
-        vertexCount = unpack("B", f.read(1))[0]
-        flags = unpack("B", f.read(1))[0]
-        if flags == 0x6C:
+    Chunks = f.read()
+    f.seek(0)
+    while f.tell() < len(Chunks):
+        Chunk = f.read(4)
+        if Chunk == b"\x03\x01\x00\x01":
+            f.seek(2,1)
+            vertexCount = unpack("B", f.read(1))[0]
+            flags = unpack("B", f.read(1))[0]
+            if flags == 0x6C:
+                
+                for j in range(vertexCount):
+                    vx = unpack("<f", f.read(4))[0]
+                    vy = unpack("<f", f.read(4))[0]
+                    vz = unpack("<f", f.read(4))[0]
+                    type4 = unpack("B", f.read(1))[0]==False
+                    value1 = unpack("B", f.read(1))[0]
+                    f.seek(2,1)
+                    vertices.append([vx,vz,vy])
+                    fa+=1
+                    fb+=1
+                    fc+=1
+                    if type4 > 0:
+                        faces.append([j+j+type4-type4-1+fa-j-j-1+j%2,j-j+type4-type4+1+fb-2-1+j-j-j%2,j+type4-type4+fc-j+2-4])
+                break
             
-            for j in range(vertexCount):
-                vx = unpack("<f", f.read(4))[0]
-                vy = unpack("<f", f.read(4))[0]
-                vz = unpack("<f", f.read(4))[0]
-                type4 = unpack("B", f.read(1))[0]==False
-                value1 = unpack("B", f.read(1))[0]
-                f.seek(2,1)
-                fa+=1
-                fb+=1
-                fc+=1
-                vertices.append([vx,vz,vy])
-                if type4 > 0:
-                    faces.append([j+j+type4-type4-1+fa-j-j-1,j-j+type4-type4+1+fb-2-1,j+type4-type4+fc-j+2-4])
-            
-        collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
-        bpy.context.scene.collection.children.link(collection)
-        mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
-        mesh.from_pydata(vertices, [], faces)
-        object = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
-        collection.objects.link(object)
-            
-        for fac in mesh.polygons:
-            fac.use_smooth = True
+    collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
+    bpy.context.scene.collection.children.link(collection)
+    mesh = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mesh.from_pydata(vertices, [], faces)
+    object1 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mesh)
+    collection.objects.link(object1)
 
 def get_SPEC(f, emptytime2=[]):
     f.seek(0)
@@ -1322,7 +1313,7 @@ def get_SPEC_ANIMATION_BLOCK(f, emptytime3=[]):
         
         
 
-def parse_gsc(filepath, pointOne=False, Triangle_Strips_with_uvs_and_rgba=1, Triangle_StripsTwo=False, Triangle_Strips=False, ONE_CHUNK_OFFSET1=False, SST=False, SPEC=False, INST_prim=False,INST_seco=False, IABL=False, BoundingSet=False, ALIB=False, SelectOnlyUVMesh=False, SelectOnly2ndUVMesh=False, SelectOnly3rdUVMesh=False, SelectOnly4thUVMesh=False,BatchHashVertexColors=False, BatchUVSS=False, RGBAColors=False):
+def parse_gsc(filepath, Triangle_Strips_with_uvs_and_rgba=1, Triangle_StripsTwo=False, Triangle_Strips=False, ONE_CHUNK_OFFSET1=False, SPEC=False, INST_prim=False,INST_seco=False, IABL=False, BoundingSet=False, ALIB=False, SelectOnlyUVMesh=False, SelectOnly2ndUVMesh=False, SelectOnly3rdUVMesh=False, SelectOnly4thUVMesh=False,BatchHashVertexColors=False, BatchUVSS=False, RGBAColors=False, Warping=False):
     with open(filepath, "rb") as f:
         if Triangle_Strips:
             wholeChunk1_none(f, filepath)
@@ -1336,8 +1327,6 @@ def parse_gsc(filepath, pointOne=False, Triangle_Strips_with_uvs_and_rgba=1, Tri
             get_SPEC(f, emptytime2=[])
         if IABL:
             get_SPEC_ANIMATION_BLOCK(f, emptytime3=[])
-        if SST:
-            get_splineset(f)
         if ALIB:
            get_Animation_LIBRARY(f) 
         if SelectOnlyUVMesh:
@@ -1370,8 +1359,8 @@ def parse_gsc(filepath, pointOne=False, Triangle_Strips_with_uvs_and_rgba=1, Tri
         if BatchUVSS:
             BatchUVS1(f, vertices=[], faces=[], normals=[], uvs=[], rgba=[], fa=-1, fb=0, fc=1)
 
-        if pointOne:
-            one_point(f, filepath)
+        if Warping:
+            gsc_read_portal(f, filepath)
                 
 
 
