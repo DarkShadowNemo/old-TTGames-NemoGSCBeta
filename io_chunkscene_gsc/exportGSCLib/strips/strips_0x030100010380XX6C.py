@@ -50069,19 +50069,21 @@ def vertices_0x03010010380XX6C_(f):
     f.write(pack("<I", len(bpy.data.meshes)))
     f.write(pack("<I", 0))
     objIndex=0
+    objIndex1=0
+    fidx=0
     for i, obj in enumerate(bpy.data.objects):
         if obj.type == "MESH":
-            f.write(pack("<f", obj.scale[0]))
-            f.write(pack("<f", math.atan(obj.rotation_euler[2])))
-            f.write(pack("<f", math.atan(obj.rotation_euler[1])))
+            f.write(pack("<f", math.sqrt(obj.scale[0])))
+            f.write(pack("<f", math.radians(obj.rotation_euler[2])))
+            f.write(pack("<f", math.radians(obj.rotation_euler[1])))
             f.write(pack("<f", 0))
-            f.write(pack("<f", math.atan(-obj.rotation_euler[2])))
-            f.write(pack("<f", obj.scale[1]))
-            f.write(pack("<f", math.atan(obj.rotation_euler[0]))) # 28
-            f.write(pack("<f", math.atan(-obj.rotation_euler[1]))) # 32
+            f.write(pack("<f", math.radians(-obj.rotation_euler[2])))
+            f.write(pack("<f", math.sqrt(obj.scale[1])*math.cos(obj.rotation_euler[0])))
+            f.write(pack("<f", math.radians(obj.rotation_euler[0]))) # 28
+            f.write(pack("<f", math.radians(-obj.rotation_euler[1]))) # 32
             f.write(pack("<f", 0))
-            f.write(pack("<f", math.atan(-obj.rotation_euler[0])))
-            f.write(pack("<f", obj.scale[2]))
+            f.write(pack("<f", math.radians(-obj.rotation_euler[0])))
+            f.write(pack("<f", math.sqrt(obj.scale[2])*math.cos(obj.rotation_euler[0])))
             f.write(pack("<f", 0))
             f.write(pack("<f", obj.location[0]))
             f.write(pack("<f", obj.location[2]))
@@ -50103,7 +50105,7 @@ def vertices_0x03010010380XX6C_(f):
         if collection_names:
             f.write(b"PORT")
             f.write(pack("<I", 16))
-            f.write(pack("<I", len(bpy.data.meshes)))
+            f.write(pack("<I", len(bpy.data.objects)))
             f.write(pack("<H", 4))
             f.write(pack("<H", 10))
 
@@ -50112,24 +50114,35 @@ def vertices_0x03010010380XX6C_(f):
                     for spline in obj.data.splines:
                         if spline.type == 'BEZIER':
                             f.write(pack("<H", 0))
-                            f.write(pack("<H", 6))
+                            f.write(pack("<H", len(spline.bezier_points)*12))
                             f.write(pack("<H", 16))
                             f.write(pack("<H", 8))
 
-                            f.write(pack("<f", obj.scale[0]))
-                            f.write(pack("<f", math.atan(obj.rotation_euler[2])))
-                            f.write(pack("<f", math.atan(obj.rotation_euler[1])))
-                            f.write(pack("<f", obj.location[0]))
+                            num_points = len(spline.bezier_points)
+                            for i in range(num_points - 1):
+                                f.write(pack("<H", i))
+                                f.write(pack("<H", i+1))
 
-                            f.write(pack("<f", math.atan(-obj.rotation_euler[2])))
-                            f.write(pack("<f", obj.scale[1]))
-                            f.write(pack("<f", math.atan(obj.rotation_euler[0])))
-                            f.write(pack("<f", obj.location[2]))
+                            for i, obj in enumerate(bpy.data.objects):
+                                
 
-                            f.write(pack("<f", math.atan(-obj.rotation_euler[1])))
-                            f.write(pack("<f", math.atan(-obj.rotation_euler[0])))
-                            f.write(pack("<f", obj.scale[2]))
-                            f.write(pack("<f", obj.location[1]))
+                            
+
+                                f.write(pack("<f", obj.scale[0]))
+                                f.write(pack("<f", math.radians(obj.rotation_euler[2])))
+                                f.write(pack("<f", math.radians(obj.rotation_euler[1])))
+                                f.write(pack("<f", obj.location[0]))
+
+                                f.write(pack("<f", math.radians(-obj.rotation_euler[2])))
+                                f.write(pack("<f", obj.scale[1]))
+                                f.write(pack("<f", math.radians(obj.rotation_euler[0])))
+                                f.write(pack("<f", obj.location[2]))
+
+                                f.write(pack("<f", math.radians(-obj.rotation_euler[1])))
+                                f.write(pack("<f", math.radians(-obj.rotation_euler[0])))
+                                f.write(pack("<f", obj.scale[2]))
+                                f.write(pack("<f", obj.location[1]))
+                                break
                             for point in spline.bezier_points:
                                 f.write(pack("<f", point.co.x))
                                 f.write(pack("<f", point.co.z))
