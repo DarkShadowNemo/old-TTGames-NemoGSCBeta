@@ -50074,16 +50074,16 @@ def vertices_0x03010010380XX6C_(f):
     for i, obj in enumerate(bpy.data.objects):
         if obj.type == "MESH":
             f.write(pack("<f", math.sqrt(obj.scale[0])))
-            f.write(pack("<f", math.radians(obj.rotation_euler[2])))
-            f.write(pack("<f", math.radians(obj.rotation_euler[1])))
+            f.write(pack("<f", obj.rotation_euler[2]))
+            f.write(pack("<f", obj.rotation_euler[1]))
             f.write(pack("<f", 0))
-            f.write(pack("<f", math.radians(-obj.rotation_euler[2])))
-            f.write(pack("<f", math.sqrt(obj.scale[1])*math.cos(obj.rotation_euler[0])))
-            f.write(pack("<f", math.radians(obj.rotation_euler[0]))) # 28
-            f.write(pack("<f", math.radians(-obj.rotation_euler[1]))) # 32
-            f.write(pack("<f", 0))
-            f.write(pack("<f", math.radians(-obj.rotation_euler[0])))
-            f.write(pack("<f", math.sqrt(obj.scale[2])*math.cos(obj.rotation_euler[0])))
+            f.write(pack("<f", -obj.rotation_euler[2]))
+            f.write(pack("<f", max(math.acos(obj.scale[1])+math.cos(obj.rotation_euler[0]),0)))
+            f.write(pack("<f", obj.rotation_euler[0]*math.acos(obj.scale[2])-math.acos(obj.scale[0])+math.sin(obj.rotation_euler[0])))
+            f.write(pack("<f", 0)) # 32
+            f.write(pack("<f", -obj.rotation_euler[1]))
+            f.write(pack("<f", -obj.rotation_euler[0]*math.acos(obj.scale[2])-math.acos(obj.scale[0])-math.sin(obj.rotation_euler[0])))
+            f.write(pack("<f", max(math.acos(obj.scale[2])+math.cos(obj.rotation_euler[0]),0)))
             f.write(pack("<f", 0))
             f.write(pack("<f", obj.location[0]))
             f.write(pack("<f", obj.location[2]))
