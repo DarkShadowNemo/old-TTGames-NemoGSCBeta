@@ -50073,21 +50073,17 @@ def vertices_0x03010010380XX6C_(f):
     fidx=0
     for i, obj in enumerate(bpy.data.objects):
         if obj.type == "MESH":
-            f.write(pack("<f", math.acos(obj.scale[0])+math.cos(obj.rotation_euler[2])))
+            f.write(pack("<f", math.acos(obj.scale[0])+math.cos(obj.rotation_euler[2])*math.sin(obj.rotation_euler[1])*math.acos(obj.scale[0])+math.cos(obj.rotation_euler[1])*math.cos(obj.rotation_euler[2])))
+            f.write(pack("<f", obj.rotation_euler[2]))
             f.write(pack("<f", obj.rotation_euler[1]))
-            f.write(pack("<f", obj.rotation_euler[2]*math.acos(obj.scale[0])-math.acos(obj.scale[0])-math.sin(obj.rotation_euler[2])))
             f.write(pack("<f", 0))
-            f.write(pack("<f", -obj.rotation_euler[2]))
+            f.write(pack("<f", obj.rotation_euler[2]))
             f.write(pack("<f", math.acos(obj.scale[1])+math.cos(obj.rotation_euler[0])))
-            f.write(pack("<f", obj.rotation_euler[0]*math.acos(obj.scale[2])-math.acos(obj.scale[0])+math.sin(obj.rotation_euler[0])))
+            f.write(pack("<f", obj.rotation_euler[0]*math.acos(obj.scale[0])-math.acos(obj.scale[0])+math.sin(obj.rotation_euler[0])))
             f.write(pack("<f", 0)) # 32
-            f.write(pack("<f", -obj.rotation_euler[2]*math.acos(obj.scale[0])-math.acos(obj.scale[0])+math.sin(obj.rotation_euler[2])))
-            f.write(pack("<f", -obj.rotation_euler[0]*math.acos(obj.scale[2])-math.acos(obj.scale[0])-math.sin(obj.rotation_euler[0])))
-            if obj.rotation_euler[0] == obj.rotation_euler[0]:
-                f.write(pack("<f", math.acos(obj.scale[2])+math.cos(obj.rotation_euler[0])))
-            elif obj.rotation_euler[0] != obj.rotation_euler[2]:
-                f.seek(-4,1)
-                f.write(pack("<f", math.acos(obj.scale[2])+math.cos(obj.rotation_euler[0])*math.sin(obj.rotation_euler[2])))
+            f.write(pack("<f", -obj.rotation_euler[1]))
+            f.write(pack("<f", -obj.rotation_euler[0]*math.acos(obj.scale[0])-math.acos(obj.scale[0])-math.sin(obj.rotation_euler[0])))
+            f.write(pack("<f", math.acos(obj.scale[2])+math.cos(obj.rotation_euler[0])))
             f.write(pack("<f", 0))
             f.write(pack("<f", obj.location[0]))
             f.write(pack("<f", obj.location[2]))
@@ -50098,6 +50094,7 @@ def vertices_0x03010010380XX6C_(f):
             f.write(pack("<I", 0))
             f.write(pack("<I", 0))
             objIndex+=1
+            #f.write(pack("<f", -obj.rotation_euler[2]*math.acos(obj.scale[0])-math.acos(obj.scale[0])+math.sin(obj.rotation_euler[2])))
             #math.acos(obj.scale[2])+math.cos(obj.rotation_euler[0])*math.sin(obj.rotation_euler[2]
     if len(curve_objects) == 0:
         f.write(b"SST0")
