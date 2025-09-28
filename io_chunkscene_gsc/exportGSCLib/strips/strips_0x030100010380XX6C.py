@@ -50073,12 +50073,12 @@ def vertices_0x03010010380XX6C_(f):
     fidx=0
     for i, obj in enumerate(bpy.data.objects):
         if obj.type == "MESH":
-            f.write(pack("<f", obj.scale[0]*math.sin(obj.rotation_euler[0])*math.cos(obj.rotation_euler[1])*math.sin(obj.rotation_euler[2])+math.acos(obj.scale[0])+math.cos(obj.rotation_euler[2])*math.sin(obj.rotation_euler[1])*math.acos(obj.scale[0])+math.sin(obj.rotation_euler[1])*math.cos(obj.rotation_euler[2])))
-            f.write(pack("<f", obj.scale[0]*math.cos(obj.rotation_euler[0])*math.sin(obj.rotation_euler[1])))
-            f.write(pack("<f", -math.cos(obj.rotation_euler[2])*math.sin(obj.rotation_euler[1])))
+            f.write(pack("<f", math.acos(obj.scale[0])+math.sin(obj.rotation_euler[0])*math.cos(obj.rotation_euler[1])*math.sin(obj.rotation_euler[2])+math.acos(obj.scale[0])+math.cos(obj.rotation_euler[2])*math.sin(obj.rotation_euler[1])*math.acos(obj.scale[0])+math.cos(obj.rotation_euler[1])*math.cos(obj.rotation_euler[2])))
+            f.write(pack("<f", math.acos(obj.scale[0])+math.cos(obj.rotation_euler[0])*math.sin(obj.rotation_euler[1])))
+            f.write(pack("<f", -math.acos(obj.scale[0])-math.cos(obj.rotation_euler[2])*-math.sin(obj.rotation_euler[1])*math.sin(obj.rotation_euler[0])-math.sin(obj.rotation_euler[2])*math.cos(obj.rotation_euler[1])))
             f.write(pack("<f", 0))
-            f.write(pack("<f", obj.rotation_euler[2]))
-            f.write(pack("<f", math.acos(obj.scale[1])+math.cos(obj.rotation_euler[0])))
+            f.write(pack("<f", -math.cos(obj.rotation_euler[1])*math.sin(obj.rotation_euler[2])+-math.sin(obj.rotation_euler[1])+math.sin(obj.rotation_euler[2])))
+            f.write(pack("<f", math.acos(obj.scale[1])+math.cos(obj.rotation_euler[0])*math.cos(obj.rotation_euler[1])))
             f.write(pack("<f", obj.rotation_euler[0]*math.acos(obj.scale[0])-math.acos(obj.scale[0])+math.sin(obj.rotation_euler[0])))
             f.write(pack("<f", 0)) # 32
             f.write(pack("<f", -obj.rotation_euler[1]))
