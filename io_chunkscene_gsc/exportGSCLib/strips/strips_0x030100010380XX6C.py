@@ -4,6 +4,8 @@ import os
 import math
 
 def vertices_0x03010010380XX6C_(f):
+    if len(bpy.data.images) != 0:
+        f.write(pack("<H", int(0x80*2+img.size[0]*img.size[1]//512<<2//8//2<<7)))
     curve_t=0
     curve_tt=0
     lenSize=0
@@ -907,7 +909,7 @@ def vertices_0x03010010380XX6C_(f):
                     f.seek(-80,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif faces000[0:2] == [[0, 1, 2], [2, 3, 4]]:
                     f.seek(-80,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif faces000[0:0] == [[0,1,2]]:
+                elif faces000[0:1] == [[0,1,2]]:
                     #only faces del
                     f.seek(-80,1)
                     f.seek(12,1)
