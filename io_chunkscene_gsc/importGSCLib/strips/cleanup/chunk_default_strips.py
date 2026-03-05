@@ -5,9 +5,9 @@ import math
 from io import BytesIO as bio
 
 def wholeChunk1_default(f):
-    fa_def=-1
-    fb_def=0
-    fc_def=1
+    fa_def=-3
+    fb_def=-2
+    fc_def-1
 
     verts_def=[]
     faces_def=[]
@@ -49,6 +49,33 @@ def wholeChunk1_default(f):
                         default_type42 = unpack("B", f.read(1))[0]
                         default_value12 = unpack("B", f.read(1))[0]
                         default_nz2 = unpack("<h", f.read(2))[0]
-                        if default_type4 == 1 and default_type41 == 1 and default_type42 == 0:
-                            pass
+                        if default_value1 == 128 and default_value11 == 128 and default_value == 0:
+                            if default_type4 == 1 and default_type41 == 1 and default_type42 == 0:
+                                #inverted strips and tri
+                                
+                                verts_def.append([default_vx,default_vz,default_vx])
+                                verts_def.append([default_vx1,default_vz1,default_vy1])
+                                verts_def.append([default_vx2,default_vz2mdefault_vy2])
+
+                                fa_def+=1*3
+                                fb_def+=1*3
+                                fc_def+=1*3
+
+                                faces_def.append([fb_def,fa_def,fc_def])
+
+                        elif default_value1 == 0 and default_value11 == 0 and default_value == 0:
+                            if default_type4 == 1 and default_type41 == 1 and default_type42 == 0:
+                                #strips and tri
+                                
+                                verts_def.append([default_vx,default_vz,default_vx])
+                                verts_def.append([default_vx1,default_vz1,default_vy1])
+                                verts_def.append([default_vx2,default_vz2,default_vy2])
+
+                                fa_def+=1*3
+                                fb_def+=1*3
+                                fc_def+=1*3
+
+                                faces_def.append([fa_def,fb_def,fc_def])
+
+                                
                             
