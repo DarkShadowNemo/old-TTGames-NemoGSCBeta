@@ -22,29 +22,33 @@ def wholeChunk1_default(f):
             vertexCount3 = unpack("B", f.read(1))[0]
             flagsssss3 = unpack("B", f.read(1))[0]
             if flagsssss3 == 0x6C:
-                for j in range(vertexCount3):
-                    vx = unpack("<f", f.read(4))[0]
-                    vy = unpack("<f", f.read(4))[0]
-                    vz = unpack("<f", f.read(4))[0]
-                    type4 = unpack("B", f.read(1))[0]==False
-                    value1 = unpack("B", f.read(1))[0]
-                    f.seek(2,1)
-
-                    verts_def.append([vx,vz,vy])
+                if vertexCount3 == 0:
+                    pass
+                if vertexCount3 == 1:
+                    pass
+                if vertexCount3 == 2:
+                    pass
+                if vertexCount3 == 3:
                     
-                    fa_def+=1
-                    fb_def+=1
-                    fc_def+=1
-                    if type4 > 0:
-                        faces_def.append([j+j+type4-type4-1+fa_def-j-j-1+j%2,j-j+type4-type4+1+fb_def-2-1+j-j-j%2,j+type4-type4+fc_def-j+2-4])
-                        
-                offset1 = unpack("<I", f.read(4))[0]
-                if offset1 == 16777473:
-                    offset2 = unpack("<I", f.read(4))[0]
-                    if offset2 == 335545088:
-                        collection = bpy.data.collections.new("default")
-                        bpy.context.scene.collection.children.link(collection)
-                        meshW1 = bpy.data.meshes.new("default")
-                        meshW1.from_pydata(verts_def, [], faces_def)
-                        object1W1 = bpy.data.objects.new("default", meshW1)
-                        collection.objects.link(object1W1)
+                    for j in range(1):
+                        default_vx = unpack("<f", f.read(4))[0]
+                        default_vy = unpack("<f", f.read(4))[0]
+                        default_vz = unpack("<f", f.read(4))[0]
+                        default_type4 = unpack("B", f.read(1))[0]
+                        default_value1 = unpack("B", f.read(1))[0]
+                        default_nz = unpack("<h", f.read(2))[0]
+                        default_vx1 = unpack("<f", f.read(4))[0]
+                        default_vy1 = unpack("<f", f.read(4))[0]
+                        default_vz1 = unpack("<f", f.read(4))[0]
+                        default_type41 = unpack("B", f.read(1))[0]
+                        default_value11 = unpack("B", f.read(1))[0]
+                        default_nz1 = unpack("<h", f.read(2))[0]
+                        default_vx2 = unpack("<f", f.read(4))[0]
+                        default_vy2 = unpack("<f", f.read(4))[0]
+                        default_vz2 = unpack("<f", f.read(4))[0]
+                        default_type42 = unpack("B", f.read(1))[0]
+                        default_value12 = unpack("B", f.read(1))[0]
+                        default_nz2 = unpack("<h", f.read(2))[0]
+                        if default_type4 == 1 and default_type41 == 1 and default_type42 == 0:
+                            pass
+                            
