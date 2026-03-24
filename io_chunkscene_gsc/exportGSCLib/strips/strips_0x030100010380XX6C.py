@@ -2176,9 +2176,21 @@ def vertices_0x03010010380XX6C_(f):
                 try:
                     uv_layerABCDEFGHIJ = obdata.uv_layers.active.data
                     f.seek(-4,1)
-                    f.write(pack("<I", 336))
+                    f.write(pack("<I", 384))
                 except:
                     AttributeError
+                iiiiiiindex+=1
+                if iiiiiiindex == 1:
+                    try:
+                        color_layerABCDEFGHIJ = obdata.vertex_colors.active.data
+                        f.seek(-4,1)
+                        f.write(pack("<I", 384))
+                        uv_layerABCDEFGHaaa = obdata.uv_layers.active.data
+                        if color_layerABCDEFGHIJ != uv_layerABCDEFGHaaa:
+                            f.seek(-4,1)
+                            f.write(pack("<I", 432))
+                    except:
+                        AttributeError
 
             f.write(pack("<H", len(obdata.vertices)*2))
             
@@ -2264,6 +2276,35 @@ def vertices_0x03010010380XX6C_(f):
                     f.seek(-176,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif faces3[0:11] == [[0, 1, 2], [2, 1, 3], [2, 3, 4], [6, 5, 7], [8, 9, 10]]:
                     f.seek(-176,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
+
+            iiiiiindexb=0
+            if iiiiiindexb == 0:
+                try:
+                    uv_layerABCDEFGHIJx = obdata.uv_layers.active.data
+                    f.write(pack("B", 4))
+                    f.write(pack("B", 128))
+                    f.write(pack("B", len(obdata.vertices)))
+                    f.write(pack("B", 101))
+                    for v in obdata.vertices:
+                        f.write(pack("<h", int(4096*uv_layerABCDEFGHIJx[v.index].uv[0])))
+                        f.write(pack("<h", -int(4096*uv_layerABCDEFGHIJx[v.index].uv[1])))
+                except:
+                    AttributeError
+                iiiiiindexb+=1
+                if iiiiiindexb == 1:
+                    try:
+                        color_layerABCDEFGHIJx = obdata.vertex_colors.active.data
+                        f.write(pack("B", 5))
+                        f.write(pack("B", 192))
+                        f.write(pack("B", len(obdata.vertices)))
+                        f.write(pack("B", 110))
+                        for v in obdata.vertices:
+                            f.write(pack("B", int(127*color_layerABCDEFGHIJx[v.index].color[0])))
+                            f.write(pack("B", int(127*color_layerABCDEFGHIJx[v.index].color[1])))
+                            f.write(pack("B", int(127*color_layerABCDEFGHIJx[v.index].color[2])))
+                            f.write(pack("B", int(127*color_layerABCDEFGHIJx[v.index].color[3])))
+                    except:
+                        AttributeError
             f.write(pack("B", 1))
             f.write(pack("B", 1))
             f.write(pack("B", 0))
@@ -2408,105 +2449,9 @@ def vertices_0x03010010380XX6C_(f):
                 elif faces4[0:20] == [[0, 1, 2], [4, 5, 6], [4, 3, 5], [6, 7, 8], [6, 5, 7], [8, 9, 10], [8, 7, 9], [10, 9, 11]]:
                     f.seek(-192,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif faces4[0:20] == [[0, 1, 2], [2, 1, 3], [4, 5, 6], [6, 7, 8], [6, 5, 7], [8, 9, 10], [8, 7, 9], [10, 9, 11]]:
-                    f.seek(-192,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 1))
-                    f.write(pack("B", 128))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 1))
-                    f.write(pack("B", 128))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 1))
-                    f.write(pack("B", 128))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 1))
-                    f.write(pack("B", 128))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
+                    f.seek(-192,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif faces4[0:20] == [[0, 1, 2], [2, 3, 4], [2, 1, 3], [6, 7, 8], [6, 5, 7], [8, 9, 10], [8, 7, 9], [10, 9, 11]]:
-                    f.seek(-192,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 1))
-                    f.write(pack("B", 128))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 1))
-                    f.write(pack("B", 128))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 1))
-                    f.write(pack("B", 128))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 1))
-                    f.write(pack("B", 128))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
-                    f.seek(12,1)
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.seek(2,1)
+                    f.seek(-192,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif faces4[0:20] == [[0, 1, 2], [2, 3, 4], [2, 1, 3], [4, 3, 5], [6, 7, 8], [8, 9, 10], [8, 7, 9], [10, 9, 11]]:
                     f.seek(-192,1)
                     f.seek(12,1)
