@@ -45,6 +45,17 @@ def read_pallete(f, amt):
         g1+=255
         b1+=255
         a1+=127
+
+        r1-=255
+        g1-=255
+        b1-=255
+        a1-=127
+        
+        if a == 1:
+            a1+=127
+            a1/=127
+        elif a >= 1:
+            a1-=127
         g_pallete1.append(r1)
         g_pallete2.append(g1)
         g_pallete3.append(b1)
