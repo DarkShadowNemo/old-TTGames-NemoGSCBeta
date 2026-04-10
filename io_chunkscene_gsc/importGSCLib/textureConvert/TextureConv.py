@@ -31,10 +31,24 @@ def read_pallete(f, amt):
         g = unpack('B', f.read(1))[0]/255
         b = unpack('B', f.read(1))[0]/255
         a = unpack('B', f.read(1))[0]/127
-        g_pallete1.append(r)
-        g_pallete2.append(g)
-        g_pallete3.append(b)
-        g_pallete4.append(a)
+        r1 = r
+        g1 = g
+        b1 = b
+        a1 = a
+        
+        r1*=0
+        g1*=0
+        b1*=0
+        a1*=0
+        
+        r1+=255
+        g1+=255
+        b1+=255
+        a1+=127
+        g_pallete1.append(r1)
+        g_pallete2.append(g1)
+        g_pallete3.append(b1)
+        g_pallete4.append(a1)
 
 def parse_file(f):
     global g_image_data
