@@ -1,0 +1,270 @@
+from struct import unpack, pack
+import os
+import bpy
+import math
+
+def get_size_from_sub_hdr(f, is_pallete):
+    size_ = unpack('<H', f.read(2))[0]
+    f.seek(14, 1)
+    
+    if is_pallete == True:
+        if (size_ == 0x8008):
+            return 16
+        elif (size_ == 0x8080):
+            return 256
+        else:
+            raise Exception("unsupported pallete size %d" % size_)
+    
+    return (abs(size_ - 0x8000) << 4)
+
+def read_pallete(f, amt):
+    global g_pallete1
+    global g_pallete2
+    global g_pallete3
+    global g_pallete4
+    g_pallete1 = []
+    g_pallete2 = []
+    g_pallete3 = []
+    g_pallete4 = []
+    for i in range(0, amt):
+        r = unpack('B', f.read(1))[0]/255
+        g = unpack('B', f.read(1))[0]/255
+        b = unpack('B', f.read(1))[0]/255
+        a = unpack('B', f.read(1))[0]/127
+        g_pallete1.append(r)
+        g_pallete2.append(g)
+        g_pallete3.append(b)
+        g_pallete4.append(a)
+
+def parse_file(f):
+    global g_image_data
+    global width_
+    global height_
+    global some_width
+    global some_height
+    f.seek(0)
+    Chunks = f.read()
+    f.seek(0)
+
+    while f.tell() < len(Chunks):
+        Chunk = f.read(4)
+        if Chunk == b"TST0":
+            TextureFileSize = unpack("<I", f.read(4))[0]
+            TextureCount = unpack("<I", f.read(4))[0]
+            TextureZero1 = unpack("<I", f.read(4))[0]
+            for i in range(TextureCount):
+                
+
+                size_1 = unpack("<I", f.read(4))[0]
+                size_2 = unpack("<I", f.read(4))[0]
+                if size_2 == 0:
+                    pass
+                elif size_2 != 0:
+                    f.seek(size_2,1)
+                    height_ = unpack("<H", f.read(2))[0]
+                    type_1 = unpack("<H", f.read(2))[0]
+                    width_ = unpack("<H", f.read(2))[0]
+                    some_width = width_ * -1
+                    some_height = height_ // 2
+                    zero_1 = unpack("<H", f.read(2))[0]
+                    pitch = unpack("<I", f.read(4))[0]
+                    flag1 = unpack("B", f.read(1))[0]
+                    flag2 = unpack("B", f.read(1))[0]
+                    flag3 = unpack("B", f.read(1))[0]
+                    flags4 = unpack("B", f.read(1))[0] & 0x80
+                    offset_pallete = unpack("<I", f.read(4))[0]
+                    size2 = unpack("<I", f.read(4))[0]
+                    type1 = unpack("<I", f.read(4))[0]
+                    type2 = unpack("<I", f.read(4))[0]
+                    if type2 == 0:
+                        textureRumble = unpack("B", f.read(1))[0]
+                        textureBrightness = unpack("B", f.read(1))[0]
+                        z1 = unpack("B", f.read(1))[0]
+                        flag5 = unpack("B", f.read(1))[0]
+                        z2 = unpack("<I", f.read(4))[0]
+                        z3 = unpack("<I", f.read(4))[0]
+                        textureRumble2 = unpack("B", f.read(1))[0]
+                        textureBrightness2 = unpack("B", f.read(1))[0]
+                        z1a = unpack("B", f.read(1))[0]
+                        flag6 = unpack("B", f.read(1))[0]
+                        unknown = unpack("<I", f.read(4))[0]
+                        depth = unpack(">I", f.read(4))[0]
+                        flag7 = unpack("<I", f.read(4))[0]
+                        null6 = unpack("<I", f.read(4))[0]
+                        null7 = unpack("<I", f.read(4))[0]
+                        null8 = unpack("<I", f.read(4))[0]
+                        flag8 = unpack("<I", f.read(4))[0]
+                        null9 = unpack("<I", f.read(4))[0]
+                        compressionHeight = unpack("<I", f.read(4))[0]
+                        compressionWidth = unpack("<I", f.read(4))[0]
+                        flag9 = unpack("<I", f.read(4))[0]
+                        null10 = unpack("<I", f.read(4))[0]
+                        null11 = unpack("<I", f.read(4))[0]
+                        null12 = unpack("<I", f.read(4))[0]
+                        flag10 = unpack("<I", f.read(4))[0]
+                        null13 = unpack("<I", f.read(4))[0]
+
+                        if flags4 == 0x80:
+                            entries_amt = get_size_from_sub_hdr(f, True)
+
+                            v1 = 1
+                            if entries_amt == 16:
+                                v1 = 2
+                            if offset_pallete == 1168:
+                                read_pallete(f, entries_amt)
+
+                                f.seek(32,1)
+                                        
+
+                                while f.tell() % 0x80 != 0:
+                                    f.seek(16, 1)
+
+                                img_size = get_size_from_sub_hdr(f, False)
+                                g_image_data = bytes(f.read(img_size))
+                                return (width_, v1 * img_size // width_, True)
+                        else:
+                            while f.tell() % 0x80 != 0:
+                                f.seek(16, 1)
+                            img_size = get_size_from_sub_hdr(f, False)
+                            g_image_data = bytes(f.read(img_size))
+                            return (width_, (img_size // width_) // 3, False)
+
+def shift_array_bytes(arr, shift):
+    arr_len = len(arr)
+    if shift < 1:
+        shift = arr_len - shift
+    for i in range(arr_len - 1):
+        tmp = arr[i]
+        arr[i] = arr[(i+shift) % arr_len]
+        arr[(i+shift) % arr_len] = tmp
+
+def uninterlace_array_2bytes(arr, is_2nd, y):
+    if(len(arr) != 16):
+        raise Exception("len(arr) must be 16 bytes")
+    
+    arr_left = []
+    arr_right = []
+    
+    if not is_2nd:
+        shift_array_bytes(arr, 1)
+        for i in range(4):
+            arr_left.append(arr[i*4+2])
+            arr_left.append(arr[i*4+3])
+            arr_right.append(arr[i*4+0])
+            arr_right.append(arr[i*4+1])
+        
+        #shift_array_bytes(arr_left, 0)
+        px1 = arr_left[1]
+        px2 = arr_left[3]
+        px3 = arr_left[5]
+        px0 = arr_left[7]
+        arr_left[1] = px0
+        arr_left[3] = px1
+        arr_left[5] = px2
+        arr_left[7] = px3
+        
+    else:
+        shift_array_bytes(arr, -1)
+        for i in range(4):
+            arr_left.append(arr[i*4+0])
+            arr_left.append(arr[i*4+1])
+            arr_right.append(arr[i*4+2])
+            arr_right.append(arr[i*4+3])
+        #shift_array_bytes(arr_right, 0)
+        px1 = arr_right[1]
+        px2 = arr_right[3]
+        px3 = arr_right[5]
+        px0 = arr_right[7]
+        arr_right[1] = px0
+        arr_right[3] = px1
+        arr_right[5] = px2
+        arr_right[7] = px3
+    
+    return arr_left + arr_right
+
+def copy_arr_to_arr_at_offset(offset, arr1, arr2):
+    if len(arr1) < len(arr2):
+        raise Exception("copy arr1 < arr2")
+    
+    if offset > len(arr1) - len(arr2):
+        raise Exception("offset to big to copy")
+    
+    #print(offset, len(arr1), len(arr2))
+    
+    for i in range(len(arr2)):
+        arr1[offset + i] = arr2[i]
+    
+def xy_to_yx(idx):
+    x = idx % 16
+    y = idx // 16
+    return (y + x*16)
+
+def idx_test(idx):
+    #if idx*2 > 255:
+    #   return idx*2 % 255
+    #else:
+    #   return idx*2 + 1
+    
+    #if (idx//16)*2 > 15:
+    #   return ((idx//16)*2 % 15)*16 + 16 + idx % 16
+    #else:
+    #   return ((idx//16)*2 % 15)*16 + idx % 16
+    
+    #swap_arr = [+7, +5, +3, +1, -1, -3, -5, -7]
+    #amt = 16
+    #return idx + (amt - 1 - 2*(idx % amt))
+    return idx
+    
+
+def make_test_image_256():
+    global g_image_data
+    arr = []
+    for i in range(256*256):
+        arr.append(i%64)
+    g_image_data = arr
+
+def blender_gsc_texture_convert(f):
+     parse_file(f)
+
+     if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and width_ < 128:
+         im = bpy.data.images.new(name="GSC 0x8080", width=width_, height=height_, alpha=True)
+         num_Pixels = len(im.pixels)
+         im = bpy.data.images.new(name="GSC 0x8080", width=width_, height=height_, alpha=True)
+         num_Pixels = len(im.pixels)
+         def grid(x,y):
+             return x + width_*y
+         def drawPixel(x,y,R,G,B,A):
+             pixelNumber = grid(x,y) * 4
+             
+             im.pixels[pixelNumber] = R
+             im.pixels[pixelNumber+1] = G
+             im.pixels[pixelNumber+2] = B
+             im.pixels[pixelNumber+3] = A
+         for x in range(width_):
+             for y in range(height_):
+                 idx = g_image_data[x + y*width_]
+                 drawPixel(x,y,g_pallete1[idx],g_pallete2[idx],g_pallete3[idx],g_pallete4[idx])
+     if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and (width_ == 256 or width_ == 128):
+         for y in range(some_height):
+             for x in range(some_width // 16):
+                 arr_int = g_image_data[y*some_width + x*16: y*some_width + x*16 + 16]
+                 arr_unint = uninterlace_array_2bytes(arr_int, True if y % 4 > 1 else False, y)
+                 copy_arr_to_arr_at_offset(y*some_width + x*16, g_image_data, arr_unint)
+         im = bpy.data.images.new(name="GSC 0x8080", width=width_, height=height_, alpha=True)
+         num_Pixels = len(im.pixels)
+         def grid(x,y):
+             return x + width_*y
+         def drawPixel(x,y,R,G,B,A):
+             pixelNumber = grid(x,y) * 4
+             
+             im.pixels[pixelNumber] = R
+             im.pixels[pixelNumber+1] = G
+             im.pixels[pixelNumber+2] = B
+             im.pixels[pixelNumber+3] = A
+         for y in range(height_ // 2):
+             for x in range(width_):
+                 idx1 = g_image_data[2*y*width_ + 1*x + 0]
+                 idx2 = g_image_data[2*y*width_ + 1*x + 1]
+                 
+                 drawPixel(x,y*2+0, g_pallete1[idx_test(idx1)],g_pallete2[idx_test(idx1)],g_pallete3[idx_test(idx1)],g_pallete4[idx_test(idx1)])
+                 drawPixel(x,y*2+1, g_pallete1[idx_test(idx2)],g_pallete2[idx_test(idx2)],g_pallete3[idx_test(idx2)],g_pallete4[idx_test(idx2)])
