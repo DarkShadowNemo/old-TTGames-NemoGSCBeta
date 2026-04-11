@@ -17,31 +17,6 @@ def get_size_from_sub_hdr(f, is_pallete):
     
     return (abs(size_ - 0x8000) << 4)
 
-def get_idx_from_sub_hdr(f, is_idx):
-    idx_ = unpack("<H", f.read(2))[0]
-    f.seek(14,1)
-    if is_idx == True:
-        if (idx_ == 0x8080):
-            return 2048
-        elif (idx_ == 0x8100):
-            return 4096
-        elif (idx_ == 0x8200):
-            return 8192
-        elif (idx_ == 0x8400):
-            return 16384
-        elif (idx_ == 0x8800):
-            return 32768
-        elif (idx_ == 0x9000):
-            return 65536
-        elif (idx_ == 0xA000):
-            return 131072
-        elif (idx_ == 0xC000):
-            return 262144
-        else:
-            raise Exception("unsupported index %d" % idx_)
-
-    return (abs(idx_ - 0x8000) << 4)
-
 
     
 
@@ -105,13 +80,6 @@ def read_pallete(f, amt):
         g_pallete4.append(a1)
 
         g_pallete1a.append([int(r*255),int(g*255),int(b*255),int(a*127)])
-
-def read_idx(f, amt):
-    global g_idx1
-    g_idx1=[]
-    for i in range(0, amt):
-        idx1 = unpack("B", f.read(1))[0]/255
-        g_idx1.append(idx1)
 
 def parse_file(f):
     global g_image_data
@@ -197,6 +165,7 @@ def parse_file(f):
                                     pass
                                 elif header != 808473421:
                                     f.seek(-4,1)
+                                
 
                                 img_size = get_size_from_sub_hdr(f, False)
                                 g_image_data = bytes(f.read(img_size))
@@ -271,7 +240,21 @@ def parse_file(f):
                                 g_image_data = bytes(f.read(img_size))
                                 return (width_, v1 * img_size // width_, True)
                             elif offset_pallete == 208:
-                                pass
+                                read_pallete(f, entries_amt)
+                                f.seek(32,1)
+                                f.seek(-32,1)
+                                for i in range(64):
+                                    f.seek(-1,1)
+                                f.seek(-128,1)
+                                f.seek(size_1,1)
+                                header = unpack("<I", f.read(4))[0]
+                                if header == 808473421:
+                                    pass
+                                elif header != 808473421:
+                                    f.seek(-4,1)
+                                img_size = get_size_from_sub_hdr(f, False)
+                                g_image_data = bytes(f.read(img_size))
+                                return (width_, v1 * img_size // width_, True)
                             
                         else:
                             while f.tell() % 0x80 != 0:
@@ -376,7 +359,26 @@ def make_test_image_256():
 
 def blender_gsc_texture_convert(f):
      parse_file(f)
-     if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and height_ < and width_ < 128:
+
+     if len(g_pallete1) == 16 and len(g_pallete2) == 16 and len(g_pallete3) == 16 and len(g_pallete4) == 16:
+        im = bpy.data.images.new(name="GSC 0x8008", width=width_, height=height_, alpha=True)
+        num_Pixels = len(im.pixels)
+        def grid(x,y):
+            return x + width_*y
+        def drawPixel(x,y,R,G,B,A):
+            pixelNumber = grid(x,y) * 4
+             
+            im.pixels[pixelNumber] = R
+            im.pixels[pixelNumber+1] = G
+            im.pixels[pixelNumber+2] = B
+            im.pixels[pixelNumber+3] = A
+        for x in range(width_):
+            for y in range(height_):
+                idx = g_image_data[x // 2 + y*width_ // 2] & 0xF
+                if x % 2 == 1:
+                    idx = (g_image_data[x // 2 + y*width_ // 2] & 0xF0) >> 4
+                    drawPixel(x,y,g_pallete1[idx],g_pallete2[idx],g_pallete3[idx],g_pallete4[idx])
+     if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and height_ < 128 and width_ < 128:
          im = bpy.data.images.new(name="GSC 0x8080", width=width_, height=height_, alpha=True)
          num_Pixels = len(im.pixels)
          def grid(x,y):
