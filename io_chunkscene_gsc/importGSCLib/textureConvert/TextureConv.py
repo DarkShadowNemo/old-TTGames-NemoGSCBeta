@@ -17,12 +17,30 @@ def get_size_from_sub_hdr(f, is_pallete):
     
     return (abs(size_ - 0x8000) << 4)
 
-def read_idx(f, amt):
-    global g_idx1
-    g_idx1=[]
-    for i in range(0, amt):
-        idx1 = unpack("B", f.read(1))[0]/255
-        g_idx1.append(idx1)
+def get_idx_from_sub_hdr(f, is_idx):
+    idx_ = unpack("<H", f.read(2))[0]
+    f.seek(14,1)
+    if is_idx == True:
+        if (idx_ == 0x8080):
+            return 2048
+        elif (idx_ == 0x8100):
+            return 4096
+        elif (idx_ == 0x8200):
+            return 8192
+        elif (idx_ == 0x8400):
+            return 16384
+        elif (idx_ == 0x8800):
+            return 32768
+        elif (idx_ == 0x9000):
+            return 65536
+        elif (idx_ == 0xA000):
+            return 131072
+        elif (idx_ == 0xC000):
+            return 262144
+        else:
+            raise Exception("unsupported index %d" % idx_)
+
+    return (abs(idx_ - 0x8000) << 4)
 
 
     
@@ -87,6 +105,13 @@ def read_pallete(f, amt):
         g_pallete4.append(a1)
 
         g_pallete1a.append([int(r*255),int(g*255),int(b*255),int(a*127)])
+
+def read_idx(f, amt):
+    global g_idx1
+    g_idx1=[]
+    for i in range(0, amt):
+        idx1 = unpack("B", f.read(1))[0]/255
+        g_idx1.append(idx1)
 
 def parse_file(f):
     global g_image_data
