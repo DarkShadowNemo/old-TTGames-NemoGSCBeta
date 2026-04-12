@@ -3,6 +3,45 @@ import os
 import bpy
 import math
 
+def normal_parse(f):
+    f.seek(0)
+    Chunks = f.read()
+    f.seek(0)
+    while f.tell() < len(Chunks):
+        Chunk = f.read(4)
+        if Chunk == b"TST0":
+            TextureFileSize = unpack("<I", f.read(4))[0]
+            TextureCount = unpack("<I", f.read(4))[0]
+            TextureZero1 = unpack("<I", f.read(4))[0]
+            for i in range(TextureCount):
+                size1 = unpack("<I", f.read(4))[0]
+                size2 = unpack("<I", f.read(4))[0]
+                if size2 == 0:
+                    f.seek(8,1)
+                elif size2 != 0:
+                    f.seek(size2,1)
+                    height_ = unpack("<H", f.read(2))[0]
+                    type1 = unpack("<H", f.read(2))[0]
+                    width_ = unpack("<H", f.read(2))[0]
+                    type2 = unpack("<H", f.read(2))[0]
+                    pitch = unpack("<I", f.read(4))[0]
+                    flag1 = unpack("B", f.read(1))[0]
+                    flag2 = unpack("B", f.read(1))[0]
+                    flag3 = unpack("B", f.read(1))[0]
+                    flag4 = unpack("B", f.read(1))[0]
+                    offset_pallete = unpack("<I", f.read(4))[0]
+                    size3 = unpack("<I", f.read(4))[0]
+                    type3 = unpack("<I", f.read(4))[0]
+                    type4 = unpack("<I", f.read(4))[0]
+                    if type4 == 0:
+                        pass
+                    elif type4 != 0:
+                        padsize = unpack("<I", f.read(4))[0]
+                        f.seek(padsize,1)
+                    
+                    
+            
+
 def get_size_from_sub_hdr(f, is_pallete):
     size_ = unpack('<H', f.read(2))[0]
     f.seek(14, 1)
@@ -56,23 +95,20 @@ def read_pallete(f, amt):
         b1-=255
         a1-=127
         
-        if a == 1:
-            a1+=127
-            a1/=127
-        elif a >= 1:
-            a1+=127
-            a1-=127
         r1+=255
         g1+=255
         b1+=255
+        a1+=127
 
         r1/=255
         g1/=255
         b1/=255
+        a1/=127
 
         r1=r
         g1=g
         b1=b
+        a1=a
         
         g_pallete1.append(r1)
         g_pallete2.append(g1)
@@ -81,6 +117,8 @@ def read_pallete(f, amt):
 
         g_pallete1a.append([int(r*255),int(g*255),int(b*255),int(a*127)])
 
+        
+    
 def parse_file(f):
     global g_image_data
     global width_
@@ -115,6 +153,8 @@ def parse_file(f):
                     flag2 = unpack("B", f.read(1))[0]
                     flag3 = unpack("B", f.read(1))[0]
                     flags4 = unpack("B", f.read(1))[0]&1
+                    f.seek(-1,1)
+                    flags4a = unpack("B", f.read(1))[0]&0x80
                     offset_pallete = unpack("<I", f.read(4))[0]
                     size2 = unpack("<I", f.read(4))[0]
                     type1 = unpack("<I", f.read(4))[0]
@@ -170,6 +210,65 @@ def parse_file(f):
                                 img_size = get_size_from_sub_hdr(f, False)
                                 g_image_data = bytes(f.read(img_size))
                                 return (width_, v1 * img_size // width_, True)
+                            
+                            elif offset_pallete == 208:
+                                read_pallete(f, entries_amt)
+                                f.seek(32,1)
+                                f.seek(-32,1)
+                                for i in range(64):
+                                    f.seek(-1,1)
+                                f.seek(-128,1)
+                                f.seek(size_1,1)
+                                header = unpack("<I", f.read(4))[0]
+                                if header == 808473421:
+                                    pass
+                                elif header != 808473421:
+                                    f.seek(-4,1)
+                                img_size = get_size_from_sub_hdr(f, False)
+                                g_image_data = bytes(f.read(img_size))
+                                return (width_, v1 * img_size // width_, True)
+                            
+                        elif flags4a == 128:
+                            entries_amt = get_size_from_sub_hdr(f, True)
+                            v1 = 1
+                            if entries_amt == 16:
+                                v1 = 2
+                            if offset_pallete == 1168:
+                                read_pallete(f, entries_amt)
+
+                                f.seek(32,1)
+                                f.seek(-32,1)
+                                for i in range(1024):
+                                    f.seek(-1,1)
+                                f.seek(-128,1)
+                                f.seek(size_1,1)
+                                header = unpack("<I", f.read(4))[0]
+                                if header == 808473421:
+                                    pass
+                                elif header != 808473421:
+                                    f.seek(-4,1)
+                                
+
+                                img_size = get_size_from_sub_hdr(f, False)
+                                g_image_data = bytes(f.read(img_size))
+                                return (width_, v1 * img_size // width_, True)
+                            
+                            elif offset_pallete == 208:
+                                read_pallete(f, entries_amt)
+                                f.seek(32,1)
+                                f.seek(-32,1)
+                                for i in range(64):
+                                    f.seek(-1,1)
+                                f.seek(-128,1)
+                                f.seek(size_1,1)
+                                header = unpack("<I", f.read(4))[0]
+                                if header == 808473421:
+                                    pass
+                                elif header != 808473421:
+                                    f.seek(-4,1)
+                                img_size = get_size_from_sub_hdr(f, False)
+                                g_image_data = bytes(f.read(img_size))
+                                return (width_, v1 * img_size // width_, True)
                 elif size_2 != 0:
                     f.seek(size_2,1)
                     height_ = unpack("<H", f.read(2))[0]
@@ -183,6 +282,8 @@ def parse_file(f):
                     flag2 = unpack("B", f.read(1))[0]
                     flag3 = unpack("B", f.read(1))[0]
                     flags4 = unpack("B", f.read(1))[0] & 0x80
+                    f.seek(-1,1)
+                    flags4a = unpack("B", f.read(1))[0] & 0x80
                     offset_pallete = unpack("<I", f.read(4))[0]
                     size2 = unpack("<I", f.read(4))[0]
                     type1 = unpack("<I", f.read(4))[0]
@@ -255,13 +356,46 @@ def parse_file(f):
                                 img_size = get_size_from_sub_hdr(f, False)
                                 g_image_data = bytes(f.read(img_size))
                                 return (width_, v1 * img_size // width_, True)
-                            
-                        else:
-                            while f.tell() % 0x80 != 0:
-                                f.seek(16, 1)
-                            img_size = get_size_from_sub_hdr(f, False)
-                            g_image_data = bytes(f.read(img_size))
-                            return (width_, (img_size // width_) // 3, False)
+                        elif flags4a == 1:
+                            entries_amt = get_size_from_sub_hdr(f, True)
+
+                            v1 = 1
+                            if entries_amt == 16:
+                                v1 = 2
+                            if offset_pallete == 1168:
+                                read_pallete(f, entries_amt)
+
+                                f.seek(32,1)
+                                f.seek(-32,1)
+                                for i in range(1024):
+                                    f.seek(-1,1)
+                                f.seek(-128,1)
+                                f.seek(size_1,1)
+                                header = unpack("<I", f.read(4))[0]
+                                if header == 808473421:
+                                    pass
+                                elif header != 808473421:
+                                    f.seek(-4,1)
+
+                                img_size = get_size_from_sub_hdr(f, False)
+                                g_image_data = bytes(f.read(img_size))
+                                return (width_, v1 * img_size // width_, True)
+                            elif offset_pallete == 208:
+                                read_pallete(f, entries_amt)
+                                f.seek(32,1)
+                                f.seek(-32,1)
+                                for i in range(64):
+                                    f.seek(-1,1)
+                                f.seek(-128,1)
+                                f.seek(size_1,1)
+                                header = unpack("<I", f.read(4))[0]
+                                if header == 808473421:
+                                    pass
+                                elif header != 808473421:
+                                    f.seek(-4,1)
+                                img_size = get_size_from_sub_hdr(f, False)
+                                g_image_data = bytes(f.read(img_size))
+                                return (width_, v1 * img_size // width_, True)
 
 def shift_array_bytes(arr, shift):
     arr_len = len(arr)
@@ -372,12 +506,96 @@ def blender_gsc_texture_convert(f):
             im.pixels[pixelNumber+1] = G
             im.pixels[pixelNumber+2] = B
             im.pixels[pixelNumber+3] = A
+        def shift_and_stretch_black_pixels(image_name, black_threshold=0.05):
+            """
+            Shifts black pixels horizontally by replacing them with the nearest non-black neighbor.
+            Then stretches pixels to cover black lines.
+            
+            :param image_name: Name of the image in bpy.data.images
+            :param black_threshold: Threshold to detect black pixels (0.0 - 1.0)
+            """
+            # Get the image
+            im = bpy.data.images.get(image_name)
+            if not im:
+                print(f"Image '{image_name}' not found.")
+                return
+            
+            if im.pixels is None or len(im.pixels) == 0:
+                print("Image has no pixel data.")
+                return
+
+            width, height = im.size
+            pixels = list(im.pixels)  # Copy to a list for editing
+
+            def is_black(r, g, b, threshold):
+                return (r <= threshold and g <= threshold and b <= threshold)
+
+            # Pass 1: Shift black pixels horizontally
+            for y in range(height):
+                for x in range(width):
+                    idx = (y * width + x) * 4
+                    r, g, b, a = pixels[idx:idx+4]
+
+                    if is_black(r, g, b, black_threshold):
+                        # Look left first
+                        found = False
+                        for lx in range(x - 1, -1, -1):
+                            li = (y * width + lx) * 4
+                            lr, lg, lb, la = pixels[li:li+4]
+                            if not is_black(lr, lg, lb, black_threshold):
+                                pixels[idx:idx+4] = [lr, lg, lb, la]
+                                found = True
+                                break
+
+                        # If not found on left, look right
+                        if not found:
+                            for rx in range(x + 1, width):
+                                ri = (y * width + rx) * 4
+                                rr, rg, rb, ra = pixels[ri:ri+4]
+                                if not is_black(rr, rg, rb, black_threshold):
+                                    pixels[idx:idx+4] = [rr, rg, rb, ra]
+                                    break
+
+            # Pass 2: Stretch vertically to cover any remaining black lines
+            for y in range(height):
+                for x in range(width):
+                    idx = (y * width + x) * 4
+                    r, g, b, a = pixels[idx:idx+4]
+
+                    if is_black(r, g, b, black_threshold):
+                        # Look up
+                        found = False
+                        for uy in range(y - 1, -1, -1):
+                            ui = (uy * width + x) * 4
+                            ur, ug, ub, ua = pixels[ui:ui+4]
+                            if not is_black(ur, ug, ub, black_threshold):
+                                pixels[idx:idx+4] = [ur, ug, ub, ua]
+                                found = True
+                                break
+
+                        # Look down if not found
+                        if not found:
+                            for dy in range(y + 1, height):
+                                di = (dy * width + x) * 4
+                                dr, dg, db, da = pixels[di:di+4]
+                                if not is_black(dr, dg, db, black_threshold):
+                                    pixels[idx:idx+4] = [dr, dg, db, da]
+                                    break
+
+            im.pixels[:] = pixels
+            im.update()
+            print(f"Black pixels in '{image_name}' shifted and stretched successfully.")
+            
         for x in range(width_):
             for y in range(height_):
                 idx = g_image_data[x // 2 + y*width_ // 2] & 0xF
                 if x % 2 == 1:
                     idx = (g_image_data[x // 2 + y*width_ // 2] & 0xF0) >> 4
                     drawPixel(x,y,g_pallete1[idx],g_pallete2[idx],g_pallete3[idx],g_pallete4[idx])
+
+        shift_and_stretch_black_pixels("GSC 0x8008", black_threshold=0.05)
+
+        #print(f"Black pixels in '{image_name}' shifted and stretched successfully.")
      if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and height_ < 128 and width_ < 128:
          im = bpy.data.images.new(name="GSC 0x8080", width=width_, height=height_, alpha=True)
          num_Pixels = len(im.pixels)
@@ -390,6 +608,8 @@ def blender_gsc_texture_convert(f):
              im.pixels[pixelNumber+1] = G
              im.pixels[pixelNumber+2] = B
              im.pixels[pixelNumber+3] = A
+
+                 
          for x in range(width_):
              for y in range(height_):
                  idx = g_image_data[x + y*width_]
