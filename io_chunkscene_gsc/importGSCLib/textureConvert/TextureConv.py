@@ -2,6 +2,20 @@ from struct import unpack, pack
 import os
 import bpy
 import math
+from io import BytesIO as bio
+
+def truncate_cstr(s: bytes) -> bytes:
+    index = s.find(0)
+    if index == -1: return s
+    return s[:index]
+def fetch_cstr(f: 'filelike') -> bytearray:
+    build = bytearray()
+    while 1:
+        strbyte = f.read(1)
+        if strbyte == b'\0' or not strbyte: break
+        build += strbyte
+    return build
+
 
 def normal_parse(f):
     f.seek(0)
@@ -70,6 +84,7 @@ def read_pallete(f, amt):
     g_pallete3 = []
     g_pallete4 = []
     g_pallete1a = []
+    water_idx=0
     for i in range(0, amt):
         r = unpack('B', f.read(1))[0]/255
         g = unpack('B', f.read(1))[0]/255
@@ -109,13 +124,95 @@ def read_pallete(f, amt):
         g1=g
         b1=b
         a1=a
+
+        water_idx+=1
+        if water_idx == 1:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 2:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 3:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 4:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 5:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 6:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 7:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 8:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 9:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 10:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 11:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 12:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 13:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 14:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 15:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+        elif water_idx == 16:
+            if r == 0 and g == 0 and b == 0 and a == 1:
+                r1*=0
+                g1*=0
+                b1*=0
+
+        g_pallete1a.append([int(r*255),int(g*255),int(b*255),int(a*127)])
         
         g_pallete1.append(r1)
         g_pallete2.append(g1)
         g_pallete3.append(b1)
         g_pallete4.append(a1)
-
-        g_pallete1a.append([int(r*255),int(g*255),int(b*255),int(a*127)])
 
         
     
@@ -506,6 +603,7 @@ def blender_gsc_texture_convert(f):
             im.pixels[pixelNumber+1] = G
             im.pixels[pixelNumber+2] = B
             im.pixels[pixelNumber+3] = A
+            
         def shift_and_stretch_black_pixels(image_name, black_threshold=0.05):
             """
             Shifts black pixels horizontally by replacing them with the nearest non-black neighbor.
