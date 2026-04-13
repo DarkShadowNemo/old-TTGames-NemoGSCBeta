@@ -585,17 +585,30 @@ def blender_gsc_texture_convert(f):
             im.pixels[:] = pixels
             im.update()
             print(f"Black pixels in '{image_name}' shifted and stretched successfully.")
+
+        img_0x8008_idx=0
+
+        if img_0x8008_idx==0:
             
-        for x in range(width_):
-            for y in range(height_):
-                idx = g_image_data[x // 2 + y*width_ // 2] & 0xF
-                if x % 2 == 1:
-                    idx = (g_image_data[x // 2 + y*width_ // 2] & 0xF0) >> 4
-                    drawPixel(x,y,g_pallete1[idx],g_pallete2[idx],g_pallete3[idx],g_pallete4[idx])
+            
+            for x in range(width_):
+                for y in range(height_):
+                    idx = g_image_data[x // 2 + y*width_ // 2] & 0xF
+                    if x % 2 == 1:
+                        idx = (g_image_data[x // 2 + y*width_ // 2] & 0xF0) >> 4
+                        drawPixel(x,y,g_pallete1[idx],g_pallete2[idx],g_pallete3[idx],g_pallete4[idx])
 
-        shift_and_stretch_black_pixels("GSC 0x8008", black_threshold=0.05)
-
-        #print(f"Black pixels in '{image_name}' shifted and stretched successfully.")
+            shift_and_stretch_black_pixels("GSC 0x8008", black_threshold=0.05)
+            img_0x8008_idx+=1
+            if img_0x8008_idx == 1:
+                try:
+                    image_name = "GSC 0x8008.001"
+                    img = bpy.data.images[image_name]
+                    bpy.data.images.remove(img)
+                except:
+                    KeyError
+            
+        
      if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and height_ < 128 and width_ < 128:
          im = bpy.data.images.new(name="GSC 0x8080", width=width_, height=height_, alpha=True)
          num_Pixels = len(im.pixels)
