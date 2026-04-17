@@ -275,6 +275,91 @@ def read_pallete(f, amt):
                 idx = unpack("B", f.read(1))[0]
         f.seek(80,1)
 
+def read_palletept2(f, amt):
+    global g_pallete1pt2
+    global g_pallete2pt2
+    global g_pallete3pt2
+    global g_pallete4pt2
+    global g_pallete1apt2
+    g_pallete1pt2 = []
+    g_pallete2pt2 = []
+    g_pallete3pt2 = []
+    g_pallete4pt2 = []
+    g_pallete1apt2 = []
+    for i in range(0, amt):
+        r = unpack('B', f.read(1))[0]/255
+        g = unpack('B', f.read(1))[0]/255
+        b = unpack('B', f.read(1))[0]/255
+        a = unpack('B', f.read(1))[0]/127
+        r1 = round(r,3)
+        g1 = round(g,3)
+        b1 = round(b,3)
+        a1 = round(a,3)
+        
+        r1*=0
+        g1*=0
+        b1*=0
+        a1*=0
+        
+        r1+=255
+        g1+=255
+        b1+=255
+        a1+=127
+
+        r1-=255
+        g1-=255
+        b1-=255
+        a1-=127
+        
+        r1+=255
+        g1+=255
+        b1+=255
+        a1+=127
+
+        r1/=255
+        g1/=255
+        b1/=255
+        a1/=127
+
+        r1=r
+        g1=g
+        b1=b
+        a1=a
+
+        g_pallete1a.append([int(r*255),int(g*255),int(b*255),int(a*127)])
+        
+        g_pallete1pt2.append(r1)
+        g_pallete2pt2.append(g1)
+        g_pallete3pt2.append(b1)
+        g_pallete4pt2.append(a1)
+
+    f.seek(32,1)
+    size1 = unpack("<I", f.read(4))[0]
+    size2 = unpack("<I", f.read(4))[0]
+    type1 = unpack("<I", f.read(4))[0]
+    type2 = unpack("<I", f.read(4))[0]
+    if type2 == 0:
+        f.seek(48,1)
+        height = unpack("<I", f.read(4))[0]
+        width = unpack("<I", f.read(4))[0]
+        f.seek(40,1)
+        for x in range(0,width,1):
+            for y in range(0,height,1):
+                idx = unpack("B", f.read(1))[0]
+        f.seek(80,1)
+        
+    elif type2 != 0:
+        padsize1 = unpack("<I", f.read(4))[0]
+        f.seek(padsize1,1)
+        f.seek(48,1)
+        height = unpack("<I", f.read(4))[0]
+        width = unpack("<I", f.read(4))[0]
+        f.seek(40,1)
+        for x in range(0,width,1):
+            for y in range(0,height,1):
+                idx = unpack("B", f.read(1))[0]
+        f.seek(80,1)
+
 def parse_file2(f):
     global g_image_data2
     global width_
@@ -340,11 +425,12 @@ def parse_file2(f):
                     v1 = 2
                 if offset_pallete2 == 208:
                     read_pallete2(f, entries_amt2)
-
-                    f.seek(32,1)
                     img_size2 = get_size_from_sub_hdr2(f, False)
                     g_image_data2 = bytes(f.read(img_size2))
-                    return (width_, v1 * img_size2 // width_%width_+1, True)
+                    return (width_, v1 * img_size2 // width_%width_+width_, True)
+
+def parse_filept2(f):
+    pass
     
 def parse_file(f):
     global g_image_data
@@ -512,7 +598,7 @@ def make_test_image_256():
 def blender_gsc_texture_convert(f):
     f.seek(0)
     parse_file2(f)
-    if len(g_pallete5) == 16 and len(g_pallete6) == 16 and len(g_pallete7) == 16 and len(g_pallete8) == 16:
+    if len(g_pallete5) == 16 and len(g_pallete6) == 16 and len(g_pallete7) == 16 and len(g_pallete8) == 16 and height_ == 64 and width_ == 64:
         im = bpy.data.images.new(name="GSC 0x8008", width=width_, height=height_, alpha=True)
         num_Pixels = len(im.pixels)
         def grid(x,y):
@@ -655,7 +741,7 @@ def blender_gsc_texture_convert(f):
     parse_file(f)
             
         
-    if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and height_ < 128 and width_ < 128:
+    if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and height_ == 32 and width_ == 32 or height_ == 64 and width_ == 64:
         im = bpy.data.images.new(name="GSC 0x8080", width=width_, height=height_, alpha=True)
         num_Pixels = len(im.pixels)
         def grid(x,y):
@@ -668,11 +754,20 @@ def blender_gsc_texture_convert(f):
             im.pixels[pixelNumber+2] = B
             im.pixels[pixelNumber+3] = A
 
-                 
-        for x in range(width_):
-            for y in range(height_):
-                idx = g_image_data[x + y*width_]
-                drawPixel(x,y,g_pallete1[idx],g_pallete2[idx],g_pallete3[idx],g_pallete4[idx])
+        img_0x8080_idx=0
+        if img_0x8080_idx == 0:
+            for x in range(width_):
+                for y in range(height_):
+                    idx = g_image_data[x + y*width_]
+                    drawPixel(x,y,g_pallete1[idx],g_pallete2[idx],g_pallete3[idx],g_pallete4[idx])
+            img_0x8080_idx+=1
+            if img_0x8080_idx == 1:
+                try:
+                    image_name = "GSC 0x8080.001"
+                    img = bpy.data.images[image_name]
+                    bpy.data.images.remove(img)
+                except:
+                    KeyError
     if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and (height_ == 256 and width_ == 256 or height_ == 128 and width_ == 128):
         for y in range(some_height):
             for x in range(some_width // 16):
@@ -697,3 +792,6 @@ def blender_gsc_texture_convert(f):
                  
                 drawPixel(x,y*2+0, g_pallete1[idx_test(idx1)],g_pallete2[idx_test(idx1)],g_pallete3[idx_test(idx1)],g_pallete4[idx_test(idx1)])
                 drawPixel(x,y*2+1, g_pallete1[idx_test(idx2)],g_pallete2[idx_test(idx2)],g_pallete3[idx_test(idx2)],g_pallete4[idx_test(idx2)])
+
+    if len(g_pallete1pt2) == 256 and len(g_pallete2pt2) == 256 and len(g_pallete3pt2) == 256 and len(g_pallete4pt2) == 256 and height_ == 1024 and width_ == 512:
+        pass
