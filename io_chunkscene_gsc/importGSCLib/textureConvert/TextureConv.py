@@ -28,6 +28,18 @@ def get_size_from_sub_hdr(f, is_pallete):
     
     return (abs(size_ - 0x8000) << 4)
 
+def get_size_from_sub_hdrpt2(f, is_pallete):
+    size_ = unpack('<H', f.read(2))[0]
+    f.seek(14, 1)
+    
+    if is_pallete == True:
+        if (size_ == 0x8080):
+            return 256
+        else:
+            raise Exception("unsupported pallete size %d" % size_)
+    
+    return (abs(size_ - 0x8000) << 4)
+
 def get_size_from_sub_hdr2(f, is_pallete):
     size_ = unpack('<H', f.read(2))[0]
     f.seek(14, 1)
@@ -51,66 +63,6 @@ def read_pallete2(f, amt):
     g_pallete7 = []
     g_pallete8 = []
     g_pallete1b = []
-    for i in range(0, amt):
-        r = unpack('B', f.read(1))[0]/255
-        g = unpack('B', f.read(1))[0]/255
-        b = unpack('B', f.read(1))[0]/255
-        a = unpack('B', f.read(1))[0]/127
-        r1 = round(r,3)
-        g1 = round(g,3)
-        b1 = round(b,3)
-        a1 = round(a,3)
-        
-        r1*=0
-        g1*=0
-        b1*=0
-        a1*=0
-        
-        r1+=255
-        g1+=255
-        b1+=255
-        a1+=127
-
-        r1-=255
-        g1-=255
-        b1-=255
-        a1-=127
-        
-        r1+=255
-        g1+=255
-        b1+=255
-        a1+=127
-
-        r1/=255
-        g1/=255
-        b1/=255
-        a1/=127
-
-        r1=r
-        g1=g
-        b1=b
-        a1=a
-
-        g_pallete1b.append([int(r*255),int(g*255),int(b*255),int(a*127)])
-        
-        g_pallete5.append(r1)
-        g_pallete6.append(g1)
-        g_pallete7.append(b1)
-        g_pallete8.append(a1)
-
-    
-
-def read_pallete(f, amt):
-    global g_pallete1
-    global g_pallete2
-    global g_pallete3
-    global g_pallete4
-    global g_pallete1a
-    g_pallete1 = []
-    g_pallete2 = []
-    g_pallete3 = []
-    g_pallete4 = []
-    g_pallete1a = []
     water_idx=0
     for i in range(0, amt):
         r = unpack('B', f.read(1))[0]/255
@@ -146,11 +98,6 @@ def read_pallete(f, amt):
         g1/=255
         b1/=255
         a1/=127
-
-        r1=r
-        g1=g
-        b1=b
-        a1=a
 
         water_idx+=1
         if water_idx == 1:
@@ -234,12 +181,99 @@ def read_pallete(f, amt):
                 g1*=0
                 b1*=0
 
+        g_pallete1b.append([int(r*255),int(g*255),int(b*255),int(a*127)])
+        
+        g_pallete5.append(r1)
+        g_pallete6.append(g1)
+        g_pallete7.append(b1)
+        g_pallete8.append(a1)
+
+    
+
+def read_pallete(f, amt):
+    global g_pallete1
+    global g_pallete2
+    global g_pallete3
+    global g_pallete4
+    global g_pallete1a
+    g_pallete1 = []
+    g_pallete2 = []
+    g_pallete3 = []
+    g_pallete4 = []
+    g_pallete1a = []
+    for i in range(0, amt):
+        r = unpack('B', f.read(1))[0]/255
+        g = unpack('B', f.read(1))[0]/255
+        b = unpack('B', f.read(1))[0]/255
+        a = unpack('B', f.read(1))[0]/127
+        r1 = round(r,3)
+        g1 = round(g,3)
+        b1 = round(b,3)
+        a1 = round(a,3)
+        
+        r1*=0
+        g1*=0
+        b1*=0
+        a1*=0
+        
+        r1+=255
+        g1+=255
+        b1+=255
+        a1+=127
+
+        r1-=255
+        g1-=255
+        b1-=255
+        a1-=127
+        
+        r1+=255
+        g1+=255
+        b1+=255
+        a1+=127
+
+        r1/=255
+        g1/=255
+        b1/=255
+        a1/=127
+
+        r1=r
+        g1=g
+        b1=b
+        a1=a
+
         g_pallete1a.append([int(r*255),int(g*255),int(b*255),int(a*127)])
         
         g_pallete1.append(r1)
         g_pallete2.append(g1)
         g_pallete3.append(b1)
         g_pallete4.append(a1)
+
+    f.seek(32,1)
+    size1 = unpack("<I", f.read(4))[0]
+    size2 = unpack("<I", f.read(4))[0]
+    type1 = unpack("<I", f.read(4))[0]
+    type2 = unpack("<I", f.read(4))[0]
+    if type2 == 0:
+        f.seek(48,1)
+        height = unpack("<I", f.read(4))[0]
+        width = unpack("<I", f.read(4))[0]
+        f.seek(40,1)
+        for x in range(0,width,1):
+            for y in range(0,height,1):
+                idx = unpack("B", f.read(1))[0]
+        f.seek(80,1)
+        
+    elif type2 != 0:
+        padsize1 = unpack("<I", f.read(4))[0]
+        f.seek(padsize1,1)
+        f.seek(48,1)
+        height = unpack("<I", f.read(4))[0]
+        width = unpack("<I", f.read(4))[0]
+        f.seek(40,1)
+        for x in range(0,width,1):
+            for y in range(0,height,1):
+                idx = unpack("B", f.read(1))[0]
+        f.seek(80,1)
 
 def parse_file2(f):
     global g_image_data2
@@ -310,7 +344,7 @@ def parse_file2(f):
                     f.seek(32,1)
                     img_size2 = get_size_from_sub_hdr2(f, False)
                     g_image_data2 = bytes(f.read(img_size2))
-                    return (width_, v1 * img_size2 // width_, True)
+                    return (width_, v1 * img_size2 // width_%width_+1, True)
     
 def parse_file(f):
     global g_image_data
@@ -377,11 +411,9 @@ def parse_file(f):
                     v1 = 2
                 if offset_pallete == 1168:
                     read_pallete(f, entries_amt)
-
-                    f.seek(32,1)
                     img_size = get_size_from_sub_hdr(f, False)
                     g_image_data = bytes(f.read(img_size))
-                    return (width_, v1 * img_size // width_, True)
+                    return (width_, v1 * img_size // width_%width_+width_, True)
             
 def shift_array_bytes(arr, shift):
     arr_len = len(arr)
@@ -604,10 +636,13 @@ def blender_gsc_texture_convert(f):
                         drawPixel(x,y,g_pallete5[idx],g_pallete6[idx],g_pallete7[idx],g_pallete8[idx])
 
             shift_and_stretch_black_pixels("GSC 0x8008", black_threshold=0.05)
-            
-
-            if g_pallete1b[0:5] == [[0.341,0.62,0.757,1],[0,0,0,1],[0.235,0.549,0.69,1],[0.659,0.808,0.878,1],[0.486,0.706,0.816,1]]:
-                pass
+            #im = bpy.data.images.get("GSC 0x8008")
+            #if im is None:
+            #raise RuntimeError("Image not found. Load gsc 0x8008 image first.")
+            #replace_pixel(im, 62, 63, (0.098000,0.352000,0.578000,1.000000))
+            #replace_pixel(im, 63, 63, (0.080000,0.332000,0.527000,1.000000))
+            #im.update()
+            #print("Pixel replaced successfully.")
             img_0x8008_idx+=1
             if img_0x8008_idx == 1:
                 try:
