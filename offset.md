@@ -3,6 +3,12 @@ gsc offsets
 0x030100010380XX6C - xzy faceon valueon nz,
 
 
+0x030100010380XX68 - xzy only with faces
+
+
+0x030100010380XX69 - xzy only with no faces unk
+
+
 0x03010001010000050380XX6D - xzy 4096 faceon valueon - combination of nz since there no normals
 
 
