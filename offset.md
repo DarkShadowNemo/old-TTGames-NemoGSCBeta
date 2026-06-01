@@ -9,6 +9,9 @@ gsc offsets
 0x030100010380XX69 - xzy only with no faces unk
 
 
+0x030100010380XX64 - xz only with faces with no y axis
+
+
 0x03010001010000050380XX6D - xzy 4096 faceon valueon - combination of nz since there no normals
 
 
