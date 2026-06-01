@@ -386,7 +386,7 @@ def vertices_0x03010010380XX68_(f):
             f.write(pack("B", 3))
             f.write(pack("B", 128))
             f.write(pack("B", len(obdata.vertices)))
-            f.write(pack("B", 108))
+            f.write(pack("B", 104))
             indexFaces = -1
             for v in obdata.vertices:
                 f.write(pack("<f", v.co.x))
