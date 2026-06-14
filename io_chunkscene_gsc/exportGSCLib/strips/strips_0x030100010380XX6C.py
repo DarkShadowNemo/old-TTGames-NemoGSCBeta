@@ -3,17 +3,6 @@ import bpy
 import os
 import math
 
-"""import bpy
-
-obj = bpy.context.object
-mesh = obj.data
-
-mesh.calc_loop_triangles()
-
-verts = [(v.co.x) for v in mesh.vertices]
-
-print(verts)"""
-
 def vertices_0x03010010380XX6C_(f):
     curve_t=0
     curve_tt=0
@@ -509,21 +498,28 @@ def vertices_0x03010010380XX6C_(f):
                     f.seek(-48,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif facesAAAA[0:2] == [[0,2,1]]:
                     f.seek(-48,1)
-                    for v in obdata.vertices[0:1]:
-                        f.write(pack("<f", v.co.x))
-                        f.write(pack("<f", v.co.z))
-                        f.write(pack("<f", v.co.y))
-                        f.write(pack("<f", 1))
                     for v in obdata.vertices[1:2]:
-                        f.write(pack("<f", v.co.x))
-                        f.write(pack("<f", v.co.z))
-                        f.write(pack("<f", v.co.y))
-                        f.write(pack("<f", 1))
+                        f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.write(pack("<h", 0))
+                    for v in obdata.vertices[0:1]:
+                        f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.write(pack("<h", 0))
                     for v in obdata.vertices[2:3]:
-                        f.write(pack("<f", v.co.x))
-                        f.write(pack("<f", v.co.z))
-                        f.write(pack("<f", v.co.y))
-                        f.write(pack("<f", 0))
+                        f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("<h", 0))
+                elif facesAAAA[0:2] == [[2,1,0]]:
+                    f.seek(-48,1)
+                    for v in obdata.vertices[1:2]:
+                        f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.write(pack("<h", 0))
+                    for v in obdata.vertices[2:3]:
+                        f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.write(pack("<h", 0))
+                    for v in obdata.vertices[0:1]:
+                        f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("<h", 0))
+                elif facesAAAA[0:2] == [[1,0,2]]:
+                    f.seek(-48,1)
+                    for v in obdata.vertices[2:3]:
+                        f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.write(pack("<h", 0))
+                    for v in obdata.vertices[1:2]:
+                        f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.write(pack("<h", 0))
+                    for v in obdata.vertices[0:1]:
+                        f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("<h", 0))
 
             _index = 0
 
