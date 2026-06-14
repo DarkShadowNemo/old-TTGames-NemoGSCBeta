@@ -3,6 +3,17 @@ import bpy
 import os
 import math
 
+"""import bpy
+
+obj = bpy.context.object
+mesh = obj.data
+
+mesh.calc_loop_triangles()
+
+verts = [(v.co.x) for v in mesh.vertices]
+
+print(verts)"""
+
 def vertices_0x03010010380XX6C_(f):
     curve_t=0
     curve_tt=0
@@ -482,14 +493,37 @@ def vertices_0x03010010380XX6C_(f):
             f.write(pack("B", len(obdata.vertices)))
             f.write(pack("B", 108))
             indexFaces = -1
-            obdata.calc_loop_triangles()
-            verts1 = [(f.write(pack("<f", v.co.x)),f.write(pack("<f", v.co.z)),f.write(pack("<f", v.co.y)),f.write(pack("<f", 0))) for v in obdata.vertices]
+            facesAAAA=[]
+            for v in obdata.vertices:
+                f.write(pack("<f", v.co.x))
+                f.write(pack("<f", v.co.z))
+                f.write(pack("<f", v.co.y))
+                f.write(pack("<f", 0))
             for facs in obdata.polygons:
                 indexFaces+=1
-                if indexFaces == 0:
+                a=facs.vertices[0]
+                b=facs.vertices[1]
+                c=facs.vertices[2]
+                facesAAAA.append([a,b,c])
+                if facesAAAA[0:2] == [[0, 1, 2]]:
+                    f.seek(-48,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
+                elif facesAAAA[0:2] == [[0,2,1]]:
                     f.seek(-48,1)
-                    if facs.vertices[0:3]:
-                        f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
+                    for v in obdata.vertices[0:1]:
+                        f.write(pack("<f", v.co.x))
+                        f.write(pack("<f", v.co.z))
+                        f.write(pack("<f", v.co.y))
+                        f.write(pack("<f", 1))
+                    for v in obdata.vertices[1:2]:
+                        f.write(pack("<f", v.co.x))
+                        f.write(pack("<f", v.co.z))
+                        f.write(pack("<f", v.co.y))
+                        f.write(pack("<f", 1))
+                    for v in obdata.vertices[2:3]:
+                        f.write(pack("<f", v.co.x))
+                        f.write(pack("<f", v.co.z))
+                        f.write(pack("<f", v.co.y))
+                        f.write(pack("<f", 0))
 
             _index = 0
 
