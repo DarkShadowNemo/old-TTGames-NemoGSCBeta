@@ -403,141 +403,145 @@ def make_test_image_256():
     g_image_data = arr
 
 def blender_gsc_texture_convert(f):
+    try:
+        f.seek(0)
+        parse_file2(f)
+        
+        if len(g_pallete5) == 16 and len(g_pallete6) == 16 and len(g_pallete7) == 16 and len(g_pallete8) == 16 and height_ == 64 and width_ == 64:
+            im = bpy.data.images.new(name="GSC 0x8008", width=width_, height=height_, alpha=True)
+            num_Pixels = len(im.pixels)
+            def grid(x,y):
+                return x + width_*y
+            def drawPixel(x,y,R,G,B,A):
+                pixelNumber = grid(x,y) * 4
+                 
+                im.pixels[pixelNumber] = R
+                im.pixels[pixelNumber+1] = G
+                im.pixels[pixelNumber+2] = B
+                im.pixels[pixelNumber+3] = A
+            def replace_pixel(image, x, y, new_rgba):
+                width = image.size[0]
+                height = image.size[1]
+
+                # Validate coordinates
+                if not (0 <= x < width and 0 <= y < height):
+                    raise ValueError(f"Pixel coordinates ({x},{y}) out of range.")
+
+                if len(new_rgba) != 4:
+                    raise ValueError("RGBA must have exactly 4 values.")
+
+                # Blender stores pixels in a flat array: [R, G, B, A, R, G, B, A, ...]
+                # Pixel index in array:
+                index = (y * width + x) * 4
+
+                # Replace pixel values
+                for i in range(4):
+                    image.pixels[index + i] = float(new_rgba[i])
+                
+            def shift_and_stretch_black_pixels(image_name, black_threshold=0.05):
+                # Get the image
+                im = bpy.data.images.get(image_name)
+                if not im:
+                    print(f"Image '{image_name}' not found.")
+                    return
+                
+                if im.pixels is None or len(im.pixels) == 0:
+                    print("Image has no pixel data.")
+                    return
+
+                width, height = im.size
+                pixels = list(im.pixels)  # Copy to a list for editing
+
+                def is_black(r, g, b, threshold):
+                    return (r <= threshold and g <= threshold and b <= threshold)
+
+                # Pass 1: Shift black pixels horizontally
+                for y in range(height):
+                    for x in range(width):
+                        idx = (y * width + x) * 4
+                        r, g, b, a = pixels[idx:idx+4]
+
+                        if is_black(r, g, b, black_threshold):
+                            # Look left first
+                            found = False
+                            for lx in range(x - 1, -1, -1):
+                                li = (y * width + lx) * 4
+                                lr, lg, lb, la = pixels[li:li+4]
+                                if not is_black(lr, lg, lb, black_threshold):
+                                    pixels[idx:idx+4] = [lr, lg, lb, la]
+                                    found = True
+                                    break
+
+                            # If not found on left, look right
+                            if not found:
+                                for rx in range(x + 1, width):
+                                    ri = (y * width + rx) * 4
+                                    rr, rg, rb, ra = pixels[ri:ri+4]
+                                    if not is_black(rr, rg, rb, black_threshold):
+                                        pixels[idx:idx+4] = [rr, rg, rb, ra]
+                                        break
+
+                # Pass 2: Stretch vertically to cover any remaining black lines
+                for y in range(height):
+                    for x in range(width):
+                        idx = (y * width + x) * 4
+                        r, g, b, a = pixels[idx:idx+4]
+
+                        if is_black(r, g, b, black_threshold):
+                            # Look up
+                            found = False
+                            for uy in range(y - 1, -1, -1):
+                                ui = (uy * width + x) * 4
+                                ur, ug, ub, ua = pixels[ui:ui+4]
+                                if not is_black(ur, ug, ub, black_threshold):
+                                    pixels[idx:idx+4] = [ur, ug, ub, ua]
+                                    found = True
+                                    break
+
+                            # Look down if not found
+                            if not found:
+                                for dy in range(y + 1, height):
+                                    di = (dy * width + x) * 4
+                                    dr, dg, db, da = pixels[di:di+4]
+                                    if not is_black(dr, dg, db, black_threshold):
+                                        pixels[idx:idx+4] = [dr, dg, db, da]
+                                        break
+
+                im.pixels[:] = pixels
+                im.update()
+                print(f"Black pixels in '{image_name}' shifted and stretched successfully.")
+
+            img_0x8008_idx=0
+
+            if img_0x8008_idx==0:
+                
+                
+                for x in range(width_):
+                    for y in range(height_):
+                        idx = g_image_data2[x // 2 + y*width_ // 2] & 0xF
+                        if x % 2 == 1:
+                            idx = (g_image_data2[x // 2 + y*width_ // 2]& 0xF0) >> 4
+                            drawPixel(x,y,g_pallete5[idx],g_pallete6[idx],g_pallete7[idx],g_pallete8[idx])
+
+                shift_and_stretch_black_pixels("GSC 0x8008", black_threshold=0.05)
+                #im = bpy.data.images.get("GSC 0x8008")
+                #if im is None:
+                #raise RuntimeError("Image not found. Load gsc 0x8008 image first.")
+                #replace_pixel(im, 62, 63, (0.098000,0.352000,0.578000,1.000000))
+                #replace_pixel(im, 63, 63, (0.080000,0.332000,0.527000,1.000000))
+                #im.update()
+                #print("Pixel replaced successfully.")
+                img_0x8008_idx+=1
+                if img_0x8008_idx == 1:
+                    try:
+                        image_name = "GSC 0x8008.001"
+                        img = bpy.data.images[image_name]
+                        bpy.data.images.remove(img)
+                    except:
+                        KeyError
+    except:
+        NameError
     f.seek(0)
-    parse_file2(f)
-    if len(g_pallete5) == 16 and len(g_pallete6) == 16 and len(g_pallete7) == 16 and len(g_pallete8) == 16 and height_ == 64 and width_ == 64:
-        im = bpy.data.images.new(name="GSC 0x8008", width=width_, height=height_, alpha=True)
-        num_Pixels = len(im.pixels)
-        def grid(x,y):
-            return x + width_*y
-        def drawPixel(x,y,R,G,B,A):
-            pixelNumber = grid(x,y) * 4
-             
-            im.pixels[pixelNumber] = R
-            im.pixels[pixelNumber+1] = G
-            im.pixels[pixelNumber+2] = B
-            im.pixels[pixelNumber+3] = A
-        def replace_pixel(image, x, y, new_rgba):
-            width = image.size[0]
-            height = image.size[1]
-
-            # Validate coordinates
-            if not (0 <= x < width and 0 <= y < height):
-                raise ValueError(f"Pixel coordinates ({x},{y}) out of range.")
-
-            if len(new_rgba) != 4:
-                raise ValueError("RGBA must have exactly 4 values.")
-
-            # Blender stores pixels in a flat array: [R, G, B, A, R, G, B, A, ...]
-            # Pixel index in array:
-            index = (y * width + x) * 4
-
-            # Replace pixel values
-            for i in range(4):
-                image.pixels[index + i] = float(new_rgba[i])
-            
-        def shift_and_stretch_black_pixels(image_name, black_threshold=0.05):
-            # Get the image
-            im = bpy.data.images.get(image_name)
-            if not im:
-                print(f"Image '{image_name}' not found.")
-                return
-            
-            if im.pixels is None or len(im.pixels) == 0:
-                print("Image has no pixel data.")
-                return
-
-            width, height = im.size
-            pixels = list(im.pixels)  # Copy to a list for editing
-
-            def is_black(r, g, b, threshold):
-                return (r <= threshold and g <= threshold and b <= threshold)
-
-            # Pass 1: Shift black pixels horizontally
-            for y in range(height):
-                for x in range(width):
-                    idx = (y * width + x) * 4
-                    r, g, b, a = pixels[idx:idx+4]
-
-                    if is_black(r, g, b, black_threshold):
-                        # Look left first
-                        found = False
-                        for lx in range(x - 1, -1, -1):
-                            li = (y * width + lx) * 4
-                            lr, lg, lb, la = pixels[li:li+4]
-                            if not is_black(lr, lg, lb, black_threshold):
-                                pixels[idx:idx+4] = [lr, lg, lb, la]
-                                found = True
-                                break
-
-                        # If not found on left, look right
-                        if not found:
-                            for rx in range(x + 1, width):
-                                ri = (y * width + rx) * 4
-                                rr, rg, rb, ra = pixels[ri:ri+4]
-                                if not is_black(rr, rg, rb, black_threshold):
-                                    pixels[idx:idx+4] = [rr, rg, rb, ra]
-                                    break
-
-            # Pass 2: Stretch vertically to cover any remaining black lines
-            for y in range(height):
-                for x in range(width):
-                    idx = (y * width + x) * 4
-                    r, g, b, a = pixels[idx:idx+4]
-
-                    if is_black(r, g, b, black_threshold):
-                        # Look up
-                        found = False
-                        for uy in range(y - 1, -1, -1):
-                            ui = (uy * width + x) * 4
-                            ur, ug, ub, ua = pixels[ui:ui+4]
-                            if not is_black(ur, ug, ub, black_threshold):
-                                pixels[idx:idx+4] = [ur, ug, ub, ua]
-                                found = True
-                                break
-
-                        # Look down if not found
-                        if not found:
-                            for dy in range(y + 1, height):
-                                di = (dy * width + x) * 4
-                                dr, dg, db, da = pixels[di:di+4]
-                                if not is_black(dr, dg, db, black_threshold):
-                                    pixels[idx:idx+4] = [dr, dg, db, da]
-                                    break
-
-            im.pixels[:] = pixels
-            im.update()
-            print(f"Black pixels in '{image_name}' shifted and stretched successfully.")
-
-        img_0x8008_idx=0
-
-        if img_0x8008_idx==0:
-            
-            
-            for x in range(width_):
-                for y in range(height_):
-                    idx = g_image_data2[x // 2 + y*width_ // 2] & 0xF
-                    if x % 2 == 1:
-                        idx = (g_image_data2[x // 2 + y*width_ // 2]& 0xF0) >> 4
-                        drawPixel(x,y,g_pallete5[idx],g_pallete6[idx],g_pallete7[idx],g_pallete8[idx])
-
-            shift_and_stretch_black_pixels("GSC 0x8008", black_threshold=0.05)
-            #im = bpy.data.images.get("GSC 0x8008")
-            #if im is None:
-            #raise RuntimeError("Image not found. Load gsc 0x8008 image first.")
-            #replace_pixel(im, 62, 63, (0.098000,0.352000,0.578000,1.000000))
-            #replace_pixel(im, 63, 63, (0.080000,0.332000,0.527000,1.000000))
-            #im.update()
-            #print("Pixel replaced successfully.")
-            img_0x8008_idx+=1
-            if img_0x8008_idx == 1:
-                try:
-                    image_name = "GSC 0x8008.001"
-                    img = bpy.data.images[image_name]
-                    bpy.data.images.remove(img)
-                except:
-                    KeyError
-    f.seek(0) 
     parse_file(f)
             
         
