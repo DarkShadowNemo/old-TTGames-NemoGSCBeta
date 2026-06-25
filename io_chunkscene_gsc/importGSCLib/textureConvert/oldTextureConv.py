@@ -159,6 +159,47 @@ def read_pallete(f, amt):
         g1 = round(g,4)
         b1 = round(b,4)
         a1 = round(a,4)
+        r1*=0
+        g1*=0
+        b1*=0
+        a1*=0
+        r1*=255
+        g1*=255
+        b1*=255
+        a1*=127
+        r1/=255
+        g1/=255
+        b1/=255
+        a1/=127
+        r1-=1
+        g1-=1
+        b1-=1
+        a1-=1
+        r1+=1
+        g1+=1
+        b1+=1
+        a1+=1
+        r1-=r
+        g1-=g
+        b1-=b
+        a1-=a
+        r1+=r
+        g1+=g
+        b1+=b
+        a1+=a
+
+        a1+=254
+        a1//=2
+        a1/=127
+        a1-=1
+        a1%=int(1)
+        a1=a
+
+        if a1 == 1:
+            r1*=math.acos(a1)
+            g1*=math.acos(a1)
+            b1*=math.acos(a1)
+        
         
         g_pallete1.append(r1)
         g_pallete2.append(g1)
@@ -235,9 +276,6 @@ def parse_file2(f):
                     img_size2 = get_size_from_sub_hdr2(f, False)
                     g_image_data2 = bytes(f.read(img_size2))
                     return (width_, v1 * img_size2 // width_%width_+width_, True)
-
-def parse_filept2(f):
-    pass
     
 def parse_file(f):
     global g_image_data
@@ -545,6 +583,8 @@ def blender_gsc_texture_convert(f):
         
         f.seek(0)
         parse_file(f)
+
+        shift_x_pixels = 3.15
                 
             
         if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and height_ == 32 and width_ == 32 or height_ == 64 and width_ == 64:
@@ -643,59 +683,4 @@ def blender_gsc_texture_convert(f):
                         bpy.data.images.remove(img)
                     except:
                         KeyError
-
-        if len(g_pallete1) == 256 and len(g_pallete2) == 256 and len(g_pallete3) == 256 and len(g_pallete4) == 256 and height_ == 256 and width_ == 64:
-            for y in range(some_height):
-                for x in range(some_width // 4):
-                    arr_int = g_image_data[y*some_width + x*16: y*some_width + x*16 + 16]
-                    arr_unint = uninterlace_array_2bytes(arr_int, True if y % 4 > 1 else False, y)
-                    copy_arr_to_arr_at_offset(y*some_width + x*16, g_image_data, arr_unint)
-                im = bpy.data.images.new(name="GSC 0x8080", width=width_, height=height_, alpha=True)
-                num_Pixels = len(im.pixels)
-                def grid(x,y):
-                    return x + width_*y
-                def drawPixel(x,y,R,G,B,A):
-                    pixelNumber = grid(x,y) * 4
-                     
-                    im.pixels[pixelNumber] = R
-                    im.pixels[pixelNumber+1] = G
-                    im.pixels[pixelNumber+2] = B
-                    im.pixels[pixelNumber+3] = A
-                def replace_pixel(image, x, y, new_rgba):
-                    width = image.size[0]
-                    height = image.size[1]
-
-                    # Validate coordinates
-                    if not (0 <= x < width and 0 <= y < height):
-                        raise ValueError(f"Pixel coordinates ({x},{y}) out of range.")
-
-                    if len(new_rgba) != 4:
-                        raise ValueError("RGBA must have exactly 4 values.")
-
-                    # Blender stores pixels in a flat array: [R, G, B, A, R, G, B, A, ...]
-                    # Pixel index in array:
-                    index = (y * width + x) * 4
-
-                    # Replace pixel values
-                    for i in range(4):
-                        image.pixels[index + i] = float(new_rgba[i])
-                img_0x8080_idx=0
-                if img_0x8080_idx == 0:
-                    for y in range(height_ // 2):
-                        for x in range(width_):
-                            idx1 = g_image_data[2*y*width_ + 1*x + 0]
-                            idx2 = g_image_data[2*y*width_ + 1*x + 1]
-                            drawPixel(x,y*2+0, g_pallete1[idx_test(idx1)],g_pallete2[idx_test(idx1)],g_pallete3[idx_test(idx1)],g_pallete4[idx_test(idx1)])
-                            drawPixel(x,y*2+1, g_pallete1[idx_test(idx2)],g_pallete2[idx_test(idx2)],g_pallete3[idx_test(idx2)],g_pallete4[idx_test(idx2)])
-                    img_0x8080_idx+=1
-                    if img_0x8080_idx == 1:
-                        try:
-                            image_name = "GSC 0x8080.001"
-                            img = bpy.data.images[image_name]
-                            bpy.data.images.remove(img)
-                        except:
-                            KeyError
-
-    except:
-        NameError
                 
