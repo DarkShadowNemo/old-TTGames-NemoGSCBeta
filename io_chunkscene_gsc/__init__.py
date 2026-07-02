@@ -1,11 +1,12 @@
 bl_info = {
         'name'			: 'Finding Nemo GSC Level Chunk Importer',
-	'author'		: 'DarkShadow Nemo',
-	'version'		: (0, 5, 0),
-	'blender'		: (4, 0, 0),
-	'location'		: 'File > Import-Export',
-	'description'           : 'Import GSC one mesh chunk makes it easier',
-	'category'		: 'Chunk-Importer and Chunk-Exporter'
+        'author'		: 'DarkShadow Nemo',
+        'version'		: (15, 0, 0),
+        'blender'		: (4, 0, 0),
+        'location'		: 'File > Import-Export',
+        'description'           : 'Import GSC one mesh chunk makes it easier',
+        'support'               : 'COMMUNITY',
+        'category'		: 'Chunk-Importer and Chunk-Exporter'
 }
 import os
 import bpy
@@ -27,27 +28,19 @@ class ImportChunkGSC(bpy.types.Operator, ImportHelper):
                 type	    = bpy.types.OperatorFileListElement
         )
 
-        Triangle_Strips_with_uvs_and_rgba: IntProperty(
-                name        = "Triangle_Strips uvs and rgba",
-                description = "gets uvs and rgba as well"
-        )
-
         Triangle_StripsTwo: BoolProperty(
-                name        = "Triangle_Strips pt 2",
+                name        = "Strips and Tri pt 2",
                 description = "0x010000050380 all offsets"
         )
         
         Triangle_Strips: BoolProperty(
-                name        = 'Triangle_Strips',
+                name        = 'Strips and Tri',
                 description = ' 0x03010001 all offsets if they match it imports all the whole chunk in being aligned up gets all or most of it, you may get some vertex without faces'
         )
-        ONE_CHUNK_OFFSET1: BoolProperty(
-                name        = '0x030100010380',
-                description = 'imports with vertices and triangle strips aligned up'
-        )
-        SST: BoolProperty(
-                name        = 'SplineSet',
-                description = 'imports splines with vertices and edges'
+
+        AutoTriangle_Strips: BoolProperty(
+                name        = 'Auto StripsTri',
+                description = ' auto strips with hardcoded faces'
         )
         SPEC: BoolProperty(
                 name        = 'SpecialSet',
@@ -101,9 +94,9 @@ class ImportChunkGSC(bpy.types.Operator, ImportHelper):
                 name = "RGBA Hash Colors",
                 description = "chooses one RGBA only since it's impossible with the whole mesh unless you remove other offsets"
         )
-        pointOne: BoolProperty(
-                name = "one point",
-                description = ""
+        Warping: BoolProperty(
+                name = "import warp",
+                description = "lsw1 only use this"
         )
         directory: StringProperty()
         filter_glob: StringProperty(default = '*.gsc', options = {'HIDDEN'})
@@ -111,7 +104,7 @@ class ImportChunkGSC(bpy.types.Operator, ImportHelper):
                 paths = [os.path.join(self.directory, name.name) for name in self.files]
                 if not paths: paths.append(self.filepath)
                 importlib.reload(gsc_chunk_importer)
-                for path in paths: gsc_chunk_importer.parse_gsc(path, pointOne = self.pointOne, Triangle_Strips_with_uvs_and_rgba = self.Triangle_Strips_with_uvs_and_rgba, Triangle_StripsTwo = self.Triangle_StripsTwo, Triangle_Strips = self.Triangle_Strips, ONE_CHUNK_OFFSET1 = self.ONE_CHUNK_OFFSET1,SST = self.SST,SPEC = self.SPEC,INST_prim = self.INST_prim,INST_seco = self.INST_seco,IABL = self.IABL,ALIB = self.ALIB, BoundingSet = self.BoundingSet, SelectOnlyUVMesh = self.SelectOnlyUVMesh, SelectOnly2ndUVMesh = self.SelectOnly2ndUVMesh, SelectOnly3rdUVMesh = self.SelectOnly3rdUVMesh, SelectOnly4thUVMesh = self.SelectOnly4thUVMesh, BatchHashVertexColors = self.BatchHashVertexColors, BatchUVSS = self.BatchUVSS, RGBAColors = self.RGBAColors)
+                for path in paths: gsc_chunk_importer.parse_gsc(path, AutoTriangle_Strips = self.AutoTriangle_Strips, Triangle_StripsTwo = self.Triangle_StripsTwo, Triangle_Strips = self.Triangle_Strips, SPEC = self.SPEC,INST_prim = self.INST_prim,INST_seco = self.INST_seco,IABL = self.IABL,ALIB = self.ALIB, BoundingSet = self.BoundingSet, SelectOnlyUVMesh = self.SelectOnlyUVMesh, SelectOnly2ndUVMesh = self.SelectOnly2ndUVMesh, SelectOnly3rdUVMesh = self.SelectOnly3rdUVMesh, SelectOnly4thUVMesh = self.SelectOnly4thUVMesh, BatchHashVertexColors = self.BatchHashVertexColors, BatchUVSS = self.BatchUVSS, RGBAColors = self.RGBAColors, Warping = self.Warping)
                 return {'FINISHED'}
 
 class ExportChunkGSC(bpy.types.Operator, ExportHelper):
@@ -129,22 +122,35 @@ class ExportChunkGSC(bpy.types.Operator, ExportHelper):
                 name = "0x030100010380XX6C",
                 description = "exports no uvs and vertex colors"
         )
+        ofsetsVC_One : BoolProperty(
+                name = "0x030100010380XX6C VC",
+                description = "exports vertex colors with no uvs"
+        )
+        smooth_ofsetsOne : BoolProperty(
+                name = "Smooth 0x030100010380XX6C",
+                description = "exports no uvs and vertex colors but smooth"
+        )
 
-        ofsetsOneC : BoolProperty(
-                name = "0x030100010380XX6C Connection",
-                description = "exports no uvs and vertex colors but connects"
+        ofsetsTwo : BoolProperty(
+                name = "0x03010001010000050380XX65",
+                description = "Exports no uvs and vertex colors"
         )
 
         ofsetsOneIMG : BoolProperty(
                 name = "0x030100010380XX6C with textures",
                 description = "exports uvs and vertex colors with textures"
         )
+
+        ofsetsOneIMGTwo : BoolProperty(
+                name = "0x030100010380XX6C with float textures",
+                description = "exports uvs and vertex colors with textures with floats"
+        )
         
         directory: StringProperty()
         filter_glob: StringProperty(default = '*.gsc', options = {'HIDDEN'})
         def execute(self, context):
             importlib.reload(gsc_chunk_exporter)
-            gsc_chunk_exporter.NUWrite(self.filepath, ofsetsOne = self.ofsetsOne, ofsetsOneC = self.ofsetsOneC, ofsetsOneIMG = self.ofsetsOneIMG)
+            gsc_chunk_exporter.NUWrite(self.filepath, ofsetsOne = self.ofsetsOne, ofsetsVC_One = self.ofsetsVC_One, smooth_ofsetsOne = self.smooth_ofsetsOne, ofsetsTwo = self.ofsetsTwo, ofsetsOneIMG = self.ofsetsOneIMG,ofsetsOneIMGTwo = self.ofsetsOneIMGTwo)
             return {"FINISHED"}
         
 
