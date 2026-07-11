@@ -14,9 +14,9 @@ def vertices_0x03010010380XX6C_(f):
     satt=[]
     Sat_time=0
 
-    namess = bpy.data.objects.get("PORT")
-    namessA = bpy.data.objects.get("SPEC")
-    namessCA = bpy.data.collections.get("SPEC")
+    #namess = bpy.data.objects.get("PORT")
+    #namessA = bpy.data.objects.get("SPEC")
+    #namessCA = bpy.data.collections.get("SPEC")
     
     FileeSize1=0
     FileeSize2=0
@@ -70,7 +70,91 @@ def vertices_0x03010010380XX6C_(f):
     f.write(pack("<I", 16))
     f.write(pack("<I", 0))
     f.write(pack("<I", 0))
-    #########################
+    if len(bpy.data.images) != 0:
+        sizex=0
+        sizey=0
+        for i, img in enumerate(bpy.data.images):
+            sizex+=img.size[0]*img.size[1]*4
+        f.write(b"TST0")
+        f.write(pack("<I", sizex+80+160+16))
+        f.write(pack("<I", len(bpy.data.images)))
+        f.write(pack("<I", 0))
+        for i, img in enumerate(bpy.data.images):
+            f.write(pack("<I", 160+img.size[1]*img.size[0]*4+80))
+            f.write(pack("<I", 8))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", 0))
+            f.write(pack("<H", img.size[1]))
+            f.write(pack("<H", 1))
+            f.write(pack("<H", img.size[0]))
+            f.write(pack("<H", 0))
+            f.write(pack("<I", img.size[0]))
+            f.write(pack("B", 3))
+            f.write(pack("B", 0))
+            f.write(pack("B", 0))
+            f.write(pack("B", 0x81))
+            f.write(pack("<I", img.size[1]*img.size[0]*4+96+80+20))
+            f.write(pack("<I", img.size[1]*img.size[0]*4))
+            f.write(pack("<I", 1))
+            f.write(pack("<I", 1))
+            f.write(pack("<I", 12))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", 0))
+            f.write(pack("B", 5))
+            f.write(pack("B", 1))
+            f.write(pack("B", 0))
+            f.write(pack("B", 96))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", 0))
+            f.write(pack("B", 5))
+            f.write(pack("B", 1))
+            f.write(pack("B", 0))
+            f.write(pack("B", 80))
+            f.write(pack("<I", 32771))
+            f.write(pack(">I", 16))
+            f.write(pack("<I", 14))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", 81))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", img.size[1]))
+            f.write(pack("<I", img.size[1]))
+            f.write(pack("<I", 82))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", 0))
+            f.write(pack("<I", 83))
+            f.write(pack("<I", 0))
+            f.write(pack("<H", int(0x80*2+img.size[1]*img.size[0]//512<<2//8//2<<7)))
+            f.write(pack("<H", 0))
+            f.write(pack("<H", 0))
+            f.write(pack("<H", 2048))
+            f.write(pack("<H", 0))
+            f.write(pack("<H", 0))
+            f.write(pack("<H", 0))
+            f.write(pack("<H", 0))
+            idx1 = 0
+            idx2 = 1
+            idx3 = 2
+            idx4 = 3
+            for y in range(int(img.size[1])):
+                for x in range(int(img.size[0])):
+                    f.write(pack("B", int(255*img.pixels[idx1])))
+                    f.write(pack("B", int(255*img.pixels[idx2])))
+                    f.write(pack("B", int(255*img.pixels[idx3])))
+                    f.write(pack("B", int(127*img.pixels[idx4])))
+                    idx1+=4
+                    idx2+=4
+                    idx3+=4
+                    idx4+=4
+                
+            for i in range(80):
+                f.write(pack("B", 0xCD))
+            
+            
+            
     f.write(b"MS00")
     f.write(pack("<I", len(bpy.data.meshes)*464+16))
     f.write(pack("<I", len(bpy.data.meshes)))
@@ -43315,97 +43399,12 @@ def vertices_0x03010010380XX6C_(f):
             objIndex+=1
             #f.write(pack("<f", -obj.rotation_euler[2]*math.acos(obj.scale[0])-math.acos(obj.scale[0])+math.sin(obj.rotation_euler[2])))
             #math.acos(obj.scale[2])+math.cos(obj.rotation_euler[0])*math.sin(obj.rotation_euler[2]
-
-    if namessA:
-        collection_names2 = [o.name for o in namessCA.objects]
-        if collection_names2:
-            
-            f.write(b"SPEC")
-            f.write(pack("<I", len(bpy.data.meshes)*80+16))
-            f.write(pack("<I", len(bpy.data.meshes)))
-            f.write(pack("<I", 0))
-            objIndexA=0
-            for i, obj in enumerate(bpy.data.objects):
-                if obj.type == "MESH":
-                    f.write(pack("<f", round(math.acos(obj.scale[0])+math.sin(obj.rotation_euler[0])*math.sin(obj.rotation_euler[1])*math.sin(obj.rotation_euler[2])+math.acos(obj.scale[0])+math.cos(obj.rotation_euler[2])*math.sin(obj.rotation_euler[1])*math.acos(obj.scale[0])+math.cos(obj.rotation_euler[1])*math.cos(obj.rotation_euler[2]),3)))
-                    f.write(pack("<f", round(math.acos(obj.scale[0])+math.cos(obj.rotation_euler[0])*math.sin(obj.rotation_euler[1]),3)))
-                    f.write(pack("<f", round(-math.acos(obj.scale[0])-math.cos(obj.rotation_euler[2])*-math.sin(obj.rotation_euler[1])*math.sin(obj.rotation_euler[0])-math.sin(obj.rotation_euler[2])*math.cos(obj.rotation_euler[1]),3)))
-                    f.write(pack("<f", 0))
-                    f.write(pack("<f", round(math.acos(obj.scale[1])+-math.sin(obj.rotation_euler[1])*math.cos(obj.rotation_euler[2])+math.sin(obj.rotation_euler[2])*math.sin(obj.rotation_euler[0])*math.cos(obj.rotation_euler[1]),3)))
-                    f.write(pack("<f", round(math.acos(obj.scale[1])+math.cos(obj.rotation_euler[0])*math.cos(obj.rotation_euler[1]),3)))
-                    f.write(pack("<f", round(math.acos(obj.scale[1])+math.sin(obj.rotation_euler[0])*math.cos(obj.rotation_euler[1])+math.acos(obj.scale[1])+math.sin(obj.rotation_euler[1])*math.sin(obj.rotation_euler[2]),3)))
-                    f.write(pack("<f", 0)) # 32
-                    f.write(pack("<f", round(math.acos(obj.scale[2])+math.sin(obj.rotation_euler[2])*math.acos(obj.scale[2])+math.sin(obj.rotation_euler[2])*math.cos(obj.rotation_euler[0]),3)))
-                    f.write(pack("<f", round(-math.acos(obj.scale[2])+-math.sin(obj.rotation_euler[0]),3)))
-                    f.write(pack("<f", round(math.acos(obj.scale[2])+math.cos(obj.rotation_euler[0])*math.cos(obj.rotation_euler[2])+math.acos(obj.scale[2])*math.sin(obj.rotation_euler[1]),3)))
-                    f.write(pack("<f", 0))
-                    f.write(pack("<f", round(obj.location[0],3)))
-                    f.write(pack("<f", round(obj.location[2],3)))
-                    f.write(pack("<f", round(obj.location[1],3)))
-                    f.write(pack("<f", 1))
-                    f.write(pack("<I", objIndexA))
-                    f.write(pack("<I", 11))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    objIndexA+=1
             
     if len(curve_objects) == 0:
         f.write(b"SST0")
         f.write(pack("<I", 16))
         f.write(pack("<I", 0))
         f.write(pack("<I", 0))
-
-    if namess == "PORT":
-        collection_names = [col.name for col in namess.users_collection]
-        if collection_names:
-            f.write(b"PORT")
-            f.write(pack("<I", FileeSize2a))
-            f.write(pack("<I", len(bpy.data.objects)))
-            f.write(pack("<H", 4))
-            f.write(pack("<H", 10))
-
-            for i, obj in enumerate(bpy.data.objects):
-                if obj.type == "CURVE":
-                    for spline in obj.data.splines:
-                        if spline.type == 'BEZIER':
-                            f.write(pack("<H", 0))
-                            f.write(pack("<H", len(spline.bezier_points)*12))
-                            f.write(pack("<H", 16))
-                            f.write(pack("<H", 8))
-
-                            num_points = len(spline.bezier_points)
-                            for i in range(num_points - 1):
-                                f.write(pack("<H", i))
-                                f.write(pack("<H", i+1))
-
-                            for i, obj in enumerate(bpy.data.objects):
-                                
-
-                            
-
-                                f.write(pack("<f", obj.scale[0]))
-                                f.write(pack("<f", math.radians(obj.rotation_euler[2])))
-                                f.write(pack("<f", math.radians(obj.rotation_euler[1])))
-                                f.write(pack("<f", obj.location[0]))
-
-                                f.write(pack("<f", math.radians(-obj.rotation_euler[2])))
-                                f.write(pack("<f", obj.scale[1]))
-                                f.write(pack("<f", math.radians(obj.rotation_euler[0])))
-                                f.write(pack("<f", obj.location[2]))
-
-                                f.write(pack("<f", math.radians(-obj.rotation_euler[1])))
-                                f.write(pack("<f", math.radians(-obj.rotation_euler[0])))
-                                f.write(pack("<f", obj.scale[2]))
-                                f.write(pack("<f", obj.location[1]))
-                                break
-                            for point in spline.bezier_points:
-                                f.write(pack("<f", point.co.x))
-                                f.write(pack("<f", point.co.z))
-                                f.write(pack("<f", point.co.y))
-        
-        """pad_len = f.tell() % 16
-        if pad_len > 0:
-            f.write(b"\0" * (16-pad_len))"""
             
     f.write(b"BNDS")
     f.write(pack("<I", 16))
