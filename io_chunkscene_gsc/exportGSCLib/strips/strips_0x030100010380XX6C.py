@@ -1027,9 +1027,18 @@ def vertices_0x03010010380XX6C_(f):
                     f.write(pack("B", 128))
                     f.write(pack("B", len(obdata.vertices)))
                     f.write(pack("B", 101))
+                    i2=0
                     for v in obdata.vertices:
-                        f.write(pack("<h", int(4096*uv_layerABCD1[v.index].uv[0])))
-                        f.write(pack("<h", -int(4096*uv_layerABCD1[v.index].uv[1])))
+                        f.write(pack("<h", int(4096*uv_layerABCD1[i2].uv[0])))
+                        f.write(pack("<h", -int(4096*uv_layerABCD1[i2].uv[1])))
+                        i2+=1
+                        if i2 == 5:
+                            f.seek(-4,1)
+                            f.write(pack("<h", 0))
+                            f.write(pack("<h", 0))
+                            f.seek(-4,1)
+                            f.write(pack("<h", int(4096*uv_layerABCD1[-4].uv[0])))
+                            f.write(pack("<h", -int(4096*uv_layerABCD1[-4].uv[1])))
                 except:
                     AttributeError
                 _1lindex+=1
