@@ -72,86 +72,168 @@ def vertices_0x03010010380XX6C_(f):
     f.write(pack("<I", 0))
     f.write(pack("<I", 0))
     if len(bpy.data.images) != 0:
-        sizex=0
-        for i, img in enumerate(bpy.data.images):
-            sizex+=img.size[0]*img.size[1]*4
-        f.write(b"TST0")
-        f.write(pack("<I", sizex+80+160+16))
-        f.write(pack("<I", len(bpy.data.images)))
-        f.write(pack("<I", 0))
-        for i, img in enumerate(bpy.data.images):
-            f.write(pack("<I", 160+img.size[1]*img.size[0]*4+80-16))
-            f.write(pack("<I", 8))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<H", img.size[1]))
-            f.write(pack("<H", 1))
-            f.write(pack("<H", img.size[0]))
-            f.write(pack("<H", 0))
-            f.write(pack("<I", img.size[0]))
-            f.write(pack("B", 3))
-            f.write(pack("B", 0))
-            f.write(pack("B", 0))
-            f.write(pack("B", 0x81))
-            f.write(pack("<I", img.size[1]*img.size[0]*4+96+80+20))
-            f.write(pack("<I", img.size[1]*img.size[0]*4))
+        if len(bpy.data.images) == 1:
+            sizex=0
+            for i, img in enumerate(bpy.data.images):
+                sizex+=img.size[0]*img.size[1]*4
+            f.write(b"TST0")
+            f.write(pack("<I", sizex+80+160+16))
             f.write(pack("<I", 1))
-            f.write(pack("<I", 1))
-            f.write(pack("<I", 12))
             f.write(pack("<I", 0))
+            for i, img in enumerate(bpy.data.images):
+                f.write(pack("<I", 160+img.size[1]*img.size[0]*4+80-16))
+                f.write(pack("<I", 8))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<H", img.size[1]))
+                f.write(pack("<H", 1))
+                f.write(pack("<H", img.size[0]))
+                f.write(pack("<H", 0))
+                f.write(pack("<I", img.size[0]))
+                f.write(pack("B", 3))
+                f.write(pack("B", 0))
+                f.write(pack("B", 0))
+                f.write(pack("B", 0x81))
+                f.write(pack("<I", img.size[1]*img.size[0]*4+96+80+20))
+                f.write(pack("<I", img.size[1]*img.size[0]*4))
+                f.write(pack("<I", 1))
+                f.write(pack("<I", 1))
+                f.write(pack("<I", 12))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("B", 5))
+                f.write(pack("B", 1))
+                f.write(pack("B", 0))
+                f.write(pack("B", 96))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("B", 5))
+                f.write(pack("B", 1))
+                f.write(pack("B", 0))
+                f.write(pack("B", 80))
+                f.write(pack("<I", 32771))
+                f.write(pack(">I", 16))
+                f.write(pack("<I", 14))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 81))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", img.size[1]))
+                f.write(pack("<I", img.size[0]))
+                f.write(pack("<I", 82))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 83))
+                f.write(pack("<I", 0))
+                f.write(pack("<H", int(0x80*2+img.size[1]*img.size[0]//512<<2//8//2<<7)))
+                f.write(pack("<H", 0))
+                f.write(pack("<H", 0))
+                f.write(pack("<H", 2048))
+                f.write(pack("<H", 0))
+                f.write(pack("<H", 0))
+                f.write(pack("<H", 0))
+                f.write(pack("<H", 0))
+                idx1 = 0
+                idx2 = 1
+                idx3 = 2
+                idx4 = 3
+                for y in range(int(img.size[1])):
+                    for x in range(int(img.size[0])):
+                        f.write(pack("B", int(255*img.pixels[idx1])))
+                        f.write(pack("B", int(255*img.pixels[idx2])))
+                        f.write(pack("B", int(255*img.pixels[idx3])))
+                        f.write(pack("B", int(127*img.pixels[idx4])))
+                        idx1+=4
+                        idx2+=4
+                        idx3+=4
+                        idx4+=4
+                    
+                for i in range(80):
+                    f.write(pack("B", 0xCD))
+        elif len(bpy.data.images) != 0:
+            sizex=0
+            for i, img in enumerate(bpy.data.images):
+                sizex+=img.size[0]*img.size[1]*4
+            f.write(b"TST0")
+            f.write(pack("<I", sizex+80+160+16))
+            f.write(pack("<I", len(bpy.data.images)))
             f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("B", 5))
-            f.write(pack("B", 1))
-            f.write(pack("B", 0))
-            f.write(pack("B", 96))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("B", 5))
-            f.write(pack("B", 1))
-            f.write(pack("B", 0))
-            f.write(pack("B", 80))
-            f.write(pack("<I", 32771))
-            f.write(pack(">I", 16))
-            f.write(pack("<I", 14))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 81))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", img.size[1]))
-            f.write(pack("<I", img.size[0]))
-            f.write(pack("<I", 82))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 0))
-            f.write(pack("<I", 83))
-            f.write(pack("<I", 0))
-            f.write(pack("<H", int(0x80*2+img.size[1]*img.size[0]//512<<2//8//2<<7)))
-            f.write(pack("<H", 0))
-            f.write(pack("<H", 0))
-            f.write(pack("<H", 2048))
-            f.write(pack("<H", 0))
-            f.write(pack("<H", 0))
-            f.write(pack("<H", 0))
-            f.write(pack("<H", 0))
-            idx1 = 0
-            idx2 = 1
-            idx3 = 2
-            idx4 = 3
-            for y in range(int(img.size[1])):
-                for x in range(int(img.size[0])):
-                    f.write(pack("B", int(255*img.pixels[idx1])))
-                    f.write(pack("B", int(255*img.pixels[idx2])))
-                    f.write(pack("B", int(255*img.pixels[idx3])))
-                    f.write(pack("B", int(127*img.pixels[idx4])))
-                    idx1+=4
-                    idx2+=4
-                    idx3+=4
-                    idx4+=4
-                
-            for i in range(80):
-                f.write(pack("B", 0xCD))
+            for i, img in enumerate(bpy.data.images):
+                f.write(pack("<I", 160+img.size[1]*img.size[0]*4+80-16))
+                f.write(pack("<I", 8))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<H", img.size[1]))
+                f.write(pack("<H", 1))
+                f.write(pack("<H", img.size[0]))
+                f.write(pack("<H", 0))
+                f.write(pack("<I", img.size[0]))
+                f.write(pack("B", 3))
+                f.write(pack("B", 0))
+                f.write(pack("B", 0))
+                f.write(pack("B", 0x81))
+                f.write(pack("<I", img.size[1]*img.size[0]*4+96+80+20))
+                f.write(pack("<I", img.size[1]*img.size[0]*4))
+                f.write(pack("<I", 1))
+                f.write(pack("<I", 1))
+                f.write(pack("<I", 12))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("B", 5))
+                f.write(pack("B", 1))
+                f.write(pack("B", 0))
+                f.write(pack("B", 96))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("B", 5))
+                f.write(pack("B", 1))
+                f.write(pack("B", 0))
+                f.write(pack("B", 80))
+                f.write(pack("<I", 32771))
+                f.write(pack(">I", 16))
+                f.write(pack("<I", 14))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 81))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", img.size[1]))
+                f.write(pack("<I", img.size[0]))
+                f.write(pack("<I", 82))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 0))
+                f.write(pack("<I", 83))
+                f.write(pack("<I", 0))
+                f.write(pack("<H", int(0x80*2+img.size[1]*img.size[0]//512<<2//8//2<<7)))
+                f.write(pack("<H", 0))
+                f.write(pack("<H", 0))
+                f.write(pack("<H", 2048))
+                f.write(pack("<H", 0))
+                f.write(pack("<H", 0))
+                f.write(pack("<H", 0))
+                f.write(pack("<H", 0))
+                idx1 = 0
+                idx2 = 1
+                idx3 = 2
+                idx4 = 3
+                for y in range(int(img.size[1])):
+                    for x in range(int(img.size[0])):
+                        f.write(pack("B", int(255*img.pixels[idx1])))
+                        f.write(pack("B", int(255*img.pixels[idx2])))
+                        f.write(pack("B", int(255*img.pixels[idx3])))
+                        f.write(pack("B", int(127*img.pixels[idx4])))
+                        idx1+=4
+                        idx2+=4
+                        idx3+=4
+                        idx4+=4
+                    
+                for i in range(80):
+                    f.write(pack("B", 0xCD))
             
             
             
@@ -406,8 +488,11 @@ def vertices_0x03010010380XX6C_(f):
         f.write(pack("<I", 0))
         f.write(pack("<f", 1))
         if len(bpy.data.images) != 0:
-            f.write(pack("<I", texID))
-            texID+=1
+            if len(bpy.data.images) != 0:
+                f.write(pack("<I", texID))
+                texID+=1
+            elif len(bpy.data.images) == 1:
+                f.write(pack("<I", 0))
         elif len(bpy.data.images) == 0:
             f.write(pack("<I", 0))
         f.write(pack("<I", matID))
@@ -1033,10 +1118,26 @@ def vertices_0x03010010380XX6C_(f):
                         f.write(pack("<h", -int(4096*uv_layerABCD1[i2].uv[1])))
                         i2+=1
                         if i2 == 5:
-                            f.seek(-4,1)
+                            f.seek(-20,1)
                             f.write(pack("<h", 0))
                             f.write(pack("<h", 0))
-                            f.seek(-4,1)
+                            f.write(pack("<h", 0))
+                            f.write(pack("<h", 0))
+                            f.write(pack("<h", 0))
+                            f.write(pack("<h", 0))
+                            f.write(pack("<h", 0))
+                            f.write(pack("<h", 0))
+                            f.write(pack("<h", 0))
+                            f.write(pack("<h", 0))
+                            f.seek(-20,1)
+                            f.write(pack("<h", int(4096*uv_layerABCD1[0].uv[0])))
+                            f.write(pack("<h", -int(4096*uv_layerABCD1[0].uv[1])))
+                            f.write(pack("<h", int(4096*uv_layerABCD1[1].uv[0])))
+                            f.write(pack("<h", -int(4096*uv_layerABCD1[1].uv[1])))
+                            f.write(pack("<h", int(4096*uv_layerABCD1[2].uv[0])))
+                            f.write(pack("<h", -int(4096*uv_layerABCD1[2].uv[1])))
+                            f.write(pack("<h", int(4096*uv_layerABCD1[4].uv[0])))
+                            f.write(pack("<h", -int(4096*uv_layerABCD1[4].uv[1])))
                             f.write(pack("<h", int(4096*uv_layerABCD1[-4].uv[0])))
                             f.write(pack("<h", -int(4096*uv_layerABCD1[-4].uv[1])))
                 except:
@@ -1283,9 +1384,46 @@ def vertices_0x03010010380XX6C_(f):
                     f.write(pack("B", 128))
                     f.write(pack("B", len(obdata.vertices)))
                     f.write(pack("B", 101))
+                    i3=0
                     for v in obdata.vertices:
-                        f.write(pack("<h", int(4096*uv_layerABCDEa[v.index].uv[0])))
-                        f.write(pack("<h", -int(4096*uv_layerABCDEa[v.index].uv[1])))
+                        f.write(pack("<h", int(4096*uv_layerABCDEa[i3].uv[0])))
+                        f.write(pack("<h", -int(4096*uv_layerABCDEa[i3].uv[1])))
+                        i3+=1
+                        if i3 == 6:
+                            if len(obdata.polygons) == 4:
+                                f.seek(-4,1)
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.seek(-4,1)
+                                f.write(pack("<h", int(4096*uv_layerABCDEa[-1].uv[0])))
+                                f.write(pack("<h", -int(4096*uv_layerABCDEa[-1].uv[1])))
+                            elif len(obdata.polygons) == 2:
+                                f.seek(-24,1)
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.write(pack("<h", 0))
+                                f.seek(-24,1)
+                                f.write(pack("<h", int(4096*uv_layerABCDEa[0].uv[0])))
+                                f.write(pack("<h", -int(4096*uv_layerABCDEa[0].uv[1])))
+                                f.write(pack("<h", int(4096*uv_layerABCDEa[1].uv[0])))
+                                f.write(pack("<h", -int(4096*uv_layerABCDEa[1].uv[1])))
+                                f.write(pack("<h", int(4096*uv_layerABCDEa[2].uv[0])))
+                                f.write(pack("<h", -int(4096*uv_layerABCDEa[2].uv[1])))
+                                f.write(pack("<h", int(4096*uv_layerABCDEa[4].uv[0])))
+                                f.write(pack("<h", -int(4096*uv_layerABCDEa[4].uv[1])))
+                                f.write(pack("<h", int(4096*uv_layerABCDEa[3].uv[0])))
+                                f.write(pack("<h", -int(4096*uv_layerABCDEa[3].uv[1])))
+                                f.write(pack("<h", int(4096*uv_layerABCDEa[5].uv[0])))
+                                f.write(pack("<h", -int(4096*uv_layerABCDEa[5].uv[1])))
                 except:
                     AttributeError
                 iindex2+=1
