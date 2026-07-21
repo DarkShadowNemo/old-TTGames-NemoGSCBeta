@@ -52,6 +52,7 @@ def vertices_0x03010010380XX6C_(f):
     
 
     curve_objects = [obj for obj in bpy.context.scene.objects if obj.type == 'CURVE']
+    empty_objects = [obj for obj in bpy.data.objects if obj.type == "EMPTY"]
     if len(curve_objects) == 0:
         pass
     elif len(curve_objects):
@@ -40001,11 +40002,35 @@ def vertices_0x03010010380XX6C_(f):
         f.write(pack("<I", 16))
         f.write(pack("<I", 0))
         f.write(pack("<I", 0))
-            
-    f.write(b"BNDS")
-    f.write(pack("<I", 16))
-    f.write(pack("<I", 0))
-    f.write(pack("<I", 0))
+
+    if len(empty_objects) == 0:
+        f.write(b"BNDS")
+        f.write(pack("<I", 16))
+        f.write(pack("<I", 0))
+        f.write(pack("<I", 0))
+    elif len(empty_objects) != 0:
+        f.write(b"BNDS")
+        f.write(pack("<I", 63952))
+        f.write(pack("<I", 1))
+        f.write(pack("<I", len(empty_objects)))
+        f.write(pack("<I", 0))
+        f.write(pack("<I", 0))
+        for i, empt in enumerate(bpy.data.objects):
+            if empt.type == "EMPTY":
+                f.write(pack("<f", empt.location.x))
+                f.write(pack("<f", empt.location.z))
+                f.write(pack("<f", empt.location.y))
+                f.write(pack("<f", math.tan(empt.rotation_euler.x)))
+                f.write(pack("<f", math.tan(empt.rotation_euler.y)))
+                f.write(pack("<f", math.tan(empt.rotation_euler.z)))
+                f.write(pack("<f", empt.scale.x))
+                f.write(pack("<f", empt.scale.y))
+                f.write(pack("<f", empt.scale.z))
+        pad_len = f.tell() % 65536
+        if pad_len > 0:
+            f.write(b"\0" * (65536-pad_len))
+        
+    
     
     size2=f.seek(FileeSize2,2)
     f.seek(0)
