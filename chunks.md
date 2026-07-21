@@ -17,9 +17,11 @@ INST - InstanceSet - object coordinates
 SPEC - SpecialSet - 2nd object coordinates
 
 IABL - InstanceAnimationBlocks - ram usually animated matrix, usually set to 0, hard to import in, unless assign inst, spec, alib and restore iabl for and back, forw matrix
+
+
 ALIB - AnimationLibrary - object animation
 
-PORT - PORT - PORTAL CULLING, thanks lego ttgames modding for saying this term
+PORT - PORTAL - PORTAL CULLING, thanks lego ttgames modding for saying this term
 
 SST0 - SplineSet - splines
 
