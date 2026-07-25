@@ -638,27 +638,29 @@ def blender_gsc_texture_convert(f):
                 width = img.size[0]
                 height = img.size[1]
 
-                shiftx = 90
-                shifty = 0
+                #shiftx = 80
+                #shifty = 0
+
+                pixels = list(img.pixels)
+                new_pixels = pixels[:]
+
+                shift = 80
 
                 src = list(img.pixels)
                 dst = [0.0] * len(src)
 
                 for y in range(height):
                     for x in range(width):
-                        nx = x + shiftx
-                        ny = y + shifty
-                        if 0 <=nx<width and 0 <= ny < height:
-                            src_index = (y*width+x)*4
-                            dst_index = (ny * width + nx) * 4
+                        src_x = (x-shift)%width
 
-                            dst[dst_index] = src[src_index]
-                            dst[dst_index+1] = src[src_index+1]
-                            dst[dst_index+2] = src[src_index+2]
-                            dst[dst_index+3] = src[src_index+3]
+                        src = (y*width+src_x)*4
+                        dst = (y*width+x)*4
 
-                img.pixels[:] = dst
+                        new_pixels[dst:dst+4] = pixels[src:src+4]
+
+                img.pixels = new_pixels
                 img.update()
+                
                 img_0x8080_idx+=1
                 if img_0x8080_idx == 1:
                     try:
