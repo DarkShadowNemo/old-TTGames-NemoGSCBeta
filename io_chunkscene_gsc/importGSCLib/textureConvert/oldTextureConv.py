@@ -159,48 +159,6 @@ def read_pallete(f, amt):
         g1 = round(g,4)
         b1 = round(b,4)
         a1 = round(a,4)
-        r1*=0
-        g1*=0
-        b1*=0
-        a1*=0
-        r1*=255
-        g1*=255
-        b1*=255
-        a1*=127
-        r1/=255
-        g1/=255
-        b1/=255
-        a1/=127
-        r1-=1
-        g1-=1
-        b1-=1
-        a1-=1
-        r1+=1
-        g1+=1
-        b1+=1
-        a1+=1
-        r1-=r
-        g1-=g
-        b1-=b
-        a1-=a
-        r1+=r
-        g1+=g
-        b1+=b
-        a1+=a
-
-        a1+=254
-        a1//=2
-        a1/=127
-        a1-=1
-        a1%=int(1)
-        a1=a
-
-        if a1 == 1:
-            r1*=math.acos(a1)
-            g1*=math.acos(a1)
-            b1*=math.acos(a1)
-        
-        
         g_pallete1.append(r1)
         g_pallete2.append(g1)
         g_pallete3.append(b1)
@@ -671,10 +629,36 @@ def blender_gsc_texture_convert(f):
             if img_0x8080_idx == 0:
                 for y in range(height_ // 2):
                     for x in range(width_):
-                        idx1 = g_image_data[2*y*width_ + 1*x + 0]
+                        idx1 = g_image_data[2*y*width_ + 1*x + 0] 
                         idx2 = g_image_data[2*y*width_ + 1*x + 1]
                         drawPixel(x,y*2+0, g_pallete1[idx_test(idx1)],g_pallete2[idx_test(idx1)],g_pallete3[idx_test(idx1)],g_pallete4[idx_test(idx1)])
                         drawPixel(x,y*2+1, g_pallete1[idx_test(idx2)],g_pallete2[idx_test(idx2)],g_pallete3[idx_test(idx2)],g_pallete4[idx_test(idx2)])
+                image_name = "GSC 0x8080"
+                img = bpy.data.images[image_name]
+                width = img.size[0]
+                height = img.size[1]
+
+                shiftx = 90
+                shifty = 0
+
+                src = list(img.pixels)
+                dst = [0.0] * len(src)
+
+                for y in range(height):
+                    for x in range(width):
+                        nx = x + shiftx
+                        ny = y + shifty
+                        if 0 <=nx<width and 0 <= ny < height:
+                            src_index = (y*width+x)*4
+                            dst_index = (ny * width + nx) * 4
+
+                            dst[dst_index] = src[src_index]
+                            dst[dst_index+1] = src[src_index+1]
+                            dst[dst_index+2] = src[src_index+2]
+                            dst[dst_index+3] = src[src_index+3]
+
+                img.pixels[:] = dst
+                img.update()
                 img_0x8080_idx+=1
                 if img_0x8080_idx == 1:
                     try:
@@ -683,4 +667,5 @@ def blender_gsc_texture_convert(f):
                         bpy.data.images.remove(img)
                     except:
                         KeyError
-                
+    except:
+        NameError
