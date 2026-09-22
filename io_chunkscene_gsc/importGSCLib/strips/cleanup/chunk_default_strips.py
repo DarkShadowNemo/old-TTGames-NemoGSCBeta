@@ -60,6 +60,8 @@ def wholeChunk1_default(f):
 
     verts_def3a=[]
     faces_def3a=[]
+
+    singleDefault1=0
     
     f.seek(0)
     Chunks3 = f.read()
@@ -102,9 +104,9 @@ def wholeChunk1_default(f):
                     if _00_n_offset3_default == 16777473:
                         _00_n_offset4_default = unpack("<I", f.read(4))[0]
                         if _00_n_offset4_default == 335545088:
-                            if default_type4 == 1:
-                                if default_type41 == 1:
-                                    if default_type42 == 0:
+                            if default_type4 is 1:
+                                if default_type41 is 1:
+                                    if default_type42 is 0:
                                         verts_def.append([default_vx,default_vz,default_vy])
                                         verts_def.append([default_vx1,default_vz1,default_vy1])
                                         verts_def.append([default_vx2,default_vz2,default_vy2])
@@ -143,10 +145,10 @@ def wholeChunk1_default(f):
                     if _00_n_offset3_default1 == 16777473:
                         _00_n_offset4_default1 = unpack("<I", f.read(4))[0]
                         if _00_n_offset4_default1 == 335545088:
-                            if default_type4_ == 1:
-                                if default_type41_ == 1:
-                                    if default_type42_ == 0:
-                                        if default_type43_ == 0:
+                            if default_type4_ is 1:
+                                if default_type41_ is 1:
+                                    if default_type42_ is 0:
+                                        if default_type43_ is 0:
                                             verts_def1.append([default_vx_,default_vz_,default_vy_])
                                             verts_def1.append([default_vx1_,default_vz1_,default_vy1_])
                                             verts_def1.append([default_vx2_,default_vz2_,default_vy2_])
@@ -196,11 +198,11 @@ def wholeChunk1_default(f):
                     if _00_n_offset3_default2 == 16777473:
                         _00_n_offset4_default2 = unpack("<I", f.read(4))[0]
                         if _00_n_offset4_default2 == 335545088:
-                            if default_type4_1 == 1:
-                                if default_type41_2 == 1:
-                                    if default_type42_3 == 0:
-                                        if default_type43_4 == 0:
-                                            if default_type44_5 == 0:
+                            if default_type4_1 is 1:
+                                if default_type41_2 is 1:
+                                    if default_type42_3 is 0:
+                                        if default_type43_4 is 0:
+                                            if default_type44_5 is 0:
                                                 verts_def2.append([default_vx_1,default_vz_1,default_vy_1])
                                                 verts_def2.append([default_vx1_2,default_vz1_2,default_vy1_2])
                                                 verts_def2.append([default_vx2_3,default_vz2_3,default_vy2_3])
@@ -304,12 +306,12 @@ def wholeChunk1_default(f):
                     if _00_n_offset3_default3 == 16777473:
                         _00_n_offset4_default3 = unpack("<I", f.read(4))[0]
                         if _00_n_offset4_default3 == 335545088:
-                            if default_type4_1a_ == 1:
-                                if default_type41_2a_ == 1:
-                                    if default_type42_3a_ == 0:
-                                        if default_type43_4a_ == 1:
-                                            if default_type44_5a_ == 1:
-                                                if default_type44_6a_ == 0:
+                            if default_type4_1a_ is 1:
+                                if default_type41_2a_ is 1:
+                                    if default_type42_3a_ is 0:
+                                        if default_type43_4a_ is 1:
+                                            if default_type44_5a_ is 1:
+                                                if default_type44_6a_ is 0:
                                                     verts_def3a.append([default_vx_1a_,default_vz_1a_,default_vy_1a_])
                                                     verts_def3a.append([default_vx1_2a_,default_vz1_2a_,default_vy1_2a_])
                                                     verts_def3a.append([default_vx2_3a_,default_vz2_3a_,default_vy2_3a_])
@@ -325,12 +327,12 @@ def wholeChunk1_default(f):
                                                     ff_def3a+=1*6
                                                     faces_def3a.append([fa_def3a,fb_def3a,fc_def3a])
                                                     faces_def3a.append([fd_def3a,fe_def3a,ff_def3a])
-                            if default_type4_1_ == 1:
-                                if default_type41_2_ == 1:
-                                    if default_type42_3_ == 0:
-                                        if default_type43_4_ == 0:
-                                            if default_type44_5_ == 0:
-                                                if default_type44_6_ == 0:
+                            if default_type4_1_ is 1:
+                                if default_type41_2_ is 1:
+                                    if default_type42_3_ is 0:
+                                        if default_type43_4_ is 0:
+                                            if default_type44_5_ is 0:
+                                                if default_type44_6_ is 0:
                                                     verts_def3.append([default_vx_1_,default_vz_1_,default_vy_1_])
                                                     verts_def3.append([default_vx1_2_,default_vz1_2_,default_vy1_2_])
                                                     verts_def3.append([default_vx2_3_,default_vz2_3_,default_vy2_3_])
