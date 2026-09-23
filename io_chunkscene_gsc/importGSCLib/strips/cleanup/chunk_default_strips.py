@@ -61,7 +61,10 @@ def wholeChunk1_default(f):
     verts_def3a=[]
     faces_def3a=[]
 
-    singleDefault1=0
+    singleDefault1=1
+    singleDefault2=1
+    singleDefault3=0
+    singleDefault4=1
     
     f.seek(0)
     Chunks3 = f.read()
@@ -115,6 +118,9 @@ def wholeChunk1_default(f):
                                         fb_def+=1*3
                                         fc_def+=1*3
                                         faces_def.append([fa_def,fb_def,fc_def])
+                                    else:
+                                        if default_type42 is 1:
+                                            pass
                 elif vertexCount3 == 4:
                     for i in range(1):
                         default_vx_ = unpack("<f", f.read(4))[0]
@@ -162,6 +168,10 @@ def wholeChunk1_default(f):
                                             ff_def1+=1*4
                                             faces_def1.append([fa_def1,fb_def1,fc_def1])
                                             faces_def1.append([fd_def1,fe_def1,ff_def1])
+                                    else:
+                                        if default_type42_ is 1:
+                                            if default_type43_ is 1:
+                                                pass
                 elif vertexCount3 == 5:
                     for i in range(1):
                         default_vx_1 = unpack("<f", f.read(4))[0]
@@ -225,6 +235,12 @@ def wholeChunk1_default(f):
                                                 faces_def2.append([fd_def2,fe_def2,ff_def2])
                                                 faces_def2.append([fg_def2,fh_def2,fi_def2])
                                                 faces_def2.append([fj_def2,fk_def2,fl_def2])
+                                    else:
+                                        if default_type42_3 is 1:
+                                            if default_type43_4 is 1:
+                                                if default_type44_5 is 1:
+                                                    pass
+                                                
                 elif vertexCount3 == 6:
                     for i in range(1):
                         default_vx_1_ = unpack("<f", f.read(4))[0]
