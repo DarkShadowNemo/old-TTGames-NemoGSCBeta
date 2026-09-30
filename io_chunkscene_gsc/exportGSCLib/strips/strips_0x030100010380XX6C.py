@@ -1076,8 +1076,8 @@ def vertices_0x03010010380XX6C_(f):
                 elif facesAAA[0:5] == [[0, 1, 2], [1, 3, 2]]:
                     pass
                 elif facesAAA[0:5] == [[2, 0, 3], [0, 2, 1]]:
-                    for v in obdata.vertices[0:1]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
-                    for v in obdata.vertices[1:2]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
+                    for v in obdata.vertices[1:2]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
+                    for v in obdata.vertices[0:1]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
                     for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                     for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                     
