@@ -55,6 +55,26 @@ def wholeChunk1_default(f):
     fn_def4=-2
     fo_def4=-1
 
+    fa_def4a=-7
+    fb_def4a=-6
+    fc_def4a=-5
+    fd_def4a=-4
+    fe_def4a=-3
+    ff_def4a=-2
+    fg_def4a=-3
+    fh_def4a=-2
+    fi_def4a=-1
+
+    fa_def4aa=-7
+    fb_def4aa=-6
+    fc_def4aa=-5
+    fd_def4aa=-6
+    fe_def4aa=-5
+    ff_def4aa=-4
+    fg_def4aa=-3
+    fh_def4aa=-2
+    fi_def4aa=-1
+
     fa_def3a=-6
     fb_def3a=-5
     fc_def3a=-4
@@ -76,6 +96,12 @@ def wholeChunk1_default(f):
     
     verts_def4=[]
     faces_def4=[]
+
+    verts_def4a=[]
+    faces_def4a=[]
+
+    verts_def4aa=[]
+    faces_def4aa=[]
 
     verts_def3a=[]
     faces_def3a=[]
@@ -524,7 +550,26 @@ def wholeChunk1_default(f):
                                             if default_type44_5_1aa is 1:
                                                 if default_type44_6_1aa is 1:
                                                     if default_type44_7_1aa is 0:
-                                                        pass
+                                                        verts_def4aa.append([default_vx_1_1aa,default_vz_1_1aa,default_vy_1_1aa])
+                                                        verts_def4aa.append([default_vx1_2_1aa,default_vz1_2_1aa,default_vy1_2_1aa])
+                                                        verts_def4aa.append([default_vx2_3_1aa,default_vz2_3_1aa,default_vy2_3_1aa])
+                                                        verts_def4aa.append([default_vx3_4_1aa,default_vz3_4_1aa,default_vy3_4_1aa])
+                                                        verts_def4aa.append([default_vx3_5_1aa,default_vz3_5_1aa,default_vy3_5_1aa])
+                                                        verts_def4aa.append([default_vx3_6_1aa,default_vz3_6_1aa,default_vy3_6_1aa])
+                                                        verts_def4aa.append([default_vx3_7_1aa,default_vz3_7_1aa,default_vy3_7_1aa])
+
+                                                        fa_def4aa+=1*7
+                                                        fb_def4aa+=1*7
+                                                        fc_def4aa+=1*7
+                                                        fd_def4aa+=1*7
+                                                        fe_def4aa+=1*7
+                                                        ff_def4aa+=1*7
+                                                        fg_def4aa+=1*7
+                                                        fh_def4aa+=1*7
+                                                        fi_def4aa+=1*7
+                                                        faces_def4aa.append([fa_def4aa,fb_def4aa,fc_def4aa])
+                                                        faces_def4aa.append([fd_def4aa,fe_def4aa,ff_def4aa])
+                                                        faces_def4aa.append([fg_def4aa,fh_def4aa,fi_def4aa])
                             if default_type4_1_1a is 1:
                                 if default_type41_2_1a is 1:
                                     if default_type42_3_1a is 0:
@@ -532,7 +577,26 @@ def wholeChunk1_default(f):
                                             if default_type44_5_1a is 1:
                                                 if default_type44_6_1a is 0:
                                                     if default_type44_7_1a is 0:
-                                                        pass
+                                                        verts_def4a.append([default_vx_1_1a,default_vz_1_1a,default_vy_1_1a])
+                                                        verts_def4a.append([default_vx1_2_1a,default_vz1_2_1a,default_vy1_2_1a])
+                                                        verts_def4a.append([default_vx2_3_1a,default_vz2_3_1a,default_vy2_3_1a])
+                                                        verts_def4a.append([default_vx3_4_1a,default_vz3_4_1a,default_vy3_4_1a])
+                                                        verts_def4a.append([default_vx3_5_1a,default_vz3_5_1a,default_vy3_5_1a])
+                                                        verts_def4a.append([default_vx3_6_1a,default_vz3_6_1a,default_vy3_6_1a])
+                                                        verts_def4a.append([default_vx3_7_1a,default_vz3_7_1a,default_vy3_7_1a])
+
+                                                        fa_def4a+=1*7
+                                                        fb_def4a+=1*7
+                                                        fc_def4a+=1*7
+                                                        fd_def4a+=1*7
+                                                        fe_def4a+=1*7
+                                                        ff_def4a+=1*7
+                                                        fg_def4a+=1*7
+                                                        fh_def4a+=1*7
+                                                        fi_def4a+=1*7
+                                                        faces_def4a.append([fa_def4a,fb_def4a,fc_def4a])
+                                                        faces_def4a.append([fd_def4a,fe_def4a,ff_def4a])
+                                                        faces_def4a.append([fg_def4a,fh_def4a,fi_def4a])
                             if default_type4_1_1 is 1:
                                 if default_type41_2_1 is 1:
                                     if default_type42_3_1 is 0:
