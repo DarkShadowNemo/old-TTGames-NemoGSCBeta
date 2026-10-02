@@ -12,9 +12,17 @@ def wholeChunk1_auto(f, filepath):
     verts_auto=[]
     faces_auto=[]
 
+    verts_autoa=[]
+    faces_autoa=[]
+
     fa_auto=-3
     fb_auto=-2
     fc_auto=-1
+
+    fa_autoa=-4
+    fb_autoa=-3
+    fc_autoa=-2
+    fd_autoa=-1
 
     
     while f.tell() < len(autoChunks):
@@ -53,6 +61,35 @@ def wholeChunk1_auto(f, filepath):
                             fb_auto+=1*3
                             fc_auto+=1*3
                             faces_auto.append([fa_auto,fb_auto,fc_auto])
+                elif vertexCountAuto1 == 4:
+                    for i in range(1):
+                        auto_vx1a = unpack("<f", f.read(4))[0]
+                        auto_vy1a = unpack("<f", f.read(4))[0]
+                        auto_vz1a = unpack("<f", f.read(4))[0]
+                        auto_vx2a = unpack("<f", f.read(4))[0]
+                        auto_vy2a = unpack("<f", f.read(4))[0]
+                        auto_vz2a = unpack("<f", f.read(4))[0]
+                        auto_vx3a = unpack("<f", f.read(4))[0]
+                        auto_vy3a = unpack("<f", f.read(4))[0]
+                        auto_vz3a = unpack("<f", f.read(4))[0]
+                        auto_vx4a = unpack("<f", f.read(4))[0]
+                        auto_vy4a = unpack("<f", f.read(4))[0]
+                        auto_vz4a = unpack("<f", f.read(4))[0]
+                    auto_offset2 = unpack("<I", f.read(4))[0]
+                    if auto_offset2 == 16777473:
+                        auto_offset2_ = unpack("<I", f.read(4))[0]
+                        if auto_offset2_ == 335545088:
+                            verts_autoa.append([auto_vx1a,auto_vz1a,auto_vy1a])
+                            verts_autoa.append([auto_vx2a,auto_vz2a,auto_vy2a])
+                            verts_autoa.append([auto_vx3a,auto_vz3a,auto_vy3a])
+                            verts_autoa.append([auto_vx4a,auto_vz4a,auto_vy4a])
+
+                            fa_autoa+=1*4
+                            fb_autoa+=1*4
+                            fc_autoa+=1*4
+                            fd_autoa+=1*4
+                            faces_autoa.append([fa_autoa,fb_autoa,fc_autoa])
+                            faces_autoa.append([fb_autoa,fc_autoa,fd_autoa])
 
     collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
     bpy.context.scene.collection.children.link(collection)
@@ -60,3 +97,8 @@ def wholeChunk1_auto(f, filepath):
     mes15_auto.from_pydata(verts_auto, [], faces_auto)
     obj15_auto = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mes15_auto)
     collection.objects.link(obj15_auto)
+
+    mes15_auto1 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mes15_auto1.from_pydata(verts_autoa, [], faces_autoa)
+    obj15_auto1 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mes15_auto1)
+    collection.objects.link(obj15_auto1)
