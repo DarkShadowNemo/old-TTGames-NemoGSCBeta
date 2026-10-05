@@ -15,6 +15,9 @@ def wholeChunk1_auto(f, filepath):
     verts_autoa=[]
     faces_autoa=[]
 
+    verts_autob=[]
+    faces_autob=[]
+
     fa_auto=-3
     fb_auto=-2
     fc_auto=-1
@@ -23,6 +26,13 @@ def wholeChunk1_auto(f, filepath):
     fb_autoa=-3
     fc_autoa=-2
     fd_autoa=-1
+
+    fa_autob=-5
+    fb_autob=-4
+    fc_autob=-3
+    fd_autob=-2
+    fe_autob=-1
+    
 
     
     while f.tell() < len(autoChunks):
@@ -61,6 +71,8 @@ def wholeChunk1_auto(f, filepath):
                             fb_auto+=1*3
                             fc_auto+=1*3
                             faces_auto.append([fa_auto,fb_auto,fc_auto])
+                        elif auto_offset1_ == 335545092:
+                            pass
                 elif vertexCountAuto1 == 4:
                     for i in range(1):
                         auto_vx1a = unpack("<f", f.read(4))[0]
@@ -90,6 +102,45 @@ def wholeChunk1_auto(f, filepath):
                             fd_autoa+=1*4
                             faces_autoa.append([fa_autoa,fb_autoa,fc_autoa])
                             faces_autoa.append([fb_autoa,fc_autoa,fd_autoa])
+                        elif auto_offset2_ == 335545092:
+                            pass
+                elif vertexCountAuto1 == 5:
+                    for i in range(1):
+                        auto_vx1b = unpack("<f", f.read(4))[0]
+                        auto_vy1b = unpack("<f", f.read(4))[0]
+                        auto_vz1b = unpack("<f", f.read(4))[0]
+                        auto_vx2b = unpack("<f", f.read(4))[0]
+                        auto_vy2b = unpack("<f", f.read(4))[0]
+                        auto_vz2b = unpack("<f", f.read(4))[0]
+                        auto_vx3b = unpack("<f", f.read(4))[0]
+                        auto_vy3b = unpack("<f", f.read(4))[0]
+                        auto_vz3b = unpack("<f", f.read(4))[0]
+                        auto_vx4b = unpack("<f", f.read(4))[0]
+                        auto_vy4b = unpack("<f", f.read(4))[0]
+                        auto_vz4b = unpack("<f", f.read(4))[0]
+                        auto_vx5b = unpack("<f", f.read(4))[0]
+                        auto_vy5b = unpack("<f", f.read(4))[0]
+                        auto_vz5b = unpack("<f", f.read(4))[0]
+                    auto_offset3 = unpack("<I", f.read(4))[0]
+                    if auto_offset3 == 16777473:
+                        auto_offset3_ = unpack("<I", f.read(4))[0]
+                        if auto_offset3 == 335545088:
+                            verts_autob.append([auto_vx1b,auto_vz1b,auto_vy1b])
+                            verts_autob.append([auto_vx2b,auto_vz2b,auto_vy2b])
+                            verts_autob.append([auto_vx3b,auto_vz3b,auto_vy3b])
+                            verts_autob.append([auto_vx4b,auto_vz4b,auto_vy4b])
+                            verts_autob.append([auto_vx5b,auto_vz5b,auto_vy5b])
+
+                            fa_autob+=1*5
+                            fb_autob+=1*5
+                            fc_autob+=1*5
+                            fd_autob+=1*5
+                            fe_autob+=1*5
+                            faces_autob.append([fa_autob,fb_autob,fc_autob])
+                            faces_autob.append([fb_autob,fc_autob,fd_autob])
+                            faces_autob.append([fc_autob,fd_autob,fe_autob])
+                        elif auto_offset3_ == 335545092:
+                            pass
 
     collection = bpy.data.collections.new(os.path.basename(os.path.splitext(filepath)[0]))
     bpy.context.scene.collection.children.link(collection)
@@ -102,3 +153,8 @@ def wholeChunk1_auto(f, filepath):
     mes15_auto1.from_pydata(verts_autoa, [], faces_autoa)
     obj15_auto1 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mes15_auto1)
     collection.objects.link(obj15_auto1)
+
+    mes15_auto2 = bpy.data.meshes.new(os.path.basename(os.path.splitext(filepath)[0]))
+    mes15_auto2.from_pydata(verts_autob, [], faces_autob)
+    obj15_auto2 = bpy.data.objects.new(os.path.basename(os.path.splitext(filepath)[0]), mes15_auto2)
+    collection.objects.link(obj15_auto2)
