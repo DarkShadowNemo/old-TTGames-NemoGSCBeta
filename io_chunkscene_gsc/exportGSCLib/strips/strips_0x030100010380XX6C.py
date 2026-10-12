@@ -117,8 +117,18 @@ def vertices_0x03010010380XX6C_(f):
                     f.write(pack("B", 0))
                     f.write(pack("B", 0))
                     f.write(pack("B", 0x81))
-                    f.write(pack("<I", 4292))
-                    f.write(pack("<I", 8192))
+                    if img.size[0] == 32 and img.size[1] == 32:
+                        f.write(pack("<I", 4292))
+                        f.write(pack("<I", 8192))
+                    elif img.size[0] == 64 and img.size[1] == 64:
+                        f.write(pack("<I", 16580))
+                        f.write(pack("<I", 16384))
+                    elif img.size[0] == 128 and img.size[1] == 128:
+                        f.write(pack("<I", 65732))
+                        f.write(pack("<I", 65536))
+                    elif img.size[0] == 256 and img.size[1] == 256:
+                        f.write(pack("<I", 262340))
+                        f.write(pack("<I", 262144))
                     if img.size[0] == 32 and img.size[1] == 32:
                         f.write(pack("<I", 1))
                         f.write(pack("<I", 1))
