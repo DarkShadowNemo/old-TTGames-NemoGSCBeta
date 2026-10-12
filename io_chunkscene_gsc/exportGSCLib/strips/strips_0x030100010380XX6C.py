@@ -78,12 +78,26 @@ def vertices_0x03010010380XX6C_(f):
             for i, img in enumerate(bpy.data.images):
                 sizex+=img.size[0]*img.size[1]*4
             f.write(b"TST0")
-            f.write(pack("<I", sizex+80+192+16))
+            if img.size[0] == 256 and img.size[1] == 256:
+                f.write(pack("<I", sizex+80+192+16+16))
+            elif img.size[0] == 128 and img.size[1] == 128:
+                f.write(pack("<I", sizex+80+192+16))
+            elif img.size[0] == 64 and img.size[1] == 64:
+                f.write(pack("<I", sizex+80+192+16))
+            elif img.size[0] == 32 and img.size[1] == 32:
+                f.write(pack("<I", sizex+80+192+16))
             f.write(pack("<I", 1))
             f.write(pack("<I", 0))
             for i, img in enumerate(bpy.data.images):
-                if img.size[1] == 32 and img.size[0] == 32:
-                    f.write(pack("<I", 4352))
+                if img.size[1] == 32 and img.size[0] == 32 or img.size[1] == 64 and img.size[0] == 64 or img.size[1] == 128 and img.size[0] == 128 or img.size[1] == 256 and img.size[0] == 256:
+                    if img.size[0] == 32 and img.size[1] == 32:
+                        f.write(pack("<I", 4352))
+                    elif img.size[0] == 64 and img.size[1] == 64:
+                        f.write(pack("<I", 16640))
+                    elif img.size[0] == 128 and img.size[1] == 128:
+                        f.write(pack("<I", 65792))
+                    elif img.size[0] == 256 and img.size[1] == 256:
+                        f.write(pack("<I", 262416))
                     f.write(pack("<I", 8))
                     f.write(pack("<I", 0))
                     f.write(pack("<I", 0))
@@ -91,18 +105,44 @@ def vertices_0x03010010380XX6C_(f):
                     f.write(pack("<H", 1))
                     f.write(pack("<H", img.size[0]))
                     f.write(pack("<H", 0))
-                    f.write(pack("<I", img.size[0]))
+                    if img.size[0] == 32 and img.size[1] == 32:
+                        f.write(pack("<I", 32))
+                    elif img.size[0] == 64 and img.size[1] == 64:
+                        f.write(pack("<I", 64))
+                    elif img.size[0] == 128  and img.size[1] == 128:
+                        f.write(pack("<I", 128))
+                    elif img.size[0] == 256 and img.size[1] == 256:
+                        f.write(pack("<I", 1024))
                     f.write(pack("B", 3))
                     f.write(pack("B", 0))
                     f.write(pack("B", 0))
                     f.write(pack("B", 0x81))
                     f.write(pack("<I", 4292))
                     f.write(pack("<I", 8192))
-                    f.write(pack("<I", 1))
-                    f.write(pack("<I", 1))
-                    f.write(pack("<I", 44))
-                    for i in range(44):
-                        f.write(pack("B", 0))
+                    if img.size[0] == 32 and img.size[1] == 32:
+                        f.write(pack("<I", 1))
+                        f.write(pack("<I", 1))
+                        f.write(pack("<I", 44))
+                        for i in range(44):
+                            f.write(pack("B", 0))
+                    elif img.size[0] == 64 and img.size[1] == 64:
+                        f.write(pack("<I", 1))
+                        f.write(pack("<I", 1))
+                        f.write(pack("<I", 44))
+                        for i in range(44):
+                            f.write(pack("B", 0))
+                    elif img.size[0] == 128 and img.size[1] == 128:
+                        f.write(pack("<I", 1))
+                        f.write(pack("<I", 1))
+                        f.write(pack("<I", 44))
+                        for i in range(44):
+                            f.write(pack("B", 0))
+                    elif img.size[0] == 256 and img.size[1] == 256:
+                        f.write(pack("<I", 4))
+                        f.write(pack("<I", 4))
+                        f.write(pack("<I", 60))
+                        for i in range(60):
+                            f.write(pack("B", 0))
                     f.write(pack("B", 5))
                     f.write(pack("B", 4))
                     f.write(pack("B", 0))
@@ -111,223 +151,6 @@ def vertices_0x03010010380XX6C_(f):
                     f.write(pack("<I", 0))
                     f.write(pack("B", 5))
                     f.write(pack("B", 4))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 80))
-                    f.write(pack("<I", 32771))
-                    f.write(pack(">I", 16))
-                    f.write(pack("<I", 14))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 81))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", img.size[1]))
-                    f.write(pack("<I", img.size[0]))
-                    f.write(pack("<I", 82))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 83))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<H", int(0x80*2+img.size[1]*img.size[0]//512<<2//8//2<<7)))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 2048))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    idx1 = 0
-                    idx2 = 1
-                    idx3 = 2
-                    idx4 = 3
-                    for y in range(int(img.size[1])):
-                        for x in range(int(img.size[0])):
-                            f.write(pack("B", int(255*img.pixels[idx1])))
-                            f.write(pack("B", int(255*img.pixels[idx2])))
-                            f.write(pack("B", int(255*img.pixels[idx3])))
-                            f.write(pack("B", int(127*img.pixels[idx4])))
-                            idx1+=4
-                            idx2+=4
-                            idx3+=4
-                            idx4+=4
-                        
-                    for i in range(80):
-                        f.write(pack("B", 0xCD))
-
-                elif img.size[1] == 64 and img.size[0] == 64:
-                    f.write(pack("<I", 16640))
-                    f.write(pack("<I", 8))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<H", img.size[1]))
-                    f.write(pack("<H", 1))
-                    f.write(pack("<H", img.size[0]))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<I", img.size[0]))
-                    f.write(pack("B", 3))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0x81))
-                    f.write(pack("<I", 16580))
-                    f.write(pack("<I", 16384))
-                    f.write(pack("<I", 1))
-                    f.write(pack("<I", 1))
-                    f.write(pack("<I", 44))
-                    for i in range(44):
-                        f.write(pack("B", 0))
-                    f.write(pack("B", 5))
-                    f.write(pack("B", 4))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 96))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("B", 5))
-                    f.write(pack("B", 4))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 80))
-                    f.write(pack("<I", 32771))
-                    f.write(pack(">I", 16))
-                    f.write(pack("<I", 14))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 81))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", img.size[1]))
-                    f.write(pack("<I", img.size[0]))
-                    f.write(pack("<I", 82))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 83))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<H", int(0x80*2+img.size[1]*img.size[0]//512<<2//8//2<<7)))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 2048))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    idx1 = 0
-                    idx2 = 1
-                    idx3 = 2
-                    idx4 = 3
-                    for y in range(int(img.size[1])):
-                        for x in range(int(img.size[0])):
-                            f.write(pack("B", int(255*img.pixels[idx1])))
-                            f.write(pack("B", int(255*img.pixels[idx2])))
-                            f.write(pack("B", int(255*img.pixels[idx3])))
-                            f.write(pack("B", int(127*img.pixels[idx4])))
-                            idx1+=4
-                            idx2+=4
-                            idx3+=4
-                            idx4+=4
-                        
-                    for i in range(80):
-                        f.write(pack("B", 0xCD))
-                elif img.size[1] == 128 and img.size[0] == 128:
-                    f.write(pack("<I", 65792))
-                    f.write(pack("<I", 8))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<H", img.size[1]))
-                    f.write(pack("<H", 1))
-                    f.write(pack("<H", img.size[0]))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<I", img.size[0]))
-                    f.write(pack("B", 3))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0x81))
-                    f.write(pack("<I", 65732))
-                    f.write(pack("<I", 65536))
-                    f.write(pack("<I", 1))
-                    f.write(pack("<I", 1))
-                    f.write(pack("<I", 44))
-                    for i in range(44):
-                        f.write(pack("B", 0))
-                    f.write(pack("B", 5))
-                    f.write(pack("B", 4))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 96))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("B", 5))
-                    f.write(pack("B", 4))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 80))
-                    f.write(pack("<I", 32771))
-                    f.write(pack(">I", 16))
-                    f.write(pack("<I", 14))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 81))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", img.size[1]))
-                    f.write(pack("<I", img.size[0]))
-                    f.write(pack("<I", 82))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 83))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<H", int(0x80*2+img.size[1]*img.size[0]//512<<2//8//2<<7)))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 2048))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<H", 0))
-                    idx1 = 0
-                    idx2 = 1
-                    idx3 = 2
-                    idx4 = 3
-                    for y in range(int(img.size[1])):
-                        for x in range(int(img.size[0])):
-                            f.write(pack("B", int(255*img.pixels[idx1])))
-                            f.write(pack("B", int(255*img.pixels[idx2])))
-                            f.write(pack("B", int(255*img.pixels[idx3])))
-                            f.write(pack("B", int(127*img.pixels[idx4])))
-                            idx1+=4
-                            idx2+=4
-                            idx3+=4
-                            idx4+=4
-                        
-                    for i in range(80):
-                        f.write(pack("B", 0xCD))
-                elif img.size[1] == 256 and img.size[0] == 256:
-                    f.write(pack("<I", 262416))
-                    f.write(pack("<I", 8))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<H", img.size[1]))
-                    f.write(pack("<H", 1))
-                    f.write(pack("<H", img.size[0]))
-                    f.write(pack("<H", 0))
-                    f.write(pack("<I", img.size[0]))
-                    f.write(pack("B", 3))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 0x81))
-                    f.write(pack("<I", 262340))
-                    f.write(pack("<I", 262144))
-                    f.write(pack("<I", 4))
-                    f.write(pack("<I", 4))
-                    f.write(pack("<I", 60))
-                    for i in range(60):
-                        f.write(pack("B", 0))
-                    f.write(pack("B", 5))
-                    f.write(pack("B", 0x40))
-                    f.write(pack("B", 0))
-                    f.write(pack("B", 96))
-                    f.write(pack("<I", 0))
-                    f.write(pack("<I", 0))
-                    f.write(pack("B", 5))
-                    f.write(pack("B", 0x40))
                     f.write(pack("B", 0))
                     f.write(pack("B", 80))
                     f.write(pack("<I", 32771))
