@@ -1,0 +1,1 @@
+gsc = game scene container
