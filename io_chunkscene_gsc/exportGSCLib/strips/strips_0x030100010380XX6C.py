@@ -719,7 +719,7 @@ def vertices_0x03010010380XX6C_(f):
                 if facesAAA[0:5] == [[0, 1, 2], [1, 2, 3]]:
                     f.seek(-64,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 else:
-                    if facesAAA[0:1] > [[a,b,c]]:
+                    if facesAAA[0:1] != [[a,b,c]]:
                         f.seek(-64,1);f.write(pack("<f", -1+0));f.write(pack("<f", 0+0));f.write(pack("<f", -1+0));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.write(pack("<f", 1+0));f.write(pack("<f", 0+0));f.write(pack("<f", -1+0));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.write(pack("<f", -1+0));f.write(pack("<f", 0+0));f.write(pack("<f", 1+0));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.write(pack("<f", 1+0));f.write(pack("<f", 0+0));f.write(pack("<f", 1+0));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);
 
             _1index = 0
