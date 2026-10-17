@@ -25,27 +25,7 @@ def vertices_0x03010010380XX6C_(f):
     FileeSize2a=0
 
     staIDX=0
-
-    """import bpy
-
-        # Define the collection name to ignore
-        ignore_collection_name = "IgnoreThisCollection"
-
-        # Loop through all collections in bpy.data.collections
-        for collection in bpy.data.collections:
-            if collection.name != ignore_collection_name:
-                print(f"Collection Name: {collection.name}")"""
-    """for ob in bpy.data.objects:
-        if ob.type == "MESH":
-            for mat_slot in ob.material_slots:
-                if mat_slot.material:
-                    if mat_slot.material.node_tree:
-                       for x in mat_slot.material.node_tree.nodes:
-                            if x.name == "Texture Coordinate":
-                                SatMaxSize1+=16
-                                satt.append([SatMaxSize])
-    if len(satt[0]) == 1:
-        Sat_time+=16"""
+    
     for i, extraobdata in enumerate(bpy.data.meshes):
         countlentotal = len(extraobdata.vertices)
         lenSize+=countlentotal
@@ -735,19 +715,12 @@ def vertices_0x03010010380XX6C_(f):
                 a=facs.vertices[0]
                 b=facs.vertices[1]
                 c=facs.vertices[2]
-                facesAAA.append([a,b,c])
-                if facesAAA[0:5] == [[0, 1, 2], [2, 1, 3]]:
+                facesAAA.append(sorted([a,b,c]))
+                if facesAAA[0:5] == [[0, 1, 2], [1, 2, 3]]:
                     f.seek(-64,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[0, 1, 2], [1, 2, 3]]:
-                    f.seek(-64,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[0, 1, 2], [1, 3, 2]]:
-                    pass
-                elif facesAAA[0:5] == [[2, 0, 3], [0, 2, 1]]:
-                    for v in obdata.vertices[1:2]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
-                    for v in obdata.vertices[0:1]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
-                    for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                    for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                    
+                else:
+                    if facesAAA[0:1] > [[a,b,c]]:
+                        f.seek(-64,1);f.write(pack("<f", -1+0));f.write(pack("<f", 0+0));f.write(pack("<f", -1+0));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.write(pack("<f", 1+0));f.write(pack("<f", 0+0));f.write(pack("<f", -1+0));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.write(pack("<f", -1+0));f.write(pack("<f", 0+0));f.write(pack("<f", 1+0));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.write(pack("<f", 1+0));f.write(pack("<f", 0+0));f.write(pack("<f", 1+0));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);
 
             _1index = 0
             if _1index == 0:
