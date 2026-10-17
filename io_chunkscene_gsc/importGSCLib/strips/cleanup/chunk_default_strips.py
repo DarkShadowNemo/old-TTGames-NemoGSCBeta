@@ -130,24 +130,7 @@ def wholeChunk1_default(f):
                 elif vertexCount3 == 3:
                     
                     for j in range(1):
-                        default_vx = unpack("<f", f.read(4))[0]
-                        default_vy = unpack("<f", f.read(4))[0]
-                        default_vz = unpack("<f", f.read(4))[0]
-                        default_type4 = unpack("B", f.read(1))[0]
-                        default_value1 = unpack("B", f.read(1))[0]
-                        default_nz = unpack("<h", f.read(2))[0]
-                        default_vx1 = unpack("<f", f.read(4))[0]
-                        default_vy1 = unpack("<f", f.read(4))[0]
-                        default_vz1 = unpack("<f", f.read(4))[0]
-                        default_type41 = unpack("B", f.read(1))[0]
-                        default_value11 = unpack("B", f.read(1))[0]
-                        default_nz1 = unpack("<h", f.read(2))[0]
-                        default_vx2 = unpack("<f", f.read(4))[0]
-                        default_vy2 = unpack("<f", f.read(4))[0]
-                        default_vz2 = unpack("<f", f.read(4))[0]
-                        default_type42 = unpack("B", f.read(1))[0]
-                        default_value12 = unpack("B", f.read(1))[0]
-                        default_nz2 = unpack("<h", f.read(2))[0]
+                        default_vx = unpack("<f", f.read(4))[0];default_vy = unpack("<f", f.read(4))[0];default_vz = unpack("<f", f.read(4))[0];default_type4 = unpack("B", f.read(1))[0];default_value1 = unpack("B", f.read(1))[0];default_nz = unpack("<h", f.read(2))[0];default_vx1 = unpack("<f", f.read(4))[0];default_vy1 = unpack("<f", f.read(4))[0];default_vz1 = unpack("<f", f.read(4))[0];default_type41 = unpack("B", f.read(1))[0];default_value11 = unpack("B", f.read(1))[0];default_nz1 = unpack("<h", f.read(2))[0];default_vx2 = unpack("<f", f.read(4))[0];default_vy2 = unpack("<f", f.read(4))[0];default_vz2 = unpack("<f", f.read(4))[0];default_type42 = unpack("B", f.read(1))[0];default_value12 = unpack("B", f.read(1))[0];default_nz2 = unpack("<h", f.read(2))[0]
                     _00_n_offset3_default = unpack("<I", f.read(4))[0]
                     if _00_n_offset3_default == 16777473:
                         _00_n_offset4_default = unpack("<I", f.read(4))[0]
@@ -165,30 +148,7 @@ def wholeChunk1_default(f):
                                         faces_def.append([fa_def,fb_def,fc_def])
                 elif vertexCount3 == 4:
                     for i in range(1):
-                        default_vx_ = unpack("<f", f.read(4))[0]
-                        default_vy_ = unpack("<f", f.read(4))[0]
-                        default_vz_ = unpack("<f", f.read(4))[0]
-                        default_type4_ = unpack("B", f.read(1))[0]
-                        default_value1_ = unpack("B", f.read(1))[0]
-                        default_nz_ = unpack("<h", f.read(2))[0]
-                        default_vx1_ = unpack("<f", f.read(4))[0]
-                        default_vy1_ = unpack("<f", f.read(4))[0]
-                        default_vz1_ = unpack("<f", f.read(4))[0]
-                        default_type41_ = unpack("B", f.read(1))[0]
-                        default_value11_ = unpack("B", f.read(1))[0]
-                        default_nz1_ = unpack("<h", f.read(2))[0]
-                        default_vx2_ = unpack("<f", f.read(4))[0]
-                        default_vy2_ = unpack("<f", f.read(4))[0]
-                        default_vz2_ = unpack("<f", f.read(4))[0]
-                        default_type42_ = unpack("B", f.read(1))[0]
-                        default_value12_ = unpack("B", f.read(1))[0]
-                        default_nz3_ = unpack("<h", f.read(2))[0]
-                        default_vx3_ = unpack("<f", f.read(4))[0]
-                        default_vy3_ = unpack("<f", f.read(4))[0]
-                        default_vz3_ = unpack("<f", f.read(4))[0]
-                        default_type43_ = unpack("B", f.read(1))[0]
-                        default_value13_ = unpack("B", f.read(1))[0]
-                        default_nz3_ = unpack("<h", f.read(2))[0]
+                        default_vx_ = unpack("<f", f.read(4))[0];default_vy_ = unpack("<f", f.read(4))[0];default_vz_ = unpack("<f", f.read(4))[0];default_type4_ = unpack("B", f.read(1))[0];default_value1_ = unpack("B", f.read(1))[0];default_nz_ = unpack("<h", f.read(2))[0];default_vx1_ = unpack("<f", f.read(4))[0];default_vy1_ = unpack("<f", f.read(4))[0];default_vz1_ = unpack("<f", f.read(4))[0];default_type41_ = unpack("B", f.read(1))[0];default_value11_ = unpack("B", f.read(1))[0];default_nz1_ = unpack("<h", f.read(2))[0];default_vx2_ = unpack("<f", f.read(4))[0];default_vy2_ = unpack("<f", f.read(4))[0];default_vz2_ = unpack("<f", f.read(4))[0];default_type42_ = unpack("B", f.read(1))[0];default_value12_ = unpack("B", f.read(1))[0];default_nz3_ = unpack("<h", f.read(2))[0];default_vx3_ = unpack("<f", f.read(4))[0];default_vy3_ = unpack("<f", f.read(4))[0];default_vz3_ = unpack("<f", f.read(4))[0];default_type43_ = unpack("B", f.read(1))[0];default_value13_ = unpack("B", f.read(1))[0];default_nz3_ = unpack("<h", f.read(2))[0]
                     _00_n_offset3_default1 = unpack("<I", f.read(4))[0]
                     if _00_n_offset3_default1 == 16777473:
                         _00_n_offset4_default1 = unpack("<I", f.read(4))[0]
@@ -212,36 +172,7 @@ def wholeChunk1_default(f):
                                             faces_def1.append([fd_def1,fe_def1,ff_def1])
                 elif vertexCount3 == 5:
                     for i in range(1):
-                        default_vx_1 = unpack("<f", f.read(4))[0]
-                        default_vy_1 = unpack("<f", f.read(4))[0]
-                        default_vz_1 = unpack("<f", f.read(4))[0]
-                        default_type4_1 = unpack("B", f.read(1))[0]
-                        default_value1_1 = unpack("B", f.read(1))[0]
-                        default_nz_1 = unpack("<h", f.read(2))[0]
-                        default_vx1_2 = unpack("<f", f.read(4))[0]
-                        default_vy1_2 = unpack("<f", f.read(4))[0]
-                        default_vz1_2 = unpack("<f", f.read(4))[0]
-                        default_type41_2 = unpack("B", f.read(1))[0]
-                        default_value11_2 = unpack("B", f.read(1))[0]
-                        default_nz1_2 = unpack("<h", f.read(2))[0]
-                        default_vx2_3 = unpack("<f", f.read(4))[0]
-                        default_vy2_3 = unpack("<f", f.read(4))[0]
-                        default_vz2_3 = unpack("<f", f.read(4))[0]
-                        default_type42_3 = unpack("B", f.read(1))[0]
-                        default_value12_3 = unpack("B", f.read(1))[0]
-                        default_nz3_3 = unpack("<h", f.read(2))[0]
-                        default_vx3_4 = unpack("<f", f.read(4))[0]
-                        default_vy3_4 = unpack("<f", f.read(4))[0]
-                        default_vz3_4 = unpack("<f", f.read(4))[0]
-                        default_type43_4 = unpack("B", f.read(1))[0]
-                        default_value13_4 = unpack("B", f.read(1))[0]
-                        default_nz3_4 = unpack("<h", f.read(2))[0]
-                        default_vx3_5 = unpack("<f", f.read(4))[0]
-                        default_vy3_5 = unpack("<f", f.read(4))[0]
-                        default_vz3_5 = unpack("<f", f.read(4))[0]
-                        default_type44_5 = unpack("B", f.read(1))[0]
-                        default_value13_5 = unpack("B", f.read(1))[0]
-                        default_nz3_5 = unpack("<h", f.read(2))[0]
+                        default_vx_1 = unpack("<f", f.read(4))[0];default_vy_1 = unpack("<f", f.read(4))[0];default_vz_1 = unpack("<f", f.read(4))[0];default_type4_1 = unpack("B", f.read(1))[0];default_value1_1 = unpack("B", f.read(1))[0];default_nz_1 = unpack("<h", f.read(2))[0];default_vx1_2 = unpack("<f", f.read(4))[0];default_vy1_2 = unpack("<f", f.read(4))[0];default_vz1_2 = unpack("<f", f.read(4))[0];default_type41_2 = unpack("B", f.read(1))[0];default_value11_2 = unpack("B", f.read(1))[0];default_nz1_2 = unpack("<h", f.read(2))[0];default_vx2_3 = unpack("<f", f.read(4))[0];default_vy2_3 = unpack("<f", f.read(4))[0];default_vz2_3 = unpack("<f", f.read(4))[0];default_type42_3 = unpack("B", f.read(1))[0];default_value12_3 = unpack("B", f.read(1))[0];default_nz3_3 = unpack("<h", f.read(2))[0];default_vx3_4 = unpack("<f", f.read(4))[0];default_vy3_4 = unpack("<f", f.read(4))[0];default_vz3_4 = unpack("<f", f.read(4))[0];default_type43_4 = unpack("B", f.read(1))[0];default_value13_4 = unpack("B", f.read(1))[0];default_nz3_4 = unpack("<h", f.read(2))[0];default_vx3_5 = unpack("<f", f.read(4))[0];default_vy3_5 = unpack("<f", f.read(4))[0];default_vz3_5 = unpack("<f", f.read(4))[0];default_type44_5 = unpack("B", f.read(1))[0];default_value13_5 = unpack("B", f.read(1))[0];default_nz3_5 = unpack("<h", f.read(2))[0]
                     _00_n_offset3_default2 = unpack("<I", f.read(4))[0]
                     if _00_n_offset3_default2 == 16777473:
                         _00_n_offset4_default2 = unpack("<I", f.read(4))[0]
@@ -682,6 +613,50 @@ def wholeChunk1_default(f):
                         default_type44_8_1_ = unpack("B", f.read(1))[0]
                         default_value13_8_1_ = unpack("B", f.read(1))[0]
                         default_nz3_8_1_ = unpack("<h", f.read(2))[0]
+                    _00_n_offset3_default5 = unpack("<I", f.read(4))[0]
+                    if _00_n_offset3_default5 == 16777473:
+                        _00_n_offset4_default5 = unpack("<I", f.read(4))[0]
+                        if _00_n_offset4_default5 == 335545088:
+                            if default_type4_1_1_ is 1:
+                                if default_type41_2_1_ is 1:
+                                    if default_type42_3_1_ is 0:
+                                        if default_type43_4_1_ is 0:
+                                            if default_type44_5_1_ is 0:
+                                                if default_type44_6_1_ is 0:
+                                                    if default_type44_7_1_ is 0:
+                                                        if default_type44_8_1_ is 0:
+                                                            verts_def5.append([default_vx_1_1_,default_vz_1_1_,default_vy_1_1_])
+                                                            verts_def5.append([default_vx1_2_1_,default_vz1_2_1_,default_vy1_2_1_])
+                                                            verts_def5.append([default_vx2_3_1_,default_vz2_3_1_,default_vy2_3_1_])
+                                                            verts_def5.append([default_vx3_4_1_,default_vz3_4_1_,default_vy3_4_1_])
+                                                            verts_def5.append([default_vx3_5_1_,default_vz3_5_1_,default_vy3_5_1_])
+                                                            verts_def5.append([default_vx3_6_1_,default_vz3_6_1_,default_vy3_6_1_])
+                                                            verts_def5.append([default_vx3_7_1_,default_vz3_7_1_,default_vy3_7_1_])
+
+                                                            fa_def5+=1*8
+                                                            fb_def5+=1*8
+                                                            fc_def5+=1*8
+                                                            fd_def5+=1*8
+                                                            fe_def5+=1*8
+                                                            ff_def5+=1*8
+                                                            fg_def5+=1*8
+                                                            fh_def5+=1*8
+                                                            fi_def5+=1*8
+                                                            fj_def5+=1*8
+                                                            fk_def5+=1*8
+                                                            fl_def5+=1*8
+                                                            fm_def5+=1*8
+                                                            fn_def5+=1*8
+                                                            fo_def5+=1*8
+                                                            fp_def5+=1*8
+                                                            fq_def5+=1*8
+                                                            fr_def5+=1*8
+                                                            faces_def5.append([fa_def5,fb_def5,fc_def5])
+                                                            faces_def5.append([fd_def5,fe_def5,ff_def5])
+                                                            faces_def5.append([fg_def5,fh_def5,fi_def5])
+                                                            faces_def5.append([fj_def5,fk_def5,fl_def5])
+                                                            faces_def5.append([fm_def5,fn_def5,fo_def5])
+                                                            faces_def5.append([fp_def5,fq_def5,fr_def5])
 
                                 
                             
