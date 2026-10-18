@@ -710,7 +710,7 @@ def vertices_0x03010010380XX6C_(f):
                 a=facs.vertices[0]
                 b=facs.vertices[1]
                 c=facs.vertices[2]
-                facesAAA.append([a,b,c]))
+                facesAAA.append([a,b,c])
                 if facesAAA[0:5] == [[0, 1, 2], [2, 1, 3]]:
                     f.seek(-64,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif facesAAA[0:5] == [[0, 1, 2], [1, 2, 3]]:
