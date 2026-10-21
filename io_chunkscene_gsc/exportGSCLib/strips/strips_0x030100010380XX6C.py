@@ -710,54 +710,48 @@ def vertices_0x03010010380XX6C_(f):
                 a=facs.vertices[0]
                 b=facs.vertices[1]
                 c=facs.vertices[2]
-                facesAAA.append([a,b,c])
-                if facesAAA[0:5] == [[0, 1, 2], [2, 1, 3]]:
+                facesAAA.append(sorted([a,b,c]))
+                if facesAAA[0:5] == [[0, 1, 2], [1, 2, 3]]:
                     f.seek(-64,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[0, 1, 2], [1, 2, 3]]:
-                    f.seek(-64,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[1, 0, 2], [1, 2, 3]]:
-                    f.seek(-64,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[0, 1, 3], [1, 0, 2]]:
+                elif facesAAA[0:5] == [[1, 2, 3], [0, 1, 2]]:
+                    for v in obdata.vertices[0:1]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
+                    for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
+                    for v in obdata.vertices[1:2]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
+                    for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
+
+                elif facesAAA[0:5] == [[0, 1, 3], [0, 1, 2]]:
                     for v in obdata.vertices[2:3]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
                     for v in obdata.vertices[1:2]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
                     for v in obdata.vertices[0:1]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                     for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[2, 0, 3], [0, 2, 1]]:
+                elif facesAAA[0:5] == [[0, 2, 3], [0, 1, 2]]:
                     for v in obdata.vertices[1:2]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
                     for v in obdata.vertices[0:1]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
                     for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                     for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[1, 2, 0], [2, 1, 3]]:
-                    for v in obdata.vertices[3:4]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
-                    for v in obdata.vertices[1:2]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
-                    for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                    for v in obdata.vertices[0:1]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[2, 1, 3], [1, 2, 0]]:
-                    for v in obdata.vertices[0:1]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
-                    for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
-                    for v in obdata.vertices[1:2]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                    for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[1, 2, 3], [3, 2, 0]]:
+
+                elif facesAAA[0:5] == [[0, 2, 3], [1, 2, 3]]:
                     for v in obdata.vertices[0:1]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
                     for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
                     for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                     for v in obdata.vertices[1:2]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[3, 1, 0], [1, 3, 2]]:
+                elif facesAAA[0:5] == [[1, 2, 3], [0, 2, 3]]:
+                    for v in obdata.vertices[0:1]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
+                    for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
+                    for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
+                    for v in obdata.vertices[1:2]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
+
+                elif facesAAA[0:5] == [[0, 1, 3], [1, 2, 3]]:
                     for v in obdata.vertices[0:1]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
                     for v in obdata.vertices[1:2]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
                     for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                     for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[0, 2, 3], [1, 2, 0]]:
-                    for v in obdata.vertices[1:2]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
-                    for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
-                    for v in obdata.vertices[0:1]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                    for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif facesAAA[0:5] == [[1, 3, 2], [0, 2, 3]]:
+                elif facesAAA[0:5] == [[1, 2, 3], [0, 1, 3]]:
                     for v in obdata.vertices[0:1]:f.seek(-64,1);f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
-                    for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
+                    for v in obdata.vertices[1:2]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1)
                     for v in obdata.vertices[3:4]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                    for v in obdata.vertices[1:2]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                    
+                    for v in obdata.vertices[2:3]:f.write(pack("<f", v.co.x));f.write(pack("<f", v.co.z));f.write(pack("<f", v.co.y));f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
+
 
             _1index = 0
             if _1index == 0:
@@ -1001,12 +995,9 @@ def vertices_0x03010010380XX6C_(f):
                 a=facs.vertices[0]
                 b=facs.vertices[1]
                 c=facs.vertices[2]
-                faces000.append([a,b,c])
-                if faces000[0:5] == [[0, 1, 2], [2, 3, 4], [2, 1, 3]]:
+                faces000.append(sorted([a,b,c]))
+                if faces000[0:5] == [[0, 1, 2], [1, 2, 3], [2, 3, 4]]:
                     f.seek(-80,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif faces000[0:5] == [[0, 1, 2], [1, 2, 3], [2, 3, 4]]:
-                    f.seek(-80,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-
                     
 
             _1lindex = 0
