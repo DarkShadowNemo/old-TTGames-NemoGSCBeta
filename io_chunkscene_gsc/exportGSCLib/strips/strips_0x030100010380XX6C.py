@@ -834,6 +834,100 @@ def vertices_0x03010010380XX6C_(f):
                 pass
             for v99 in obdata.vertices[0:1]:
                 pass
+            for v100 in obdata.vertices[1:2]:
+                pass
+            for v101 in obdata.vertices[2:3]:
+                pass
+            for v102 in obdata.vertices[3:4]:
+                pass
+            for v103 in obdata.vertices[0:1]:
+                pass
+            for v104 in obdata.vertices[1:2]:
+                pass
+            for v105 in obdata.vertices[2:3]:
+                pass
+            for v106 in obdata.vertices[3:4]:
+                pass
+            for v107 in obdata.vertices[0:1]:
+                pass
+            for v108 in obdata.vertices[1:2]:
+                pass
+            for v109 in obdata.vertices[2:3]:
+                pass
+            for v110 in obdata.vertices[3:4]:
+                pass
+            for v111 in obdata.vertices[0:1]:
+                pass
+            for v112 in obdata.vertices[1:2]:
+                pass
+            for v113 in obdata.vertices[2:3]:
+                pass
+            for v114 in obdata.vertices[3:4]:
+                pass
+            for v115 in obdata.vertices[0:1]:
+                pass
+            for v116 in obdata.vertices[1:2]:
+                pass
+            for v117 in obdata.vertices[2:3]:
+                pass
+            for v118 in obdata.vertices[3:4]:
+                pass
+            for v119 in obdata.vertices[0:1]:
+                pass
+            for v120 in obdata.vertices[1:2]:
+                pass
+            for v121 in obdata.vertices[2:3]:
+                pass
+            for v122 in obdata.vertices[3:4]:
+                pass
+            for v123 in obdata.vertices[0:1]:
+                pass
+            for v124 in obdata.vertices[1:2]:
+                pass
+            for v125 in obdata.vertices[2:3]:
+                pass
+            for v126 in obdata.vertices[3:4]:
+                pass
+            for v127 in obdata.vertices[0:1]:
+                pass
+            for v128 in obdata.vertices[1:2]:
+                pass
+            for v129 in obdata.vertices[2:3]:
+                pass
+            for v130 in obdata.vertices[3:4]:
+                pass
+            for v131 in obdata.vertices[0:1]:
+                pass
+            for v132 in obdata.vertices[1:2]:
+                pass
+            for v133 in obdata.vertices[2:3]:
+                pass
+            for v134 in obdata.vertices[3:4]:
+                pass
+            for v135 in obdata.vertices[0:1]:
+                pass
+            for v136 in obdata.vertices[1:2]:
+                pass
+            for v137 in obdata.vertices[2:3]:
+                pass
+            for v138 in obdata.vertices[3:4]:
+                pass
+            for v139 in obdata.vertices[0:1]:
+                pass
+            for v140 in obdata.vertices[1:2]:
+                pass
+            for v141 in obdata.vertices[2:3]:
+                pass
+            for v142 in obdata.vertices[3:4]:
+                pass
+            for v143 in obdata.vertices[1:2]:
+                pass
+            for v144 in obdata.vertices[0:1]:
+                pass
+            for v145 in obdata.vertices[3:4]:
+                pass
+            for v146 in obdata.vertices[2:3]:
+                pass
             for v in obdata.vertices:
                 f.write(pack("<f", v.co.x))
                 f.write(pack("<f", v.co.z))
@@ -847,7 +941,34 @@ def vertices_0x03010010380XX6C_(f):
                 if facesAAA[0:5] == [[0, 1, 2], [1, 2, 3]]:
                     f.seek(-64,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 else:
-                    if v50.co.x <= v1.co.x:
+                    if v1.co.x >= v50.co.x and v1.co.x <= 1:
+                        if v143.co.x <= -1 and v143.co.z == 0 and v143.co.y <= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v143.co.x))
+                            f.write(pack("<f", v143.co.z))
+                            f.write(pack("<f", v143.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v144.co.x))
+                            f.write(pack("<f", v144.co.z))
+                            f.write(pack("<f", v144.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v145.co.x))
+                            f.write(pack("<f", v145.co.z))
+                            f.write(pack("<f", v145.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v146.co.x))
+                            f.write(pack("<f", v146.co.z))
+                            f.write(pack("<f", v146.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                    elif v50.co.x <= v1.co.x and v50.co.x >= -1:
                         if v96.co.x >= 1 and v96.co.z == 0 and v96.co.y <= -1:
                             f.seek(-64,1)
                             f.write(pack("<f", v95.co.x))
@@ -874,7 +995,294 @@ def vertices_0x03010010380XX6C_(f):
                             f.write(pack("B", 0))
                             f.write(pack("B", 0))
                             f.seek(2,1)
+                        elif v100.co.x <= 1 and v100.co.z == 0 and v100.co.y <= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v99.co.x))
+                            f.write(pack("<f", v99.co.z))
+                            f.write(pack("<f", v99.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v100.co.x))
+                            f.write(pack("<f", v100.co.z))
+                            f.write(pack("<f", v100.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v101.co.x))
+                            f.write(pack("<f", v101.co.z))
+                            f.write(pack("<f", v101.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v102.co.x))
+                            f.write(pack("<f", v102.co.z))
+                            f.write(pack("<f", v102.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                        elif v104.co.x >= 1 and v104.co.z == 0 and v104.co.y >= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v103.co.x))
+                            f.write(pack("<f", v103.co.z))
+                            f.write(pack("<f", v103.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v104.co.x))
+                            f.write(pack("<f", v104.co.z))
+                            f.write(pack("<f", v104.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v105.co.x))
+                            f.write(pack("<f", v105.co.z))
+                            f.write(pack("<f", v105.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v106.co.x))
+                            f.write(pack("<f", v106.co.z))
+                            f.write(pack("<f", v106.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                        elif v108.co.x <= 1 and v108.co.z == 0 and v108.co.y >= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v107.co.x))
+                            f.write(pack("<f", v107.co.z))
+                            f.write(pack("<f", v107.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v108.co.x))
+                            f.write(pack("<f", v108.co.z))
+                            f.write(pack("<f", v108.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v109.co.x))
+                            f.write(pack("<f", v109.co.z))
+                            f.write(pack("<f", v109.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v110.co.x))
+                            f.write(pack("<f", v110.co.z))
+                            f.write(pack("<f", v110.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                        elif v112.co.x >= 1 and v112.co.z >= 0.0001 and v112.co.y <= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v111.co.x))
+                            f.write(pack("<f", v111.co.z))
+                            f.write(pack("<f", v111.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v112.co.x))
+                            f.write(pack("<f", v112.co.z))
+                            f.write(pack("<f", v112.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v113.co.x))
+                            f.write(pack("<f", v113.co.z))
+                            f.write(pack("<f", v113.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v114.co.x))
+                            f.write(pack("<f", v114.co.z))
+                            f.write(pack("<f", v114.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                        elif v116.co.x >= 1 and v116.co.z <= 0.0001 and v116.co.y <= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v115.co.x))
+                            f.write(pack("<f", v115.co.z))
+                            f.write(pack("<f", v115.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v116.co.x))
+                            f.write(pack("<f", v116.co.z))
+                            f.write(pack("<f", v116.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v117.co.x))
+                            f.write(pack("<f", v117.co.z))
+                            f.write(pack("<f", v117.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v118.co.x))
+                            f.write(pack("<f", v118.co.z))
+                            f.write(pack("<f", v118.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                        elif v120.co.x <= 1 and v120.co.z >= 0.0001 and v120.co.y <= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v119.co.x))
+                            f.write(pack("<f", v119.co.z))
+                            f.write(pack("<f", v119.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v120.co.x))
+                            f.write(pack("<f", v120.co.z))
+                            f.write(pack("<f", v120.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v121.co.x))
+                            f.write(pack("<f", v121.co.z))
+                            f.write(pack("<f", v121.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v122.co.x))
+                            f.write(pack("<f", v122.co.z))
+                            f.write(pack("<f", v122.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                        elif v124.co.x <= 1 and v124.co.z <= 0.0001 and v124.co.y <= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v123.co.x))
+                            f.write(pack("<f", v123.co.z))
+                            f.write(pack("<f", v123.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v124.co.x))
+                            f.write(pack("<f", v124.co.z))
+                            f.write(pack("<f", v124.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v125.co.x))
+                            f.write(pack("<f", v125.co.z))
+                            f.write(pack("<f", v125.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v126.co.x))
+                            f.write(pack("<f", v126.co.z))
+                            f.write(pack("<f", v126.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                        elif v128.co.x >= 1 and v128.co.z >= 0.0001 and v128.co.y >= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v127.co.x))
+                            f.write(pack("<f", v127.co.z))
+                            f.write(pack("<f", v127.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v128.co.x))
+                            f.write(pack("<f", v128.co.z))
+                            f.write(pack("<f", v128.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v129.co.x))
+                            f.write(pack("<f", v129.co.z))
+                            f.write(pack("<f", v129.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v130.co.x))
+                            f.write(pack("<f", v130.co.z))
+                            f.write(pack("<f", v130.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                        elif v132.co.x >= 1 and v132.co.z <= 0.0001 and v132.co.y >= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v131.co.x))
+                            f.write(pack("<f", v131.co.z))
+                            f.write(pack("<f", v131.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v132.co.x))
+                            f.write(pack("<f", v132.co.z))
+                            f.write(pack("<f", v132.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v133.co.x))
+                            f.write(pack("<f", v133.co.z))
+                            f.write(pack("<f", v133.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v134.co.x))
+                            f.write(pack("<f", v134.co.z))
+                            f.write(pack("<f", v134.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                        elif v136.co.x <= 1 and v136.co.z <= 0.0001 and v136.co.y >= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v135.co.x))
+                            f.write(pack("<f", v135.co.z))
+                            f.write(pack("<f", v135.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v136.co.x))
+                            f.write(pack("<f", v136.co.z))
+                            f.write(pack("<f", v136.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v137.co.x))
+                            f.write(pack("<f", v137.co.z))
+                            f.write(pack("<f", v137.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v138.co.x))
+                            f.write(pack("<f", v138.co.z))
+                            f.write(pack("<f", v138.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                        elif v140.co.x <= 1 and v140.co.z >= 0.0001 and v140.co.y >= -1:
+                            f.seek(-64,1)
+                            f.write(pack("<f", v139.co.x))
+                            f.write(pack("<f", v139.co.z))
+                            f.write(pack("<f", v139.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v140.co.x))
+                            f.write(pack("<f", v140.co.z))
+                            f.write(pack("<f", v140.co.y))
+                            f.write(pack("B", 1))
+                            f.write(pack("B", 128))
+                            f.seek(2,1)
+                            f.write(pack("<f", v141.co.x))
+                            f.write(pack("<f", v141.co.z))
+                            f.write(pack("<f", v141.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
+                            f.write(pack("<f", v142.co.x))
+                            f.write(pack("<f", v142.co.z))
+                            f.write(pack("<f", v142.co.y))
+                            f.write(pack("B", 0))
+                            f.write(pack("B", 0))
+                            f.seek(2,1)
                     else:
+                        
                         if v2.co.x >= 1 and v2.co.z == 0 and v2.co.y <= -1:
                             f.seek(-64,1)
                             f.write(pack("<f", v1.co.x))
