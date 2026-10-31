@@ -8,6 +8,7 @@ from .exportGSCLib.strips.strips_0x03010001010000050380XX65 import *
 from .exportGSCLib.strips.strips_0x030100010380XX6C_with_textures2 import *
 from .exportGSCLib.strips.strips_0x030100010380XX6C_with_textures3 import *
 from .exportGSCLib.strips.smooth_strips_0xD280016C_pt1 import *
+from .exportGSCLib.stripCollisions.stripCol import *
 
 #primtype
 
@@ -24,7 +25,7 @@ NUPT_BEZTRI = 8, # invalid
 NUPT_FACEON = 9 # invalid
 """
 
-def NUWrite(filepath, ofsetsOne=False,ofsetsVC_One=False,smooth_ofsetsOne=False,ofsetsTwo=False,ofsetsOneIMG=False,ofsetsOneIMGTwo=False):
+def NUWrite(filepath, ofsetsOne=False,ofsetsVC_One=False,smooth_ofsetsOne=False,ofsetsTwo=False,ofsetsOneIMG=False,ofsetsOneIMGTwo=False, Terrain=False):
     with open(filepath, "wb") as f:
         if ofsetsOne:
             vertices_0x03010010380XX6C_(f)
@@ -38,4 +39,7 @@ def NUWrite(filepath, ofsetsOne=False,ofsetsVC_One=False,smooth_ofsetsOne=False,
             vertices_0x030100010380XX6C_with_texture2_(f)
         if ofsetsOneIMGTwo:
             vertices_0x030100010380XX6C_with_texture3_(f)
+        if Terrain:
+            terC_(f)
+            
     
