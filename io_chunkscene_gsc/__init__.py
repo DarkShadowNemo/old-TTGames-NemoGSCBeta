@@ -79,12 +79,17 @@ class ExportChunkGSC(bpy.types.Operator, ExportHelper):
                 name = "0x030100010380XX6C with float textures",
                 description = "exports uvs and vertex colors with textures with floats"
         )
+
+        Terrain: BoolProperty(
+                name = "Terrain",
+                description = "exports Collision splines or triggers"
+        )
         
         directory: StringProperty()
         filter_glob: StringProperty(default = '*.gsc', options = {'HIDDEN'})
         def execute(self, context):
             importlib.reload(gsc_chunk_exporter)
-            gsc_chunk_exporter.NUWrite(self.filepath, ofsetsOne = self.ofsetsOne, ofsetsVC_One = self.ofsetsVC_One, smooth_ofsetsOne = self.smooth_ofsetsOne, ofsetsTwo = self.ofsetsTwo, ofsetsOneIMG = self.ofsetsOneIMG,ofsetsOneIMGTwo = self.ofsetsOneIMGTwo)
+            gsc_chunk_exporter.NUWrite(self.filepath, ofsetsOne = self.ofsetsOne, ofsetsVC_One = self.ofsetsVC_One, smooth_ofsetsOne = self.smooth_ofsetsOne, ofsetsTwo = self.ofsetsTwo, ofsetsOneIMG = self.ofsetsOneIMG,ofsetsOneIMGTwo = self.ofsetsOneIMGTwo, Terrain = self.Terrain)
             return {"FINISHED"}
         
 
