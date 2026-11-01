@@ -30,6 +30,8 @@ def terC_(f):
                     f.write(pack("<f", v.co.x))
                     f.write(pack("<f", v.co.z))
                     f.write(pack("<f", v.co.y))
+        elif ob.name == "Wall Spline":
+            pass
     size1 = f.seek(FileSize,2)
     f.seek(0)
     f.write(pack("<I", size1//2))
