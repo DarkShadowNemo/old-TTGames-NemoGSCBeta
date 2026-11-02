@@ -90,9 +90,9 @@ def wholeChunk1_default(f):
     fm_def5=-4
     fn_def5=-3
     fo_def5=-2
-    fm_def5=-3
-    fn_def5=-2
-    fo_def5=-1
+    fp_def5=-3
+    fq_def5=-2
+    fr_def5=-1
 
     fa_def5a=-8
     fb_def5a=-7
@@ -133,6 +133,28 @@ def wholeChunk1_default(f):
     fk_def5aaa=-2
     fl_def5aaa=-1
 
+    fa_def6=-9
+    fb_def6=-8
+    fc_def6=-7
+    fd_def6=-8
+    fe_def6=-7
+    ff_def6=-6
+    fg_def6=-7
+    fh_def6=-6
+    fi_def6=-5
+    fj_def6=-6
+    fk_def6=-5
+    fl_def6=-4
+    fm_def6=-5
+    fn_def6=-4
+    fo_def6=-3
+    fp_def6=-4
+    fq_def6=-3
+    fr_def6=-2
+    fs_def6=-3
+    ft_def6=-2
+    fu_def6=-1
+
     fa_def3a=-6
     fb_def3a=-5
     fc_def3a=-4
@@ -166,6 +188,9 @@ def wholeChunk1_default(f):
 
     verts_def5=[]
     faces_def5=[]
+
+    verts_def6=[]
+    faces_def6=[]
 
     verts_def5a=[]
     faces_def5a=[]
@@ -1049,6 +1074,190 @@ def wholeChunk1_default(f):
                                                             faces_def5.append([fj_def5,fk_def5,fl_def5])
                                                             faces_def5.append([fm_def5,fn_def5,fo_def5])
                                                             faces_def5.append([fp_def5,fq_def5,fr_def5])
+
+                elif vertexCount3 == 9:
+                    for i in range(1):
+                        default_vx_1_1_1 = unpack("<f", f.read(4))[0]
+                        default_vy_1_1_1 = unpack("<f", f.read(4))[0]
+                        default_vz_1_1_1 = unpack("<f", f.read(4))[0]
+                        default_type4_1_1_1 = unpack("B", f.read(1))[0]
+                        default_value1_1_1_1 = unpack("B", f.read(1))[0]
+                        default_nz_1_1_1 = unpack("<h", f.read(2))[0]
+                        default_vx1_2_1_1 = unpack("<f", f.read(4))[0]
+                        default_vy1_2_1_1 = unpack("<f", f.read(4))[0]
+                        default_vz1_2_1_1 = unpack("<f", f.read(4))[0]
+                        default_type41_2_1_1 = unpack("B", f.read(1))[0]
+                        default_value11_2_1_1 = unpack("B", f.read(1))[0]
+                        default_nz1_2_1_1 = unpack("<h", f.read(2))[0]
+                        default_vx2_3_1_1 = unpack("<f", f.read(4))[0]
+                        default_vy2_3_1_1 = unpack("<f", f.read(4))[0]
+                        default_vz2_3_1_1 = unpack("<f", f.read(4))[0]
+                        default_type42_3_1_1 = unpack("B", f.read(1))[0]
+                        default_value12_3_1_1 = unpack("B", f.read(1))[0]
+                        default_nz3_3_1_1 = unpack("<h", f.read(2))[0]
+                        default_vx3_4_1_1 = unpack("<f", f.read(4))[0]
+                        default_vy3_4_1_1 = unpack("<f", f.read(4))[0]
+                        default_vz3_4_1_1 = unpack("<f", f.read(4))[0]
+                        default_type43_4_1_1 = unpack("B", f.read(1))[0]
+                        default_value13_4_1_1 = unpack("B", f.read(1))[0]
+                        default_nz3_4_1_1 = unpack("<h", f.read(2))[0]
+                        default_vx3_5_1_1 = unpack("<f", f.read(4))[0]
+                        default_vy3_5_1_1 = unpack("<f", f.read(4))[0]
+                        default_vz3_5_1_1 = unpack("<f", f.read(4))[0]
+                        default_type44_5_1_1 = unpack("B", f.read(1))[0]
+                        default_value13_5_1_1 = unpack("B", f.read(1))[0]
+                        default_nz3_5_1_1 = unpack("<h", f.read(2))[0]
+                        default_vx3_6_1_1 = unpack("<f", f.read(4))[0]
+                        default_vy3_6_1_1 = unpack("<f", f.read(4))[0]
+                        default_vz3_6_1_1 = unpack("<f", f.read(4))[0]
+                        default_type44_6_1_1 = unpack("B", f.read(1))[0]
+                        default_value13_6_1_1 = unpack("B", f.read(1))[0]
+                        default_nz3_6_1_1 = unpack("<h", f.read(2))[0]
+                        default_vx3_7_1_1 = unpack("<f", f.read(4))[0]
+                        default_vy3_7_1_1 = unpack("<f", f.read(4))[0]
+                        default_vz3_7_1_1 = unpack("<f", f.read(4))[0]
+                        default_type44_7_1_1 = unpack("B", f.read(1))[0]
+                        default_value13_7_1_1 = unpack("B", f.read(1))[0]
+                        default_nz3_7_1_1 = unpack("<h", f.read(2))[0]
+                        default_vx3_8_1_1 = unpack("<f", f.read(4))[0]
+                        default_vy3_8_1_1 = unpack("<f", f.read(4))[0]
+                        default_vz3_8_1_1 = unpack("<f", f.read(4))[0]
+                        default_type44_8_1_1 = unpack("B", f.read(1))[0]
+                        default_value13_8_1_1 = unpack("B", f.read(1))[0]
+                        default_nz3_8_1_1 = unpack("<h", f.read(2))[0]
+                        default_vx3_9_1_1 = unpack("<f", f.read(4))[0]
+                        default_vy3_9_1_1 = unpack("<f", f.read(4))[0]
+                        default_vz3_9_1_1 = unpack("<f", f.read(4))[0]
+                        default_type44_9_1_1 = unpack("B", f.read(1))[0]
+                        default_value13_9_1_1 = unpack("B", f.read(1))[0]
+                        default_nz3_9_1_1 = unpack("<h", f.read(2))[0]
+                    for i in range(vertexCount3):
+                        f.seek(-16,1)
+                    for i in range(1):
+                        default_vx_1_1_1a = unpack("<f", f.read(4))[0]
+                        default_vy_1_1_1a = unpack("<f", f.read(4))[0]
+                        default_vz_1_1_1a = unpack("<f", f.read(4))[0]
+                        default_type4_1_1_1a = unpack("B", f.read(1))[0]
+                        default_value1_1_1_1a = unpack("B", f.read(1))[0]
+                        default_nz_1_1_1a = unpack("<h", f.read(2))[0]
+                        default_vx1_2_1_1a = unpack("<f", f.read(4))[0]
+                        default_vy1_2_1_1a = unpack("<f", f.read(4))[0]
+                        default_vz1_2_1_1a = unpack("<f", f.read(4))[0]
+                        default_type41_2_1_1a = unpack("B", f.read(1))[0]
+                        default_value11_2_1_1a = unpack("B", f.read(1))[0]
+                        default_nz1_2_1_1a = unpack("<h", f.read(2))[0]
+                        default_vx2_3_1_1a = unpack("<f", f.read(4))[0]
+                        default_vy2_3_1_1a = unpack("<f", f.read(4))[0]
+                        default_vz2_3_1_1a = unpack("<f", f.read(4))[0]
+                        default_type42_3_1_1a = unpack("B", f.read(1))[0]
+                        default_value12_3_1_1a = unpack("B", f.read(1))[0]
+                        default_nz3_3_1_1a = unpack("<h", f.read(2))[0]
+                        default_vx3_4_1_1a = unpack("<f", f.read(4))[0]
+                        default_vy3_4_1_1a = unpack("<f", f.read(4))[0]
+                        default_vz3_4_1_1a = unpack("<f", f.read(4))[0]
+                        default_type43_4_1_1a = unpack("B", f.read(1))[0]
+                        default_value13_4_1_1a = unpack("B", f.read(1))[0]
+                        default_nz3_4_1_1a = unpack("<h", f.read(2))[0]
+                        default_vx3_5_1_1a = unpack("<f", f.read(4))[0]
+                        default_vy3_5_1_1a = unpack("<f", f.read(4))[0]
+                        default_vz3_5_1_1a = unpack("<f", f.read(4))[0]
+                        default_type44_5_1_1a = unpack("B", f.read(1))[0]
+                        default_value13_5_1_1a = unpack("B", f.read(1))[0]
+                        default_nz3_5_1_1a = unpack("<h", f.read(2))[0]
+                        default_vx3_6_1_1a = unpack("<f", f.read(4))[0]
+                        default_vy3_6_1_1a = unpack("<f", f.read(4))[0]
+                        default_vz3_6_1_1a = unpack("<f", f.read(4))[0]
+                        default_type44_6_1_1a = unpack("B", f.read(1))[0]
+                        default_value13_6_1_1a = unpack("B", f.read(1))[0]
+                        default_nz3_6_1_1a = unpack("<h", f.read(2))[0]
+                        default_vx3_7_1_1a = unpack("<f", f.read(4))[0]
+                        default_vy3_7_1_1a = unpack("<f", f.read(4))[0]
+                        default_vz3_7_1_1a = unpack("<f", f.read(4))[0]
+                        default_type44_7_1_1a = unpack("B", f.read(1))[0]
+                        default_value13_7_1_1a = unpack("B", f.read(1))[0]
+                        default_nz3_7_1_1a = unpack("<h", f.read(2))[0]
+                        default_vx3_8_1_1a = unpack("<f", f.read(4))[0]
+                        default_vy3_8_1_1a = unpack("<f", f.read(4))[0]
+                        default_vz3_8_1_1a = unpack("<f", f.read(4))[0]
+                        default_type44_8_1_1a = unpack("B", f.read(1))[0]
+                        default_value13_8_1_1a = unpack("B", f.read(1))[0]
+                        default_nz3_8_1_1a = unpack("<h", f.read(2))[0]
+                        default_vx3_9_1_1a = unpack("<f", f.read(4))[0]
+                        default_vy3_9_1_1a = unpack("<f", f.read(4))[0]
+                        default_vz3_9_1_1a = unpack("<f", f.read(4))[0]
+                        default_type44_9_1_1a = unpack("B", f.read(1))[0]
+                        default_value13_9_1_1a = unpack("B", f.read(1))[0]
+                        default_nz3_9_1_1a = unpack("<h", f.read(2))[0]
+                    _00_n_offset3_default6 = unpack("<I", f.read(4))[0]
+                    if _00_n_offset3_default6 == 16777473:
+                        _00_n_offset4_default6 = unpack("<I", f.read(4))[0]
+                        if _00_n_offset4_default6 == 335545088:
+                            if default_type4_1_1_1a is 1:
+                                if default_type41_2_1_1a is 1:
+                                    if default_type42_3_1_1a is 0:
+                                        if default_type43_4_1_1a is 1:
+                                            if default_type44_5_1_1a is 1:
+                                                if default_type44_6_1_1a is 0:
+                                                    if default_type44_7_1_1a is 0:
+                                                        if default_type44_8_1_1a is 0:
+                                                            if default_type44_9_1_1a is 0:
+                                                                verts_def6a.append([default_vx_1_1_1a,default_vz_1_1_1a,default_vy_1_1_1a])
+                                                                verts_def6a.append([default_vx1_2_1_1a,default_vz1_2_1_1a,default_vy1_2_1_1a])
+                                                                verts_def6a.append([default_vx2_3_1_1a,default_vz2_3_1_1a,default_vy2_3_1_1a])
+                                                                verts_def6a.append([default_vx3_4_1_1a,default_vz3_4_1_1a,default_vy3_4_1_1a])
+                                                                verts_def6a.append([default_vx3_5_1_1a,default_vz3_5_1_1a,default_vy3_5_1_1a])
+                                                                verts_def6a.append([default_vx3_6_1_1a,default_vz3_6_1_1a,default_vy3_6_1_1a])
+                                                                verts_def6a.append([default_vx3_7_1_1a,default_vz3_7_1_1a,default_vy3_7_1_1a])
+                                                                verts_def6a.append([default_vx3_8_1_1a,default_vz3_8_1_1a,default_vy3_8_1_1a])
+                                                                verts_def6a.append([default_vx3_9_1_1a,default_vz3_9_1_1a,default_vy3_9_1_1a])
+                            if default_type4_1_1_1 is 1:
+                                if default_type41_2_1_1 is 1:
+                                    if default_type42_3_1_1 is 0:
+                                        if default_type43_4_1_1 is 0:
+                                            if default_type44_5_1_1 is 0:
+                                                if default_type44_6_1_1 is 0:
+                                                    if default_type44_7_1_1 is 0:
+                                                        if default_type44_8_1_1 is 0:
+                                                            if default_type44_9_1_1 is 0:
+                                                                verts_def6.append([default_vx_1_1_1,default_vz_1_1_1,default_vy_1_1_1])
+                                                                verts_def6.append([default_vx1_2_1_1,default_vz1_2_1_1,default_vy1_2_1_1])
+                                                                verts_def6.append([default_vx2_3_1_1,default_vz2_3_1_1,default_vy2_3_1_1])
+                                                                verts_def6.append([default_vx3_4_1_1,default_vz3_4_1_1,default_vy3_4_1_1])
+                                                                verts_def6.append([default_vx3_5_1_1,default_vz3_5_1_1,default_vy3_5_1_1])
+                                                                verts_def6.append([default_vx3_6_1_1,default_vz3_6_1_1,default_vy3_6_1_1])
+                                                                verts_def6.append([default_vx3_7_1_1,default_vz3_7_1_1,default_vy3_7_1_1])
+                                                                verts_def6.append([default_vx3_8_1_1,default_vz3_8_1_1,default_vy3_8_1_1])
+                                                                verts_def6.append([default_vx3_9_1_1,default_vz3_9_1_1,default_vy3_9_1_1])
+
+                                                                fa_def6+=1*9
+                                                                fb_def6+=1*9
+                                                                fc_def6+=1*9
+                                                                fd_def6+=1*9
+                                                                fe_def6+=1*9
+                                                                ff_def6+=1*9
+                                                                fg_def6+=1*9
+                                                                fh_def6+=1*9
+                                                                fi_def6+=1*9
+                                                                fj_def6+=1*9
+                                                                fk_def6+=1*9
+                                                                fl_def6+=1*9
+                                                                fm_def6+=1*9
+                                                                fn_def6+=1*9
+                                                                fo_def6+=1*9
+                                                                fp_def6+=1*9
+                                                                fq_def6+=1*9
+                                                                fr_def6+=1*9
+                                                                fs_def6+=1*9
+                                                                ft_def6+=1*9
+                                                                fu_def6+=1*9
+                                                                faces_def6.append([fa_def6,fb_def6,fc_def6])
+                                                                faces_def6.append([fd_def6,fe_def6,ff_def6])
+                                                                faces_def6.append([fg_def6,fh_def6,fi_def6])
+                                                                faces_def6.append([fj_def6,fk_def6,fl_def6])
+                                                                faces_def6.append([fm_def6,fn_def6,fo_def6])
+                                                                faces_def6.append([fp_def6,fq_def6,fr_def6])
+                                                                faces_def6.append([fs_def6,ft_def6,fu_def6])
+                                                            
 
                                 
                             
