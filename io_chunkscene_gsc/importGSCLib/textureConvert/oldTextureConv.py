@@ -159,6 +159,18 @@ def read_pallete(f, amt):
         g1 = round(g,4)
         b1 = round(b,4)
         a1 = round(a,4)
+        r1*=0
+        g1*=0
+        b1*=0
+        a1*=0
+        r1+=255
+        g1+=255
+        b1+=255
+        a1+=127
+        r1/=255
+        g1/=255
+        b1/=255
+        a1/=127
         g_pallete1.append(r1)
         g_pallete2.append(g1)
         g_pallete3.append(b1)
@@ -368,11 +380,19 @@ def copy_arr_to_arr_at_offset(offset, arr1, arr2):
     
     for i in range(len(arr2)):
         arr1[offset + i] = arr2[i]
+
+def replace_arr_to_arr_at_offset(offset, arr1, arr2):
+    arr1[offset:offset + len(arr2)] = arr2
+    return arr1
     
 def xy_to_yx(idx):
     x = idx % 16
     y = idx // 16
     return (y + x*16)
+
+#def idx_new_test(idx):
+#if idx^255 < 256:
+#pass
 
 def idx_test(idx):
     #if idx*2 > 255:
@@ -633,21 +653,17 @@ def blender_gsc_texture_convert(f):
                         idx2 = g_image_data[2*y*width_ + 1*x + 1]
                         drawPixel(x,y*2+0, g_pallete1[idx_test(idx1)],g_pallete2[idx_test(idx1)],g_pallete3[idx_test(idx1)],g_pallete4[idx_test(idx1)])
                         drawPixel(x,y*2+1, g_pallete1[idx_test(idx2)],g_pallete2[idx_test(idx2)],g_pallete3[idx_test(idx2)],g_pallete4[idx_test(idx2)])
+
+                
                 image_name = "GSC 0x8080"
                 img = bpy.data.images[image_name]
                 width = img.size[0]
                 height = img.size[1]
 
-                #shiftx = 80
-                #shifty = 0
-
                 pixels = list(img.pixels)
                 new_pixels = pixels[:]
 
                 shift = 80
-
-                src = list(img.pixels)
-                dst = [0.0] * len(src)
 
                 for y in range(height):
                     for x in range(width):
@@ -660,6 +676,7 @@ def blender_gsc_texture_convert(f):
 
                 img.pixels = new_pixels
                 img.update()
+                
                 
                 img_0x8080_idx+=1
                 if img_0x8080_idx == 1:
