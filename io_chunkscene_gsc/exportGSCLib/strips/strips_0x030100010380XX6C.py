@@ -1339,7 +1339,7 @@ def vertices_0x03010010380XX6C_(f):
                             f.write(pack("B", int(127*color_layerABCDEa[v.index].color[1])))
                             f.write(pack("B", int(127*color_layerABCDEa[v.index].color[2])))
                             f.write(pack("B", int(127*color_layerABCDEa[v.index].color[3])))
-                            ix3+=1
+                            ic3+=1
                             if ic3 == 6:
                                 if len(obdata.polygons) == 4:
                                     f.seek(-4,1)
