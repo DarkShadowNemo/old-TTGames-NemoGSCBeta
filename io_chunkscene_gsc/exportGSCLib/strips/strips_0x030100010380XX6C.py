@@ -61,117 +61,118 @@ def vertices_0x03010010380XX6C_(f):
             f.write(pack("<I", 1))
             f.write(pack("<I", 0))
             for i, img in enumerate(bpy.data.images):
-                pitch = (img.size[0]) * 4 // 4
-                f.write(pack("<I", sizex+80+176))
-                if img.size[1] == 256 and img.size[0] == 256:
-                    f.seek(-4,1)
-                    f.write(pack("<I", sizex+80+192))
-                f.write(pack("<I", 8))
-                f.write(pack("<I", 0))
-                f.write(pack("<I", 0))
-                f.write(pack("<H", img.size[1]))
-                f.write(pack("<H", 1))
-                f.write(pack("<H", img.size[0]))
-                f.write(pack("<H", 0))
-                if pitch < 256:
-                    f.write(pack("<I", pitch))
-                else:
+                if img.size[1] == 32 and img.size[0] == 32 or img.size[1] == 64 and img.size[0] == 64 or img.size[1] == 128 and img.size[0] == 128 or img.size[1] == 256 and img.size[0] == 256:
+                    pitch = (img.size[0]) * 4 // 4
+                    f.write(pack("<I", sizex+80+176))
                     if img.size[1] == 256 and img.size[0] == 256:
-                        f.write(pack("<I", pitch*4))
+                        f.seek(-4,1)
+                        f.write(pack("<I", sizex+80+192))
+                    f.write(pack("<I", 8))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<H", img.size[1]))
+                    f.write(pack("<H", 1))
+                    f.write(pack("<H", img.size[0]))
+                    f.write(pack("<H", 0))
+                    if pitch < 256:
+                        f.write(pack("<I", pitch))
                     else:
-                        f.write(pack("<I", 0))
-                f.write(pack("B", 3))
-                f.write(pack("B", 0))
-                f.write(pack("B", 0))
-                f.write(pack("B", 0x81))
-                f.write(pack("<I", 20+96+sizex+80))
-                f.write(pack("<I", sizex))
-                if img.size[1] == 256 and img.size[0] == 256:
-                    f.seek(-8,1)
-                    f.write(pack("<I", 20+96+sizex+80+16))
-                    f.write(pack("<I", sizex))
-                f.write(pack("<I", 1))
-                f.write(pack("<I", 1))
-                f.write(pack("<I", 44))
-                for i in range(44):
+                        if img.size[1] == 256 and img.size[0] == 256:
+                            f.write(pack("<I", pitch*4))
+                        else:
+                            f.write(pack("<I", 0))
+                    f.write(pack("B", 3))
                     f.write(pack("B", 0))
-                if img.size[1] == 256 and img.size[0] == 256:
-                    f.seek(-44,1)
-                    f.seek(-12,1)
-                    f.write(pack("<I", 4))
-                    f.write(pack("<I", 4))
-                    f.write(pack("<I", 60))
-                    for i in range(60):
+                    f.write(pack("B", 0))
+                    f.write(pack("B", 0x81))
+                    f.write(pack("<I", 20+96+sizex+80))
+                    f.write(pack("<I", sizex))
+                    if img.size[1] == 256 and img.size[0] == 256:
+                        f.seek(-8,1)
+                        f.write(pack("<I", 20+96+sizex+80+16))
+                        f.write(pack("<I", sizex))
+                    f.write(pack("<I", 1))
+                    f.write(pack("<I", 1))
+                    f.write(pack("<I", 44))
+                    for i in range(44):
                         f.write(pack("B", 0))
-                f.write(pack("B", 5))
-                f.write(pack("B", 1))
-                if img.size[1] == 64 and img.size[0] == 64:
-                    f.seek(-1,1)
-                    f.write(pack("B", 4))
-                elif img.size[1] == 128 and img.size[0] == 128:
-                    f.seek(-1,1)
-                    f.write(pack("B", 16))
-                elif img.size[1] == 256 and img.size[0] == 256:
-                    f.seek(-1,1)
-                    f.write(pack("B", 64))
-                f.write(pack("B", 0))
-                f.write(pack("B", 96))
-                f.write(pack("<I", 0))
-                f.write(pack("<I", 0))
-                f.write(pack("B", 5))
-                f.write(pack("B", 1))
-                if img.size[1] == 64 and img.size[0] == 64:
-                    f.seek(-1,1)
-                    f.write(pack("B", 4))
-                elif img.size[1] == 128 and img.size[0] == 128:
-                    f.seek(-1,1)
-                    f.write(pack("B", 16))
-                elif img.size[1] == 256 and img.size[0] == 256:
-                    f.seek(-1,1)
-                    f.write(pack("B", 64))
-                f.write(pack("B", 0))
-                f.write(pack("B", 80))
-                f.write(pack("<I", 32771))
-                f.write(pack(">I", 16))
-                f.write(pack("<I", 14))
-                f.write(pack("<I", 0))
-                f.write(pack("<I", 0))
-                f.write(pack("<I", 0))
-                f.write(pack("<I", 81))
-                f.write(pack("<I", 0))
-                f.write(pack("<I", img.size[1]))
-                f.write(pack("<I", img.size[0]))
-                f.write(pack("<I", 82))
-                f.write(pack("<I", 0))
-                f.write(pack("<I", 0))
-                f.write(pack("<I", 0))
-                f.write(pack("<I", 83))
-                f.write(pack("<I", 0))
-                f.write(pack("<H", int(0x80*2+img.size[1]*img.size[0]//512<<2//8//2<<7)))
-                f.write(pack("<H", 0))
-                f.write(pack("<H", 0))
-                f.write(pack("<H", 2048))
-                f.write(pack("<H", 0))
-                f.write(pack("<H", 0))
-                f.write(pack("<H", 0))
-                f.write(pack("<H", 0))
-                idx1 = 0
-                idx2 = 1
-                idx3 = 2
-                idx4 = 3
-                for y in range(int(img.size[1])):
-                    for x in range(int(img.size[0])):
-                        f.write(pack("B", int(255*img.pixels[idx1])))
-                        f.write(pack("B", int(255*img.pixels[idx2])))
-                        f.write(pack("B", int(255*img.pixels[idx3])))
-                        f.write(pack("B", int(127*img.pixels[idx4])))
-                        idx1+=4
-                        idx2+=4
-                        idx3+=4
-                        idx4+=4
-                    
-                for i in range(80):
-                    f.write(pack("B", 0xCD))
+                    if img.size[1] == 256 and img.size[0] == 256:
+                        f.seek(-44,1)
+                        f.seek(-12,1)
+                        f.write(pack("<I", 4))
+                        f.write(pack("<I", 4))
+                        f.write(pack("<I", 60))
+                        for i in range(60):
+                            f.write(pack("B", 0))
+                    f.write(pack("B", 5))
+                    f.write(pack("B", 1))
+                    if img.size[1] == 64 and img.size[0] == 64:
+                        f.seek(-1,1)
+                        f.write(pack("B", 4))
+                    elif img.size[1] == 128 and img.size[0] == 128:
+                        f.seek(-1,1)
+                        f.write(pack("B", 16))
+                    elif img.size[1] == 256 and img.size[0] == 256:
+                        f.seek(-1,1)
+                        f.write(pack("B", 64))
+                    f.write(pack("B", 0))
+                    f.write(pack("B", 96))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<I", 0))
+                    f.write(pack("B", 5))
+                    f.write(pack("B", 1))
+                    if img.size[1] == 64 and img.size[0] == 64:
+                        f.seek(-1,1)
+                        f.write(pack("B", 4))
+                    elif img.size[1] == 128 and img.size[0] == 128:
+                        f.seek(-1,1)
+                        f.write(pack("B", 16))
+                    elif img.size[1] == 256 and img.size[0] == 256:
+                        f.seek(-1,1)
+                        f.write(pack("B", 64))
+                    f.write(pack("B", 0))
+                    f.write(pack("B", 80))
+                    f.write(pack("<I", 32771))
+                    f.write(pack(">I", 16))
+                    f.write(pack("<I", 14))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<I", 81))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<I", img.size[1]))
+                    f.write(pack("<I", img.size[0]))
+                    f.write(pack("<I", 82))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<I", 83))
+                    f.write(pack("<I", 0))
+                    f.write(pack("<H", int(0x80*2+img.size[1]*img.size[0]//512<<2//8//2<<7)))
+                    f.write(pack("<H", 0))
+                    f.write(pack("<H", 0))
+                    f.write(pack("<H", 2048))
+                    f.write(pack("<H", 0))
+                    f.write(pack("<H", 0))
+                    f.write(pack("<H", 0))
+                    f.write(pack("<H", 0))
+                    idx1 = 0
+                    idx2 = 1
+                    idx3 = 2
+                    idx4 = 3
+                    for y in range(int(img.size[1])):
+                        for x in range(int(img.size[0])):
+                            f.write(pack("B", int(255*img.pixels[idx1])))
+                            f.write(pack("B", int(255*img.pixels[idx2])))
+                            f.write(pack("B", int(255*img.pixels[idx3])))
+                            f.write(pack("B", int(127*img.pixels[idx4])))
+                            idx1+=4
+                            idx2+=4
+                            idx3+=4
+                            idx4+=4
+                        
+                    for i in range(80):
+                        f.write(pack("B", 0xCD))
                         
         elif len(bpy.data.images) != 0:
             sizex=0
@@ -254,13 +255,31 @@ def vertices_0x03010010380XX6C_(f):
                         for i in range(60):
                             f.write(pack("B", 0))
                     f.write(pack("B", 5))
-                    f.write(pack("B", 4))
+                    f.write(pack("B", 1))
+                    if img.size[1] == 64 and img.size[0] == 64:
+                        f.seek(-1,1)
+                        f.write(pack("B", 4))
+                    elif img.size[1] == 128 and img.size[0] == 128:
+                        f.seek(-1,1)
+                        f.write(pack("B", 16))
+                    elif img.size[1] == 256 and img.size[0] == 256:
+                        f.seek(-1,1)
+                        f.write(pack("B", 64))
                     f.write(pack("B", 0))
                     f.write(pack("B", 96))
                     f.write(pack("<I", 0))
                     f.write(pack("<I", 0))
                     f.write(pack("B", 5))
-                    f.write(pack("B", 4))
+                    f.write(pack("B", 1))
+                    if img.size[1] == 64 and img.size[0] == 64:
+                        f.seek(-1,1)
+                        f.write(pack("B", 4))
+                    elif img.size[1] == 128 and img.size[0] == 128:
+                        f.seek(-1,1)
+                        f.write(pack("B", 16))
+                    elif img.size[1] == 256 and img.size[0] == 256:
+                        f.seek(-1,1)
+                        f.write(pack("B", 64))
                     f.write(pack("B", 0))
                     f.write(pack("B", 80))
                     f.write(pack("<I", 32771))
@@ -512,8 +531,8 @@ def vertices_0x03010010380XX6C_(f):
                 a=facs.vertices[0]
                 b=facs.vertices[1]
                 c=facs.vertices[2]
-                facesAAAA.append([a,b,c])
-                if facesAAAA[0:2] == [[0, 1, 2]] or facesAAAA[0:2] == [[0, 2, 1]] or facesAAAA[0:2] == [[1, 0, 2]] or facesAAAA[0:2] == [[2, 0, 1]] or facesAAAA[0:2] == [[1, 2, 0]] or facesAAAA[0:2] == [[2, 1, 0]]:
+                facesAAAA.append(sorted([a,b,c]))
+                if facesAAAA[0:2] == [[0, 1, 2]]:
                     f.seek(-48,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
 
             _index = 0
@@ -1634,100 +1653,16 @@ def vertices_0x03010010380XX6C_(f):
                         i4+=1
                         if i4 == 7:
                             if len(obdata.polygons) == 5:
-                                f.seek(-28,1)
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.seek(-28,1)
-                                f.write(pack("<h", int(4096*uv_layerABCDEFa[0].uv[0])))
-                                f.write(pack("<h", -int(4096*uv_layerABCDEFa[0].uv[1])))
-                                f.write(pack("<h", int(4096*uv_layerABCDEFa[1].uv[0])))
-                                f.write(pack("<h", -int(4096*uv_layerABCDEFa[1].uv[1])))
-                                f.write(pack("<h", int(4096*uv_layerABCDEFa[2].uv[0])))
-                                f.write(pack("<h", -int(4096*uv_layerABCDEFa[2].uv[1])))
-                                f.write(pack("<h", int(4096*uv_layerABCDEFa[4].uv[0])))
-                                f.write(pack("<h", -int(4096*uv_layerABCDEFa[4].uv[1])))
-                                f.write(pack("<h", int(4096*uv_layerABCDEFa[5].uv[0])))
-                                f.write(pack("<h", -int(4096*uv_layerABCDEFa[5].uv[1])))
-                                f.write(pack("<h", int(4096*uv_layerABCDEFa[-1].uv[0])))
-                                f.write(pack("<h", -int(4096*uv_layerABCDEFa[-1].uv[1])))
-                                f.write(pack("<h", int(4096*uv_layerABCDEFa[-4].uv[0])))
-                                f.write(pack("<h", -int(4096*uv_layerABCDEFa[-4].uv[1])))
+                                f.seek(-28,1);f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0))
+                                f.seek(-28,1);f.write(pack("<h", int(4096*uv_layerABCDEFa[0].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[0].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[4].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[-1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[-1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[-4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[-4].uv[1])))
                             elif len(obdata.polygons) == 3:
-                                f.seek(-28,1)
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
-                                f.write(pack("<h", 0))
+                                f.seek(-28,1);f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0));f.write(pack("<h", 0))
                                 if faces00[0:5] == [[0, 1, 2], [4, 5, 6], [3, 4, 5]]:
-                                    f.seek(-28,1)
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[0].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[0].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[1].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[1].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[2].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[2].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[7].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[7].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[3].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[3].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[4].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[4].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[-4].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[-4].uv[1])))
+                                    f.seek(-28,1);f.write(pack("<h", int(4096*uv_layerABCDEFa[0].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[0].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[7].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[7].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[3].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[3].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[4].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[-4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[-4].uv[1])))
                                 elif faces00[0:5] == [[0, 1, 2], [3, 4, 5], [4, 5, 6]]:
-                                    f.seek(-28,1)
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[0].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[0].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[1].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[1].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[2].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[2].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[7].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[7].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[3].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[3].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[4].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[4].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[-4].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[-4].uv[1])))
+                                    f.seek(-28,1);f.write(pack("<h", int(4096*uv_layerABCDEFa[0].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[0].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[7].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[7].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[3].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[3].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[4].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[-4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[-4].uv[1])))
                                 elif faces00[0:5] == [[0, 1, 2], [1, 2, 3], [4, 5, 6]]:
-                                    f.seek(-28,1)
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[0].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[0].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[1].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[1].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[2].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[2].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[5].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[5].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[6].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[6].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[7].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[7].uv[1])))
-                                    f.write(pack("<h", int(4096*uv_layerABCDEFa[-1].uv[0])))
-                                    f.write(pack("<h", -int(4096*uv_layerABCDEFa[-1].uv[1])))
+                                    f.seek(-28,1);f.write(pack("<h", int(4096*uv_layerABCDEFa[0].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[0].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[6].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[6].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[7].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[7].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFa[-1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFa[-1].uv[1])))
                 except:
                     AttributeError
                 iiindex2+=1
@@ -1747,64 +1682,8 @@ def vertices_0x03010010380XX6C_(f):
                             ic4+=1
                             if ic4 == 7:
                                 if len(obdata.polygons) == 5:
-                                    f.seek(-28,1)
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.write(pack("B", 0))
-                                    f.seek(-28,1)
-                                    f.write(pack("B", int(127*color_layerABCDEFa[0].color[0])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[0].color[1])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[0].color[2])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[0].color[3])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[1].color[0])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[1].color[1])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[1].color[2])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[1].color[3])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[2].color[0])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[2].color[1])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[2].color[2])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[2].color[3])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[4].color[0])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[4].color[1])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[4].color[2])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[4].color[3])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[5].color[0])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[5].color[1])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[5].color[2])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[5].color[3])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[-1].color[0])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[-1].color[1])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[-1].color[2])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[-1].color[3])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[-4].color[0])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[-4].color[1])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[-4].color[2])))
-                                    f.write(pack("B", int(127*color_layerABCDEFa[-4].color[3])))
+                                    f.seek(-28,1);f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0));f.write(pack("B", 0))
+                                    f.seek(-28,1);f.write(pack("B", int(127*color_layerABCDEFa[0].color[0])));f.write(pack("B", int(127*color_layerABCDEFa[0].color[1])));f.write(pack("B", int(127*color_layerABCDEFa[0].color[2])));f.write(pack("B", int(127*color_layerABCDEFa[0].color[3])));f.write(pack("B", int(127*color_layerABCDEFa[1].color[0])));f.write(pack("B", int(127*color_layerABCDEFa[1].color[1])));f.write(pack("B", int(127*color_layerABCDEFa[1].color[2])));f.write(pack("B", int(127*color_layerABCDEFa[1].color[3])));f.write(pack("B", int(127*color_layerABCDEFa[2].color[0])));f.write(pack("B", int(127*color_layerABCDEFa[2].color[1])));f.write(pack("B", int(127*color_layerABCDEFa[2].color[2])));f.write(pack("B", int(127*color_layerABCDEFa[2].color[3])));f.write(pack("B", int(127*color_layerABCDEFa[4].color[0])));f.write(pack("B", int(127*color_layerABCDEFa[4].color[1])));f.write(pack("B", int(127*color_layerABCDEFa[4].color[2])));f.write(pack("B", int(127*color_layerABCDEFa[4].color[3])));f.write(pack("B", int(127*color_layerABCDEFa[5].color[0])));f.write(pack("B", int(127*color_layerABCDEFa[5].color[1])));f.write(pack("B", int(127*color_layerABCDEFa[5].color[2])));f.write(pack("B", int(127*color_layerABCDEFa[5].color[3])));f.write(pack("B", int(127*color_layerABCDEFa[-1].color[0])));f.write(pack("B", int(127*color_layerABCDEFa[-1].color[1])));f.write(pack("B", int(127*color_layerABCDEFa[-1].color[2])));f.write(pack("B", int(127*color_layerABCDEFa[-1].color[3])));f.write(pack("B", int(127*color_layerABCDEFa[-4].color[0])));f.write(pack("B", int(127*color_layerABCDEFa[-4].color[1])));f.write(pack("B", int(127*color_layerABCDEFa[-4].color[2])));f.write(pack("B", int(127*color_layerABCDEFa[-4].color[3])))
                                 elif len(obdata.polygons) == 3:
                                     f.seek(-28,1)
                                     f.write(pack("B", 0))
@@ -2105,20 +1984,18 @@ def vertices_0x03010010380XX6C_(f):
                 a=facs.vertices[0]
                 b=facs.vertices[1]
                 c=facs.vertices[2]
-                faces0.append([a,b,c])
-                if faces0[0:14] == [[0, 1, 2], [2, 3, 4], [2, 1, 3], [4, 5, 6], [4, 3, 5], [6, 5, 7]]:
+                faces0.append(sorted([a,b,c]))
+                if faces0[0:14] == [[0, 1, 2], [2, 3, 4], [1, 2, 3], [4, 5, 6], [3, 4, 5], [5, 6, 7]]:
                     f.seek(-128,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif faces0[0:14] == [[0, 1, 2], [1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6], [5, 6, 7]]:
                     f.seek(-128,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif faces0[0:8] == [[0, 1, 2], [4, 5, 6], [4, 3, 5], [6, 5, 7]]:
+                elif faces0[0:8] == [[0, 1, 2], [4, 5, 6], [3, 4, 5], [5, 6, 7]]:
                     f.seek(-128,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif faces0[0:8] == [[0, 1, 2], [3, 4, 5], [4, 5, 6], [5, 6, 7]]:
                     f.seek(-128,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif faces0[0:8] == [[0, 1, 2], [2, 1, 3], [4, 5, 6], [6, 5, 7]]:
-                    f.seek(-128,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif faces0[0:8] == [[0, 1, 2], [1, 2, 3], [4, 5, 6], [5, 6, 7]]:
                     f.seek(-128,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                elif faces0[0:8] == [[0, 1, 2], [2, 3, 4], [2, 1, 3], [6, 5, 7]]:
+                elif faces0[0:8] == [[0, 1, 2], [2, 3, 4], [1, 2, 3], [5, 6, 7]]:
                     f.seek(-128,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
                 elif faces0[0:8] == [[0, 1, 2], [1, 2, 3], [2, 3, 4], [5, 6, 7]]:
                     f.seek(-128,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
@@ -2221,6 +2098,8 @@ def vertices_0x03010010380XX6C_(f):
                                 f.write(pack("B", 0))
                                 f.write(pack("B", 0))
                                 f.write(pack("B", 0))
+                                if faces0[0:8] == [[0, 1, 2], [4, 5, 6], [3, 4, 5], [5, 6, 7]]:
+                                    f.seek(-32,1)
                 except:
                     AttributeError
                 iiiindexa+=1
