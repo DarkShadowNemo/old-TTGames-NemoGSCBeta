@@ -28,6 +28,13 @@ def vertices_0x03010010380XX6C_(f):
 
     curve_objects = [obj for obj in bpy.context.scene.objects if obj.type == 'CURVE']
     empty_objects = [obj for obj in bpy.data.objects if obj.type == "EMPTY"]
+    try:
+        img1 = bpy.data.images.get("Render Result")
+        img2 = bpy.data.images.get("Viewer Node")
+        bpy.data.images.remove(img1)
+        bpy.data.images.remove(img2)
+    except:
+        TypeError
     if len(curve_objects) == 0:
         pass
     elif len(curve_objects):
@@ -156,6 +163,7 @@ def vertices_0x03010010380XX6C_(f):
                     f.write(pack("<H", 0))
                     f.write(pack("<H", 0))
                     f.write(pack("<H", 0))
+                    #int(0xC0*2+32*32//1024<<4//8//4<<7)
                     idx1 = 0
                     idx2 = 1
                     idx3 = 2
@@ -726,8 +734,6 @@ def vertices_0x03010010380XX6C_(f):
                 facesAAA.append(sorted([a,b,c]))
                 if facesAAA[0:5] == [[0, 1, 2], [1, 2, 3]]:
                     f.seek(-64,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 1));f.write(pack("B", 128));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1);f.seek(12,1);f.write(pack("B", 0));f.write(pack("B", 0));f.seek(2,1)
-                    
-                        
                         
 
             _1index = 0
@@ -2172,7 +2178,14 @@ def vertices_0x03010010380XX6C_(f):
                                 elif faces[0:11] == [[0, 1, 2], [3, 4, 5], [4, 5, 6], [5, 6, 7], [6, 7, 8]]:
                                     f.seek(-36,1);f.write(pack("<h", int(4096*uv_layerABCDEFGHx[0].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[0].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[7].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[7].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[3].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[3].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[4].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-4].uv[1])))
                                 elif faces[0:11] == [[0, 1, 2], [1, 2, 3], [4, 5, 6], [6, 7, 8], [5, 6, 7]]:
-                                    f.seek(-36,1);f.write(pack("<h", int(4096*uv_layerABCDEFGHx[0].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[0].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[2].uv[1])));
+                                    f.seek(-36,1);f.write(pack("<h", int(4096*uv_layerABCDEFGHx[0].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[0].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[6].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[6].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[7].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[7].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[8].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[8].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-4].uv[1])))
+                                elif faces[0:11] == [[0, 1, 2], [1, 2, 3], [4, 5, 6], [5, 6, 7], [6, 7, 8]]:
+                                    f.seek(-36,1);f.write(pack("<h", int(4096*uv_layerABCDEFGHx[0].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[0].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[6].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[6].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[7].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[7].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[8].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[8].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-4].uv[1])))
+                                elif faces[0:11] == [[0, 1, 2], [2, 3, 4], [1, 2, 3], [6, 7, 8], [5, 6, 7]]:
+                                    f.seek(-36,1);f.write(pack("<h", int(4096*uv_layerABCDEFGHx[0].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[0].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[4].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-3].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-3].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-4].uv[1])))
+                                elif faces[0:11] == [[0, 1, 2], [1, 2, 3], [2, 3, 4], [5, 6, 7], [6, 7, 8]]:
+                                    f.seek(-36,1);f.write(pack("<h", int(4096*uv_layerABCDEFGHx[0].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[0].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[1].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[1].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[4].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-2].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-2].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-3].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-3].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-5].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-5].uv[1])));f.write(pack("<h", int(4096*uv_layerABCDEFGHx[-4].uv[0])));f.write(pack("<h", -int(4096*uv_layerABCDEFGHx[-4].uv[1])))
+
 
                 except:
                     AttributeError
